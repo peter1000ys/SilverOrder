@@ -23,8 +23,12 @@ import lombok.NoArgsConstructor;
 public class OrderMenu {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ORDER_ID", nullable = false)
+    @Column(name = "ORDER_MENU_ID", nullable = false)
     private Long id;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ORDER_ID", nullable = false)
+    private Order order; //외래키
 
     @Column(name = "MENU_AMOUNT")
     private int menuAmount;

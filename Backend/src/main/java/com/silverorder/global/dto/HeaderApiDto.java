@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Random;
 
 @Getter
 @AllArgsConstructor
@@ -22,7 +23,9 @@ public class HeaderApiDto {
     private String apiKey;
     private String userKey;
 
-    public HeaderApiDto(String apiName, String apiKey, String userKey, String random){
+    public HeaderApiDto(String apiName, String apiKey, String userKey){
+        Random random = new Random();
+
         this.apiName = apiName;
         this.transmissionDate = LocalDate.now()
                 .format(DateTimeFormatter.ofPattern("yyyyMMdd"));
@@ -33,7 +36,7 @@ public class HeaderApiDto {
         this.apiServiceCode = apiName;
         this.institutionTransactionUniqueNo = LocalDateTime.now()
                 .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
-                + random;
+                + String.format("%06d", random.nextInt(1000000));
         this.apiKey = apiKey;
         this.userKey = userKey;
     }

@@ -16,6 +16,8 @@ public class ManageServiceImpl implements ManageService {
     @Value("${external.api.url}")
     private String externalApiUrl;
 
+    public String apiUrl = "app/";
+
     public ManageServiceImpl(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
@@ -24,13 +26,13 @@ public class ManageServiceImpl implements ManageService {
 
     @Override
     public String getApiKey(ManageRequestDto requestDto) {
-        String url = externalApiUrl +"issuedApiKey";
+        String url = externalApiUrl + apiUrl + "issuedApiKey";
         return restTemplate.postForObject(url, requestDto, String.class);
     }
 
     @Override
     public String getApiKeyReissue(ManageRequestDto requestDto) {
-        String url = externalApiUrl + "reIssuedApiKey";
+        String url = externalApiUrl + apiUrl + "reIssuedApiKey";
         return restTemplate.postForObject(url, requestDto, String.class);
     }
 

@@ -2,8 +2,10 @@ package com.silverorder.domain.payment.controller;
 
 import com.silverorder.domain.payment.service.PaymentService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
+import com.silverorder.global.dto.RequestCardListDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -25,4 +27,23 @@ public class PaymentController {
         long userId = userDetails.getUser().getUserId();
         return ResponseEntity.ok(paymentService.testingHeader(userId));
     }
+
+    @Operation(summary = "금융권 카드 조회", description="ssafy금융에서 보유한 카드들을 조회합니다.")
+    @PostMapping("/cardList")
+    public ResponseEntity<?> ssafyCards(
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        return ResponseEntity.ok(paymentService.myCards(userId));
+    }
+
+    /*@Operation(summary = "간편결제 카드 등록", description="조회한 카드정보를 토대로 간편결제를 등록합니다.")
+    @PostMapping("/cardRegist")
+    public ResponseEntity<?> registCard(
+            @RequestBody @Valid RequestCardListDto requestCardListDto,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        return ResponseEntity.ok(paymentService.myCards(userId));
+    }*/
 }
