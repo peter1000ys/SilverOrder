@@ -20,20 +20,6 @@
   border-radius: 90%;
 }
 
-.signin-btn {
-  width: calc(220 / 1440 * 100vw);
-  height: calc(55 / 1440 * 100vw);
-  align-self: center;
-  font-size: calc(35 / 1440 * 100vw);
-  color: #ffffff;
-  cursor: pointer;
-  border-radius: calc(7 / 1440 * 100vw);
-  background: #1428a0;
-  border: none;
-  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
-    calc(15 / 1440 * 100vw) rgb(89, 89, 89);
-}
-
 .signin-input-box {
   border-bottom: calc(2 / 1440 * 100vw) solid black;
   margin-bottom: calc(15 / 1440 * 100vw);
@@ -45,4 +31,39 @@
   height: calc(45 / 1440 * 100vw);
   font-size: calc(30 / 1440 * 100vw);
   border: none;
+}
+
+.signin-btn-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+}
+
+.signin-btn {
+  width: calc(130 / 1440 * 100vw);
+  height: calc(50 / 1440 * 100vw);
+  align-self: center;
+  font-size: calc(35 / 1440 * 100vw);
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: calc(7 / 1440 * 100vw);
+  background: #1428a0;
+  border: none;
+  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
+    calc(15 / 1440 * 100vw) rgb(89, 89, 89);
+}
+
+.signin-cancel-btn {
+  width: calc(130 / 1440 * 100vw);
+  height: calc(50 / 1440 * 100vw);
+  align-self: center;
+  font-size: calc(35 / 1440 * 100vw);
+  color: black;
+  cursor: pointer;
+  border-radius: calc(7 / 1440 * 100vw);
+  background: #cccccc;
+  border: none;
+  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
+    calc(15 / 1440 * 100vw) rgb(89, 89, 89);
 }
