@@ -28,7 +28,7 @@ import java.util.stream.Collectors;
  * @since JDK17
  */
 
-@Tag(name = "Menu", description = "옵션 관리")
+@Tag(name = "Menu", description = "메뉴 관리")
 @RestController
 @RequestMapping("/menu")
 @CrossOrigin("*")

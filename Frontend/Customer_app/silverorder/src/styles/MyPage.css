@@ -9,40 +9,18 @@
 
 .mypage-container h1 {
   margin: 0;
-  font-size: calc(50 / 1440 * 100vw);
+  font-size: calc(45 / 1440 * 100vw);
   font-weight: bold;
 }
 
 .mypage-box01,
-.mypage-box02 {
+.mypage-box02,
+.mypage-box03 {
   display: flex;
   justify-content: center;
   align-items: center;
   width: calc(320 / 1440 * 100vw);
   height: calc(100 / 1440 * 100vw);
-  border: calc(0.5 / 1440 * 100vw) solid #cccccc;
-  border-radius: calc((10 / 1440 * 100vw));
-  text-align: center;
-  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
-  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
-    calc(5 / 1440 * 100vw) rgb(89, 89, 89);
-  cursor: pointer;
-}
-
-.mypage-box03 {
-  display: flex;
-  width: calc(320 / 1440 * 100vw);
-  justify-content: space-between;
-  align-items: center;
-}
-
-.mypage-card01,
-.mypage-card02 {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: calc(150 / 1440 * 100vw);
-  height: calc(200 / 1440 * 100vw);
   border: calc(0.5 / 1440 * 100vw) solid #cccccc;
   border-radius: calc((10 / 1440 * 100vw));
   text-align: center;

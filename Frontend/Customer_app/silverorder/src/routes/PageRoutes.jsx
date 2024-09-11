@@ -15,9 +15,6 @@ import StorePage from "../views/StorePage.jsx";
 // 마이 페이지
 import MyPage from "../views/MyPage.jsx";
 
-// 회원 정보 변경 페이지
-import ChangeInfoPage from "../views/ChangeInfoPage.jsx";
-
 // 주문 현황 확인 페이지
 import OrderstatePage from "../views/OrderstatePage.jsx";
 
@@ -61,9 +58,6 @@ const PageRoutes = () => {
 
           {/* 마이 페이지 */}
           <Route path="/mypage" element={<MyPage />} />
-
-          {/* 회원정보 변경 페이지 */}
-          <Route path="/changeInfo" element={<ChangeInfoPage />} />
 
           {/* 주문 현황 확인 페이지 */}
           <Route path="/orderstate" element={<OrderstatePage />} />
