@@ -1,9 +1,13 @@
 package com.silverorder.domain.voice.service;
 
 import com.google.cloud.texttospeech.v1.*;
+import com.google.protobuf.ByteString;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+
+import java.io.FileOutputStream;
+import java.io.OutputStream;
 
 /**
  * <pre>
@@ -20,22 +24,29 @@ public class TTSServiceImpl implements TTSService {
 
     private final TextToSpeechClient textToSpeechClient;
 
-    public byte[] generateSpeech(String text) throws Exception {
-        SynthesisInput input = SynthesisInput.newBuilder()
-                .setText(text)
-                .build();
+    public String synthesizeSpeech(String text) throws Exception {
+        String filePath = "output.mp3"; // 생성할 파일 경로
 
+        // 요청 설정
+        SynthesisInput input = SynthesisInput.newBuilder().setText(text).build();
         VoiceSelectionParams voice = VoiceSelectionParams.newBuilder()
-                .setLanguageCode("ko-KR")
+                .setLanguageCode("ko-KR")  // 한국어
                 .setSsmlGender(SsmlVoiceGender.NEUTRAL)
                 .build();
-
         AudioConfig audioConfig = AudioConfig.newBuilder()
-                .setAudioEncoding(AudioEncoding.MP3)
+                .setAudioEncoding(AudioEncoding.MP3) // 출력 형식
                 .build();
 
+        // TTS 요청
         SynthesizeSpeechResponse response = textToSpeechClient.synthesizeSpeech(input, voice, audioConfig);
-        return response.getAudioContent().toByteArray();
+        ByteString audioContents = response.getAudioContent();
+
+        // 파일로 저장
+        try (OutputStream out = new FileOutputStream(filePath)) {
+            out.write(audioContents.toByteArray());
+        }
+
+        return filePath; // 생성된 파일 경로 반환
     }
 
 }

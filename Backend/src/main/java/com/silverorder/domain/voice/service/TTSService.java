@@ -9,5 +9,6 @@ package com.silverorder.domain.voice.service;
  * @since JDK17 Eclipse Temurin
  */
 public interface TTSService {
-    byte[] generateSpeech(String text) throws Exception;
+//    byte[] generateSpeech(String text) throws Exception;
+    String synthesizeSpeech(String text) throws Exception;
 }
