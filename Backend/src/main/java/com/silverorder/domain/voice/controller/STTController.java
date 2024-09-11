@@ -42,8 +42,6 @@ public class STTController {
         JSONObject jsonResult = new JSONObject(result);
         String text = jsonResult.getString("text");
 
-        System.out.println(text);
-
         if (text.contains("네") || text.contains("예")) {
             return ResponseEntity.ok("긍정적인 응답입니다.");
         } else if (text.contains("아니오") || text.contains("아니요")) {

@@ -1,6 +1,8 @@
 package com.silverorder.domain.payment.service;
 
 import com.silverorder.domain.payment.dto.RequestCardListDto;
+import com.silverorder.domain.payment.dto.CardRequestDto;
+import com.silverorder.domain.payment.dto.TransactionRequestDto;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
 import com.silverorder.global.dto.*;
@@ -14,10 +16,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+import java.util.Random;
+
 /**
  * <pre>
  *      결제 관리 서비스 구현
  * </pre>
+ *
  * @author 노명환
  * @since JDK17
  */
@@ -25,7 +31,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PaymentServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
     private final UserJpaRepository userJpaRepository;
     private final RestTemplate restTemplate;
 
@@ -178,5 +184,34 @@ public class PaymentServiceImpl implements PaymentService{
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
 
+    }
+
+    @Override
+    public String payCard(CardRequestDto cardRequestDto) throws Exception {
+        // 요청 Header
+//        CardPayHeaderApiDto cardPayHeaderApiDto = new CardPayHeaderApiDto("createCreditCardTransaction", apiKey);
+
+        HeaderApiDto headerApiDto = new HeaderApiDto("createCreditCardTransaction", apiKey, "22f1a7e1-4461-453a-8b22-4e377f35761f");
+
+        // 요청 JSON
+        TransactionRequestDto transactionRequestDto = new TransactionRequestDto(
+//              cardPayHeaderApiDto,
+                headerApiDto,
+                cardRequestDto.getCardNo(),
+                cardRequestDto.getCvc(),
+                cardRequestDto.getMerchantId(),
+                cardRequestDto.getPaymentBalance()
+        );
+
+        // 외부 API 호출
+        String url = "https://finopenapi.ssafy.io/ssafy/api/v1/edu/creditCard/createCreditCardTransaction";
+        Map<String, Map<String, Object>> response
+                = restTemplate.postForObject(url, transactionRequestDto, Map.class);
+
+        // responseMessage 추출
+        if (response != null && response.get("Header") != null) {
+            return (String) response.get("Header").get("responseMessage");
+        }
+        return null; // 응답이 없을 경우 처리
     }
 }

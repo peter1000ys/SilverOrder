@@ -40,4 +40,5 @@ public class HeaderApiDto {
         this.apiKey = apiKey;
         this.userKey = userKey;
     }
+
 }

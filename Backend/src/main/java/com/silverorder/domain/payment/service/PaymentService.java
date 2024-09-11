@@ -1,6 +1,8 @@
 package com.silverorder.domain.payment.service;
 
+import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.user.entity.User;
+import com.silverorder.global.dto.HeaderApiDto;
 import com.silverorder.global.dto.HeaderDto;
 import com.silverorder.domain.payment.dto.RequestCardListDto;
 import com.silverorder.global.dto.ResponseCardListDto;
@@ -14,6 +16,7 @@ import com.silverorder.global.dto.ResponseCardListDto;
  */
 public interface PaymentService {
     HeaderDto testingHeader(long userId) throws Exception;
+    String payCard(CardRequestDto cardRequestDto) throws Exception;
 
     ResponseCardListDto myCards(long userId) throws Exception;
 
