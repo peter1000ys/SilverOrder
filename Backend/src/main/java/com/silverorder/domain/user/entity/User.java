@@ -55,4 +55,11 @@ public class User {
     @Column(name = "USER_UPDATE_DATE", nullable = false)
     @UpdateTimestamp
     private LocalDateTime userUpdateDate;
+
+    @Column(name = "USER_API_EMAIL", length = 100)
+    private String userApiEmail;
+
+    @Column(name = "USER_API_KEY", length = 200)
+    private String userApiKey;
+
 }

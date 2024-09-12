@@ -26,9 +26,26 @@ const OrderList = ({ selectedTab, onOrderSelect }) => {
   ];
 
   const [currentPage, setCurrentPage] = useState(1);
-  const ordersPerPage = 10;
+  const [ordersPerPage, setOrdersPerPage] = useState(8);
 
-  // Reset currentPage to 1 whenever selectedTab changes
+  // 화면 크기에 따른 ordersPerPage 설정
+  useEffect(() => {
+    const handleResize = () => {
+      const width = window.innerWidth;
+      if (width > 1200) {
+        setOrdersPerPage(8);
+      } else if (width > 768) {
+        setOrdersPerPage(13);
+      } else {
+        setOrdersPerPage(15);
+      }
+    };
+
+    handleResize(); // 처음 로드될 때 실행
+    window.addEventListener('resize', handleResize); // 화면 크기 변경 감지
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   useEffect(() => {
     setCurrentPage(1);
   }, [selectedTab]);
@@ -50,27 +67,29 @@ const OrderList = ({ selectedTab, onOrderSelect }) => {
 
   return (
     <div className="order-list">
-      <table>
-        <thead>
-          <tr>
-            <th>주문 번호</th>
-            <th>주문 날짜</th>
-            <th>총합 금액</th>
-            <th>주문 상태</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentOrders.map(order => (
-            <tr key={order.id} onClick={() => onOrderSelect(order)}>
-              <td>{order.id}</td>
-              <td>{order.date}</td>
-              <td>{order.amount}</td>
-              <td className='status-text'>{order.status}</td>
+      <div className="order-list-content">
+        <table>
+          <thead>
+            <tr>
+              <th>주문 번호</th>
+              <th>주문 날짜</th>
+              <th>총합 금액</th>
+              <th>주문 상태</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-      <div className="pagination">
+          </thead>
+          <tbody>
+            {currentOrders.map(order => (
+              <tr key={order.id} onClick={() => onOrderSelect(order)}>
+                <td>{order.id}</td>
+                <td>{order.date}</td>
+                <td>{order.amount}</td>
+                <td className='status-text'>{order.status}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+      <div className="pagination-c">
         <button onClick={prevPage} disabled={currentPage === 1}>&lt;</button>
         <span>{currentPage} / {totalPages}</span>
         <button onClick={nextPage} disabled={currentPage === totalPages}>&gt;</button>

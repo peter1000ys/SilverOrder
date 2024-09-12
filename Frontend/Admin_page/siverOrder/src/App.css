@@ -15,7 +15,7 @@ html, body {
   }
   
   body {
-    background-color: #f5f5f5; /* 배경색을 설정 */
+    background-color: #f5f5f5 !important; /* 배경색을 설정 */
   }
   
   .container {

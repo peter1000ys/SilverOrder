@@ -1,4 +1,5 @@
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Navigate } from "react-router-dom";
+import useInfoStore from "../stores/infos.js";
 
 // 시작 페이지 (들어가자마자 보일 페이지)
 import StartPage from "../views/StartPage.jsx";
@@ -14,21 +15,27 @@ import StorePage from "../views/StorePage.jsx";
 // 마이 페이지
 import MyPage from "../views/MyPage.jsx";
 
-// 회원 정보 변경 페이지
-import ChangeInfoPage from "../views/ChangeInfoPage.jsx";
-
 // 주문 현황 확인 페이지
 import OrderstatePage from "../views/OrderstatePage.jsx";
 
 // 주문 내역 확인 페이지
 import OrderlistPage from "../views/OrderlistPage.jsx";
 
+// 내 카드 페이지
 import MycardPage from "../views/MycardPage.jsx";
 
+// 매장 외부에서 접속할 때의 페이지
+import OutdoorPage from "../views/OutdoorPage.jsx";
+
+// 주변 매장 찾기 페이지
+import FindStorePage from "../views/FindStorePage.jsx";
+
 const PageRoutes = () => {
+  const { isLogin } = useInfoStore();
+
   return (
     <Routes>
-      {/* 시작 페이지 */}
+      {/* QR 코드를 찍어서 들어왔을 때의 시작 페이지 */}
       <Route path="/" element={<StartPage />} />
 
       {/* 회원가입 */}
@@ -37,23 +44,33 @@ const PageRoutes = () => {
       {/* 로그인 */}
       <Route path="/signin" element={<SigninPage />} />
 
-      {/* 가게 페이지 */}
-      <Route path="/store" element={<StorePage />} />
+      {/* QR 코드를 찍지 않고 들어왔을 때의 시작 페이지 */}
+      <Route path="/outdoor" element={<OutdoorPage />} />
 
-      {/* 마이 페이지 */}
-      <Route path="/mypage" element={<MyPage />} />
+      {/* 주변 매장 찾아볼 페이지 */}
+      <Route path="/findstore" element={<FindStorePage />} />
 
-      {/* 회원정보 변경 페이지 */}
-      <Route path="/changeInfo" element={<ChangeInfoPage />} />
+      {/* 로그인 여부에 따라 페이지 접근 제한 */}
+      {isLogin ? (
+        <>
+          {/* 가게 페이지 */}
+          <Route path="/store" element={<StorePage />} />
 
-      {/* 주문 현황 확인 페이지 */}
-      <Route path="/orderstate" element={<OrderstatePage />} />
+          {/* 마이 페이지 */}
+          <Route path="/mypage" element={<MyPage />} />
 
-      {/* 주문 내역 확인 페이지 */}
-      <Route path="/orderlist" element={<OrderlistPage />} />
+          {/* 주문 현황 확인 페이지 */}
+          <Route path="/orderstate" element={<OrderstatePage />} />
 
-      {/* 내 카드 페이지 */}
-      <Route path="/mycard" element={<MycardPage />} />
+          {/* 주문 내역 확인 페이지 */}
+          <Route path="/orderlist" element={<OrderlistPage />} />
+
+          {/* 내 카드 페이지 */}
+          <Route path="/mycard" element={<MycardPage />} />
+        </>
+      ) : (
+        <Route path="*" element={<Navigate to="/signin" />} />
+      )}
     </Routes>
   );
 };

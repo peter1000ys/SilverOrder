@@ -1,0 +1,48 @@
+.outdoor-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  background-color: #dedede;
+}
+
+.outdoor-contents {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: calc(450 / 1440 * 100vw);
+}
+
+.outdoor-page-logo {
+  width: calc(320 / 1440 * 100vw);
+  height: calc(280 / 1440 * 100vw);
+}
+
+.outdoor-page-findstore-btn {
+  width: calc(300 / 1440 * 100vw);
+  height: calc(60 / 1440 * 100vw);
+  align-self: center;
+  font-size: calc(34 / 1440 * 100vw);
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: calc(7 / 1440 * 100vw);
+  background: #1428a0;
+  border: none;
+  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
+    calc(15 / 1440 * 100vw) rgb(89, 89, 89);
+}
+
+.outdoor-page-signup-btn {
+  width: calc(300 / 1440 * 100vw);
+  height: calc(60 / 1440 * 100vw);
+  align-self: center;
+  font-size: calc(40 / 1440 * 100vw);
+  color: #ffffff;
+  cursor: pointer;
+  border-radius: calc(7 / 1440 * 100vw);
+  background: #1428a0;
+  border: none;
+  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
+    calc(15 / 1440 * 100vw) rgb(89, 89, 89);
+}

@@ -7,8 +7,17 @@ import LoginPage from "../views/LoginPage.jsx";
 // 회원 가입 페이지
 import Signup from "../views/Signup.jsx";
 
+// 메뉴 페이지
+import MenuPage from "../views/MenuPage.jsx"
+
 // 주문 페이지
 import OrderPage from "../views/OrderPage.jsx";
+
+// 리뷰 페이지
+import ReviewPage from "../views/ReviewPage.jsx";
+
+// 대시보드 페이지
+import DashboardPage from "../views/DashboardPage.jsx";
 
 const PageRoutes = () => {
 
@@ -32,6 +41,12 @@ const PageRoutes = () => {
                 <>
                     {/* 주문 페이지 */}
                     <Route path="/order" element={<OrderPage />} />
+                    {/* 메뉴 페이지 */}
+                    <Route path="/menu" element={<MenuPage />} />
+                    {/*리뷰 페이지 */}
+                    <Route path="/review" element={<ReviewPage />} />
+                    {/* 대시보드 페이지 */}
+                    <Route path="/dashboard" element={<DashboardPage />} />
                 </>
             )}
         </Routes>

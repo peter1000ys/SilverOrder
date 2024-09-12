@@ -1,4 +1,5 @@
 import "../styles/StorePage.css";
+import MenuList from "../components/MenuCard/MenuList";
 
 const StorePage = () => {
   return (
@@ -9,7 +10,7 @@ const StorePage = () => {
       <div className="SST-search-btn">
         <img className="SST-search-img" src="/mike.png" alt="음성인식 버튼" />
       </div>
-      <div className="colorbox"></div>
+      <MenuList />
     </div>
   );
 };

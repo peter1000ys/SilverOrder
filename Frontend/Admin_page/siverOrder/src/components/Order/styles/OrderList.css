@@ -1,22 +1,20 @@
-/* OrderList 컴포넌트 고정 위치 */
 .order-list {
-    position: fixed;
-    top: 150px; /* 탭 아래 */
-    left: 20px;
-    width: 60%;
+    width: 100%;
     height: calc(100vh - 250px); /* 네비게이션바와 탭을 제외한 전체 높이 */
     display: flex;
-    flex-direction: column; /* Structures the component as a column */
+    flex-direction: column;
     background-color: white;
-    border-radius: 8px;
-    padding: 20px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-    overflow: hidden; /* Prevents content from overflowing */
+    border-radius: calc(8 / 1440 * 100vw);
+    padding: calc(20 / 1440 * 100vw);
+    box-shadow: calc(0 / 1440 * 100vw) calc(4 / 1440 * 100vw) calc(6 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
+    font-size: calc(16 / 1440 * 100vw);
+    overflow: hidden;
 }
 
 .order-list-content {
+    flex-grow: 1;
     overflow-y: auto;
-    margin-bottom: 50px; /* Reserve space for the pagination */
+    margin-bottom: calc(20 / 1440 * 100vw);
 }
 
 .order-list table {
@@ -25,9 +23,9 @@
 }
 
 .order-list th, .order-list td {
-    padding: 15px;
+    padding: calc(15 / 1440 * 100vw);
     text-align: center;
-    border-bottom: 1px solid #ddd;
+    border-bottom: calc(1 / 1440 * 100vw) solid #ddd;
 }
 
 .order-list tbody tr:hover {
@@ -40,35 +38,32 @@
 }
 
 /* Pagination styling */
-.pagination {
-    position: absolute;
-    bottom: 0; 
-    left: 0;
-    right: 0;
+.pagination-c {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 10px 0;
+    padding: calc(10 / 1440 * 100vw) 0;
     background-color: white;
+    margin-top: auto; /* 페이징 버튼이 항상 맨 아래에 고정되도록 */
 }
 
-.pagination button {
-    padding: 12px 50px;
-    margin: 0 50px;
+.pagination-c button {
+    padding: calc(12 / 1440 * 100vw) calc(50 / 1440 * 100vw);
+    margin: 0 calc(50 / 1440 * 100vw);
     background-color: #007bff;
     color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: calc(5 / 1440 * 100vw);
     cursor: pointer;
     outline: none;
-    font-size: 25px;
+    font-size: calc(25 / 1440 * 100vw);
 }
 
-.pagination button:disabled {
+.pagination-c button:disabled {
     background-color: #ccc;
     cursor: not-allowed;
 }
 
-.pagination span {
-    font-size: 25px;
+.pagination-c span {
+    font-size: calc(25 / 1440 * 100vw);
 }

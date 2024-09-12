@@ -29,7 +29,7 @@ const SignupPage = () => {
   const navigate = useNavigate();
 
   const handleCancel = () => {
-    navigate("/");
+    navigate(-1);
   };
 
   if (isLogin) {

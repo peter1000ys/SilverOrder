@@ -1,5 +1,6 @@
 package com.silverorder.domain.menu.entity;
 
+import com.silverorder.domain.menu.dto.MenuStatus;
 import com.silverorder.domain.store.entity.StoreMenuCategory;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
@@ -36,9 +37,10 @@ public class Menu {
     @Column(name = "MENU_DESC", length = 1000)
     private String menuDesc;
 
-    @Column(name = "MENU_STATUS", length = 10, nullable = false)
+    @Column(name = "MENU_STATUS", nullable = false)
     @NotNull
-    private int menuStatus;
+    @Enumerated(EnumType.STRING)
+    private MenuStatus menuStatus;
 
     @Column(name = "MENU_PRICE", nullable = false)
     @ColumnDefault("0")

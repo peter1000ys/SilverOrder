@@ -1,29 +1,7 @@
-.order-page-container {
-  margin-top: 90px;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  align-items: center;
-  width: 100%; /* 화면 전체를 사용하도록 */
+.order {
+    height: 100%;
 }
 
-.order-content {
-  display: flex;
-  justify-content: space-between;
-  margin-top: 20px;
-  width: 90%; /* 90% 정도로 설정하여 넓게 표시 */
-  max-width: 1500px; /* 최대 너비 설정, 더 큰 화면에서는 최대 1500px */
-}
-
-.order-list, .order-detail {
-  flex: 1; /* 양쪽 영역이 균등하게 공간을 차지하도록 */
-  margin: 10px;
-}
-
-.order-list {
-  width: 65%; /* 주문 목록이 더 많은 공간을 차지 */
-}
-
-.order-detail {
-  width: 30%; /* 주문 상세 정보는 상대적으로 적은 공간 차지 */
+.container-fluid {
+    height: 100% !important;
 }

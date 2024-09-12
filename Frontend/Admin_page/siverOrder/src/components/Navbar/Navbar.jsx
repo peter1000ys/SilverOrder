@@ -7,16 +7,16 @@ import useInfoStore from "../../stores/infos.js";
 const Navbar = () => {
   const { logout } = useInfoStore();
   return (
-    <nav className="navbar">
+    <nav className="navbar-s">
       <div className="navbar-left">
         <div className="navbar-logo">
           <img src={NavLogo} alt="Logo" className="nav-logo" />
         </div>
         <div className="navbar-links">
-          <Link to="/menu" className="nav-link">MENU</Link>
-          <Link to="/order" className="nav-link">ORDER</Link>
-          <Link to="/review" className="nav-link">REVIEW</Link>
-          <Link to="/dashboard" className="nav-link">DASHBOARD</Link>
+          <Link to="/menu" className="nav-link-s">MENU</Link>
+          <Link to="/order" className="nav-link-s">ORDER</Link>
+          <Link to="/review" className="nav-link-s">REVIEW</Link>
+          <Link to="/dashboard" className="nav-link-s">DASHBOARD</Link>
         </div>
       </div>
       

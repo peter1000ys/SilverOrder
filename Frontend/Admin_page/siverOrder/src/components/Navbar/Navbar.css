@@ -1,5 +1,5 @@
 /* 전체 네비게이션 바 설정 */
-.navbar {
+.navbar-s {
   position: fixed;
   top: 0;
   left: 0;
@@ -8,8 +8,8 @@
   justify-content: space-between;
   align-items: center;
   background-color: #2D8DFF;
-  padding: 10px 20px;
-  height: 70px;
+  padding: calc(10 / 1440 * 100vw) calc(20 / 1440 * 100vw);
+  height: calc(50 / 1440 * 100vw);
   z-index: 1000;
   font-family: Arial, sans-serif;
 }
@@ -18,7 +18,7 @@
   align-items: center;
 }
 .navbar-links .nav-link:first-child {
-  margin-left: 20px; /* This will only apply to the first link */
+  margin-left: calc(20 / 1440 * 100vw); /* This will only apply to the first link */
 }
   /* 로고 영역 */
   .navbar-logo {
@@ -28,8 +28,8 @@
   }
   
   .nav-logo {
-    width: 50px; /* 로고 크기 */
-    height: 50px;
+    width: calc(50 / 1440 * 100vw); /* 로고 크기 */
+    height: calc(50 / 1440 * 100vw);
     border-radius: 50%; /* 동그라미 모양 */
     object-fit: cover;
   }
@@ -37,13 +37,13 @@
   /* 네비게이션 링크 영역 */
   .navbar-links {
     display: flex;
-    gap: 20px; /* 링크 사이 간격 */
+    gap: calc(20 / 1440 * 100vw); /* 링크 사이 간격 */
   }
   
-  .nav-link {
+  .nav-link-s {
     color: white;
     text-decoration: none;
-    font-size: 18px;
+    font-size: calc(18 / 1440 * 100vw);
     font-weight: bold;
     transition: color 0.3s ease;
   }
@@ -56,7 +56,7 @@
   .navbar-right {
     display: flex;
     align-items: center;
-    gap: 20px;
+    gap: calc(20 / 1440 * 100vw);
   }
   
   /* 벨 아이콘 버튼 */
@@ -64,7 +64,7 @@
     background-color: transparent;
     border: none;
     color: white;
-    font-size: 24px;
+    font-size: calc(24 / 1440 * 100vw);
     cursor: pointer;
   }
   
@@ -75,11 +75,11 @@
   /* 로그아웃 버튼 */
   .logout-button {
     background-color: transparent;
-    border: 2px solid white;
+    border: calc(2 / 1440 * 100vw) solid white;
     color: white;
-    padding: 5px 15px;
-    font-size: 16px;
-    border-radius: 20px;
+    padding: calc(5 / 1440 * 100vw) calc(15 / 1440 * 100vw);
+    font-size: calc(16 / 1440 * 100vw);
+    border-radius: calc(20 / 1440 * 100vw);
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
   }

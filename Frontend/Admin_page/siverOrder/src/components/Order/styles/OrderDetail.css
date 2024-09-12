@@ -1,23 +1,29 @@
 .order-detail {
-    position: fixed;
-    top: 150px;
-    right: 20px;
-    width: 30%;
+    width: 100%;
     height: calc(100vh - 250px);
     display: flex;
-    flex-direction: column; /* Enables flex layout */
+    flex-direction: column;
     background-color: white;
-    border-radius: 8px;
-    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: calc(8 / 1440 * 100vw);
+    box-shadow: calc(0 / 1440 * 100vw) calc(4 / 1440 * 100vw) calc(6 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
 }
 
 .order-header {
+    width: 100%;
+    height: calc(100 / 1440 * 100vw);
     background-color: #F3F1F1;
-    padding: 10px;
+    padding: calc(10 / 1440 * 100vw);
+    
+}
+.order-header h3 {
+    font-size: calc(30 / 1440 * 100vw);
+}
+.order-header h4 {
+    font-size: calc(30 / 1440 * 100vw);
 }
 
 .order-detail-content {
-    padding: 20px;
+    padding: calc(20 / 1440 * 100vw);
     flex-grow: 1;
     overflow-y: auto;
 }
@@ -28,21 +34,21 @@
 }
 
 .order-detail th, .order-detail td {
-    padding: 8px;
+    padding: calc(8 / 1440 * 100vw);
     text-align: left;
-    border-bottom: 1px solid #ddd;
+    border-bottom: calc(1 / 1440 * 100vw) solid #ddd;
 }
 
 .total-and-buttons {
-    padding: 20px;
+    padding: calc(20 / 1440 * 100vw);
     background: #fff; 
-    border-top: 1px solid #ddd; 
+    border-top: calc(1 / 1440 * 100vw) solid #ddd; 
 }
 
 .total-amount {
-    font-size: 30px;
+    font-size: calc(30 / 1440 * 100vw);
     color: red;
-    margin-bottom: 10px; /* Space before buttons */
+    margin-bottom: calc(10 / 1440 * 100vw); /* Space before buttons */
     text-align: right;
 }
 
@@ -53,10 +59,10 @@
 
 .action-buttons button {
     flex: 1;
-    margin: 0 5px;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 5px;
+    margin: 0 calc(5 / 1440 * 100vw);
+    padding: calc(10 / 1440 * 100vw);
+    font-size: calc(16 / 1440 * 100vw);
+    border-radius: calc(5 / 1440 * 100vw);
     color: white;
     cursor: pointer;
     border-color: white;

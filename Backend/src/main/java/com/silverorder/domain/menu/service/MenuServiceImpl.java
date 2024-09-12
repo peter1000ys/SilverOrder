@@ -2,20 +2,33 @@ package com.silverorder.domain.menu.service;
 
 import com.silverorder.domain.menu.dto.RequestMenuCategoryDto;
 import com.silverorder.domain.menu.dto.RequestMenuDto;
+import com.silverorder.domain.menu.dto.ResponseMenuCategory;
+import com.silverorder.domain.menu.dto.ResponseMenuDto;
 import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.menu.repository.MenuJpaRepository;
 import com.silverorder.domain.menu.repository.MenuRepository;
 import com.silverorder.domain.menu.repository.StoreMenuCategoryJpaRepository;
 import com.silverorder.domain.option.dto.OptionDto;
+import com.silverorder.domain.option.dto.ResponseOptionDto;
 import com.silverorder.domain.option.entity.OptionCategory;
 import com.silverorder.domain.option.repository.OptionCategoryJpaRepository;
+import com.silverorder.domain.option.repository.OptionRepository;
 import com.silverorder.domain.store.entity.Store;
 import com.silverorder.domain.store.entity.StoreMenuCategory;
+import com.silverorder.domain.store.repository.StoreJpaRepository;
+import com.silverorder.domain.user.dto.UserRole;
+import com.silverorder.domain.user.entity.User;
+import com.silverorder.domain.user.repository.UserJpaRepository;
+import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * <pre>
@@ -33,20 +46,36 @@ public class MenuServiceImpl implements MenuService{
     private final MenuJpaRepository menuJpaRepository;
     private final StoreMenuCategoryJpaRepository storeMenuCategoryJpaRepository;
     private final OptionCategoryJpaRepository optionCategoryJpaRepository;
+    private final UserJpaRepository userJpaRepository;
+    private final StoreJpaRepository storeJpaRepository;
+    private final OptionRepository optionRepository;
 
 
+    /**
+     * 메뉴 등록
+     * @param userId : 유저 id
+     * @param requestMenuDto : 메뉴 등록 dto
+     * @throws Exception
+     */
     @Override
     @Transactional
-    public void saveMenu(RequestMenuDto requestMenuDto) throws Exception {
+    public void saveMenu(long userId, RequestMenuDto requestMenuDto) throws Exception {
         //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        if(user.getUserRole() != UserRole.ROLE_ADMIN)
+            throw new CustomException(ErrorCode.NOT_AUTHENTICATED);
 
         //가맹점 확인 로직
-        //Store store = null;
+        Store store = storeJpaRepository.findById(requestMenuDto.getStoreId())
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+        if(!store.getUser().equals(user))
+            throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
 
         //메뉴 카테고리 확인 로직
         StoreMenuCategory storeMenuCategory = storeMenuCategoryJpaRepository.findById(
                 requestMenuDto.getMenuCategoryId())
-                .orElseThrow(() -> new EntityNotFoundException("해당 메뉴 카테고리를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.MENU_CATEGORY_NOT_FOUND));
 
         //메뉴 등록
         Menu menu = menuRepository.saveMenu(storeMenuCategory, requestMenuDto);
@@ -61,20 +90,109 @@ public class MenuServiceImpl implements MenuService{
             for (long optionCategoryId : optionCategoryIds) {
                 OptionCategory optionCategory = optionCategoryJpaRepository.findById(
                         optionCategoryId)
-                        .orElseThrow(() -> new EntityNotFoundException("해당 옵션 카테고리를 찾을 수 없습니다."));
+                        .orElseThrow(() -> new CustomException(ErrorCode.OPTION_CATEGORY_NOT_FOUND));
                 //메뉴의 사용 옵션 등록
                 menuRepository.saveMenuOptionCategory(menu, optionCategory);
             }
         }
     }
 
+    /**
+     * 메뉴 카테고리 등록
+     * @param userId : 유저 id
+     * @param requestMenuCategoryDto : 메뉴 카테고리 dto
+     * @throws Exception
+     */
     @Override
     @Transactional
-    public void saveMenuCategory(RequestMenuCategoryDto requestMenuCategoryDto) throws Exception {
+    public void saveMenuCategory(long userId, RequestMenuCategoryDto requestMenuCategoryDto) throws Exception {
+        //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        if(user.getUserRole() != UserRole.ROLE_ADMIN)
+            throw new CustomException(ErrorCode.NOT_AUTHENTICATED);
+
         //가맹점 확인 로직
-        Store store = null;
+        Store store = storeJpaRepository.findById(requestMenuCategoryDto.getStoreId())
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+        if(!store.getUser().equals(user))
+            throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
 
         //메뉴 카테고리 등록
         menuRepository.saveStoreMenuCategory(store, requestMenuCategoryDto.getMenuCategoryName());
+    }
+
+    /**
+     * 메뉴 리스트 조회
+     * @param userId : 유저 id
+     * @param storeId : 가맹점 id
+     * @throws Exception
+     */
+    @Override
+    public List<ResponseMenuDto> listMenu(long userId, long storeId) throws Exception {
+        //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        //가맹점 확인 로직
+        Store store = storeJpaRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        //옵션을 제외한 메뉴 조회
+        return menuRepository.listMenu(store, user);
+    }
+
+    /**
+     * 메뉴의 옵션 조회
+     * @param menuId : 메뉴id
+     * @throws Exception
+     */
+    @Override
+    public List<ResponseOptionDto> menuOptionList(long menuId) throws Exception {
+        //메뉴 확인 로직
+        Menu menu = menuJpaRepository.findById(menuId)
+                .orElseThrow(() -> new CustomException(ErrorCode.MENU_NOT_FOUND));
+
+        //메뉴가 사용하는 옵션 카테고리 조회
+        List<OptionCategory> optionCategoryList = menuRepository.menuOptions(menu);
+
+        //사용하는 옵션이 있을 경우
+        if(optionCategoryList != null && !optionCategoryList.isEmpty()){
+            //옵션리스트 선언
+            List<ResponseOptionDto> responseOptionDtoList = new ArrayList<>();
+
+            for(OptionCategory optionCategory : optionCategoryList) {
+                responseOptionDtoList.add(new ResponseOptionDto(
+                        optionCategory.getId(),
+                        optionCategory.getOptionCategoryTitle(),
+                        optionCategory.getOptionType()
+                ));
+            }
+
+            //옵션 카테고리의 옵션들 조회
+            for(ResponseOptionDto options : responseOptionDtoList){
+                //옵션 카테고리 확인 로직
+                OptionCategory optionCategory = optionCategoryJpaRepository.findById(
+                                options.getOptionCategoryId())
+                        .orElseThrow(() -> new CustomException(ErrorCode.OPTION_CATEGORY_NOT_FOUND));
+
+                //옵션리스트 조회
+                options.setOptionDtoList(optionRepository.detailOptionCategory(optionCategory));
+            }
+
+            return responseOptionDtoList;
+
+        //사용 옵션이 없을경우 그대로 반환
+        }else return null;
+    }
+
+    @Override
+    public List<ResponseMenuCategory> menuCategoryList(long storeId) throws Exception {
+        //가맹점 확인 로직
+        Store store = storeJpaRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        //옵션을 제외한 메뉴 조회
+        return menuRepository.menuCategoryList(store);
     }
 }

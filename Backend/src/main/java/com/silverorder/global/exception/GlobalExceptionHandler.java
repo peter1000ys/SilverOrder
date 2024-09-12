@@ -20,6 +20,7 @@ import java.nio.file.AccessDeniedException;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 /**
  * <pre>
@@ -45,6 +46,15 @@ public class GlobalExceptionHandler {
         log.error(e.getMessage(), e);
 
         ErrorResponse response = new ErrorResponse(ErrorCode.INTERNAL_SERVER_ERROR);
+        return ResponseEntity.status(response.getErrorCode()).body(response);
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NoSuchElementException.class)
+    protected ResponseEntity<ErrorResponse> handleNoSuchElementException(NoSuchElementException e) {
+        log.error(e.getMessage(), e);
+
+        ErrorResponse response = new ErrorResponse(ErrorCode.NO_ELEMENT);
         return ResponseEntity.status(response.getErrorCode()).body(response);
     }
 

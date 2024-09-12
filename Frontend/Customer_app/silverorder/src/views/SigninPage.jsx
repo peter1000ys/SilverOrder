@@ -1,9 +1,11 @@
 import "../styles/SigninPage.css";
 import { useState } from "react";
 import useInfoStore from "../stores/infos";
-import { Navigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 
 const SigninPage = () => {
+  const navigate = useNavigate();
+
   const { sendLoginRequest, isLogin } = useInfoStore();
 
   const [email, setEmail] = useState("");
@@ -18,6 +20,10 @@ const SigninPage = () => {
     } else {
       console.log("로그인 실패");
     }
+  };
+
+  const handleCancel = () => {
+    navigate("/");
   };
 
   if (isLogin) {
@@ -54,9 +60,18 @@ const SigninPage = () => {
             />
           </div>
         </div>
-        <button type="submit" className="signin-btn">
-          로 그 인
-        </button>
+        <div className="signin-btn-box">
+          <div>
+            <button type="submit" className="signin-btn">
+              로그인
+            </button>
+          </div>
+          <div>
+            <button className="signin-cancel-btn" onClick={handleCancel}>
+              취 소
+            </button>
+          </div>
+        </div>
       </form>
     </div>
   );

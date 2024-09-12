@@ -7,9 +7,12 @@ import com.silverorder.domain.option.entity.OptionCategory;
 import com.silverorder.domain.option.repository.OptionCategoryJpaRepository;
 import com.silverorder.domain.option.repository.OptionRepository;
 import com.silverorder.domain.store.entity.Store;
+import com.silverorder.domain.store.repository.StoreJpaRepository;
 import com.silverorder.domain.user.dto.UserRole;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
+import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,7 +36,7 @@ public class OptionServiceImpl implements OptionService{
     private final OptionRepository optionRepository;
     private final OptionCategoryJpaRepository optionCategoryJpaRepository;
     private final UserJpaRepository userJpaRepository;
-    //private final StoreJpaRepository storeJpaRepository;
+    private final StoreJpaRepository storeJpaRepository;
 
 
     /**
@@ -47,18 +50,15 @@ public class OptionServiceImpl implements OptionService{
     public void saveOptionCategory(long userId, RequestOptionCategoryDto requestOptionCategoryDto) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         if(user.getUserRole() != UserRole.ROLE_ADMIN)
-            throw new Exception("관리자 유저가 아닙니다.");
+            throw new CustomException(ErrorCode.NOT_AUTHENTICATED);
 
-        //가게 확인 로직
-        Store store = null;
-        /*
-        Store store = storeJpaRepository.findById(reuqestOptionCateory.getStoreId())
-            .orElseThrow(() -> new EntityNotFoundException("가맹점을 찾을 수 없습니다."));
+        //가맹점 확인 로직
+        Store store = storeJpaRepository.findById(requestOptionCategoryDto.getStoreId())
+            .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         if(!store.getUser().equals(user))
-            throw new Exception("가맹점주가 아닙니다.");
-        */
+            throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
 
 
         //카테고리 등록 및 리턴
@@ -89,19 +89,19 @@ public class OptionServiceImpl implements OptionService{
     public void modifyOptionCategory(long userId, long optionCategoryId, RequestOptionCategoryDto requestOptionCategoryDto) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         if(user.getUserRole() != UserRole.ROLE_ADMIN)
-            throw new Exception("관리자 유저가 아닙니다.");
+            throw new CustomException(ErrorCode.NOT_AUTHENTICATED);
+
         //가게 확인 로직
-        /*
-        Store store = storeJpaRepository.findById(reuqestOptionCateory.getStoreId())
-            .orElseThrow(() -> new EntityNotFoundException("가맹점을 찾을 수 없습니다."));
+        Store store = storeJpaRepository.findById(requestOptionCategoryDto.getStoreId())
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         if(!store.getUser().equals(user))
-            throw new Exception("가맹점주가 아닙니다.");
-        */
+            throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
+
         //옵션 카테고리 확인 로직
         OptionCategory optionCategory = optionCategoryJpaRepository.findById(optionCategoryId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 옵션 카테고리를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.OPTION_CATEGORY_NOT_FOUND));
 
         //옵션 삭제 및 옵션 카테고리 수정
         optionRepository.modifyOptionCategory(optionCategory,
@@ -116,28 +116,32 @@ public class OptionServiceImpl implements OptionService{
         }
     }
 
+    /**
+     * 옵션 카테고리 삭제
+     * @param userId : 유저 id
+     * @param optionCategoryId : 옵션 카테고리 id
+     * @throws Exception
+     */
     @Override
     public void deleteOptionCategory(long userId, long optionCategoryId) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
-                .orElseThrow(() -> new EntityNotFoundException("유저를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
         if(user.getUserRole() != UserRole.ROLE_ADMIN)
-            throw new Exception("관리자 유저가 아닙니다.");
-        //가게 확인 로직
-        /*
-        Store store = storeJpaRepository.findById(reuqestOptionCateory.getStoreId())
-            .orElseThrow(() -> new EntityNotFoundException("가맹점을 찾을 수 없습니다."));
-        if(!store.getUser().equals(user))
-            throw new Exception("가맹점주가 아닙니다.");
-        */
+            throw new CustomException(ErrorCode.NOT_AUTHENTICATED);
+
         //옵션 카테고리 확인 로직
         OptionCategory optionCategory = optionCategoryJpaRepository.findById(optionCategoryId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 옵션 카테고리를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.OPTION_CATEGORY_NOT_FOUND));
+
+        //가게 확인 로직
+        Store store = storeJpaRepository.findById(optionCategory.getStore().getId())
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+        if(!store.getUser().equals(user))
+            throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
 
         //옵션 삭제 및 옵션 카테고리 수정
-        /*optionRepository.modifyOptionCategory(optionCategory,
-                requestOptionCategoryDto.getOptionCategoryTitle(),
-                requestOptionCategoryDto.getOptionType());*/
+        optionRepository.deleteOptionCategory(optionCategory);
     }
 
     /**
@@ -148,15 +152,10 @@ public class OptionServiceImpl implements OptionService{
     @Override
     public List<ResponseOptionDto> listOptionCategory(long storeId) {
         // 가게 확인 로직
-        Store store = null;
-        /*
         Store store = storeJpaRepository.findById(storeId)
-            .orElseThrow(() -> new EntityNotFoundException("가맹점을 찾을 수 없습니다."));
-        */
-        List<ResponseOptionDto> responseOptionDtoList =
-                optionRepository.listOptionCategory(store);
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
-        return responseOptionDtoList;
+        return optionRepository.listOptionCategory(store);
     }
 
     /**
@@ -169,7 +168,7 @@ public class OptionServiceImpl implements OptionService{
         // 카테고리 확인 로직
         OptionCategory optionCategory = optionCategoryJpaRepository
                 .findById(optionCategoryId)
-                .orElseThrow(() -> new EntityNotFoundException("해당 옵션 카테고리를 찾을 수 없습니다."));
+                .orElseThrow(() -> new CustomException(ErrorCode.OPTION_CATEGORY_NOT_FOUND));
 
         ResponseOptionDto responseOptionDto = new ResponseOptionDto(
                 optionCategory.getId(),

@@ -1,5 +1,6 @@
 package com.silverorder.domain.option.controller;
 
+import com.silverorder.domain.option.dto.OptionType;
 import com.silverorder.domain.option.dto.RequestOptionCategoryDto;
 import com.silverorder.domain.option.dto.ResponseOptionDto;
 import com.silverorder.domain.option.service.OptionService;
@@ -39,6 +40,7 @@ public class OptionController {
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
         long userId = userDetails.getUser().getUserId();
+        requestOptionCategoryDto.setOptionType(OptionType.OPTION_RADIO);
         optionService.saveOptionCategory(userId, requestOptionCategoryDto);
         return new ResponseEntity<>("옵션 카테고리 등록 완료", HttpStatus.OK);
     }
@@ -64,11 +66,11 @@ public class OptionController {
     ) throws Exception {
         long userId = userDetails.getUser().getUserId();
         optionService.modifyOptionCategory(userId, optionCategoryId, requestOptionCategoryDto);
-        return new ResponseEntity<>("옵션 카테고리 수정 완료", HttpStatus.OK);
+        return new ResponseEntity<>("옵션 카테고리 삭제 완료", HttpStatus.OK);
     }
 
     @Operation(summary = "옵션 카테고리 리스트 조회", description="가게에서 사용하는 옵션 카테고리들을 조회합니다.")
-    @GetMapping("/category/{optionCategoryId}")
+    @GetMapping("/category/{storeId}")
     public ResponseEntity<?> listOptionCategory (
             @PathVariable Long storeId,
             @AuthenticationPrincipal CustomUserDetails userDetails
