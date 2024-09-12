@@ -19,4 +19,5 @@ public class TransactionRequestDto {
     private String cvc;
     private Long merchantId;
     private Long paymentBalance;
+
 }

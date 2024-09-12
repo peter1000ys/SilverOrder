@@ -53,6 +53,7 @@ public class PaymentServiceImpl implements PaymentService {
      * @throws Exception
      */
     @Override
+    @Transactional
     public HeaderDto testingHeader(long userId) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
@@ -62,6 +63,7 @@ public class PaymentServiceImpl implements PaymentService {
         HeaderDto headerDto = new HeaderDto();
         headerDto.setHeader(new HeaderApiDto("testing", apiKey, user.getUserApiKey()));
 
+        //return new HeaderApiDto("testing", apiKey, user.getUserApiKey(), ranNum);
         return headerDto;
     }
 
@@ -186,6 +188,7 @@ public class PaymentServiceImpl implements PaymentService {
 
     }
 
+
     @Override
     public String payCard(CardRequestDto cardRequestDto) throws Exception {
         // 요청 Header
@@ -214,4 +217,5 @@ public class PaymentServiceImpl implements PaymentService {
         }
         return null; // 응답이 없을 경우 처리
     }
+
 }

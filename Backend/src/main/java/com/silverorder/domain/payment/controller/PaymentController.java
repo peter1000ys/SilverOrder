@@ -1,5 +1,6 @@
 package com.silverorder.domain.payment.controller;
 
+import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.payment.service.PaymentService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
