@@ -4,6 +4,7 @@ import OrderTabs from '../components/Order/OrderTabs';
 import OrderList from '../components/Order/OrderList';
 import OrderDetail from '../components/Order/OrderDetail';
 import '../styles/OrderPage.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const OrderPage = () => {
   const [selectedTab, setSelectedTab] = useState('대기'); // 현재 선택된 탭
@@ -19,13 +20,17 @@ const OrderPage = () => {
   };
 
   return (
-    <div>
+    <div className='order'>
       <Navbar />
-      <div>
-        <OrderTabs selectedTab={selectedTab} onTabChange={handleTabChange} />
-        <div>
-          <OrderList selectedTab={selectedTab} onOrderSelect={handleOrderSelect} />
-          {selectedOrder && <OrderDetail order={selectedOrder} />}
+      <div className="container-fluid">
+        <div className="row">
+          <OrderTabs selectedTab={selectedTab} onTabChange={handleTabChange} />
+          <div className="col-lg-8 col-md-8 col-sm-12">
+            <OrderList selectedTab={selectedTab} onOrderSelect={handleOrderSelect} />
+          </div>
+          <div className="col-lg-4 col-md-4 col-sm-12">
+            {selectedOrder && <OrderDetail order={selectedOrder} />}
+          </div>
         </div>
       </div>
     </div>

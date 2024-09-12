@@ -1,0 +1,44 @@
+.menu-page {
+  padding-top: 90px;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.menu-content {
+  display: flex;
+  flex: 1;
+  justify-content: space-between;
+  padding: 20px;
+}
+
+.menu-list {
+  width: 65%;
+}
+
+.menu-detail-container {
+  width: 30%;
+  padding-left: 20px;
+}
+
+.menu-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+}
+
+.menu-actions button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.menu-actions button:hover {
+  background-color: #0056b3;
+}
