@@ -1,6 +1,6 @@
 .order-list {
     width: 100%;
-    height: calc(100vh - 250px); /* 네비게이션바와 탭을 제외한 전체 높이 */
+    height: calc(100vh - 250px); 
     display: flex;
     flex-direction: column;
     background-color: white;
