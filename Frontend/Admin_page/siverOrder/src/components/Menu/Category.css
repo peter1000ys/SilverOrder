@@ -1,0 +1,40 @@
+.option-category, .menu-category {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .option-category label, .menu-category label {
+    font-weight: bold;
+  }
+  
+  .option-category input, .menu-category input {
+    padding: 5px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+  }
+  
+  .action-buttons {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+  }
+  
+  .cancel {
+    background-color: #FF5B5B;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+  
+  .submit {
+    background-color: #2D8DFF;
+    color: white;
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    border: none;
+  }
+  
