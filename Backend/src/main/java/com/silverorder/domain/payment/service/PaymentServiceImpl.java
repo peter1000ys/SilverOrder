@@ -1,5 +1,6 @@
 package com.silverorder.domain.payment.service;
 
+import com.silverorder.domain.payment.dto.RequestCardListDto;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
 import com.silverorder.global.dto.*;
@@ -37,6 +38,14 @@ public class PaymentServiceImpl implements PaymentService{
     public String apiUrl;
 
 
+    /**
+     * 헤더 테스트
+     * <pre>
+     *     ssafy 금융 api 사용을 위한 공통 header 생성 테스트
+     * </pre>
+     * @param userId : 유저 id
+     * @throws Exception
+     */
     @Override
     public HeaderDto testingHeader(long userId) throws Exception {
         //유저 확인 로직
@@ -50,6 +59,15 @@ public class PaymentServiceImpl implements PaymentService{
         return headerDto;
     }
 
+    /**
+     * ssafy 금융 내 카드 조회
+     * <pre>
+     *     ssafy 금융에서 생성한 내 카드를 조회한다.
+     *     카드상품까지 조회하여 혜택내역 또한 갱신한다.
+     * </pre>
+     * @param userId : 유저 id
+     * @throws Exception
+     */
     @Override
     public ResponseCardListDto myCards(long userId) throws Exception {
         //유저 확인 로직
@@ -106,6 +124,14 @@ public class PaymentServiceImpl implements PaymentService{
         }
     }
 
+    /**
+     * ssafy 금융 카드 상품 조회
+     * <pre>
+     *     ssafy 금융의 카드 상품들을 조회한다.
+     * </pre>
+     * @param user : 유저 entity
+     * @throws Exception
+     */
     @Override
     public ResponseCardListDto ssafyCards(User user) throws Exception {
         apiUrl = "creditCard/";
@@ -135,6 +161,15 @@ public class PaymentServiceImpl implements PaymentService{
         }
     }
 
+    /**
+     * 간편결제 카드 등록
+     * <pre>
+     *     간편결제에 사용할 카드를 등록한다
+     * </pre>
+     * @param userId : 유저 id
+     * @param requestCardListDto : 카드정보 리스트 dto
+     * @throws Exception
+     */
     @Override
     @Transactional
     public void registCard(long userId, RequestCardListDto requestCardListDto) throws Exception {

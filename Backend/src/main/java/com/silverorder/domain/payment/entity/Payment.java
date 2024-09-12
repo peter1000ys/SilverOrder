@@ -1,12 +1,12 @@
 package com.silverorder.domain.payment.entity;
 
+import com.silverorder.domain.payment.dto.PaymentType;
 import com.silverorder.domain.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
@@ -27,5 +27,6 @@ public class Payment {
 
     @Column(name = "PAYMENT_TYPE", nullable = false)
     @NotNull
-    private int paymentType;
+    @Enumerated(EnumType.STRING)
+    private PaymentType paymentType;
 }

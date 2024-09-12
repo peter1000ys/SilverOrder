@@ -173,7 +173,7 @@ public class MenuRepositoryImpl implements MenuRepository{
     }
 
     @Override
-    public List<ResponseMenuCategory> menuCategoryList(Store store) throws Exception {
+    public List<ResponseMenuCategory> menuCategoryList(Store store) throws PersistenceException {
         try{
             return queryFactory
                     .select(Projections.constructor(ResponseMenuCategory.class,

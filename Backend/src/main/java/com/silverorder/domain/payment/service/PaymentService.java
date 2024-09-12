@@ -2,7 +2,7 @@ package com.silverorder.domain.payment.service;
 
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.global.dto.HeaderDto;
-import com.silverorder.global.dto.RequestCardListDto;
+import com.silverorder.domain.payment.dto.RequestCardListDto;
 import com.silverorder.global.dto.ResponseCardListDto;
 
 /**
