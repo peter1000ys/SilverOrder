@@ -1,6 +1,7 @@
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
+import useCartStore from "./cart";
 
 const API_URL = "http://localhost:8080/silverorder/";
 
@@ -54,6 +55,9 @@ const useInfoStore = create(
 
       // 로그아웃
       logout: (navigate) => {
+        const { clearCart } = useCartStore.getState(); // 장바구니 초기화 함수 호출
+        clearCart(); // 로그아웃 시 장바구니가 초기화되도록
+
         set({ isLogin: false, token: null });
         navigate("/signin");
       },
