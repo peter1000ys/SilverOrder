@@ -23,5 +23,5 @@ public interface MenuRepository {
 
     List<OptionCategory> menuOptions(Menu menu) throws PersistenceException;
 
-    List<ResponseMenuCategory> menuCategoryList(Store store) throws Exception;
+    List<ResponseMenuCategory> menuCategoryList(Store store) throws PersistenceException;
 }

@@ -2,10 +2,8 @@ package com.silverorder.domain.payment.controller;
 
 import com.silverorder.domain.payment.service.PaymentService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
-import com.silverorder.global.dto.RequestCardListDto;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
