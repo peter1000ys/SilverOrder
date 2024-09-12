@@ -1,6 +1,25 @@
 import "./Styles/MenuInfo.css"; // CSS 파일을 가져옴
+import useCartStore from "../../stores/cart";
+import { useNavigate } from "react-router-dom";
 
 const MenuInfo = ({ data }) => {
+  const navigate = useNavigate();
+
+  const { addToCart } = useCartStore();
+
+  const handleAddToCart = ({ category, productId, name, price, options }) => {
+    // productId, name, price, options를 사용하여 새로운 item 객체 생성
+    const item = { category, productId, name, price, options };
+    // 장바구니에 제품 추가
+    addToCart(item);
+  };
+
+  const go_to_optionpage = ({ category, productId, name, price, options }) => {
+    // productId, name, price, options를 사용하여 새로운 item 객체 생성
+    const item = { category, productId, name, price, options };
+    navigate("/choiceoption", { state: { item } });
+  };
+
   return (
     <div>
       {/* 메뉴 데이터를 순회하며 각 메뉴의 이름과 가격을 출력 */}
@@ -15,11 +34,33 @@ const MenuInfo = ({ data }) => {
             <p id="menu-item-name">{product.name}</p>
           </div>
           <div className="menu-item-option-btn">
-            <div className="menu-item-normal">
+            <div
+              className="menu-item-normal"
+              onClick={() =>
+                handleAddToCart({
+                  category: product.category,
+                  productId: product.id,
+                  name: product.name,
+                  price: product.price,
+                  options: null,
+                })
+              } // 클릭 시 addToCart 호출
+            >
               <p id="menu-item-normal01">기본</p>
               <p id="menu-item-normal02">{product.price}</p>
             </div>
-            <div className="menu-item-plus">
+            <div
+              className="menu-item-plus"
+              onClick={() =>
+                go_to_optionpage({
+                  category: product.category,
+                  productId: product.id,
+                  name: product.name,
+                  price: product.price,
+                  options: null,
+                })
+              } // 클릭 시 옵션 선택 페이지로 이동
+            >
               <p id="menu-item-plus01">옵션 추가</p>
               <p id="menu-item-plus02">{product.price} + a</p>
             </div>

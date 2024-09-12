@@ -4,6 +4,10 @@ import { useNavigate } from "react-router-dom";
 const DownsideNavbar = () => {
   const navigate = useNavigate();
 
+  const go_to_shoppingcart = () => {
+    navigate("/shoppingcart");
+  };
+
   const go_to_orderlist = () => {
     navigate("/orderlist");
   };
@@ -18,6 +22,14 @@ const DownsideNavbar = () => {
 
   return (
     <div className="down-navbar-container">
+      <div>
+        <img
+          className="downnav-btn"
+          src="/shopping_cart.png"
+          alt="장바구니 페이지"
+          onClick={go_to_shoppingcart}
+        />
+      </div>
       <div>
         <img
           className="downnav-btn"
