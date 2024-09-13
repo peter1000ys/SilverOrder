@@ -109,9 +109,9 @@ pipeline {
             steps {
                 script {
                     sh 'sleep 10'  // 서비스가 완전히 시작될 때까지 대기 시간
-                    sh 'curl -f http://localhost:3000 || exit 1'
-                    sh 'curl -f http://localhost:3001 || exit 1'
-                    sh 'curl -f http://localhost:8080 || exit 1'
+                    sh 'curl -f http://localhost:3000 '
+                    sh 'curl -f http://localhost:3001 '
+                    sh 'curl -f http://localhost:8080 '
                 }
             }
         }
