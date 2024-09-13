@@ -15,7 +15,7 @@ pipeline {
         
         stage('Backend - Build') {
             steps {
-                dir('backend') {
+                dir('Backend') {
                     sh 'chmod +x ./gradlew'
                     sh './gradlew clean bootJar'
                     sh 'docker build -t backend:${BUILD_NUMBER} --build-arg SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} .'
