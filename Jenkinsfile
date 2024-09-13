@@ -5,6 +5,7 @@ pipeline {
         DOCKER_NETWORK = "silverOrder"
         VITE_API_BASE_URL = 'https://j11c202.p.ssafy.io/silverorder/'
         SPRING_PROFILES_ACTIVE = 'prod'
+        SSAFY_API_KEY = credentials('ssafy-api-key')
     }
     stages {
         stage('Checkout') {
@@ -99,6 +100,7 @@ pipeline {
                         --network ${DOCKER_NETWORK} \
                         -p 8080:8080 \
                         -e SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} \
+                        -e SSAFY_API_KEY=${SSAFY_API_KEY} \
                         backend:${BUILD_NUMBER}
                     """
                 }
