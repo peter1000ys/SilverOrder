@@ -11,7 +11,7 @@ import lombok.Setter;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name="T_CARD")
+@Table(name="T_ACCOUNT")
 public class Account {
     @Id
     @OneToOne(fetch = FetchType.LAZY)

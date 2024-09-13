@@ -1,5 +1,11 @@
 package com.silverorder.domain.payment.service;
 
+import com.silverorder.domain.payment.dto.CardRequestDto;
+import com.silverorder.domain.payment.dto.RequestCardListDto;
+import com.silverorder.domain.payment.dto.TransactionRequestDto;
+import com.silverorder.domain.payment.dto.RequestCardListDto;
+import com.silverorder.domain.payment.dto.CardRequestDto;
+import com.silverorder.domain.payment.dto.TransactionRequestDto;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
 import com.silverorder.global.dto.*;
@@ -13,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Map;
+import java.util.Random;
+
 /**
  * <pre>
  *      결제 관리 서비스 구현
@@ -24,7 +33,7 @@ import org.springframework.web.client.RestTemplate;
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class PaymentServiceImpl implements PaymentService{
+public class PaymentServiceImpl implements PaymentService {
     private final UserJpaRepository userJpaRepository;
     private final RestTemplate restTemplate;
 
@@ -37,7 +46,16 @@ public class PaymentServiceImpl implements PaymentService{
     public String apiUrl;
 
 
+    /**
+     * 헤더 테스트
+     * <pre>
+     *     ssafy 금융 api 사용을 위한 공통 header 생성 테스트
+     * </pre>
+     * @param userId : 유저 id
+     * @throws Exception
+     */
     @Override
+    @Transactional
     public HeaderDto testingHeader(long userId) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
@@ -47,9 +65,19 @@ public class PaymentServiceImpl implements PaymentService{
         HeaderDto headerDto = new HeaderDto();
         headerDto.setHeader(new HeaderApiDto("testing", apiKey, user.getUserApiKey()));
 
+        //return new HeaderApiDto("testing", apiKey, user.getUserApiKey(), ranNum);
         return headerDto;
     }
 
+    /**
+     * ssafy 금융 내 카드 조회
+     * <pre>
+     *     ssafy 금융에서 생성한 내 카드를 조회한다.
+     *     카드상품까지 조회하여 혜택내역 또한 갱신한다.
+     * </pre>
+     * @param userId : 유저 id
+     * @throws Exception
+     */
     @Override
     public ResponseCardListDto myCards(long userId) throws Exception {
         //유저 확인 로직
@@ -106,6 +134,14 @@ public class PaymentServiceImpl implements PaymentService{
         }
     }
 
+    /**
+     * ssafy 금융 카드 상품 조회
+     * <pre>
+     *     ssafy 금융의 카드 상품들을 조회한다.
+     * </pre>
+     * @param user : 유저 entity
+     * @throws Exception
+     */
     @Override
     public ResponseCardListDto ssafyCards(User user) throws Exception {
         apiUrl = "creditCard/";
@@ -135,6 +171,15 @@ public class PaymentServiceImpl implements PaymentService{
         }
     }
 
+    /**
+     * 간편결제 카드 등록
+     * <pre>
+     *     간편결제에 사용할 카드를 등록한다
+     * </pre>
+     * @param userId : 유저 id
+     * @param requestCardListDto : 카드정보 리스트 dto
+     * @throws Exception
+     */
     @Override
     @Transactional
     public void registCard(long userId, RequestCardListDto requestCardListDto) throws Exception {
@@ -144,4 +189,35 @@ public class PaymentServiceImpl implements PaymentService{
 
 
     }
+
+
+    @Override
+    public String payCard(CardRequestDto cardRequestDto) throws Exception {
+        // 요청 Header
+//        CardPayHeaderApiDto cardPayHeaderApiDto = new CardPayHeaderApiDto("createCreditCardTransaction", apiKey);
+
+        HeaderApiDto headerApiDto = new HeaderApiDto("createCreditCardTransaction", apiKey, "22f1a7e1-4461-453a-8b22-4e377f35761f");
+
+        // 요청 JSON
+        TransactionRequestDto transactionRequestDto = new TransactionRequestDto(
+//              cardPayHeaderApiDto,
+                headerApiDto,
+                cardRequestDto.getCardNo(),
+                cardRequestDto.getCvc(),
+                cardRequestDto.getMerchantId(),
+                cardRequestDto.getPaymentBalance()
+        );
+
+        // 외부 API 호출
+        String url = "https://finopenapi.ssafy.io/ssafy/api/v1/edu/creditCard/createCreditCardTransaction";
+        Map<String, Map<String, Object>> response
+                = restTemplate.postForObject(url, transactionRequestDto, Map.class);
+
+        // responseMessage 추출
+        if (response != null && response.get("Header") != null) {
+            return (String) response.get("Header").get("responseMessage");
+        }
+        return null; // 응답이 없을 경우 처리
+    }
+
 }
