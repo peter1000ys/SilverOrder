@@ -3,11 +3,9 @@ pipeline {
     
     
     environment {
-        DOCKER_NETWORK = "studycow_network"
-        GPT_API_KEY = credentials('gpt-api-key-id')
-        VITE_API_BASE_URL = 'https://i11c202.p.ssafy.io/studycow/'
+        DOCKER_NETWORK = "silverOrder"
+        VITE_API_BASE_URL = 'https://j11c202.p.ssafy.io/studycow/'
         SPRING_PROFILES_ACTIVE = 'prod'
-        OPENVIDU_SECRET = credentials('openvidu-secret-id')
     }
     stages {
         stage('Checkout') {
@@ -56,8 +54,6 @@ pipeline {
                         --network ${DOCKER_NETWORK} \
                         -p 8080:8080 \
                         -e SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} \
-                        -e GPT_API_KEY=${GPT_API_KEY} \
-                        -e OPENVIDU_SECRET=${OPENVIDU_SECRET} \
                         backend:${BUILD_NUMBER}
                     """
                 }
@@ -67,9 +63,7 @@ pipeline {
         stage('Health Check') {
             steps {
                 script {
-                    sh 'sleep 10'  // 서비스가 완전히 시작될 때까지 대기 시간
-                    sh 'curl -f http://13.125.238.202:8080/studycow/actuator/health || echo "Backend health check failed, but continuing deployment"'
-                    sh 'curl -f http://13.125.238.202/studycow || echo "Frontend health check failed, but continuing deployment"'
+                    sh 'sleep 7'  // 서비스가 완전히 시작될 때까지 대기 시간
                 }
             }
         }
