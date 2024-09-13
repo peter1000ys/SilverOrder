@@ -105,10 +105,7 @@ pipeline {
             }
         }
         
-        stage('Health Check') {
-            steps {
-            }
-        }
+
     }
     
     post {
