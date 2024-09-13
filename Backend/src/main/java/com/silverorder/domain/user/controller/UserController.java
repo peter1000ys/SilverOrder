@@ -50,4 +50,11 @@ public class UserController {
         return new ResponseEntity<>("회원 탈퇴 성공", HttpStatus.OK);
     }
 
+    @Operation(summary = "금융 연동", description = "은행 이메일로 은행과 연동합니다.")
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/me/connect")
+    public ResponseEntity<?> connectBank(@RequestBody String apiEmail) throws Exception {
+        return new ResponseEntity<>("은행 연동 완료", HttpStatus.OK);
+    }
+
 }

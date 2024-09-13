@@ -26,6 +26,7 @@ import java.util.Random;
  * <pre>
  *      결제 관리 서비스 구현
  * </pre>
+ *
  * @author 노명환
  * @since JDK17
  */
@@ -99,15 +100,15 @@ public class PaymentServiceImpl implements PaymentService {
             ResponseCardListDto myCardListDto =
                     restTemplate.postForObject(url, headerDto, ResponseCardListDto.class);
 
-            if(myCardListDto.getCardDtoList() == null
-            || myCardListDto.getCardDtoList().isEmpty())
+            if (myCardListDto.getCardDtoList() == null
+                    || myCardListDto.getCardDtoList().isEmpty())
                 return myCardListDto;
 
             //ssafy금융의 카드상품 조회
             ResponseCardListDto ssafyCardListDto = ssafyCards(user);
 
-            if(ssafyCardListDto.getCardDtoList() != null
-                && !ssafyCardListDto.getCardDtoList().isEmpty()){
+            if (ssafyCardListDto.getCardDtoList() != null
+                    && !ssafyCardListDto.getCardDtoList().isEmpty()) {
 
                 for (CardDto myCard : myCardListDto.getCardDtoList()) {
                     for (CardDto card : ssafyCardListDto.getCardDtoList()) {
@@ -122,13 +123,13 @@ public class PaymentServiceImpl implements PaymentService {
             }
 
             return myCardListDto;
-        }catch(HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             if (e.getStatusCode().value() == 400) {
                 return null;
             } else {
                 throw e;  // 다른 상태 코드는 다시 던짐
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -159,13 +160,13 @@ public class PaymentServiceImpl implements PaymentService {
                     restTemplate.postForObject(url, headerDto, ResponseCardListDto.class);
 
             return ssafyCardListDto;
-        }catch(HttpClientErrorException e){
+        } catch (HttpClientErrorException e) {
             if (e.getStatusCode().value() == 400) {
                 return null;
             } else {
                 throw e;  // 다른 상태 코드는 다시 던짐
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
             return null;
         }
@@ -186,7 +187,6 @@ public class PaymentServiceImpl implements PaymentService {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
-
 
     }
 
