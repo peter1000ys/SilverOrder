@@ -23,16 +23,51 @@ pipeline {
             }
         }
         
-        stage('Frontend - Build and Deploy') {
+        stage('Frontend - Build') {
+            parallel {
+                stage('Web Version') {
+                    agent {
+                        docker {
+                            image 'node:20'
+                            args '-v $HOME/.npm:/root/.npm'
+                        }
+                    }
+                    steps {
+                        dir('Frontend/Admin_page/siverOrder') {
+                            sh 'node --version'
+                            sh 'npm --version'
+                            sh 'npm install'
+                            sh 'npm run build:web'
+                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
+                        }
+                    }
+                }
+                stage('App Version') {
+                    agent {
+                        docker {
+                            image 'node:20'
+                            args '-v $HOME/.npm:/root/.npm'
+                        }
+                    }
+                    steps {
+                        dir('Frontend/Customer_app/silverorder') {
+                            sh 'node --version'
+                            sh 'npm --version'
+                            sh 'npm install'
+                            sh 'npm run build:app'
+                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
+                        }
+                    }
+                }
+            }
+        }
+        
+        stage('Frontend - Docker Build and Deploy') {
             parallel {
                 stage('Web Version') {
                     steps {
                         dir('Frontend/Admin_page/siverOrder') {
-                            sh 'npm install'
-                            sh 'npm run build:web'
-                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'  
                             sh 'docker build -t frontend-web:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile .'
-                            
                             sh 'docker stop frontend-web || true'
                             sh 'docker rm frontend-web || true'
                             sh 'docker run -d --name frontend-web --network silverOrder -p 3000:80 frontend-web:${BUILD_NUMBER}'
@@ -42,11 +77,7 @@ pipeline {
                 stage('App Version') {
                     steps {
                         dir('Frontend/Customer_app/silverorder') {
-                            sh 'npm install'
-                            sh 'npm run build:app'
-                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'  
                             sh 'docker build -t frontend-app:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile .'
-                            
                             sh 'docker stop frontend-app || true'
                             sh 'docker rm frontend-app || true'
                             sh 'docker run -d --name frontend-app --network silverOrder -p 3001:80 frontend-app:${BUILD_NUMBER}'
