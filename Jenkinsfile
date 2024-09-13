@@ -31,11 +31,11 @@ pipeline {
                             sh 'npm install'
                             sh 'npm run build:web'
                             sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'  
-                            sh 'docker build -t frontend-web:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile.web .'
+                            sh 'docker build -t frontend-web:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile .'
                             
                             sh 'docker stop frontend-web || true'
                             sh 'docker rm frontend-web || true'
-                            sh 'docker run -d --name frontend-web --network studycow_network -p 3000:80 frontend-web:${BUILD_NUMBER}'
+                            sh 'docker run -d --name frontend-web --network silverOrder -p 3000:80 frontend-web:${BUILD_NUMBER}'
                         }
                     }
                 }
@@ -45,11 +45,11 @@ pipeline {
                             sh 'npm install'
                             sh 'npm run build:app'
                             sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'  
-                            sh 'docker build -t frontend-app:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile.app .'
+                            sh 'docker build -t frontend-app:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile .'
                             
                             sh 'docker stop frontend-app || true'
                             sh 'docker rm frontend-app || true'
-                            sh 'docker run -d --name frontend-app --network studycow_network -p 3001:80 frontend-app:${BUILD_NUMBER}'
+                            sh 'docker run -d --name frontend-app --network silverOrder -p 3001:80 frontend-app:${BUILD_NUMBER}'
                         }
                     }
                 }
