@@ -30,5 +30,5 @@ public class Card {
     private String discountCategory;
 
     @Column(name = "DISCOUNT_RATE")
-    private String discountRate;
+    private Double discountRate;
 }

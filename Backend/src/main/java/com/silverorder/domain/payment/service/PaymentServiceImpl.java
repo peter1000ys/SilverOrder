@@ -1,11 +1,11 @@
 package com.silverorder.domain.payment.service;
 
-import com.silverorder.domain.payment.dto.CardRequestDto;
-import com.silverorder.domain.payment.dto.RequestCardListDto;
-import com.silverorder.domain.payment.dto.TransactionRequestDto;
+import com.silverorder.domain.payment.dto.*;
 import com.silverorder.domain.payment.dto.RequestCardListDto;
 import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.payment.dto.TransactionRequestDto;
+import com.silverorder.domain.payment.entity.Payment;
+import com.silverorder.domain.payment.repository.PaymentRepository;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
 import com.silverorder.global.dto.*;
@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -36,6 +37,7 @@ import java.util.Random;
 public class PaymentServiceImpl implements PaymentService {
     private final UserJpaRepository userJpaRepository;
     private final RestTemplate restTemplate;
+    private final PaymentRepository paymentRepository;
 
     @Value("${ssafy.api.key}")
     private String apiKey;
@@ -65,7 +67,6 @@ public class PaymentServiceImpl implements PaymentService {
         HeaderDto headerDto = new HeaderDto();
         headerDto.setHeader(new HeaderApiDto("testing", apiKey, user.getUserApiKey()));
 
-        //return new HeaderApiDto("testing", apiKey, user.getUserApiKey(), ranNum);
         return headerDto;
     }
 
@@ -172,22 +173,45 @@ public class PaymentServiceImpl implements PaymentService {
     }
 
     /**
-     * 간편결제 카드 등록
+     * 간편결제 카드 조회
      * <pre>
-     *     간편결제에 사용할 카드를 등록한다
+     *     간편결제로 등록된 내 카드를 조회한다.
      * </pre>
      * @param userId : 유저 id
-     * @param requestCardListDto : 카드정보 리스트 dto
      * @throws Exception
      */
     @Override
-    @Transactional
-    public void registCard(long userId, RequestCardListDto requestCardListDto) throws Exception {
+    public List<ResponsePayCardDto> payCardList(long userId) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
+        return paymentRepository.myPayCardList(user);
+    }
 
+    /**
+     * 간편결제 카드 등록
+     * <pre>
+     *     조회된 카드를 선택하여
+     *     간편결제에 사용할 카드를 등록한다
+     * </pre>
+     * @param userId : 유저 id
+     * @param cardDtoList : 카드정보 dto 리스트
+     * @throws Exception
+     */
+    @Override
+    @Transactional
+    public void registCard(long userId, List<CardDto> cardDtoList) throws Exception {
+        //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        if(cardDtoList != null && !cardDtoList.isEmpty()){
+            for(CardDto cardDto : cardDtoList){
+                Payment payment = paymentRepository.registPayment(user, PaymentType.PAYMENT_CARD);
+                paymentRepository.registCard(user, cardDto, payment);
+            }
+        }
     }
 
 
