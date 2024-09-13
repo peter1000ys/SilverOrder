@@ -37,7 +37,7 @@ pipeline {
                             sh 'node --version'
                             sh 'npm --version'
                             sh 'npm install'
-                            sh 'npm run build:web'
+                            sh 'npm run build'
                             sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
                         }
                     }
@@ -54,7 +54,7 @@ pipeline {
                             sh 'node --version'
                             sh 'npm --version'
                             sh 'npm install'
-                            sh 'npm run build:app'
+                            sh 'npm run build'
                             sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
                         }
                     }
