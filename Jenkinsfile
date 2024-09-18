@@ -5,6 +5,9 @@ pipeline {
         DOCKER_NETWORK = "silverOrder"
         VITE_API_BASE_URL = 'https://j11c202.p.ssafy.io/silverorder/'
         SPRING_PROFILES_ACTIVE = 'prod'
+        OPENVIDU_SECRET = credentials('openvidu-secret-id')
+        RABBITMQ_KEY = credentials('rabbitmq-key')
+        MSSQL_KEY = credentials('mssql-key')
     }
     stages {
         stage('Checkout') {
