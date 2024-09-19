@@ -75,6 +75,7 @@ public class PaymentServiceImpl implements PaymentService {
      * <pre>
      *     ssafy 금융에서 생성한 내 카드를 조회한다.
      *     카드상품까지 조회하여 혜택내역 또한 갱신한다.
+     *     간편결제로 등록된 카드의 경우 리스트에 조회되지 않는다.
      * </pre>
      * @param userId : 유저 id
      * @throws Exception
@@ -103,6 +104,22 @@ public class PaymentServiceImpl implements PaymentService {
             if(myCardListDto.getCardDtoList() == null
             || myCardListDto.getCardDtoList().isEmpty())
                 return myCardListDto;
+
+            //간편결제로 등록된 카드 조회
+            List<ResponsePayCardDto> myPaymentCardDtoList = payCardList(userId);
+
+            if(myPaymentCardDtoList != null
+            && !myPaymentCardDtoList.isEmpty()){
+                //간편결제 카드번호와 금융카드번호 일치 시 리스트 노출하지 않음
+                for(ResponsePayCardDto payCard : myPaymentCardDtoList){
+                    myCardListDto.getCardDtoList().removeIf(
+                            myCard -> payCard.getCardNum().equals(myCard.getCardNo())
+                    );
+                }
+            }
+
+            //내 금융카드 리스트가 비어있을 경우 상품조회 건너뜀
+            if(myCardListDto.getCardDtoList().isEmpty()) return myCardListDto;
 
             //ssafy금융의 카드상품 조회
             ResponseCardListDto ssafyCardListDto = ssafyCards(user);

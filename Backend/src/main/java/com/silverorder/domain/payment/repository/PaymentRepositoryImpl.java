@@ -59,6 +59,16 @@ public class PaymentRepositoryImpl implements PaymentRepository{
                 .fetch();
     }
 
+    /**
+     * 간편결제 수단 등록
+     * <pre>
+     *      간편결제 수단을 등록합니다. 이후 카드 또는 계좌정보를 입력합니다.
+     * </pre>
+     * @param user : 유저 entity
+     * @param paymentType  : 결제수단 enum
+     * @return : 간편결제 entity
+     * @throws PersistenceException : JPA 표준 예외
+     */
     @Override
     public Payment registPayment(User user, PaymentType paymentType) {
         try{
@@ -76,6 +86,16 @@ public class PaymentRepositoryImpl implements PaymentRepository{
         }
     }
 
+    /**
+     * 간편결제 카드 등록
+     * <pre>
+     *      간편결제 카드를 등록합니다.
+     * </pre>
+     * @param user : 유저 entity
+     * @param cardDto : 카드정보 dto
+     * @param payment : 간편결제 entity
+     * @throws PersistenceException : JPA 표준 예외
+     */
     @Override
     public void registCard(User user, CardDto cardDto, Payment payment) throws PersistenceException {
         try {

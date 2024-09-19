@@ -60,13 +60,13 @@ public class PaymentController {
         return new ResponseEntity<>("간편결제 카드 등록 완료", HttpStatus.OK);
     }
 
-    /*@Operation(summary = "간편결제 카드 조회", description="간편결제로 등록한 카드들을 조회합니다.")
+    @Operation(summary = "간편결제 카드 조회", description="간편결제로 등록한 카드들을 조회합니다.")
     @GetMapping("/myCardList")
     public ResponseEntity<?> paymentCard(
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
         long userId = userDetails.getUser().getUserId();
-        return ResponseEntity.ok(paymentService.(userId));
-    }*/
+        return ResponseEntity.ok(paymentService.payCardList(userId));
+    }
 }
 
