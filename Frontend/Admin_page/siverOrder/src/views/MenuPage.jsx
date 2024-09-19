@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import '../styles/MenuPage.css';
 import MenuList from '../components/Menu/MenuList.jsx';
-// import AddMenu from '../components/Menu/AddMenu.jsx';
-// import AddCategory from '../components/Menu/AddCategory.jsx';
 import MenuDetail from '../components/Menu/MenuDetail.jsx';
+import SelectCategory from '../components/Menu/SelectCategory.jsx';
+import OptionCategory from '../components/Menu/OptionCategory.jsx';
+import MenuCategory from '../components/Menu/MenuCategory.jsx';
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MenuPage = () => {
     const [selectedMenu, setSelectedMenu] = useState(null);
     const [activeComponent, setActiveComponent] = useState('');
+    const [showOptionModal, setShowOptionModal] = useState(false); // Modal state
+    const navigate = useNavigate();
 
     const handleMenuSelect = (menu) => {
         setSelectedMenu(menu);
@@ -16,13 +21,29 @@ const MenuPage = () => {
     };
 
     const handleCategoryClick = () => {
-        setActiveComponent('category');
+        setActiveComponent('selectCategory');
     };
-    
+
     const handleNewMenuClick = () => {
-        setActiveComponent('newMenu');
+        navigate('/menu/AddMenu');
     };
-    
+
+    const handleOptionSelect = () => {
+        setShowOptionModal(true); // Show modal when "옵션" is selected
+    };
+
+    const handleMenuSelectCategory = () => {
+        setActiveComponent('menuCategory');
+    };
+
+    const handleCancel = () => {
+        setShowOptionModal(false); // Hide modal when cancel
+    };
+
+    const handleSubmit = () => {
+        setShowOptionModal(false); // Hide modal after submitting
+    };
+
     return (
         <div className="menu-page">
             <Navbar />
@@ -30,18 +51,43 @@ const MenuPage = () => {
                 <MenuList onMenuSelect={handleMenuSelect} />
                 <div className="menu-detail-container">
                     {selectedMenu && activeComponent === '' && (
-                    <MenuDetail menu={selectedMenu} />
+                        <MenuDetail menu={selectedMenu} />
+                    )}
+                    {activeComponent === 'selectCategory' && (
+                        <SelectCategory 
+                            onOptionSelect={handleOptionSelect} 
+                            onMenuSelect={handleMenuSelectCategory} 
+                        />
+                    )}
+                    {activeComponent === 'menuCategory' && (
+                        <MenuCategory onCancel={handleCancel} onSubmit={handleSubmit} />
                     )}
                 </div>
-                {/* {activeComponent === 'category' && <AddCategory />}
-                {activeComponent === 'newMenu' && <AddMenu />} */}
                 <div className="menu-actions">
                     <button onClick={handleCategoryClick}>카테고리 추가</button>
                     <button onClick={handleNewMenuClick}>상품 추가</button>
                 </div>
             </div>
+
+            {/* Bootstrap Modal for Option Category */}
+            <div className={`modal fade ${showOptionModal ? 'show' : ''}`} style={{ display: showOptionModal ? 'block' : 'none' }}>
+                <div className="modal-dialog">
+                    <div className="modal-content">
+                        <div className="modal-header">
+                            <h5 className="modal-title">옵션 카테고리 추가</h5>
+                            <button type="button" className="btn-close" aria-label="Close" onClick={handleCancel}></button>
+                        </div>
+                        <div className="modal-body">
+                            <OptionCategory onCancel={handleCancel} onSubmit={handleSubmit} />
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            {/* Bootstrap modal backdrop */}
+            {showOptionModal && <div className="modal-backdrop fade show"></div>}
         </div>
     );
-}
+};
 
 export default MenuPage;

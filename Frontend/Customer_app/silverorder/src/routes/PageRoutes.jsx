@@ -30,6 +30,12 @@ import OutdoorPage from "../views/OutdoorPage.jsx";
 // 주변 매장 찾기 페이지
 import FindStorePage from "../views/FindStorePage.jsx";
 
+// 장바구니 페이지
+import CartPage from "../views/CartPage.jsx";
+
+// 옵션 선택 페이지
+import OptionChoicePage from "../views/OptionChoicePage.jsx";
+
 const PageRoutes = () => {
   const { isLogin } = useInfoStore();
 
@@ -67,6 +73,12 @@ const PageRoutes = () => {
 
           {/* 내 카드 페이지 */}
           <Route path="/mycard" element={<MycardPage />} />
+
+          {/* 장바구니 페이지 */}
+          <Route path="/shoppingcart" element={<CartPage />} />
+
+          {/* 옵션 선택 페이지 */}
+          <Route path="/choiceoption" element={<OptionChoicePage />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to="/signin" />} />

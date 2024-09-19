@@ -1,6 +1,7 @@
-package com.silverorder.global.dto;
+package com.silverorder.domain.payment.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.silverorder.global.dto.CardDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;

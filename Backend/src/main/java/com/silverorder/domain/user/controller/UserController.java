@@ -14,6 +14,8 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.Map;
+
 /**
  * <pre>
  *     회원 관리 컨트롤러 클래스
@@ -48,6 +50,20 @@ public class UserController {
     public ResponseEntity<?> deleteUser(@RequestParam("id") Long id) throws Exception {
         userService.deleteUser(id);
         return new ResponseEntity<>("회원 탈퇴 성공", HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "금융 연동",
+            description = "은행 이메일로 은행과 연동합니다. <br> { \"userApiEmail\" : \"String\" } 전달")
+    @ResponseStatus(HttpStatus.OK)
+    @PostMapping("/me/connect")
+    public ResponseEntity<?> connectBank(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @RequestBody Map<String, String> requestBody
+    ) throws Exception {
+        userService.connectBank(customUserDetails.getUser().getUserId(), requestBody.get("userApiEmail"));
+
+        return new ResponseEntity<>("은행 연동 성공", HttpStatus.OK);
     }
 
 }

@@ -43,6 +43,8 @@ public class UserDto {
 
     private LocalDateTime userUpdateDate;
 
+    private String userApiEmail;
+
     /**
      * DTO를 회원 엔터티로 변환하는 함수
      *
@@ -57,6 +59,7 @@ public class UserDto {
                 .userRole(this.userRole)
                 .userJoinDate(this.userJoinDate)
                 .userUpdateDate(this.userUpdateDate)
+                .userApiEmail(this.userApiEmail)
                 .build();
     }
 

@@ -1,8 +1,9 @@
-package com.silverorder.global.dto;
+package com.silverorder.domain.payment.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -10,9 +11,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.Random;
 
 @Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class HeaderApiDto {
+public class CardPayHeaderApiDto {
     private String apiName;
     private String transmissionDate;
     private String transmissionTime;
@@ -21,9 +23,8 @@ public class HeaderApiDto {
     private String apiServiceCode;
     private String institutionTransactionUniqueNo;
     private String apiKey;
-    private String userKey;
 
-    public HeaderApiDto(String apiName, String apiKey, String userKey){
+    public CardPayHeaderApiDto(String apiName, String apiKey) {
         Random random = new Random();
 
         this.apiName = apiName;
@@ -38,7 +39,6 @@ public class HeaderApiDto {
                 .format(DateTimeFormatter.ofPattern("yyyyMMddHHmmss"))
                 + String.format("%06d", random.nextInt(1000000));
         this.apiKey = apiKey;
-        this.userKey = userKey;
     }
 
 }

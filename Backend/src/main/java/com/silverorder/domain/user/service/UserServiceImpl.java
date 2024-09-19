@@ -11,13 +11,17 @@ import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -37,6 +41,10 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     private final JwtUtil jwtUtil;
     private final PasswordEncoder passwordEncoder;
+    private final RestTemplate restTemplate;
+
+    @Value("${ssafy.api.key}")
+    private String apiKey;
 
     /**
      * 로그인 메서드
@@ -129,6 +137,30 @@ public class UserServiceImpl implements UserService {
 
         //영속화
         userRepository.addAdminWithStoreId(user, adminRegisterRequestDto.getStoreId());
+    }
+
+    @Transactional
+    @Override
+    public void connectBank(Long userId, String userApiEmail) throws Exception {
+        // SSAFY 금융망 회원 조회 url
+        String url = "https://finopenapi.ssafy.io/ssafy/api/v1/member/search";
+
+        Map<String, String> requestDto = new HashMap<>();
+
+        requestDto.put("userId", userApiEmail);
+        requestDto.put("apiKey", apiKey);
+
+        Map<String, String> response = restTemplate.postForObject(url, requestDto, Map.class);
+
+        System.out.println(response);
+
+        // responseMessage 추출, 영속화
+        if (response != null && response.get("userKey") != null) {
+            // userKey 조회 성공 시, DB 저장
+            userRepository.connectBank(userId, userApiEmail, response.get("userKey"));
+        } else {
+            throw new CustomException(ErrorCode.BANK_USER_NOT_FOUND);
+        }
     }
 
 }

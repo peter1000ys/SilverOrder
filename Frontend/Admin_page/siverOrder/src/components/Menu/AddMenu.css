@@ -1,0 +1,137 @@
+.add-menu-container {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 80px 20px 20px 20px;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.add-menu-title {
+  text-align: left;
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.add-menu-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-left,
+.form-right {
+  flex: 1; 
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  font-size: 1.2rem;
+  margin-bottom: 5px;
+  display: block;
+}
+
+.form-group input,
+.form-group textarea,
+.option-selector select,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group textarea {
+  resize: vertical;
+  height: 100px;
+}
+
+.radio-group {
+  display: flex;
+  gap: 20px;
+}
+
+.radio-group label {
+  font-size: 1rem;
+}
+
+.form-group input[type="radio"] {
+  margin-right: 5px;
+}
+
+.form-group input[type="file"] {
+  font-size: 1rem;
+}
+
+.option-selector {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.add-option-button {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.add-option-button:hover {
+  background-color: #218838;
+}
+
+.added-options-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.added-options-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #f1f1f1;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.remove-option-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.remove-option-button:hover {
+  background-color: #c82333;
+}
+
+/* Submit button - appears at the bottom of the content */
+.submit-button {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 20px;
+  font-size: 1.2rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 20px; /* Provide space at the bottom */
+  width: 100%;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.submit-button:hover {
+  background-color: #0056b3;
+}

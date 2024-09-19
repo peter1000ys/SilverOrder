@@ -10,16 +10,9 @@
 
 .order-header {
     width: 100%;
-    height: calc(100 / 1440 * 100vw);
     background-color: #F3F1F1;
     padding: calc(10 / 1440 * 100vw);
     
-}
-.order-header h3 {
-    font-size: calc(30 / 1440 * 100vw);
-}
-.order-header h4 {
-    font-size: calc(30 / 1440 * 100vw);
 }
 
 .order-detail-content {

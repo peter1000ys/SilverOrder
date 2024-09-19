@@ -1,0 +1,106 @@
+.option-menu-title {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: calc(30 / 1440 * 100vw) 0;
+}
+
+.option-menu-title h1 {
+  margin: 0;
+  font-size: calc(45 / 1440 * 100vw);
+}
+
+.option-select-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: calc(30 / 1440 * 100vw);
+}
+
+.option-select-title {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.option-select-title h2 {
+  margin: 0;
+  margin-left: calc(10 / 1440 * 100vw);
+  font-size: calc(30 / 1440 * 100vw);
+}
+
+.options-container {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.option-box {
+  width: calc(100 / 1440 * 100vw);
+  height: calc(100 / 1440 * 100vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  border: calc(1 / 1440 * 100vw) solid #ccc;
+  border-radius: calc(10 / 1440 * 100vw);
+  margin: calc(8 / 1440 * 100vw);
+  cursor: pointer;
+  text-align: center;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.option-box.selected {
+  background-color: #1428a0;
+  color: #ffffff;
+  font-weight: bold;
+  border: calc(3 / 1440 * 100vw) solid black;
+}
+
+.options-container p {
+  margin: 0;
+  font-size: calc(20 / 1440 * 100vw);
+}
+
+.option-totalPrice-box {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin: calc(30 / 1440 * 100vw) 0;
+}
+
+.option-totalPrice-box p {
+  font-size: calc(30 / 1440 * 100vw);
+  margin: 0;
+}
+
+.option-totalPrice-box span {
+  border: calc(1 / 1440 * 100vw) solid #666666;
+  border-radius: calc(8 / 1440 * 100vw);
+  padding: calc(5 / 1440 * 100vw);
+  font-weight: bold;
+}
+
+.option-menu-add {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: calc(15 / 1440 * 100vw);
+}
+
+.option-menu-addBtn {
+  width: calc(300 / 1440 * 100vw);
+  height: calc(60 / 1440 * 100vw);
+  border: none;
+  border-radius: calc(10 / 1440 * 100vw);
+  background-color: #1428a0;
+  color: #ffffff;
+  font-size: calc(30 / 1440 * 100vw);
+  font-weight: bold;
+  cursor: pointer;
+}

@@ -3,13 +3,20 @@ import { persist } from "zustand/middleware";
 import axios from "axios";
 import Notiflix from "notiflix";
 
-const API_URL = "http://localhost:8080/silverorder/"
+const API_URL = 
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
 
 const useInfoStore = create(
     persist(
         (set, get) => ({
             isLogin: false,
             token: null,
+            userInfo: {
+              userId: 0,
+              userEmail: null,
+              storeId: 0,
+
+            },
 
             // 회원 가입
             sendRegisterRequest: async (userEmail, userPassword, userBirth, storeId) => {
@@ -48,6 +55,9 @@ const useInfoStore = create(
                     set({
                       token: response.data.token ?? null,
                       isLogin: true,
+                      userId: response.data.userId ?? 0,
+                      userEmail: response.data.userEmail ?? null,
+                      storeId: response.data.storeId ?? 0,
                     });
                     return true;
                   } else {

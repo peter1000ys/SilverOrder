@@ -31,4 +31,6 @@ public interface UserService {
     void deleteUser(Long userId) throws Exception;
 
     void registerAdmin(AdminRegisterRequestDto adminRegisterRequestDto) throws Exception;
+
+    void connectBank(Long userId, String userApiEmail) throws Exception;
 }
