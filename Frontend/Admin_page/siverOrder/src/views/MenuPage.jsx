@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Navbar from '../components/Navbar/Navbar';
 import '../styles/MenuPage.css';
 import MenuList from '../components/Menu/MenuList.jsx';
-import AddMenu from '../components/Menu/AddMenu.jsx';
 import MenuDetail from '../components/Menu/MenuDetail.jsx';
 import SelectCategory from '../components/Menu/SelectCategory.jsx';
 import OptionCategory from '../components/Menu/OptionCategory.jsx';
@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const MenuPage = () => {
     const [selectedMenu, setSelectedMenu] = useState(null);
     const [activeComponent, setActiveComponent] = useState('');
+    const navigate = useNavigate();
 
     const handleMenuSelect = (menu) => {
         setSelectedMenu(menu);
@@ -23,7 +24,7 @@ const MenuPage = () => {
     };
 
     const handleNewMenuClick = () => {
-        setActiveComponent('newMenu');
+        navigate('/menu/AddMenu');
     };
 
     const handleOptionSelect = () => {
@@ -39,7 +40,6 @@ const MenuPage = () => {
     };
 
     const handleSubmit = () => {
-        // Add logic to handle submission here
         setActiveComponent('');
     };
 
@@ -64,7 +64,6 @@ const MenuPage = () => {
                     {activeComponent === 'menuCategory' && (
                         <MenuCategory onCancel={handleCancel} onSubmit={handleSubmit} />
                     )}
-                    {activeComponent === 'newMenu' && <AddMenu />}
                 </div>
                 <div className="menu-actions">
                     <button onClick={handleCategoryClick}>카테고리 추가</button>
