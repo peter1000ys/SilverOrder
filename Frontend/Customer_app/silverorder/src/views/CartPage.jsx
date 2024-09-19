@@ -52,7 +52,7 @@ const CartPage = () => {
                 <div className="cart-item-info">
                   <p id="cart-item-title">{item.name}</p>
                   <p id="cart-item-options">
-                    {item.options === null
+                    {item.options === null || item.options.length === 0
                       ? "옵션: X"
                       : `옵션: ${item.options
                           .map((option) => option.optionName)
