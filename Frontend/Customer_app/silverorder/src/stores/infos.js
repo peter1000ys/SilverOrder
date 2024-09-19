@@ -11,6 +11,13 @@ const useInfoStore = create(
     (set, get) => ({
       isLogin: false,
       token: null,
+      userInfo: {
+        userId: 0,
+        userEmail: null,
+        userBirth: null,
+        userRole: null,
+        userApiEmail: null,
+      },
 
       // 회원가입
       sendRegisterRequest: async (userEmail, userPassword, userBirth) => {
@@ -44,6 +51,13 @@ const useInfoStore = create(
             set({
               token: response.data.token,
               isLogin: true,
+              userInfo: {
+                userId: response.data.userId,
+                userEmail: response.data.userEmail,
+                userBirth: response.data.userBirth,
+                userRole: response.data.userRole,
+                userApiEmail: response.data.userApiEmail,
+              },
             });
             return true;
           } else {
