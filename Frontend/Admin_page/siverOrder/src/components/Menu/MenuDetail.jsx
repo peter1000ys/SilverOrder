@@ -5,7 +5,7 @@ import './MenuDetail.css';
 const MenuDetail = ({ menu }) => {
   const navigate = useNavigate();
   const handleEditClick = () => {
-    navigate('/menu/Edit', { state: { menu } });
+    navigate('/silverorder/admin/menu/Edit', { state: { menu } });
   };
   return (
     <div className="menu-detail">

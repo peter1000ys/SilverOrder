@@ -17,7 +17,7 @@ const MenuInfo = ({ data }) => {
   const go_to_optionpage = ({ category, productId, name, price, options }) => {
     // productId, name, price, options를 사용하여 새로운 item 객체 생성
     const item = { category, productId, name, price, options };
-    navigate("/choiceoption", { state: { item } });
+    navigate("/silverorder/choiceoption", { state: { item } });
   };
 
   return (

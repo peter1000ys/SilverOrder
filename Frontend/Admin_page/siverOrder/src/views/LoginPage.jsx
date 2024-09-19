@@ -21,7 +21,7 @@ const LoginPage = () => {
   };
 
   if (isLogin) {
-    return <Navigate to="/order" />; // 로그인 상태라면 메인페이지로 redirect
+    return <Navigate to="/silverorder/admin/order" />; // 로그인 상태라면 메인페이지로 redirect
   }
 
   return (

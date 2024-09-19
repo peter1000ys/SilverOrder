@@ -59,7 +59,7 @@ const AddMenu = () => {
         });
 
         // Redirect to menu page after submission
-        navigate('/menu');
+        navigate('/silverorder/admin/menu');
     };
 
     return (
