@@ -17,12 +17,13 @@
   flex-wrap: wrap;
   gap: calc(5 / 1440 * 100vw);
   justify-content: space-between;
+  align-items: center;
   height: 90%;
 }
 
 .menu-item {
   width: 30%; /* 세 개의 아이템을 한 줄에 나란히 배치 */
-  height: 55%;
+  height: 70%;
   border: 1px solid #ddd;
   border-radius: calc(10 / 1440 * 100vw);
   padding: calc(15 / 1440 * 100vw);
@@ -52,19 +53,17 @@
   color: #555;
 }
 
-.pagination {
-  position: absolute;
-  bottom: 0; 
-  left: 0;
-  right: 0;
+/* Pagination styling */
+.pagination-c {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: calc(10 / 1440 * 100vw) 0;
   background-color: white;
+  margin-top: auto; /* 페이징 버튼이 항상 맨 아래에 고정되도록 */
 }
 
-.pagination button {
+.pagination-c button {
   padding: calc(12 / 1440 * 100vw) calc(50 / 1440 * 100vw);
   margin: 0 calc(50 / 1440 * 100vw);
   background-color: #007bff;
@@ -76,11 +75,11 @@
   font-size: calc(25 / 1440 * 100vw);
 }
 
-.pagination button:disabled {
+.pagination-c button:disabled {
   background-color: #ccc;
   cursor: not-allowed;
 }
 
-.pagination span {
+.pagination-c span {
   font-size: calc(25 / 1440 * 100vw);
 }

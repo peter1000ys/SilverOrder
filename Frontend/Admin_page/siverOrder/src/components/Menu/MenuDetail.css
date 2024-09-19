@@ -29,9 +29,15 @@
 }
 
 .menu-description {
-  height: 200px;
+  height: 120px;
   vertical-align: top;
 }
+
+.menu-option {
+  height: 120px;
+  vertical-align: top;
+}
+
 .menu-col {
   display: flex;
   justify-content: space-between;

@@ -21,6 +21,8 @@ import DashboardPage from "../views/DashboardPage.jsx";
 
 import AddMenu from "../components/Menu/AddMenu.jsx";
 
+import EditMenu from "../components/Menu/EditMenu.jsx";
+
 const PageRoutes = () => {
 
     const { isLogin } = useInfoStore();
@@ -51,6 +53,8 @@ const PageRoutes = () => {
                     <Route path="/dashboard" element={<DashboardPage />} />
                     {/* 메뉴 추가 페이지 */}
                     <Route path="/menu/AddMenu" element={<AddMenu />}/>
+                    {/* 메뉴 수정 페이지 */}
+                    <Route path="/menu/Edit" element={<EditMenu />}/>
                 </>
             )}
         </Routes>
