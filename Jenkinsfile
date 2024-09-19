@@ -37,11 +37,13 @@ pipeline {
                     }
                     steps {
                         dir('Frontend/Admin_page/siverOrder') {
+                        
                             sh 'node --version'
                             sh 'npm --version'
+                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
                             sh 'npm install'
                             sh 'npm run build'
-                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
+                            
                         }
                     }
                 }
@@ -56,9 +58,10 @@ pipeline {
                         dir('Frontend/Customer_app/silverorder') {
                             sh 'node --version'
                             sh 'npm --version'
+                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
                             sh 'npm install'
                             sh 'npm run build'
-                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
+                            
                         }
                     }
                 }
