@@ -129,8 +129,10 @@ const OptionChoicePage = () => {
       </div>
 
       {/* 장바구니에 담는 버튼 */}
-      <div>
-        <button onClick={handleAddToCart}>장바구니에 담기</button>
+      <div className="option-menu-add">
+        <button className="option-menu-addBtn" onClick={handleAddToCart}>
+          장바구니에 담기
+        </button>
       </div>
     </div>
   );

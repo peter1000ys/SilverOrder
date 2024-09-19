@@ -84,3 +84,23 @@
   padding: calc(5 / 1440 * 100vw);
   font-weight: bold;
 }
+
+.option-menu-add {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: calc(15 / 1440 * 100vw);
+}
+
+.option-menu-addBtn {
+  width: calc(300 / 1440 * 100vw);
+  height: calc(60 / 1440 * 100vw);
+  border: none;
+  border-radius: calc(10 / 1440 * 100vw);
+  background-color: #1428a0;
+  color: #ffffff;
+  font-size: calc(30 / 1440 * 100vw);
+  font-weight: bold;
+  cursor: pointer;
+}
