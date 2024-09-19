@@ -22,7 +22,7 @@
 
 .form-left,
 .form-right {
-  flex: 1; /* Both sides take equal width */
+  flex: 1; 
 }
 
 .form-group {

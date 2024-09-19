@@ -1,7 +1,12 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import './MenuDetail.css';
 
 const MenuDetail = ({ menu }) => {
+  const navigate = useNavigate();
+  const handleEditClick = () => {
+    navigate('/menu/Edit', { state: { menu } });
+  };
   return (
     <div className="menu-detail">
       <div className="menu-header">
@@ -28,7 +33,7 @@ const MenuDetail = ({ menu }) => {
                 <td>설명:</td>
                 <td>{menu.description}</td>
               </tr>
-              <tr>
+              <tr className='menu-option'>
                 <td>옵션:</td>
                 <td>ICE</td>
               </tr>
@@ -36,7 +41,7 @@ const MenuDetail = ({ menu }) => {
           </table>
           <div className="action-buttons">
             <button className="cancel">취소</button>
-            <button className="accept">수정</button>
+            <button className="accept" onClick={handleEditClick}>수정</button>
           </div>
         </div>
       

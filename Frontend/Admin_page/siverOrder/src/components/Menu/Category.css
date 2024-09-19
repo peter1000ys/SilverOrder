@@ -1,40 +1,81 @@
 .option-category, .menu-category {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  
-  .option-category label, .menu-category label {
-    font-weight: bold;
-  }
-  
-  .option-category input, .menu-category input {
-    padding: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-  }
-  
-  .action-buttons {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-  }
-  
-  .cancel {
-    background-color: #FF5B5B;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-  }
-  
-  .submit {
-    background-color: #2D8DFF;
-    color: white;
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    border: none;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.option-category label, .menu-category label {
+  font-weight: bold;
+}
+
+.option-category input, .menu-category input, .option-category select {
+  padding: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+.add-option-button {
+  background-color: #28a745;
+  color: white;
+  padding: 8px 12px;
+  font-size: 1rem;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.add-option-button:hover {
+  background-color: #218838;
+}
+
+.added-options-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.added-options-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px;
+  background-color: #f1f1f1;
+  margin-bottom: 5px;
+  border-radius: 4px;
+}
+
+.remove-option-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.remove-option-button:hover {
+  background-color: #c82333;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.cancel {
+  background-color: #FF5B5B;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
+
+.submit {
+  background-color: #2D8DFF;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+}
