@@ -33,7 +33,8 @@ public class LoginResponseDto extends UserDto {
                 userDto.getUserBirth(),
                 userDto.getUserRole(),
                 userDto.getUserJoinDate(),
-                userDto.getUserUpdateDate());
+                userDto.getUserUpdateDate(),
+                userDto.getUserApiEmail());
         this.token = token;
     }
 }

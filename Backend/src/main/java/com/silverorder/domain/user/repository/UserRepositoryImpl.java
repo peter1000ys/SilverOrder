@@ -49,7 +49,8 @@ public class UserRepositoryImpl implements UserRepository {
                         user.userBirth,
                         user.userRole,
                         user.userJoinDate,
-                        user.userUpdateDate
+                        user.userUpdateDate,
+                        user.userApiEmail
                 ))
                 .from(user)
                 .where(user.userEmail.eq(email))
@@ -73,7 +74,8 @@ public class UserRepositoryImpl implements UserRepository {
                         user.userBirth,
                         user.userRole,
                         user.userJoinDate,
-                        user.userUpdateDate
+                        user.userUpdateDate,
+                        user.userApiEmail
                 ))
                 .from(user)
                 .where(user.id.eq(id))
@@ -106,6 +108,16 @@ public class UserRepositoryImpl implements UserRepository {
     public void deleteUser(Long userId) throws PersistenceException {
         queryFactory
                 .delete(user)
+                .where(user.id.eq(userId))
+                .execute();
+    }
+
+    @Override
+    public void connectBank(Long userId, String userApiEmail, String userApiKey) throws PersistenceException {
+        queryFactory
+                .update(user)
+                .set(user.userApiEmail, userApiEmail)
+                .set(user.userApiKey, userApiKey)
                 .where(user.id.eq(userId))
                 .execute();
     }
