@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import "./styles/EmailAPIModal.css";
+import usePurchaseStore from "../../stores/purchase";
 
 const EmailAPIModal = ({ onClose }) => {
   const [inputEmail, setInputEmail] = useState("");
+  const { requestFinanceAPI } = usePurchaseStore();
 
   // 이메일 입력 처리
   const handleInputChange = (e) => {
@@ -10,8 +12,20 @@ const EmailAPIModal = ({ onClose }) => {
   };
 
   // 이메일 검증 및 API 호출 처리
-  const handleConfirm = () => {
-    onClose(); // 모달 닫기
+  const handleConfirm = async () => {
+    if (inputEmail.trim() === "") {
+      alert("이메일을 입력해주세요.");
+      return;
+    }
+
+    try {
+      await requestFinanceAPI(inputEmail);
+      alert("이메일 인증이 완료되었습니다.");
+      onClose(); // 모달 닫기
+    } catch (error) {
+      console.error("이메일 인증 오류:", error);
+      alert("이메일 인증에 실패하였습니다. 다시 시도해주세요.");
+    }
   };
 
   return (
