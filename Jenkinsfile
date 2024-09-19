@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_NETWORK = "silverOrder"
-        VITE_API_BASE_URL = 'https://j11c202.p.ssafy.io/silverorder/api/'
+        VITE_API_BASE_URL = 'https://j11c202.p.ssafy.io/silverorder/'
         SPRING_PROFILES_ACTIVE = 'prod'
         SSAFY_API_KEY = credentials('ssafy-api-key')
         MSSQL_KEY = credentials('mssql-key')
