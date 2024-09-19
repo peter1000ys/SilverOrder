@@ -31,6 +31,7 @@ public enum ErrorCode {
     INVALID_TOKEN(HttpStatus.UNAUTHORIZED,"유효하지 않은 토큰입니다. 재로그인 해주세요"),
     DUPLICATE_USEREMAIL(HttpStatus.CONFLICT,"중복된 유저 이메일입니다."),
     WRONG_PASSWORD(HttpStatus.BAD_REQUEST,"비밀번호가 틀렸습니다."),
+    BANK_USER_NOT_FOUND(HttpStatus.NOT_FOUND, "SSAFY 금융망에서 해당 회원 조회에 실패하였습니다."),
 
 
     //가맹점
