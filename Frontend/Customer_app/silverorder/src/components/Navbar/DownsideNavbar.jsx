@@ -5,19 +5,19 @@ const DownsideNavbar = () => {
   const navigate = useNavigate();
 
   const go_to_shoppingcart = () => {
-    navigate("/shoppingcart");
+    navigate("/silverorder/shoppingcart");
   };
 
   const go_to_orderlist = () => {
-    navigate("/orderlist");
+    navigate("/silverorder/orderlist");
   };
 
   const go_store_main = () => {
-    navigate("/store");
+    navigate("/silverorder/store");
   };
 
   const go_to_mypage = () => {
-    navigate("/mypage");
+    navigate("/silverorder/mypage");
   };
 
   return (

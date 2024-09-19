@@ -23,11 +23,11 @@ const SigninPage = () => {
   };
 
   const handleCancel = () => {
-    navigate("/");
+    navigate("/silverorder/");
   };
 
   if (isLogin) {
-    return <Navigate to="/store" />; // 로그인 상태라면 상점 페이지로 redirect
+    return <Navigate to="/silverorder/store" />; // 로그인 상태라면 상점 페이지로 redirect
   }
 
   return (

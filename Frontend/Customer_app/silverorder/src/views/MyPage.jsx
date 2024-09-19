@@ -5,15 +5,15 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const go_to_orderstate = () => {
-    navigate("/orderstate");
+    navigate("/silverorder/orderstate");
   };
 
   const go_to_orderlist = () => {
-    navigate("/orderlist");
+    navigate("/silverorder/orderlist");
   };
 
   const go_to_mycard = () => {
-    navigate("/mycard");
+    navigate("/silverorder/mycard");
   };
 
   return (
