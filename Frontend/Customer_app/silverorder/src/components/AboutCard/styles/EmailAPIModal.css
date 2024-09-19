@@ -51,6 +51,7 @@
 .emailAPImodal-cancelBtn {
   width: calc(75 / 1440 * 100vw);
   height: calc(40 / 1440 * 100vw);
+  font-size: calc(20 / 1440 * 100vw);
   border: none;
   border-radius: calc(10 / 1440 * 100vw);
   cursor: pointer;

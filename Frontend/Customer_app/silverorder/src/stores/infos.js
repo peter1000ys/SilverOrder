@@ -76,6 +76,36 @@ const useInfoStore = create(
         set({ isLogin: false, token: null });
         navigate("/signin");
       },
+
+      // 회원 정보 조회
+      getUserInfo: async () => {
+        const { token } = get();
+
+        try {
+          const response = await axios.get(`${API_URL}user/me`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+
+          if (response.status === 200) {
+            set({
+              userInfo: {
+                userId: response.data.userId,
+                userEmail: response.data.userEmail,
+                userBirth: response.data.userBirth,
+                userRole: response.data.userRole,
+                userApiEmail: response.data.userApiEmail,
+              },
+            });
+            console.log("회원 정보 조회 성공:", response.data);
+          } else {
+            console.log("회원 정보 조회 실패");
+          }
+        } catch (error) {
+          console.error("회원 정보 조회 오류:", error);
+        }
+      },
     }),
     {
       name: "info-storage",
