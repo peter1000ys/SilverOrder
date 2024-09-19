@@ -102,6 +102,7 @@ pipeline {
                         -p 8080:8080 \
                         -e SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} \
                         -e SSAFY_API_KEY=${SSAFY_API_KEY} \
+                        -e MSSQL_KEY=${MSSQL_KEY} \
                         backend:${BUILD_NUMBER}
                     """
                 }
