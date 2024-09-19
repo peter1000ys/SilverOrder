@@ -12,7 +12,7 @@ const UpsideNavbar = () => {
   };
 
   const go_to_orderstate = () => {
-    navigate("/orderstate");
+    navigate("/silverorder/orderstate");
   };
 
   const handleLogout = () => {

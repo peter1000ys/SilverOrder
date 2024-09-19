@@ -81,7 +81,7 @@ const OptionChoicePage = () => {
     };
 
     addToCart(newItem); // Zustand store의 addToCart 함수 호출
-    navigate("/shoppingcart"); // 장바구니 페이지로 이동
+    navigate("/silverorder/shoppingcart"); // 장바구니 페이지로 이동
   };
 
   return (

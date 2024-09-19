@@ -71,7 +71,7 @@ const useInfoStore = create(
               // 로그아웃
               logout: (navigate) => {
                 set({ isLogin: false, token: null });
-                navigate("/login");
+                navigate("/silverorder/admin/login");
               },
 
         }),

@@ -1,0 +1,27 @@
+.mycard-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mycard-title h1 {
+  font-size: calc(40 / 1440 * 100vw);
+}
+
+.mycard-addcard {
+  width: 90%;
+  height: calc(200 / 1440 * 100vw);
+  border: calc(1 / 1440 * 100vw) solid #cccccc;
+  border-radius: calc(10 / 1440 * 100vw);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.mycard-addcard img {
+  width: calc(120 / 1440 * 100vw);
+  height: calc(120 / 1440 * 100vw);
+}

@@ -5,11 +5,11 @@ const StartPage = () => {
   const navigate = useNavigate();
 
   const go_to_sign_up = () => {
-    navigate("/signup");
+    navigate("/silverorder/signup");
   };
 
   const go_to_sign_in = () => {
-    navigate("/signin");
+    navigate("/silverorder/signin");
   };
 
   return (

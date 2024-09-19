@@ -42,46 +42,49 @@ const PageRoutes = () => {
   return (
     <Routes>
       {/* QR 코드를 찍어서 들어왔을 때의 시작 페이지 */}
-      <Route path="/" element={<StartPage />} />
+      <Route path="/silverorder/" element={<StartPage />} />
 
       {/* 회원가입 */}
-      <Route path="/signup" element={<SignupPage />} />
+      <Route path="/silverorder/signup" element={<SignupPage />} />
 
       {/* 로그인 */}
-      <Route path="/signin" element={<SigninPage />} />
+      <Route path="/silverorder/signin" element={<SigninPage />} />
 
       {/* QR 코드를 찍지 않고 들어왔을 때의 시작 페이지 */}
-      <Route path="/outdoor" element={<OutdoorPage />} />
+      <Route path="/silverorder/outdoor" element={<OutdoorPage />} />
 
       {/* 주변 매장 찾아볼 페이지 */}
-      <Route path="/findstore" element={<FindStorePage />} />
+      <Route path="/silverorder/findstore" element={<FindStorePage />} />
 
       {/* 로그인 여부에 따라 페이지 접근 제한 */}
       {isLogin ? (
         <>
           {/* 가게 페이지 */}
-          <Route path="/store" element={<StorePage />} />
+          <Route path="/silverorder/store" element={<StorePage />} />
 
           {/* 마이 페이지 */}
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/silverorder/mypage" element={<MyPage />} />
 
           {/* 주문 현황 확인 페이지 */}
-          <Route path="/orderstate" element={<OrderstatePage />} />
+          <Route path="/silverorder/orderstate" element={<OrderstatePage />} />
 
           {/* 주문 내역 확인 페이지 */}
-          <Route path="/orderlist" element={<OrderlistPage />} />
+          <Route path="/silverorder/orderlist" element={<OrderlistPage />} />
 
           {/* 내 카드 페이지 */}
-          <Route path="/mycard" element={<MycardPage />} />
+          <Route path="/silverorder/mycard" element={<MycardPage />} />
 
           {/* 장바구니 페이지 */}
-          <Route path="/shoppingcart" element={<CartPage />} />
+          <Route path="/silverorder/shoppingcart" element={<CartPage />} />
 
           {/* 옵션 선택 페이지 */}
-          <Route path="/choiceoption" element={<OptionChoicePage />} />
+          <Route
+            path="/silverorder/choiceoption"
+            element={<OptionChoicePage />}
+          />
         </>
       ) : (
-        <Route path="*" element={<Navigate to="/signin" />} />
+        <Route path="*" element={<Navigate to="/silverorder/signin" />} />
       )}
     </Routes>
   );
