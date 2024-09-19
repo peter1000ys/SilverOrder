@@ -1,0 +1,133 @@
+.cart-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-title {
+  width: 100%;
+}
+
+.cart-title h1 {
+  font-size: calc(40 / 1440 * 100vw);
+  font-weight: bold;
+  text-align: center;
+}
+
+.cart-menu {
+  width: 100%;
+}
+
+#cart-item-none {
+  text-align: center;
+  font-size: calc(20 / 1440 * 100vw);
+}
+
+.cart-menu-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.cart-category-counts {
+  width: 95%;
+}
+
+.cart-category-counts p {
+  font-size: calc(30 / 1440 * 100vw);
+  margin: 0;
+  margin-bottom: calc(20 / 1440 * 100vw);
+}
+
+.cart-item {
+  width: 95%;
+  border: calc(1 / 1440 * 100vw) solid #cccccc;
+  border-radius: calc(10 / 1440 * 100vw);
+  margin-bottom: calc(15 / 1440 * 100vw);
+}
+
+.cart-item-btn {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.cart-item-delete {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: calc(20 / 1440 * 100vw);
+  margin-top: calc(5 / 1440 * 100vw);
+  margin-right: calc(5 / 1440 * 100vw);
+}
+
+.cart-item-info {
+  width: 100%;
+  margin: calc(5 / 1440 * 100vw);
+}
+
+.cart-item-info p {
+  margin: 0;
+}
+
+#cart-item-title {
+  font-size: calc(40 / 1440 * 100vw);
+  font-weight: bold;
+  margin-bottom: calc(5 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+#cart-item-options {
+  font-size: calc(25 / 1440 * 100vw);
+  color: #999999;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+#cart-item-price {
+  font-size: calc(35 / 1440 * 100vw);
+  text-align: end;
+  margin-right: calc(10 / 1440 * 100vw);
+}
+
+.cart-total-price {
+  width: 95%;
+}
+
+.cart-total-price h3 {
+  text-align: end;
+  font-size: calc(35 / 1440 * 100vw);
+  font-weight: bold;
+}
+
+.cart-total-price span {
+  border: calc(1 / 1440 * 100vw) solid #666666;
+  border-radius: calc(8 / 1440 * 100vw);
+  padding: calc(5 / 1440 * 100vw);
+  font-weight: bold;
+}
+
+.cart-menu-clear,
+.cart-menu-purchase {
+  width: calc(300 / 1440 * 100vw);
+  height: calc(60 / 1440 * 100vw);
+  margin-bottom: calc(15 / 1440 * 100vw);
+  border: none;
+  border-radius: calc(10 / 1440 * 100vw);
+  cursor: pointer;
+}
+
+.cart-menu-clear {
+  background-color: #999999;
+  font-size: calc(30 / 1440 * 100vw);
+  color: #ffffff;
+}
+
+.cart-menu-purchase {
+  background-color: #1428a0;
+  font-size: calc(35 / 1440 * 100vw);
+  color: #ffffff;
+}
