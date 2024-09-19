@@ -7,6 +7,7 @@ pipeline {
         SPRING_PROFILES_ACTIVE = 'prod'
         SSAFY_API_KEY = credentials('ssafy-api-key')
         MSSQL_KEY = credentials('mssql-key')
+        RABBITMQ_KEY = credentials('rabbitmq-key)
     }
     stages {
         stage('Checkout') {
@@ -103,6 +104,7 @@ pipeline {
                         -e SPRING_PROFILES_ACTIVE=${SPRING_PROFILES_ACTIVE} \
                         -e SSAFY_API_KEY=${SSAFY_API_KEY} \
                         -e MSSQL_KEY=${MSSQL_KEY} \
+                        -e RABBITMQ_KEY=${RABBITMQ_KEY} \
                         backend:${BUILD_NUMBER}
                     """
                 }
