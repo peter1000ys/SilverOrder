@@ -3,7 +3,8 @@ import { persist } from "zustand/middleware";
 import axios from "axios";
 import Notiflix from "notiflix";
 
-const API_URL = "http://localhost:8080/silverorder/"
+const API_URL = 
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
 
 const useInfoStore = create(
     persist(

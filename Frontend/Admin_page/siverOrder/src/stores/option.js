@@ -3,7 +3,8 @@ import axios from "axios";
 import useInfoStore from "./infos";
 import Notiflix from "notiflix";
 
-const API_URL = "http://localhost:8080/silverorder/";
+const API_URL = 
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
 
 const useOptionStore = create((set, get) => ({
     options: [],
