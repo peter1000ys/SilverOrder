@@ -25,7 +25,7 @@ const MenuPage = () => {
     };
 
     const handleNewMenuClick = () => {
-        navigate('/silverorder/admin/menu/AddMenu');
+        navigate('/admin/menu/AddMenu');
     };
 
     const handleOptionSelect = () => {

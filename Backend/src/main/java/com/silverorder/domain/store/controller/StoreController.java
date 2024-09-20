@@ -4,6 +4,7 @@ import com.silverorder.domain.store.dto.RequestLatitudeLongitudeDTO;
 import com.silverorder.domain.store.dto.ResponseLatitudeLongitudeDTO;
 import com.silverorder.domain.store.service.StoreServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -11,11 +12,16 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@Tag(name = "Store", description = "가게 관리")
+@RestController
+@RequestMapping("/store")
+@CrossOrigin("*")
 @RequiredArgsConstructor
-@Transactional
 public class StoreController {
 
     private final StoreServiceImpl storeService;

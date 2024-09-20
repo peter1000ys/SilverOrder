@@ -36,6 +36,9 @@ import CartPage from "../views/CartPage.jsx";
 // 옵션 선택 페이지
 import OptionChoicePage from "../views/OptionChoicePage.jsx";
 
+// 카드 등록 페이지
+import RegisterCardPage from "../views/RegisterCardPage.jsx";
+
 const PageRoutes = () => {
   const { isLogin } = useInfoStore();
 
@@ -81,6 +84,12 @@ const PageRoutes = () => {
           <Route
             path="/silverorder/choiceoption"
             element={<OptionChoicePage />}
+          />
+
+          {/* 내 카드 목록을 불러와 간편결제 카드 목록에 추가하는 페이지 */}
+          <Route
+            path="/silverorder/registercard"
+            element={<RegisterCardPage />}
           />
         </>
       ) : (

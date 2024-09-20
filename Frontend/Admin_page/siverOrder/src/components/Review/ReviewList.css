@@ -1,0 +1,89 @@
+/* Wrapper to center content */
+.center-wrapper {
+    padding-top: 90px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Wrapper for sort and filter options */
+.filter-sort-wrapper {
+    display: flex;
+    justify-content: space-between;
+    width: 80%; /* Matches the width of the table */
+    margin-bottom: 20px;
+}
+
+.filter-sort-wrapper select {
+    padding: 8px;
+    margin-right: 10px;
+}
+
+/* Table styling */
+.review-table {
+    width: 80%;
+    max-width: 2000px;
+    max-height: 1200px; /* Set max height */
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.review-table th, .review-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: center;
+}
+
+/* Ensure all rows, even empty ones, have the same height */
+.review-table tr {
+    min-height: 50px; /* Set the minimum height for all rows */
+    height: 57px; /* You can adjust this value to control the row height */
+}
+
+.review-table th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+.review-table input[type="checkbox"] {
+    transform: scale(1.2);
+}
+
+.review-table button {
+    padding: 5px 10px;
+    background-color: #f2f2f2;
+    border: 1px solid #ccc;
+    cursor: pointer;
+}
+
+.review-table button:hover {
+    background-color: #ddd;
+}
+
+/* Empty row styling */
+.empty-row td {
+    background-color: #f9f9f9;
+}
+
+/* Pagination styling */
+.pagination {
+    position: relative;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination button {
+    padding: 10px 15px;
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    background-color: #f2f2f2;
+    cursor: pointer;
+}
+
+.pagination button.active {
+    background-color: #ddd;
+    font-weight: bold;
+}
