@@ -74,7 +74,7 @@ const useInfoStore = create(
         clearCart(); // 로그아웃 시 장바구니가 초기화되도록
 
         set({ isLogin: false, token: null });
-        navigate("/signin");
+        navigate("/silverorder/signin");
       },
 
       // 회원 정보 조회
