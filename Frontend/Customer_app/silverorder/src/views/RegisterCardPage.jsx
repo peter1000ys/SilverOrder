@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/RegisterCardPage.css";
 import usePurchaseStore from "../stores/purchase";
+import { useNavigate } from "react-router-dom";
 
 const RegisterCardPage = () => {
   const { getAllMyCard } = usePurchaseStore();
@@ -44,6 +45,12 @@ const RegisterCardPage = () => {
     });
   };
 
+  const navigate = useNavigate();
+
+  const handleCancel = () => {
+    navigate(-1);
+  };
+
   return (
     <div className="registerCard-container">
       <h1>카드 등록하기</h1>
@@ -78,13 +85,20 @@ const RegisterCardPage = () => {
               <input
                 type="checkbox"
                 checked={selectedCards.some(
-                  (selectedCard) => selectedCard.cardNo === card.cardNo
+                  (selectedCard) =>
+                    selectedCard.cardUniqueNo === card.cardUniqueNo
                 )} // 배열에서 해당 카드가 있는지 확인
                 onChange={() => handleCheckboxChange(card)}
               />
             </div>
           </div>
         ))}
+      </div>
+      <div className="registerCard-btns">
+        <button className="registerCard-clear">선택 완료</button>
+        <button className="registerCard-cancel" onClick={handleCancel}>
+          취 소
+        </button>
       </div>
     </div>
   );
