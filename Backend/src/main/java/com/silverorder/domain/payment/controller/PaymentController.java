@@ -35,7 +35,15 @@ public class PaymentController {
 
     @Operation(summary = "카드 결제", description = "카드 번호, cvc, 가맹점번호, 가격을 입력 받아 결제를 진행합니다.")
     @PostMapping("/pay/card")
-    public ResponseEntity<?> payCard(CardRequestDto cardRequestDto) throws Exception {
+    public ResponseEntity<?> payCard(
+            @RequestBody @Valid CardRequestDto cardRequestDto,
+            @AuthenticationPrincipal CustomUserDetails customUserDetails
+    ) throws Exception {
+        // 금융망 userKey 설정
+        String userApiKey = customUserDetails.getUser().getUserApiKey();
+        cardRequestDto.setUserApiKey(userApiKey);
+
+        // 결제 요청
         String responseMessage = paymentService.payCard(cardRequestDto);
         return new ResponseEntity<>(responseMessage, HttpStatus.OK);
     }

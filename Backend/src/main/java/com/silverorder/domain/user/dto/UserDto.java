@@ -45,6 +45,8 @@ public class UserDto {
 
     private String userApiEmail;
 
+    private String userApiKey;
+
     /**
      * DTO를 회원 엔터티로 변환하는 함수
      *

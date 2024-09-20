@@ -53,7 +53,11 @@ public enum ErrorCode {
     NO_FILE(HttpStatus.NOT_FOUND, "업로드할 파일이 없습니다."),
     INVALID_FILE_LINK(HttpStatus.BAD_REQUEST, "올바르지 않은 파일 링크입니다."),
 
-    NO_ELEMENT(HttpStatus.NOT_FOUND,"해당하는 요소가 없습니다.");
+    NO_ELEMENT(HttpStatus.NOT_FOUND,"해당하는 요소가 없습니다."),
+
+    //결제
+    CARD_NOT_FOUND(HttpStatus.NOT_FOUND, "등록된 카드를 찾을 수 없습니다."),
+    CARD_PAY_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "카드 간편 결제에 실패하였습니다.");
 
 
     private HttpStatus status;
