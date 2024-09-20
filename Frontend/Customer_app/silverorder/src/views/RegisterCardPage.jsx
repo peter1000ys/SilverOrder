@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import "../styles/RegisterCardPage.css";
 import usePurchaseStore from "../stores/purchase";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../constant";
 
 const RegisterCardPage = () => {
   const { getAllMyCard, registerCheckedCard } = usePurchaseStore();
@@ -58,7 +59,7 @@ const RegisterCardPage = () => {
       if (response) {
         alert("선택한 카드가 간편 결제 카드 목록에 추가되었습니다.");
         setSelectedCards([]); // selectedCard 초기화
-        navigate("/silverorder/mycard");
+        navigate(`${baseURL}/mycard`);
       } else {
         console.error("에러 발생");
       }

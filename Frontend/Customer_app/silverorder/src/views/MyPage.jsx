@@ -1,19 +1,20 @@
 import "../styles/MyPage.css";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../constant";
 
 const MyPage = () => {
   const navigate = useNavigate();
 
   const go_to_orderstate = () => {
-    navigate("/silverorder/orderstate");
+    navigate(`${baseURL}/orderstate`);
   };
 
   const go_to_orderlist = () => {
-    navigate("/silverorder/orderlist");
+    navigate(`${baseURL}/orderlist`);
   };
 
   const go_to_mycard = () => {
-    navigate("/silverorder/mycard");
+    navigate(`${baseURL}/mycard`);
   };
 
   return (
