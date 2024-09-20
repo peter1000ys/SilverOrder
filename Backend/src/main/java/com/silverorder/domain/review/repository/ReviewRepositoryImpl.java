@@ -6,6 +6,7 @@ import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.order.entity.Order;
 import com.silverorder.domain.review.dto.RequestOwnerReviewDto;
 import com.silverorder.domain.review.dto.RequestUserReviewDto;
+import com.silverorder.domain.review.dto.ResponseMyReviewDto;
 import com.silverorder.domain.review.dto.ResponseReviewDto;
 import com.silverorder.domain.review.entity.OwnerReview;
 import com.silverorder.domain.review.entity.UserReview;
@@ -69,8 +70,43 @@ public class ReviewRepositoryImpl implements ReviewRepository{
                     .where(userReview.order.store.eq(store))
                     .fetch();
         }catch(Exception e) {
-            e.printStackTrace();
+            //e.printStackTrace();
             throw new PersistenceException("유저 리뷰 조회 중 에러 발생", e);
+        }
+    }
+
+    /**
+     * 내 작성 리뷰 조회
+     * <pre>
+     *      내가 작성한 리뷰 및 사장님 댓글을 조회한다
+     * </pre>
+     * @param user : 유저 정보 entity
+     * @return : 내 리뷰 리스트
+     * @throws PersistenceException : JPA 표준 예외
+     */
+    @Override
+    public List<ResponseMyReviewDto> listMyReview(User user) throws PersistenceException {
+        try{
+            return queryFactory
+                    .select(Projections.constructor(ResponseMyReviewDto.class,
+                            userReview.id,
+                            userReview.content,
+                            userReview.rating,
+                            userReview.order.id,
+                            userReview.order.store.id,
+                            userReview.order.store.storeName,
+                            ownerReview.id,
+                            ownerReview.content,
+                            ownerReview.createdDate,
+                            ownerReview.modifiedDate
+                            ))
+                    .from(userReview)
+                    .leftJoin(ownerReview).on(ownerReview.userReview.id.eq(userReview.id))
+                    .where(userReview.user.eq(user))
+                    .fetch();
+        }catch(Exception e) {
+            //e.printStackTrace();
+            throw new PersistenceException("내 리뷰 조회 중 에러 발생", e);
         }
     }
 

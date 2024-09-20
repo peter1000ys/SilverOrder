@@ -2,6 +2,7 @@ package com.silverorder.domain.review.controller;
 
 import com.silverorder.domain.review.dto.RequestOwnerReviewDto;
 import com.silverorder.domain.review.dto.RequestUserReviewDto;
+import com.silverorder.domain.review.dto.ResponseMyReviewDto;
 import com.silverorder.domain.review.dto.ResponseReviewDto;
 import com.silverorder.domain.review.service.ReviewService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
@@ -41,6 +42,16 @@ public class ReviewController {
         long userId = userDetails.getUser().getUserId();
         List<ResponseReviewDto> responseReviewDtoList = reviewService.listReview(userId, storeId);
         return ResponseEntity.ok(responseReviewDtoList);
+    }
+
+    @Operation(summary = "내 리뷰 조회", description="유저가 작성한 리뷰 및 사장님 댓글을 조회합니다.")
+    @GetMapping("/myReviews")
+    public ResponseEntity<?> myReviews(
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        List<ResponseMyReviewDto> responseMyReviewDtoList = reviewService.myReviews(userId);
+        return ResponseEntity.ok(responseMyReviewDtoList);
     }
 
     @Operation(summary = "고객 리뷰 입력", description="자신의 주문을 기준으로 리뷰를 입력합니다.")

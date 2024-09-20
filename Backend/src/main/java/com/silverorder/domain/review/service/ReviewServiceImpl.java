@@ -4,6 +4,7 @@ import com.silverorder.domain.order.entity.Order;
 import com.silverorder.domain.order.repository.OrderJpaRepository;
 import com.silverorder.domain.review.dto.RequestOwnerReviewDto;
 import com.silverorder.domain.review.dto.RequestUserReviewDto;
+import com.silverorder.domain.review.dto.ResponseMyReviewDto;
 import com.silverorder.domain.review.dto.ResponseReviewDto;
 import com.silverorder.domain.review.entity.UserReview;
 import com.silverorder.domain.review.repository.ReviewRepository;
@@ -40,7 +41,7 @@ public class ReviewServiceImpl implements ReviewService{
     private final UserReviewJpaRepository userReviewJpaRepository;
 
     /**
-     * 리뷰 조회
+     * 가맹점 리뷰 조회
      * @param userId : 유저 id
      * @param storeId : 가맹점 id
      * @return : 리뷰 list
@@ -57,6 +58,21 @@ public class ReviewServiceImpl implements ReviewService{
                 .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
 
         return reviewRepository.listUserReview(store);
+    }
+
+    /**
+     * 내 리뷰 조회
+     * @param userId : 유저 id
+     * @return : 리뷰 list
+     * @throws Exception
+     */
+    @Override
+    public List<ResponseMyReviewDto> myReviews(long userId) throws Exception {
+        //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        return reviewRepository.listMyReview(user);
     }
 
     /**

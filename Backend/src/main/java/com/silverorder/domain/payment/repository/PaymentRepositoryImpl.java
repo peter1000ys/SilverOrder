@@ -55,6 +55,8 @@ public class PaymentRepositoryImpl implements PaymentRepository {
                         card.payment.id,
                         card.cardNum,
                         card.cardCVC,
+                        card.cardIssuerName,
+                        card.cardName,
                         card.discountRate
                 ))
                 .from(card)
@@ -120,7 +122,8 @@ public class PaymentRepositoryImpl implements PaymentRepository {
                     payment,
                     cardDto.getCardNo(),
                     cardDto.getCvc(),
-                    null,
+                    cardDto.getCardIssuerName(),
+                    cardDto.getCardName(),
                     discountRate
             );
 
