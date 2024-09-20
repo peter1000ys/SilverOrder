@@ -1,5 +1,5 @@
 .dashboard {
-    padding: 60px 0px 0px 0px;
+    padding: calc(60 / 1440 * 100vw) 0 0 0;
     display: flex;
     height: 100%;
     flex-direction: column;
@@ -9,46 +9,12 @@
 /* stats-section과 charts-section의 grid를 부트스트랩의 row와 col로 대체 */
 .stats-section, .charts-section {
     /* width: 100%; */
-    max-width: 2000px;
+    max-width: calc(2000 / 1440 * 100vw);
 }
 
 .stat-box, .chart-box {
     background-color: #ffffff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: calc(8 / 1440 * 100vw);
+    padding: calc(20 / 1440 * 100vw);
+    box-shadow: 0 calc(4 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
 }
-
-/* 부트스트랩을 활용한 반응형 설정 */
-/* @media (min-width: 576px) {
-    .container {
-        max-width: 540px;
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        max-width: 720px;
-    }
-}
-
-@media (min-width: 992px) {
-    .container {
-        max-width: 960px;
-    }
-}
-
-@media (min-width: 1200px) {
-    .container {
-        max-width: 1140px;
-        margin: 0;
-    }
-}
-
-@media (min-width: 1400px) {
-    .container {
-        max-width: 1320px;
-        margin: 0 !important;
-        padding: 0;
-    }
-} */
