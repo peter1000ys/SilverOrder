@@ -3,6 +3,7 @@ import react from "@vitejs/plugin-react";
 import { VitePWA } from "vite-plugin-pwa";
 
 export default defineConfig({
+  base: '/silverorder/', // base path 추가
   plugins: [
     react(),
     VitePWA({
@@ -24,7 +25,30 @@ export default defineConfig({
             type: "image/png",
           },
         ],
+        start_url: "/silverorder/", // PWA 시작 URL 설정
+        scope: "/silverorder/", // PWA 범위 설정
+      },
+      workbox: {
+        globPatterns: ['**/*.{js,css,html,ico,png,svg}']
       },
     }),
   ],
+  define: {
+    'global': 'window' // 브라우저 환경에서 global을 window로 대체
+  },
+  server: {
+    proxy: {
+      '/silverorder/api': {
+        target: 'https://i11c202.p.ssafy.io',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/silverorder\/api/, '/studycow/api')
+      },
+      '/silverorder/ws-stomp': {
+        target: 'http://localhost:8080', // 스프링 부트 서버의 URL
+        changeOrigin: true,
+        ws: true, // WebSocket 요청을 프록시합니다.
+        rewrite: (path) => path.replace(/^\/silverorder\/ws-stomp/, '/ws-stomp')
+      },
+    }
+  }
 });

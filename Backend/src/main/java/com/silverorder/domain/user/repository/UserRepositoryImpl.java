@@ -50,7 +50,8 @@ public class UserRepositoryImpl implements UserRepository {
                         user.userRole,
                         user.userJoinDate,
                         user.userUpdateDate,
-                        user.userApiEmail
+                        user.userApiEmail,
+                        user.userApiKey
                 ))
                 .from(user)
                 .where(user.userEmail.eq(email))
@@ -75,7 +76,8 @@ public class UserRepositoryImpl implements UserRepository {
                         user.userRole,
                         user.userJoinDate,
                         user.userUpdateDate,
-                        user.userApiEmail
+                        user.userApiEmail,
+                        user.userApiKey
                 ))
                 .from(user)
                 .where(user.id.eq(id))

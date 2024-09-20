@@ -1,5 +1,3 @@
-# react-dockerizing/Dockerfile
-
 # base image 설정(as build 로 완료된 파일을 밑에서 사용할 수 있다.)
 FROM node:20-alpine as build
 
@@ -16,6 +14,10 @@ RUN npm install
 # 호스트 머신의 현재 디렉토리 파일들을 컨테이너 내부로 전부 복사
 COPY . .
 
+# 빌드 시 환경 변수 설정
+ARG VITE_API_BASE_URL
+ENV VITE_API_BASE_URL=$VITE_API_BASE_URL
+
 # npm build
 RUN npm run build
 
@@ -23,7 +25,6 @@ RUN npm run build
 FROM nginx:stable-alpine
 
 # 이전 빌드 단계에서 빌드한 결과물을 /usr/share/nginx/html 으로 복사한다.
-# 이 부분을 수정
 COPY --from=build /app/dist /usr/share/nginx/html
 
 # 기본 nginx 설정 파일을 삭제한다. (custom 설정과 충돌 방지)

@@ -3,7 +3,7 @@ pipeline {
     
     environment {
         DOCKER_NETWORK = "silverOrder"
-        VITE_API_BASE_URL = 'https://j11c202.p.ssafy.io/silverorder/'
+        VITE_API_BASE_URL = 'https://j11c202.p.ssafy.io/silverorder/api/'
         SPRING_PROFILES_ACTIVE = 'prod'
         SSAFY_API_KEY = credentials('ssafy-api-key')
         MSSQL_KEY = credentials('mssql-key')
@@ -37,11 +37,13 @@ pipeline {
                     }
                     steps {
                         dir('Frontend/Admin_page/siverOrder') {
+                        
                             sh 'node --version'
                             sh 'npm --version'
+                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
                             sh 'npm install'
                             sh 'npm run build'
-                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
+                            
                         }
                     }
                 }
@@ -56,9 +58,10 @@ pipeline {
                         dir('Frontend/Customer_app/silverorder') {
                             sh 'node --version'
                             sh 'npm --version'
+                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
                             sh 'npm install'
                             sh 'npm run build'
-                            sh 'echo "VITE_API_BASE_URL=${VITE_API_BASE_URL}" > .env'
+                            
                         }
                     }
                 }
