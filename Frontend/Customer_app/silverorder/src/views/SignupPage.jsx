@@ -2,6 +2,7 @@ import "../styles/SignupPage.css";
 import { useState } from "react";
 import { useNavigate, Navigate } from "react-router-dom";
 import useInfoStore from "../stores/infos";
+import sign_up_logo from "../img/icon-512x512.png";
 
 const SignupPage = () => {
   const { sendRegisterRequest, sendLoginRequest, isLogin } = useInfoStore();
@@ -41,7 +42,7 @@ const SignupPage = () => {
       <form className="sign-up-contents" onSubmit={handleSubmit}>
         <img
           className="sign-up-logo"
-          src="/icon-512x512.png"
+          src={sign_up_logo}
           alt="로그인 페이지 로고"
         />
         <div>

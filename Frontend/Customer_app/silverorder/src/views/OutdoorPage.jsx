@@ -1,5 +1,6 @@
 import "../styles/OutdoorPage.css";
 import { useNavigate } from "react-router-dom";
+import silverorder_logo from "../img/silverorder_logo.png";
 
 const StartPage = () => {
   const navigate = useNavigate();
@@ -15,11 +16,7 @@ const StartPage = () => {
   return (
     <div className="outdoor-container">
       <div className="outdoor-contents">
-        <img
-          className="outdoor-page-logo"
-          src="/silverorder_logo.png"
-          alt="로고"
-        />
+        <img className="outdoor-page-logo" src={silverorder_logo} alt="로고" />
         <button
           className="outdoor-page-findstore-btn"
           onClick={go_to_find_store}
