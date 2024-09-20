@@ -1,5 +1,5 @@
 .menu-page {
-  padding-top: 90px;
+  padding-top: calc(110 / 1440 * 100vw);
   display: flex;
   flex-direction: column;
   height: 100vh;
@@ -9,7 +9,7 @@
   display: flex;
   flex: 1;
   justify-content: space-between;
-  padding: 20px;
+  padding: calc(20 / 1440 * 100vw);
 }
 
 .menu-list {
@@ -18,24 +18,24 @@
 
 .menu-detail-container {
   width: 30%;
-  padding-left: 20px;
+  padding-left: calc(20 / 1440 * 100vw);
 }
 
 .menu-actions {
   display: flex;
   justify-content: flex-end;
-  gap: 10px;
+  gap: calc(10 / 1440 * 100vw);
   position: absolute;
-  top: 60px;
-  right: 20px;
+  top: calc(70 / 1440 * 100vw);
+  right: calc(20 / 1440 * 100vw);
 }
 
 .menu-actions button {
   background-color: #007bff;
   color: white;
-  padding: 10px 20px;
+  padding: calc(10 / 1440 * 100vw) calc(20 / 1440 * 100vw);
   border: none;
-  border-radius: 5px;
+  border-radius: calc(5 / 1440 * 100vw);
   cursor: pointer;
 }
 

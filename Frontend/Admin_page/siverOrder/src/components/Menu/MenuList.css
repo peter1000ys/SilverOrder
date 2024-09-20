@@ -24,7 +24,7 @@
 .menu-item {
   width: 30%; /* 세 개의 아이템을 한 줄에 나란히 배치 */
   height: 70%;
-  border: 1px solid #ddd;
+  border: calc(1 / 1440 * 100vw) solid #ddd;
   border-radius: calc(10 / 1440 * 100vw);
   padding: calc(15 / 1440 * 100vw);
   box-shadow: 0 calc(4 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
