@@ -30,31 +30,31 @@ const PageRoutes = () => {
     return (
         <Routes>
             {/* 로그인 */}
-            <Route path="/silverorder/admin/login" element={<LoginPage />} />
+            <Route path="/admin/login" element={<LoginPage />} />
             {/* 회원가입 */}
-            <Route path="/silverorder/admin/signup" element={<Signup />} />
+            <Route path="/admin/signup" element={<Signup />} />
 
             {/* 로그인 상태 확인 및 리다이렉트 */}
             {!isLogin && (
                 <>
-                    <Route path="*" element={<Navigate to="/silverorder/admin/login" />} />
+                    <Route path="*" element={<Navigate to="/admin/login" />} />
                 </>
             )}
 
             {isLogin && (
                 <>
                     {/* 주문 페이지 */}
-                    <Route path="/silverorder/admin/order" element={<OrderPage />} />
+                    <Route path="/admin/order" element={<OrderPage />} />
                     {/* 메뉴 페이지 */}
-                    <Route path="/silverorder/admin/menu" element={<MenuPage />} />
+                    <Route path="/admin/menu" element={<MenuPage />} />
                     {/*리뷰 페이지 */}
-                    <Route path="/silverorder/admin/review" element={<ReviewPage />} />
+                    <Route path="/admin/review" element={<ReviewPage />} />
                     {/* 대시보드 페이지 */}
-                    <Route path="/silverorder/admin/dashboard" element={<DashboardPage />} />
+                    <Route path="/admin/dashboard" element={<DashboardPage />} />
                     {/* 메뉴 추가 페이지 */}
-                    <Route path="/silverorder/admin/menu/AddMenu" element={<AddMenu />}/>
+                    <Route path="/admin/menu/AddMenu" element={<AddMenu />}/>
                     {/* 메뉴 수정 페이지 */}
-                    <Route path="/silverorder/admin/menu/Edit" element={<EditMenu />}/>
+                    <Route path="/admin/menu/Edit" element={<EditMenu />}/>
                 </>
             )}
         </Routes>
