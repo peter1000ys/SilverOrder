@@ -93,7 +93,7 @@ const PageRoutes = () => {
           />
         </>
       ) : (
-        <Route path="*" element={<Navigate to="/silverorder/signin" />} />
+        <Route path="/silverorder/*" element={<Navigate to="/silverorder/signin" />} />
       )}
     </Routes>
   );
