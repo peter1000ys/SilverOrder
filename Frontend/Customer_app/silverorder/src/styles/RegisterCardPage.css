@@ -26,6 +26,7 @@
   border: calc(1 / 1440 * 100vw) solid #cccccc;
   border-radius: calc(10 / 1440 * 100vw);
   /* background-color: red; */
+  margin-bottom: calc(15 / 1440 * 100vw);
 }
 
 .registerCard-item-title p {
@@ -58,4 +59,32 @@
 .registerCard-item-checkbox input {
   width: calc(20 / 1440 * 100vw);
   height: calc(20 / 1440 * 100vw);
+}
+
+.registerCard-btns {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerCard-clear,
+.registerCard-cancel {
+  width: calc(300 / 1440 * 100vw);
+  height: calc(40 / 1440 * 100vw);
+  margin-bottom: calc(15 / 1440 * 100vw);
+  border: none;
+  border-radius: calc(10 / 1440 * 100vw);
+  font-size: calc(30 / 1440 * 100vw);
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.registerCard-clear {
+  background-color: #1428a0;
+}
+
+.registerCard-cancel {
+  background-color: #666666;
 }
