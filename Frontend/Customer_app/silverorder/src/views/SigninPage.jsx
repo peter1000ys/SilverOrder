@@ -3,6 +3,7 @@ import { useState } from "react";
 import useInfoStore from "../stores/infos";
 import { useNavigate, Navigate } from "react-router-dom";
 import sign_in_logo from "../img/icon-512x512.png";
+import { baseURL } from "../constant";
 
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -24,11 +25,11 @@ const SigninPage = () => {
   };
 
   const handleCancel = () => {
-    navigate("/silverorder/");
+    navigate(`${baseURL}/`);
   };
 
   if (isLogin) {
-    return <Navigate to="/silverorder/store" />; // 로그인 상태라면 상점 페이지로 redirect
+    return <Navigate to={`${baseURL}/store`} />; // 로그인 상태라면 상점 페이지로 redirect
   }
 
   return (

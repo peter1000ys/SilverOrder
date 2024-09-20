@@ -4,24 +4,25 @@ import shopping_cart from "../../img/shopping_cart.png";
 import scroll from "../../img/scroll.png";
 import home from "../../img/home.png";
 import user from "../../img/user.png";
+import { baseURL } from "../../constant";
 
 const DownsideNavbar = () => {
   const navigate = useNavigate();
 
   const go_to_shoppingcart = () => {
-    navigate("/silverorder/shoppingcart");
+    navigate(`${baseURL}/shoppingcart`);
   };
 
   const go_to_orderlist = () => {
-    navigate("/silverorder/orderlist");
+    navigate(`${baseURL}/orderlist`);
   };
 
   const go_store_main = () => {
-    navigate("/silverorder/store");
+    navigate(`${baseURL}/store`);
   };
 
   const go_to_mypage = () => {
-    navigate("/silverorder/mypage");
+    navigate(`${baseURL}/mypage`);
   };
 
   return (

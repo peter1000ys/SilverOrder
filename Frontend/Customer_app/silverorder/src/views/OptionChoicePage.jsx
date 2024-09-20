@@ -2,6 +2,7 @@ import "../styles/OptionChoicePage.css";
 import { useLocation, useNavigate } from "react-router-dom"; // useNavigate 추가
 import { useState } from "react";
 import useCartStore from "../stores/cart"; // Zustand store 불러오기
+import { baseURL } from "../constant";
 
 const OptionChoicePage = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate
@@ -81,7 +82,7 @@ const OptionChoicePage = () => {
     };
 
     addToCart(newItem); // Zustand store의 addToCart 함수 호출
-    navigate("/silverorder/shoppingcart"); // 장바구니 페이지로 이동
+    navigate(`${baseURL}/shoppingcart`); // 장바구니 페이지로 이동
   };
 
   return (
