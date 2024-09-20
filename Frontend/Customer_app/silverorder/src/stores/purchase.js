@@ -1,5 +1,4 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 import axios from "axios";
 import useInfoStore from "./infos";
 
@@ -29,6 +28,22 @@ const usePurchaseStore = create(() => ({
     } catch (error) {
       // 에러 핸들링
       console.error("API 요청 에러:", error);
+    }
+  },
+
+  // 금융권 카드 조회
+  getAllMyCard: async () => {
+    const { token } = useInfoStore.getState();
+    try {
+      const response = await axios.get(`${API_URL}payment/cardList`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("결과:", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("에러:", error);
     }
   },
 }));
