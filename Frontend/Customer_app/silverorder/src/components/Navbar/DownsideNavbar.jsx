@@ -1,5 +1,9 @@
 import "./styles/DownsideNavbar.css";
 import { useNavigate } from "react-router-dom";
+import shopping_cart from "../../img/shopping_cart.png";
+import scroll from "../../img/scroll.png";
+import home from "../../img/home.png";
+import user from "../../img/user.png";
 
 const DownsideNavbar = () => {
   const navigate = useNavigate();
@@ -25,7 +29,7 @@ const DownsideNavbar = () => {
       <div>
         <img
           className="downnav-btn"
-          src="/shopping_cart.png"
+          src={shopping_cart}
           alt="장바구니 페이지"
           onClick={go_to_shoppingcart}
         />
@@ -33,7 +37,7 @@ const DownsideNavbar = () => {
       <div>
         <img
           className="downnav-btn"
-          src="/scroll.png"
+          src={scroll}
           alt="지난 주문 내역 확인"
           onClick={go_to_orderlist}
         />
@@ -41,7 +45,7 @@ const DownsideNavbar = () => {
       <div>
         <img
           className="downnav-btn"
-          src="/home.png"
+          src={home}
           alt="처음 화면"
           onClick={go_store_main}
         />
@@ -49,7 +53,7 @@ const DownsideNavbar = () => {
       <div>
         <img
           className="downnav-btn"
-          src="/user.png"
+          src={user}
           alt="마이 페이지"
           onClick={go_to_mypage}
         />

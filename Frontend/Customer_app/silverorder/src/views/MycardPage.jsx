@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import useInfoStore from "../stores/infos";
 import EmailAPIModal from "../components/AboutCard/EmailAPIModal";
+import add_card from "../img/add_card.png";
 
 const MycardPage = () => {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ const MycardPage = () => {
 
       <div className="mycard-addcard" onClick={handleAddCardClick}>
         {/* 클릭 시 handleAddCardClick 함수가 실행됩니다. */}
-        <img src="/add_card.png" alt="새 카드 추가" />
+        <img src={add_card} alt="새 카드 추가" />
       </div>
 
       {/* 모달이 열려 있을 때 모달을 표시합니다. */}

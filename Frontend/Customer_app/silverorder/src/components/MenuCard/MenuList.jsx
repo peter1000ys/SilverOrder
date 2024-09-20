@@ -1,6 +1,8 @@
 import { useState } from "react";
 import "./Styles/MenuList.css";
 import MenuInfo from "./MenuInfo";
+import Ice_americano from "../../img/Ice-americano.jpg";
+import Choco_cake from "../../img/Choco_cake.jpg";
 
 const MenuList = () => {
   const DummyMenu = {
@@ -10,7 +12,7 @@ const MenuList = () => {
         name: "아메리카노",
         description: "깔끔한 아메리카노",
         price: 1500,
-        imageUrl: "/Ice-americano.jpg",
+        imageUrl: { Ice_americano },
         options: [
           { id: 1, name: "샷 추가", price: 500 },
           { id: 2, name: "얼음 추가", price: 0 },
@@ -23,7 +25,7 @@ const MenuList = () => {
         name: "카페라떼",
         description: "포근한 카페라떼",
         price: 2500,
-        imageUrl: "/Ice-americano.jpg",
+        imageUrl: { Ice_americano },
         options: [
           { id: 1, name: "샷 추가", price: 500 },
           { id: 2, name: "우유 오트밀로 변경", price: 500 },
@@ -35,7 +37,7 @@ const MenuList = () => {
         name: "빅-아메리카노",
         description: "커다랗고 깔끔한 아메리카노",
         price: 3000,
-        imageUrl: "/Ice-americano.jpg",
+        imageUrl: { Ice_americano },
         options: [{ id: 1, name: "샷 추가", price: 500 }],
         category: "음료",
       },
@@ -44,7 +46,7 @@ const MenuList = () => {
         name: "초코 케이크",
         description: "부드러운 초코 케이크",
         price: 4500,
-        imageUrl: "/Choco_cake.jpg",
+        imageUrl: { Choco_cake },
         options: [],
         category: "디저트",
       },

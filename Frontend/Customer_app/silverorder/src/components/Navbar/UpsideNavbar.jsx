@@ -1,6 +1,9 @@
 import "./styles/UpsideNavbar.css";
 import { useNavigate } from "react-router-dom";
 import useInfoStore from "../../stores/infos";
+import left_arrow from "../../img/left_arrow.png";
+import clock from "../../img/clock.png";
+import notification from "../../img/notification.png";
 
 const UpsideNavbar = () => {
   const { logout } = useInfoStore();
@@ -25,7 +28,7 @@ const UpsideNavbar = () => {
         <img
           className="move-before-page"
           onClick={handleback}
-          src="/left_arrow.png"
+          src={left_arrow}
           alt="뒤로가기"
         />
       </div>
@@ -36,10 +39,10 @@ const UpsideNavbar = () => {
         <img
           className="order-state-check"
           onClick={go_to_orderstate}
-          src="/clock.png"
+          src={clock}
           alt="주문 상태 확인"
         />
-        <img className="site-notification" src="/notification.png" alt="알림" />
+        <img className="site-notification" src={notification} alt="알림" />
       </div>
     </div>
   );
