@@ -47,6 +47,13 @@ public enum ErrorCode {
     //옵션
     OPTION_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 옵션 카테고리를 찾을 수 없습니다"),
 
+    //주문
+    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 주문을 찾을 수 없습니다"),
+    ORDER_USER_NOT_AUTHENTICATED(HttpStatus.UNAUTHORIZED,"주문고객이 아닙니다"),
+
+    //리뷰
+    USER_REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 사용자 리뷰를 찾을 수 없습니다"),
+
 
     //파일 관리 오류 코드
     IO_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "파일 또는 입출력 처리 중 오류가 발생했습니다."),
