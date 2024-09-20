@@ -20,7 +20,8 @@ import java.time.LocalDate;
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
-@Table(name = "T_PROC_SALES")
+@Table(name = "T_PROC_SALES", uniqueConstraints =
+@UniqueConstraint(name = "UNI_STORE_DATE", columnNames = {"STORE_ID", "PROC_DATE"}))
 public class StoreSalesCalculate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -2,6 +2,7 @@ import "../styles/SigninPage.css";
 import { useState } from "react";
 import useInfoStore from "../stores/infos";
 import { useNavigate, Navigate } from "react-router-dom";
+import sign_in_logo from "../img/icon-512x512.png";
 
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -35,7 +36,7 @@ const SigninPage = () => {
       <form className="sign-in-contents" onSubmit={handleSubmit}>
         <img
           className="sign-in-logo"
-          src="/icon-512x512.png"
+          src={sign_in_logo}
           alt="로그인 페이지 로고"
         />
         <div>

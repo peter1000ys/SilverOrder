@@ -1,0 +1,68 @@
+.emailAPImodal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 배경 어둡게 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.emailAPImodal-content {
+  background: #fff;
+  padding: calc(20 / 1440 * 100vw);
+  border-radius: calc(8 / 1440 * 100vw);
+  width: calc(300 / 1440 * 100vw);
+  max-width: 90%;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.emailAPImodal-content h2 {
+  font-size: calc(40 / 1440 * 100vw);
+  margin: calc(15 / 1440 * 100vw) 0;
+}
+
+.emailAPImodal-content p {
+  font-size: calc(18 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+  margin: calc(15 / 1440 * 100vw) 0;
+}
+
+.emailAPImodal-content input {
+  width: calc(280 / 1440 * 100vw);
+  height: calc(50 / 1440 * 100vw);
+  font-size: calc(20 / 1440 * 100vw);
+}
+
+.emailAPImodal-btns {
+  width: 80%;
+  margin-top: calc(20 / 1440 * 100vw);
+  display: flex;
+  justify-content: space-between;
+}
+
+.emailAPImodal-checkBtn,
+.emailAPImodal-cancelBtn {
+  width: calc(75 / 1440 * 100vw);
+  height: calc(40 / 1440 * 100vw);
+  font-size: calc(20 / 1440 * 100vw);
+  border: none;
+  border-radius: calc(10 / 1440 * 100vw);
+  cursor: pointer;
+}
+
+.emailAPImodal-checkBtn {
+  background-color: #1428a0;
+  color: #ffffff;
+}
+
+.emailAPImodal-cancelBtn {
+  background-color: #666666;
+  color: #ffffff;
+}
