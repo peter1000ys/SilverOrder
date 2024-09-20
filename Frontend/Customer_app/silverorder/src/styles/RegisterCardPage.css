@@ -1,0 +1,61 @@
+.registerCard-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.registerCard-container h1 {
+  font-size: calc(35 / 1440 * 100vw);
+  font-weight: bold;
+}
+
+.registerCard-list {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.registerCard-item {
+  width: 90%;
+  height: calc(190 / 1440 * 100vw);
+  border: calc(1 / 1440 * 100vw) solid #cccccc;
+  border-radius: calc(10 / 1440 * 100vw);
+  /* background-color: red; */
+}
+
+.registerCard-item-title p {
+  font-size: calc(30 / 1440 * 100vw);
+  font-weight: bold;
+  margin: calc(10 / 1440 * 100vw);
+}
+
+.registerCard-item-number {
+  font-size: calc(15 / 1440 * 100vw);
+  font-weight: bold;
+  margin: 0;
+}
+
+.registerCard-item-info li {
+  margin-left: calc(15 / 1440 * 100vw);
+  text-align: start;
+  font-size: calc(15 / 1440 * 100vw);
+}
+
+.registerCard-item-checkbox {
+  width: 95%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  font-size: calc(20 / 1440 * 100vw);
+  margin-top: calc(10 / 1440 * 100vw);
+}
+
+.registerCard-item-checkbox input {
+  width: calc(20 / 1440 * 100vw);
+  height: calc(20 / 1440 * 100vw);
+}
