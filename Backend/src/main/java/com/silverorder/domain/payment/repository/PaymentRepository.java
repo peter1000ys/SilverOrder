@@ -14,4 +14,6 @@ public interface PaymentRepository {
     Payment registPayment(User user, PaymentType paymentType);
     void registCard(User user, CardDto cardDto, Payment payment) throws PersistenceException;
 
+    /** 결제수단 고유번호(PK)로 카드 정보 단건 조회 */
+    ResponsePayCardDto selectPayCard(Long paymentId) throws PersistenceException;
 }

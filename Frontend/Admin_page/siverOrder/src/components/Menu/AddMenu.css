@@ -1,23 +1,23 @@
 .add-menu-container {
   width: 100%;
-  max-width: 1000px;
+  max-width: calc(1000 / 1440 * 100vw);
   margin: 0 auto;
-  padding: 80px 20px 20px 20px;
+  padding: calc(80 / 1440 * 100vw) calc(20 / 1440 * 100vw) calc(20 / 1440 * 100vw) calc(20 / 1440 * 100vw);
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: calc(8 / 1440 * 100vw);
+  box-shadow: 0 calc(4 / 1440 * 100vw) calc(6 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
 }
 
 .add-menu-title {
   text-align: left;
   font-size: 2rem;
-  margin-bottom: 20px;
+  margin-bottom: calc(20 / 1440 * 100vw);
 }
 
 .add-menu-form {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: calc(20 / 1440 * 100vw);
 }
 
 .form-left,
@@ -26,12 +26,12 @@
 }
 
 .form-group {
-  margin-bottom: 15px;
+  margin-bottom: calc(15 / 1440 * 100vw);
 }
 
 .form-group label {
   font-size: 1.2rem;
-  margin-bottom: 5px;
+  margin-bottom: calc(5 / 1440 * 100vw);
   display: block;
 }
 
@@ -40,20 +40,20 @@
 .option-selector select,
 .form-group select {
   width: 100%;
-  padding: 10px;
+  padding: calc(10 / 1440 * 100vw);
   font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: calc(1 / 1440 * 100vw) solid #ccc;
+  border-radius: calc(4 / 1440 * 100vw);
 }
 
 .form-group textarea {
   resize: vertical;
-  height: 100px;
+  height: calc(100 / 1440 * 100vw);
 }
 
 .radio-group {
   display: flex;
-  gap: 20px;
+  gap: calc(20 / 1440 * 100vw);
 }
 
 .radio-group label {
@@ -61,7 +61,7 @@
 }
 
 .form-group input[type="radio"] {
-  margin-right: 5px;
+  margin-right: calc(5 / 1440 * 100vw);
 }
 
 .form-group input[type="file"] {
@@ -71,16 +71,16 @@
 .option-selector {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: calc(10 / 1440 * 100vw);
 }
 
 .add-option-button {
   background-color: #28a745;
   color: white;
-  padding: 8px 12px;
+  padding: calc(8 / 1440 * 100vw) calc(12 / 1440 * 100vw);
   font-size: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: calc(4 / 1440 * 100vw);
   cursor: pointer;
 }
 
@@ -96,18 +96,18 @@
 .added-options-list li {
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: calc(8 / 1440 * 100vw);
   background-color: #f1f1f1;
-  margin-bottom: 5px;
-  border-radius: 4px;
+  margin-bottom: calc(5 / 1440 * 100vw);
+  border-radius: calc(4 / 1440 * 100vw);
 }
 
 .remove-option-button {
   background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
+  border-radius: calc(4 / 1440 * 100vw);
+  padding: calc(5 / 1440 * 100vw) calc(10 / 1440 * 100vw);
   cursor: pointer;
 }
 
@@ -119,14 +119,14 @@
 .submit-button {
   background-color: #007bff;
   color: white;
-  padding: 10px 20px;
+  padding: calc(10 / 1440 * 100vw) calc(20 / 1440 * 100vw);
   font-size: 1.2rem;
   border: none;
-  border-radius: 4px;
+  border-radius: calc(4 / 1440 * 100vw);
   cursor: pointer;
-  margin-top: 20px; /* Provide space at the bottom */
+  margin-top: calc(20 / 1440 * 100vw); 
   width: 100%;
-  max-width: 600px;
+  max-width: calc(600 / 1440 * 100vw);
   margin-left: auto;
   margin-right: auto;
   display: block;

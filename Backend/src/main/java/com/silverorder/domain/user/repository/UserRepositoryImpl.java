@@ -50,7 +50,8 @@ public class UserRepositoryImpl implements UserRepository {
                         user.userRole,
                         user.userJoinDate,
                         user.userUpdateDate,
-                        user.userApiEmail
+                        user.userApiEmail,
+                        user.userApiKey
                 ))
                 .from(user)
                 .where(user.userEmail.eq(email))
@@ -75,7 +76,8 @@ public class UserRepositoryImpl implements UserRepository {
                         user.userRole,
                         user.userJoinDate,
                         user.userUpdateDate,
-                        user.userApiEmail
+                        user.userApiEmail,
+                        user.userApiKey
                 ))
                 .from(user)
                 .where(user.id.eq(id))
@@ -120,6 +122,15 @@ public class UserRepositoryImpl implements UserRepository {
                 .set(user.userApiKey, userApiKey)
                 .where(user.id.eq(userId))
                 .execute();
+    }
+
+    @Override
+    public Long getStoreIdByUserId(Long userId) throws PersistenceException {
+        return queryFactory
+                .select(store.id)
+                .from(store)
+                .where(store.user.id.eq(userId))
+                .fetchOne();
     }
 
 }

@@ -22,7 +22,7 @@ public enum ErrorCode {
     DATABASE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "데이터베이스 오류가 발생했습니다."),
     BAD_REQUEST(HttpStatus.BAD_REQUEST,"잘못된 요청입니다."),
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT,"중복된 요청입니다"),
-
+    UNAUTHORIZED_ADMIN(HttpStatus.UNAUTHORIZED, "관리자만 가능한 서비스입니다."),
 
     //회원
     USER_NOT_FOUND(HttpStatus.NOT_FOUND,"해당하는 유저를 찾을 수 없습니다"),
@@ -47,13 +47,24 @@ public enum ErrorCode {
     //옵션
     OPTION_CATEGORY_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 옵션 카테고리를 찾을 수 없습니다"),
 
+    //주문
+    ORDER_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 주문을 찾을 수 없습니다"),
+    ORDER_USER_NOT_AUTHENTICATED(HttpStatus.UNAUTHORIZED,"주문고객이 아닙니다"),
+
+    //리뷰
+    USER_REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 사용자 리뷰를 찾을 수 없습니다"),
+
 
     //파일 관리 오류 코드
     IO_EXCEPTION(HttpStatus.INTERNAL_SERVER_ERROR, "파일 또는 입출력 처리 중 오류가 발생했습니다."),
     NO_FILE(HttpStatus.NOT_FOUND, "업로드할 파일이 없습니다."),
     INVALID_FILE_LINK(HttpStatus.BAD_REQUEST, "올바르지 않은 파일 링크입니다."),
 
-    NO_ELEMENT(HttpStatus.NOT_FOUND,"해당하는 요소가 없습니다.");
+    NO_ELEMENT(HttpStatus.NOT_FOUND,"해당하는 요소가 없습니다."),
+
+    //결제
+    CARD_NOT_FOUND(HttpStatus.NOT_FOUND, "등록된 카드를 찾을 수 없습니다."),
+    CARD_PAY_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "카드 간편 결제에 실패하였습니다.");
 
 
     private HttpStatus status;

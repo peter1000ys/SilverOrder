@@ -15,7 +15,7 @@ public class OrderStatusProducer {
         this.amqpTemplate = amqpTemplate;
     }
 
-    public void sendOrderStatusUpdate(OrderStatusProducer event){
+    public void sendOrderStatusUpdate(OrderStatusProducer event) {
         amqpTemplate.convertAndSend(RabbitMQConfig.ORDER_EXCHANGE,
                 RabbitMQConfig.ORDER_ROUTING_KEY, event);
     }

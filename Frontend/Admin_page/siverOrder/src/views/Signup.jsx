@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/Signup.css';
 import useInfoStore from "../stores/infos";
 import { Navigate } from "react-router-dom";
+import Logo from "../logo/Logo.png";
 const Signup = () => {
   const { sendLoginRequest, sendRegisterRequest, isLogin } = useInfoStore();
   const [email, setEmail] = useState("");
@@ -41,7 +42,7 @@ const Signup = () => {
   return (
     <div className="signup-container">
       <form onSubmit={handleSubmit}>
-        <img src="/src/logo/logo.png" alt="Logo" className="signup-image" />
+        <img src={Logo} alt="Logo" className="signup-image" />
         <input
           type="text"
           placeholder="아이디를 입력하세요"

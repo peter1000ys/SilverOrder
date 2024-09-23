@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useInfoStore from "../stores/infos";
 import '../styles/LoginPage.css';
 import { Navigate } from "react-router-dom";
+import NavLogo from "../logo/NavLogo.png";
 
 const LoginPage = () => {
   const { sendLoginRequest } = useInfoStore();
@@ -27,7 +28,7 @@ const LoginPage = () => {
   return (
     <div className="login-container">
       <form onSubmit={handleSubmit}>
-        <img src="/src/logo/logo.png" alt="Logo" className="login-image" />
+        <img src={NavLogo} alt="Logo" className="login-image" />
         <input
           type="text"
           placeholder="이메일을 입력하세요"
@@ -46,7 +47,7 @@ const LoginPage = () => {
         />
         <button className="login-button">로그인</button>
         <div className="signup-text">
-          회원이 아니신가요? <a href="/signup" className="signup-link">회원 가입</a>
+          회원이 아니신가요? <a href="/silverorder/admin/signup" className="signup-link">회원 가입</a>
         </div>
       </form>
       
