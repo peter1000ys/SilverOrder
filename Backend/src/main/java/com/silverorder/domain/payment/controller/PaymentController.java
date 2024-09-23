@@ -4,6 +4,8 @@ import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.payment.service.PaymentService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import com.silverorder.global.dto.CardDto;
+import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -44,8 +46,11 @@ public class PaymentController {
         cardRequestDto.setUserApiKey(userApiKey);
 
         // 결제 요청
-        String responseMessage = paymentService.payCard(cardRequestDto);
-        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+        if(paymentService.payCard(cardRequestDto) != null) {
+            return new ResponseEntity<>("정상 결제되었습니다.", HttpStatus.OK);
+        } else {
+            throw new CustomException(ErrorCode.CARD_PAY_FAILED);
+        }
     }
 
     @Operation(summary = "금융권 카드 조회", description="ssafy금융에서 보유한 카드들을 조회합니다.")

@@ -11,13 +11,13 @@
 
 .gpsbtn {
   position: absolute;
-  top: calc(20 / 1440 * 100vw);
-  right: calc(20 / 1440 * 100vw);
+  top: 20px;
+  right: 20px;
   z-index: 1000;
   background-color: #1428a0;
   color: #ffffff;
   border: none;
-  border-radius: calc(5 / 1440 * 100vw);
+  border-radius: 5px;
   cursor: pointer;
-  font-size: calc(40 / 1440 * 100vw);
+  font-size: 40px;
 }

@@ -1,7 +1,7 @@
 package com.silverorder.domain.order.service;
 
-import com.silverorder.domain.order.dto.OrderRequestDto;
+import com.silverorder.domain.order.dto.OrderDto;
 
 public interface OrderService {
-    void saveOrder(OrderRequestDto orderRequestDto) throws Exception;
+    void saveOrder(OrderDto orderDto, String userKey) throws Exception;
 }

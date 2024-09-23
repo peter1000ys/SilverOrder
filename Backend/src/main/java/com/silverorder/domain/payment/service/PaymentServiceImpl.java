@@ -238,7 +238,7 @@ public class PaymentServiceImpl implements PaymentService {
      * @throws Exception
      */
     @Override
-    public String payCard(CardRequestDto cardRequestDto) throws Exception {
+    public Long payCard(CardRequestDto cardRequestDto) throws Exception {
         // 요청 Header
         HeaderApiDto headerApiDto = new HeaderApiDto("createCreditCardTransaction", apiKey, cardRequestDto.getUserApiKey());
 
@@ -269,15 +269,13 @@ public class PaymentServiceImpl implements PaymentService {
             Map<String, Object> header= response.get("Header");
 
             if(header.get("responseCode").equals("H0000")) {
-                //정상 처리
-                return (String) header.get("responseMessage");
-
+                //정상 처리 -> 트랜잭션 고유 번호 반환
+                return (Long) response.get("REC").get("transactionUniqueNo");
             } else {
                 // 실패
                 throw new CustomException(ErrorCode.CARD_PAY_FAILED);
             }
         }
-
         // 응답이 없을 경우 처리
         return null;
     }
