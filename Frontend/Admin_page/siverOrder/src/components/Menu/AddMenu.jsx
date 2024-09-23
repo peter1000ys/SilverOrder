@@ -1,9 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './AddMenu.css';
+import useInfoStore  from '../../stores/infos';
+import useMenuStore from '../../stores/menu';
+import useOptionStore from '../../stores/option';
 
 const AddMenu = () => {
+    const { userInfo } = useInfoStore();  // storeId를 가져오기 위해
+    const { menuCategories, fetchCategories, createMenu } = useMenuStore();
+    const { options, fetchOptions } = useOptionStore();
+
     const [menuName, setMenuName] = useState('');
     const [shortName, setShortName] = useState('');
     const [description, setDescription] = useState('');
@@ -12,13 +19,36 @@ const AddMenu = () => {
     const [menuImage, setMenuImage] = useState(null);
 
     // Option Management
-    const [availableOptions] = useState(["매운맛", "사이즈업", "토핑 추가", "치즈 추가", "양념 추가"]); // Example option list
-    const [selectedOption, setSelectedOption] = useState('매운맛'); // Default selected option
+    const [availableOptions, setAvailableOptions] = useState([]); // Example option list
+    const [selectedOption, setSelectedOption] = useState('------'); // Default selected option
     const [addedOptions, setAddedOptions] = useState([]);
 
     // Menu Category Management
-    const [availableCategories] = useState(["음료", "디저트"]); // Example category list
-    const [selectedCategory, setSelectedCategory] = useState('음료'); // Default category
+    const [availableCategories, setAvailableCategories] = useState([]); // Example category list
+    const [selectedCategory, setSelectedCategory] = useState('------'); // Default category
+
+    useEffect(() => {
+        const loadData = async () => {
+            await fetchCategories();  // 메뉴 카테고리 데이터를 불러옴
+            await fetchOptions();     // 옵션 데이터를 불러옴
+        };
+    
+        loadData();  // 데이터를 불러오는 함수 호출
+    }, [fetchCategories, fetchOptions]);  // 첫 마운트 시에만 호출
+    
+    // 데이터를 불러온 후 availableCategories와 availableOptions가 업데이트되는 시점에 로그를 출력
+    useEffect(() => {
+        if (menuCategories.length > 0 || options.length > 0) {
+            setAvailableCategories(menuCategories);
+            setAvailableOptions(options);
+            
+            // 데이터가 설정된 후 로그 출력
+            console.log('Categories:', menuCategories);
+            console.log('Options:', options);
+        }
+    }, [menuCategories, options]);
+    
+    
 
     const navigate = useNavigate();
 
@@ -35,33 +65,42 @@ const AddMenu = () => {
     };
 
     const handleAddOption = () => {
-        if (!addedOptions.includes(selectedOption)) {
-            setAddedOptions([...addedOptions, selectedOption]);
+        // 선택된 옵션이 이미 추가된 옵션 목록에 없으면 추가
+        const selected = availableOptions.find(opt => opt.optionCategoryId === parseInt(selectedOption));
+        if (selected && !addedOptions.some(option => option.optionCategoryId === selected.optionCategoryId)) {
+            setAddedOptions([...addedOptions, selected]);
         }
     };
-
-    const handleRemoveOption = (option) => {
-        setAddedOptions(addedOptions.filter(opt => opt !== option));
+    
+    const handleRemoveOption = (optionToRemove) => {
+        setAddedOptions(addedOptions.filter(option => option.optionCategoryId !== optionToRemove.optionCategoryId));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Logic to handle form submission here (e.g., send data to the server)
-        console.log({
-            menuName,
-            shortName,
-            description,
-            price,
-            recommendation,
-            menuImage,
-            category: selectedCategory,
-            options: addedOptions
-        });
-
-        // Redirect to menu page after submission
+         // 메뉴 등록을 위한 데이터 준비
+         const newMenu = {
+            storeId: userInfo.storeId,
+            menuCategoryId: selectedCategory,  // 선택한 카테고리 ID
+            menuName: menuName,
+            simpleName: shortName,
+            menuDesc: description,
+            menuStatus: 'MENU_READY',  // 상태 기본 값 설정
+            menuPrice: parseInt(price, 10),
+            recommend: recommendation,
+            useOptionCategory: addedOptions.map(option => option),  // 선택된 옵션 ID 목록
+            menuThumb: menuImage ? menuImage.name : ''  // 이미지 파일 이름
+        };
+    
+        console.log("Submitting menu data:", newMenu);  // 전송 전 데이터 확인
+    
+        // 메뉴 생성 API 호출
+        await createMenu(newMenu);
+    
+        // 등록 후 메뉴 페이지로 리다이렉트
         navigate('/silverorder/admin/menu');
     };
-
+    
     return (
       <div>
         <Navbar />
@@ -145,16 +184,16 @@ const AddMenu = () => {
                   <div className="form-group">
                         <label htmlFor="category">메뉴 카테고리</label>
                         <div className="option-selector">
-                        <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
-                            {availableCategories.map((category, index) => (
-                                <option key={index} value={category}>
-                                    {category}
-                                </option>
-                            ))}
-                        </select>
+                            <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
+                                {availableCategories.map((category) => (
+                                    <option key={category.menuCategoryId} value={category.menuCategoryId}>
+                                        {category.menuCategoryName}
+                                    </option>
+                                ))}
+                            </select>
                         </div>
-                        
                     </div>
+
 
                     <div className="form-group">
                         <label htmlFor="menuImage">메뉴 사진 등록</label>
@@ -171,9 +210,9 @@ const AddMenu = () => {
                         <label htmlFor="options">옵션 선택</label>
                         <div className="option-selector">
                             <select id="options" value={selectedOption} onChange={handleOptionChange}>
-                                {availableOptions.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
+                                {availableOptions.map((option) => (
+                                    <option key={option.optionCategoryId} value={option.optionCategoryId}>
+                                        {option.optionCategoryTitle}  {/* 옵션의 제목을 표시 */}
                                     </option>
                                 ))}
                             </select>
@@ -183,12 +222,14 @@ const AddMenu = () => {
                         </div>
                     </div>
 
+
+
                     <div className="form-group">
                         <label>추가된 옵션</label>
                         <ul className="added-options-list">
                             {addedOptions.map((option, index) => (
-                                <li key={index}>
-                                    {option}
+                                <li key={option.optionCategoryId}>
+                                    {option.optionCategoryTitle} {/* 옵션의 이름을 표시 */}
                                     <button type="button" className="remove-option-button" onClick={() => handleRemoveOption(option)}>
                                         x
                                     </button>
