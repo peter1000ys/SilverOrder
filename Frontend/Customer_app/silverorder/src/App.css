@@ -3,7 +3,8 @@ body,
 #root {
   margin: 0;
   padding: 0;
-  height: 100%;
+  width: 100%;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -11,8 +12,9 @@ body,
 }
 
 #app-container {
-  width: calc(360 / 1440 * 100vw);
-  height: calc(640 / 1440 * 100vw);
+  width: 100%;
+  max-width: 412px;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   background-color: #fff;
@@ -25,6 +27,7 @@ body,
 }
 
 .scrollable-content {
+  width: 100%;
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
@@ -42,4 +45,12 @@ body,
 
 .scrollable-content::-webkit-scrollbar {
   display: none; /* 크롬, 사파리, 엣지 */
+}
+
+/* 반응형 처리를 위해 화면 너비가 360px 이하일 때 */
+@media (max-width: 412px) {
+  #app-container {
+    width: 100%; /* 화면 너비에 맞게 100%로 설정 */
+    height: 100vh; /* 화면 높이에 맞게 100vh로 설정 */
+  }
 }

@@ -10,7 +10,7 @@
 }
 
 .cart-title h1 {
-  font-size: calc(40 / 1440 * 100vw);
+  font-size: 40px;
   font-weight: bold;
   text-align: center;
 }
@@ -21,7 +21,7 @@
 
 #cart-item-none {
   text-align: center;
-  font-size: calc(20 / 1440 * 100vw);
+  font-size: 20px;
 }
 
 .cart-menu-list {
@@ -37,16 +37,16 @@
 }
 
 .cart-category-counts p {
-  font-size: calc(30 / 1440 * 100vw);
+  font-size: 30px;
   margin: 0;
-  margin-bottom: calc(20 / 1440 * 100vw);
+  margin-bottom: 20px;
 }
 
 .cart-item {
   width: 95%;
-  border: calc(1 / 1440 * 100vw) solid #cccccc;
-  border-radius: calc(10 / 1440 * 100vw);
-  margin-bottom: calc(15 / 1440 * 100vw);
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  margin-bottom: 15px;
 }
 
 .cart-item-btn {
@@ -60,14 +60,14 @@
   background: none;
   border: none;
   cursor: pointer;
-  font-size: calc(20 / 1440 * 100vw);
-  margin-top: calc(5 / 1440 * 100vw);
-  margin-right: calc(5 / 1440 * 100vw);
+  font-size: 20px;
+  margin-top: 5px;
+  margin-right: 5px;
 }
 
 .cart-item-info {
   width: 100%;
-  margin: calc(5 / 1440 * 100vw);
+  margin: 5px;
 }
 
 .cart-item-info p {
@@ -75,22 +75,22 @@
 }
 
 #cart-item-title {
-  font-size: calc(40 / 1440 * 100vw);
+  font-size: 40px;
   font-weight: bold;
-  margin-bottom: calc(5 / 1440 * 100vw);
+  margin-bottom: 5px;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 #cart-item-options {
-  font-size: calc(25 / 1440 * 100vw);
+  font-size: 25px;
   color: #999999;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 #cart-item-price {
-  font-size: calc(35 / 1440 * 100vw);
+  font-size: 35px;
   text-align: end;
-  margin-right: calc(10 / 1440 * 100vw);
+  margin-right: 10px;
 }
 
 .cart-total-price {
@@ -99,35 +99,107 @@
 
 .cart-total-price h3 {
   text-align: end;
-  font-size: calc(35 / 1440 * 100vw);
+  font-size: 35px;
   font-weight: bold;
 }
 
 .cart-total-price span {
-  border: calc(1 / 1440 * 100vw) solid #666666;
-  border-radius: calc(8 / 1440 * 100vw);
-  padding: calc(5 / 1440 * 100vw);
+  border: 1px solid #666666;
+  border-radius: 8px;
+  padding: 5px;
   font-weight: bold;
 }
 
 .cart-menu-clear,
 .cart-menu-purchase {
-  width: calc(300 / 1440 * 100vw);
-  height: calc(60 / 1440 * 100vw);
-  margin-bottom: calc(15 / 1440 * 100vw);
+  width: 300px;
+  height: 60px;
+  margin-bottom: 15px;
   border: none;
-  border-radius: calc(10 / 1440 * 100vw);
+  border-radius: 10px;
   cursor: pointer;
 }
 
 .cart-menu-clear {
   background-color: #999999;
-  font-size: calc(30 / 1440 * 100vw);
+  font-size: 30px;
   color: #ffffff;
 }
 
 .cart-menu-purchase {
   background-color: #1428a0;
-  font-size: calc(35 / 1440 * 100vw);
+  font-size: 35px;
   color: #ffffff;
+}
+
+@media (max-width: 412px) {
+  .cart-title h1 {
+    font-size: 9.71vw;
+  }
+
+  #cart-item-none {
+    font-size: 4.85vw;
+  }
+
+  .cart-category-counts p {
+    font-size: 7.28vw;
+    margin-bottom: 4.85vw;
+  }
+
+  .cart-item {
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 3.64vw;
+  }
+
+  .cart-item-delete {
+    font-size: 4.85vw;
+    margin-top: 1.21vw;
+    margin-right: 1.21vw;
+  }
+
+  .cart-item-info {
+    margin: 1.21vw;
+  }
+
+  #cart-item-title {
+    font-size: 9.71vw;
+    margin-bottom: 1.21vw;
+  }
+
+  #cart-item-options {
+    font-size: 6.07vw;
+  }
+
+  #cart-item-price {
+    font-size: 8.5vw;
+    text-align: end;
+    margin-right: 2.43vw;
+  }
+
+  .cart-total-price h3 {
+    font-size: 8.5vw;
+  }
+
+  .cart-total-price span {
+    border: 0.24vw solid #666666;
+    border-radius: 1.94vw;
+    padding: 1.21vw;
+  }
+
+  .cart-menu-clear,
+  .cart-menu-purchase {
+    width: 72.82vw;
+    height: 14.56vw;
+    margin-bottom: 3.64vw;
+    border-radius: 2.43vw;
+  }
+
+  .cart-menu-clear {
+    font-size: 7.28vw;
+  }
+
+  .cart-menu-purchase {
+    font-size: 8.5vw;
+  }
 }

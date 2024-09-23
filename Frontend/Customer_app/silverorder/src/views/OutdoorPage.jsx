@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import silverorder_logo from "../img/silverorder_logo.png";
 import { baseURL } from "../constant";
 
-const StartPage = () => {
+const OutdoorPage = () => {
   const navigate = useNavigate();
 
   const go_to_sign_up = () => {
@@ -32,4 +32,4 @@ const StartPage = () => {
   );
 };
 
-export default StartPage;
+export default OutdoorPage;

@@ -7,19 +7,13 @@
 }
 
 .menu-search-bar {
-  width: 95%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin: calc(15 / 1440 * 100vw) 0;
-}
-
-.menu-search-bar {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
-  border-bottom: calc(1 / 1440 * 100vw) solid black;
+  margin: 15px 0;
+  border-bottom: 1px solid black;
 }
 
 .menu-search-info {
@@ -30,10 +24,10 @@
 }
 
 .menu-search-info input {
-  width: calc(300 / 1440 * 100vw);
-  height: calc(50 / 1440 * 100vw);
-  font-size: calc(30 / 1440 * 100vw);
-  margin-bottom: calc(15 / 1440 * 100vw);
+  width: 300px;
+  height: 50px;
+  font-size: 30px;
+  margin-bottom: 15px;
 }
 
 .menu-search-btnBox {
@@ -41,17 +35,17 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin-bottom: calc(15 / 1440 * 100vw);
+  margin-bottom: 15px;
 }
 
 .menu-search-btn,
 .menu-search-clear {
-  width: calc(120 / 1440 * 100vw);
-  height: calc(40 / 1440 * 100vw);
-  font-size: calc(25 / 1440 * 100vw);
+  width: 120px;
+  height: 40px;
+  font-size: 25px;
   color: #ffffff;
   border: none;
-  border-radius: calc(10 / 1440 * 100vw);
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -68,22 +62,59 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
-  margin: calc(20 / 1440 * 100vw) 0; /* 상하, 좌우 */
+  margin: 20px 0px; /* 상하, 좌우 */
 }
 
 .menu-category-btn01,
 .menu-category-btn02 {
-  width: calc(140 / 1440 * 100vw);
-  height: calc(45 / 1440 * 100vw);
+  width: 140px;
+  height: 45px;
   border: none;
-  border-radius: calc(25 / 1440 * 100vw);
-  font-size: calc(20 / 1440 * 100vw);
+  border-radius: 25px;
+  font-size: 20px;
   font-weight: bold;
   cursor: pointer;
 }
 
 .menu-category-btn01.active,
 .menu-category-btn02.active {
-  background-color: navy; /* 남색 */
+  background-color: #1428a0;
   color: white;
+}
+
+@media (max-width: 412px) {
+  .menu-search-bar {
+    margin: 3.64vw 0vw;
+  }
+
+  .menu-search-info input {
+    width: 72.82vw;
+    height: 12.14vw;
+    font-size: 7.28vw;
+    margin-bottom: 3.64vw;
+  }
+
+  .menu-search-btnBox {
+    margin-bottom: 3.64vw;
+  }
+
+  .menu-search-btn,
+  .menu-search-clear {
+    width: 29.13vw;
+    height: 9.71vw;
+    font-size: 6.07vw;
+    border-radius: 2.43vw;
+  }
+
+  .menu-category-choose {
+    margin: 4.85vw 0vw;
+  }
+
+  .menu-category-btn01,
+  .menu-category-btn02 {
+    width: 33.99vw;
+    height: 10.92vw;
+    border-radius: 6.07vw;
+    font-size: 4.85vw;
+  }
 }
