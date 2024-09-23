@@ -3,6 +3,8 @@ import useInfoStore from "../stores/infos";
 import '../styles/LoginPage.css';
 import { Navigate } from "react-router-dom";
 import NavLogo from "../logo/NavLogo.png";
+import Notiflix from "notiflix";
+
 
 const LoginPage = () => {
   const { sendLoginRequest } = useInfoStore();
@@ -22,7 +24,7 @@ const LoginPage = () => {
   };
 
   if (isLogin) {
-    return <Navigate to="/silverorder/admin/order" />; // 로그인 상태라면 메인페이지로 redirect
+    return <Navigate to="/silverorder/admin/dashboard" />; // 로그인 상태라면 메인페이지로 redirect
   }
 
   return (

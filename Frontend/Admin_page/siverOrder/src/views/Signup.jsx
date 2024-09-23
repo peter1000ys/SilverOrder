@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/Signup.css';
 import useInfoStore from "../stores/infos";
 import { Navigate } from "react-router-dom";
-import Logo from "../logo/Logo.png";
+import Logo from "../logo/logo.png";
 const Signup = () => {
   const { sendLoginRequest, sendRegisterRequest, isLogin } = useInfoStore();
   const [email, setEmail] = useState("");
