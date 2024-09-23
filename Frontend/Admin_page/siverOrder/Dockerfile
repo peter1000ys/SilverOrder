@@ -1,4 +1,4 @@
-# base image 설정(as build 로 완료된 파일을 밑에서 사용할 수 있다.)
+# base image 설정
 FROM node:20-alpine as build
 
 # 컨테이너 내부 작업 디렉토리 설정
@@ -24,8 +24,8 @@ RUN npm run build
 # prod environment
 FROM nginx:stable-alpine
 
-# 이전 빌드 단계에서 빌드한 결과물을 /usr/share/nginx/html 으로 복사한다.
-COPY --from=build /app/dist /usr/share/nginx/html
+# 이전 빌드 단계에서 빌드한 결과물을 /usr/share/nginx/html/web 으로 복사한다.
+COPY --from=build /app/dist /usr/share/nginx/html/web
 
 # 기본 nginx 설정 파일을 삭제한다. (custom 설정과 충돌 방지)
 RUN rm /etc/nginx/conf.d/default.conf
