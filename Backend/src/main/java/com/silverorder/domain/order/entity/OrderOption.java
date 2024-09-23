@@ -4,6 +4,7 @@ package com.silverorder.domain.order.entity;
 import com.silverorder.domain.option.entity.Option;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -18,6 +19,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "T_ORDER_OPTION")
@@ -34,6 +36,6 @@ public class OrderOption {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OPTION_ID", nullable = false)
-    private Option option;
+    private Option option; //외래키
 
 }
