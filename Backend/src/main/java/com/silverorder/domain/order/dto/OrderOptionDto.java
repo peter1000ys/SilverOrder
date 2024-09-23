@@ -1,8 +1,6 @@
 package com.silverorder.domain.order.dto;
 
-import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.option.entity.Option;
-import com.silverorder.domain.order.entity.Order;
 import com.silverorder.domain.order.entity.OrderMenu;
 import com.silverorder.domain.order.entity.OrderOption;
 import lombok.AllArgsConstructor;
@@ -14,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OptionRequestDto {
+public class OrderOptionDto {
     private Long optionId;
 
     public OrderOption toEntity(OrderMenu orderMenu, Option option) {

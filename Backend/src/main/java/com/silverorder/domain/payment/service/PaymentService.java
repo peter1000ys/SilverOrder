@@ -20,7 +20,8 @@ import java.util.List;
  */
 public interface PaymentService {
     HeaderDto testingHeader(long userId) throws Exception;
-    String payCard(CardRequestDto cardRequestDto) throws Exception;
+
+    Long payCard(CardRequestDto cardRequestDto) throws Exception;
 
     ResponseCardListDto myCards(long userId) throws Exception;
 

@@ -1,7 +1,8 @@
 package com.silverorder.domain.order.controller;
 
-import com.silverorder.domain.order.dto.OrderPayRequestDto;
+import com.silverorder.domain.order.dto.OrderDto;
 import com.silverorder.domain.order.service.OrderService;
+import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -10,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -36,9 +38,10 @@ public class OrderController {
     @PostMapping("/transaction")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> orderTransaction(
-            @RequestBody OrderPayRequestDto orderPayRequestDto
-    ) throws Exception {
-
+            @RequestBody OrderDto orderDto,
+            @AuthenticationPrincipal CustomUserDetails customUserDetails
+            ) throws Exception {
+        orderService.saveOrder(orderDto, customUserDetails.getUser().getUserApiKey());
         return new ResponseEntity<>("", HttpStatus.OK);
     }
 

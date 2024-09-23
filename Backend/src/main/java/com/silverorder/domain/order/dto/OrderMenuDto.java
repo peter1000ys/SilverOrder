@@ -14,11 +14,11 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class MenuRequestDto {
+public class OrderMenuDto {
     private Long menuId;
     private int menuAmount;
     private Long menuPrice;
-    private List<OptionRequestDto> optionList;
+    private List<OrderOptionDto> optionList;
 
     public OrderMenu toEntity(Menu menu, Order order) {
         return OrderMenu.builder()
