@@ -40,7 +40,7 @@ public class OrderController {
     public ResponseEntity<?> orderTransaction(
             @RequestBody OrderDto orderDto,
             @AuthenticationPrincipal CustomUserDetails customUserDetails
-            ) throws Exception {
+    ) throws Exception {
         orderService.saveOrder(orderDto, customUserDetails.getUser().getUserApiKey());
         return new ResponseEntity<>("", HttpStatus.OK);
     }
