@@ -1,6 +1,7 @@
 import "./Styles/MenuInfo.css"; // CSS 파일을 가져옴
 import useCartStore from "../../stores/cart";
 import { useNavigate } from "react-router-dom";
+import { baseURL } from "../../constant";
 
 const MenuInfo = ({ data }) => {
   const navigate = useNavigate();
@@ -12,12 +13,13 @@ const MenuInfo = ({ data }) => {
     const item = { category, productId, name, price, options };
     // 장바구니에 제품 추가
     addToCart(item);
+    alert("장바구니에 상품이 담겼습니다.");
   };
 
   const go_to_optionpage = ({ category, productId, name, price, options }) => {
     // productId, name, price, options를 사용하여 새로운 item 객체 생성
     const item = { category, productId, name, price, options };
-    navigate("/silverorder/choiceoption", { state: { item } });
+    navigate(`${baseURL}/choiceoption`, { state: { item } });
   };
 
   console.log(data);

@@ -70,7 +70,6 @@ public class RegisterRequestDto {
      */
     public User toEntity() {
         return User.builder()
-                .id(null)
                 .userEmail(this.userEmail)
                 .userPassword(this.userPassword)
                 .userBirth(this.userBirth)

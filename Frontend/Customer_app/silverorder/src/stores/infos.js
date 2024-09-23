@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import axios from "axios";
 import useCartStore from "./cart";
+import { baseURL } from "../constant";
 
 const API_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
@@ -74,7 +75,7 @@ const useInfoStore = create(
         clearCart(); // 로그아웃 시 장바구니가 초기화되도록
 
         set({ isLogin: false, token: null });
-        navigate("/signin");
+        navigate(`${baseURL}/signin`);
       },
 
       // 회원 정보 조회

@@ -21,7 +21,7 @@ const ReviewList = () => {
     const [sortOption, setSortOption] = useState('ratingDesc');
     const [filterOption, setFilterOption] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
-    const reviewsPerPage = 10;
+    const reviewsPerPage = 8;
 
     const handleSortChange = (e) => {
         setSortOption(e.target.value);
@@ -90,33 +90,23 @@ const ReviewList = () => {
                 <thead>
                     <tr>
                         <th>상품명</th>
-                        <th>리뷰 사진</th>
                         <th>이름</th>
                         <th>코멘트</th>
                         <th>평점</th>
                         <th>작성일</th>
-                        <th>블라인드</th>
-                        <th>댓글</th>
+                        <th>본문 확인</th>
                     </tr>
                 </thead>
                 <tbody>
                     {currentReviews.map(review => (
                         <tr key={review.id}>
                             <td>{review.productName}</td>
-                            <td>리뷰 이미지</td>
                             <td>{review.reviewer}</td>
                             <td>{review.comment}</td>
                             <td>{review.rating}</td>
                             <td>{review.orderDate.toLocaleDateString()}</td>
                             <td>
-                                <input
-                                    type="checkbox"
-                                    checked={review.confirmed}
-                                    onChange={() => handleConfirmationChange(review.id)}
-                                />
-                            </td>
-                            <td>
-                                <button>수정</button>
+                                <button>본문</button>
                             </td>
                         </tr>
                     ))}

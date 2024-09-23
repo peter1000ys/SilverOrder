@@ -2,8 +2,11 @@ package com.silverorder.domain.user.controller;
 
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import com.silverorder.domain.user.dto.UserDto;
+import com.silverorder.domain.user.dto.UserRole;
 import com.silverorder.domain.user.service.UserService;
 import com.silverorder.global.config.security.JwtUtil;
+import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -64,6 +67,24 @@ public class UserController {
         userService.connectBank(customUserDetails.getUser().getUserId(), requestBody.get("userApiEmail"));
 
         return new ResponseEntity<>("은행 연동 성공", HttpStatus.OK);
+    }
+
+    @Operation(
+            summary = "가맹점 고유번호",
+            description = "userId로 storeId를 조회합니다. 관리자인 경우만 가능합니다.")
+    @ResponseStatus(HttpStatus.OK)
+    @GetMapping("/me/store/{userId}")
+    public ResponseEntity<?> getStoreId(
+            @AuthenticationPrincipal CustomUserDetails customUserDetails,
+            @PathVariable("userId") Long userId
+    ) throws Exception {
+        if(customUserDetails.getUser().getUserRole() == UserRole.ROLE_ADMIN) {
+            throw new CustomException(ErrorCode.UNAUTHORIZED_ADMIN);
+        }
+
+        Long storeId = userService.getStoreIdByUserId(customUserDetails.getUser().getUserId());
+
+        return ResponseEntity.ok(storeId);
     }
 
 }

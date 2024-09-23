@@ -1,6 +1,6 @@
 /* Wrapper to center content */
 .center-wrapper {
-    padding-top: 90px;
+    padding-top: calc(65 / 1440 * 100vw);
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -11,34 +11,34 @@
     display: flex;
     justify-content: space-between;
     width: 80%; /* Matches the width of the table */
-    margin-bottom: 20px;
+    margin-bottom: calc(10 / 1440 * 100vw);
 }
 
 .filter-sort-wrapper select {
-    padding: 8px;
-    margin-right: 10px;
+    padding: calc(8 / 1440 * 100vw);
+    margin-right: calc(10 / 1440 * 100vw);
 }
 
 /* Table styling */
 .review-table {
     width: 80%;
-    max-width: 2000px;
-    max-height: 1200px; /* Set max height */
+    max-width: calc(2000 / 1440 * 100vw);
+    max-height: calc(1200 / 1440 * 100vw); /* Set max height */
     border-collapse: collapse;
     background-color: white;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: calc(0 / 1440 * 100vw) calc(4 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
 }
 
 .review-table th, .review-table td {
-    border: 1px solid #ddd;
-    padding: 10px;
+    border: calc(1 / 1440 * 100vw) solid #ddd;
+    padding: calc(10 / 1440 * 100vw);
     text-align: center;
 }
 
 /* Ensure all rows, even empty ones, have the same height */
 .review-table tr {
-    min-height: 50px; /* Set the minimum height for all rows */
-    height: 57px; /* You can adjust this value to control the row height */
+    min-height: calc(50 / 1440 * 100vw); 
+    height: calc(57 / 1440 * 100vw); 
 }
 
 .review-table th {
@@ -51,9 +51,9 @@
 }
 
 .review-table button {
-    padding: 5px 10px;
+    padding: calc(5 / 1440 * 100vw) calc(8 / 1440 * 100vw);
     background-color: #f2f2f2;
-    border: 1px solid #ccc;
+    border: calc(1 / 1440 * 100vw) solid #ccc;
     cursor: pointer;
 }
 
@@ -69,16 +69,16 @@
 /* Pagination styling */
 .pagination {
     position: relative;
-    margin-top: 20px;
-    margin-bottom: 30px;
+    margin-top: calc(20 / 1440 * 100vw);
+    margin-bottom: calc(30 / 1440 * 100vw);
     display: flex;
     justify-content: center;
 }
 
 .pagination button {
-    padding: 10px 15px;
-    margin: 0 5px;
-    border: 1px solid #ddd;
+    padding: calc(10 / 1440 * 100vw) calc(15 / 1440 * 100vw);
+    margin: 0 calc(5 / 1440 * 100vw);
+    border: calc(1 / 1440 * 100vw) solid #ddd;
     background-color: #f2f2f2;
     cursor: pointer;
 }

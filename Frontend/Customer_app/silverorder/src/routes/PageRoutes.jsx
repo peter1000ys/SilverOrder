@@ -1,5 +1,6 @@
 import { Route, Routes, Navigate } from "react-router-dom";
 import useInfoStore from "../stores/infos.js";
+import { baseURL } from "../constant.js";
 
 // 시작 페이지 (들어가자마자 보일 페이지)
 import StartPage from "../views/StartPage.jsx";
@@ -45,55 +46,55 @@ const PageRoutes = () => {
   return (
     <Routes>
       {/* QR 코드를 찍어서 들어왔을 때의 시작 페이지 */}
-      <Route path="/silverorder/" element={<StartPage />} />
+      <Route path={`${baseURL}/`} element={<StartPage />} />
 
       {/* 회원가입 */}
-      <Route path="/silverorder/signup" element={<SignupPage />} />
+      <Route path={`${baseURL}/signup`} element={<SignupPage />} />
 
       {/* 로그인 */}
-      <Route path="/silverorder/signin" element={<SigninPage />} />
+      <Route path={`${baseURL}/signin`} element={<SigninPage />} />
 
       {/* QR 코드를 찍지 않고 들어왔을 때의 시작 페이지 */}
-      <Route path="/silverorder/outdoor" element={<OutdoorPage />} />
+      <Route path={`${baseURL}/outdoor`} element={<OutdoorPage />} />
 
       {/* 주변 매장 찾아볼 페이지 */}
-      <Route path="/silverorder/findstore" element={<FindStorePage />} />
+      <Route path={`${baseURL}/findstore`} element={<FindStorePage />} />
 
       {/* 로그인 여부에 따라 페이지 접근 제한 */}
       {isLogin ? (
         <>
           {/* 가게 페이지 */}
-          <Route path="/silverorder/store" element={<StorePage />} />
+          <Route path={`${baseURL}/store`} element={<StorePage />} />
 
           {/* 마이 페이지 */}
-          <Route path="/silverorder/mypage" element={<MyPage />} />
+          <Route path={`${baseURL}/mypage`} element={<MyPage />} />
 
           {/* 주문 현황 확인 페이지 */}
-          <Route path="/silverorder/orderstate" element={<OrderstatePage />} />
+          <Route path={`${baseURL}/orderstate`} element={<OrderstatePage />} />
 
           {/* 주문 내역 확인 페이지 */}
-          <Route path="/silverorder/orderlist" element={<OrderlistPage />} />
+          <Route path={`${baseURL}/orderlist`} element={<OrderlistPage />} />
 
           {/* 내 카드 페이지 */}
-          <Route path="/silverorder/mycard" element={<MycardPage />} />
+          <Route path={`${baseURL}/mycard`} element={<MycardPage />} />
 
           {/* 장바구니 페이지 */}
-          <Route path="/silverorder/shoppingcart" element={<CartPage />} />
+          <Route path={`${baseURL}/shoppingcart`} element={<CartPage />} />
 
           {/* 옵션 선택 페이지 */}
           <Route
-            path="/silverorder/choiceoption"
+            path={`${baseURL}/choiceoption`}
             element={<OptionChoicePage />}
           />
 
           {/* 내 카드 목록을 불러와 간편결제 카드 목록에 추가하는 페이지 */}
           <Route
-            path="/silverorder/registercard"
+            path={`${baseURL}/registercard`}
             element={<RegisterCardPage />}
           />
         </>
       ) : (
-        <Route path="*" element={<Navigate to="/silverorder/signin" />} />
+        <Route path="*" element={<Navigate to={`${baseURL}/signin`} />} />
       )}
     </Routes>
   );

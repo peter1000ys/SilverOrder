@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import useInfoStore from "../stores/infos";
 import EmailAPIModal from "../components/AboutCard/EmailAPIModal";
 import add_card from "../img/add_card.png";
+import { baseURL } from "../constant";
 
 const MycardPage = () => {
   const navigate = useNavigate();
@@ -17,7 +18,7 @@ const MycardPage = () => {
       setModalOpen(true); // 모달을 엽니다.
     } else {
       // userApiEmail이 null이 아닌 경우
-      navigate("/silverorder/registercard"); // RegisterCardPage로 이동합니다.
+      navigate(`${baseURL}/registercard`); // RegisterCardPage로 이동합니다.
     }
   };
 
