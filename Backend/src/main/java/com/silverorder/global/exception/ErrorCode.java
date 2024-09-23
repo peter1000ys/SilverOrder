@@ -22,7 +22,7 @@ public enum ErrorCode {
     DATABASE_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "데이터베이스 오류가 발생했습니다."),
     BAD_REQUEST(HttpStatus.BAD_REQUEST,"잘못된 요청입니다."),
     DUPLICATE_RESOURCE(HttpStatus.CONFLICT,"중복된 요청입니다"),
-
+    UNAUTHORIZED_ADMIN(HttpStatus.UNAUTHORIZED, "관리자만 가능한 서비스입니다."),
 
     //회원
     USER_NOT_FOUND(HttpStatus.NOT_FOUND,"해당하는 유저를 찾을 수 없습니다"),

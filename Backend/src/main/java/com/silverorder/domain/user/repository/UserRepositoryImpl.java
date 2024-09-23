@@ -124,4 +124,13 @@ public class UserRepositoryImpl implements UserRepository {
                 .execute();
     }
 
+    @Override
+    public Long getStoreIdByUserId(Long userId) throws PersistenceException {
+        return queryFactory
+                .select(store.id)
+                .from(store)
+                .where(store.user.id.eq(userId))
+                .fetchOne();
+    }
+
 }
