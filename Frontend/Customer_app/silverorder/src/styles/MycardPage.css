@@ -1,13 +1,49 @@
-.mycard-container {
+.mycard-container,
+.mycard-list {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .mycard-title h1 {
   font-size: calc(40 / 1440 * 100vw);
+}
+
+.mycard-item {
+  width: 90%;
+  height: calc(200 / 1440 * 100vw);
+  border: calc(1 / 1440 * 100vw) solid #cccccc;
+  border-radius: calc(10 / 1440 * 100vw);
+  margin-bottom: calc(15 / 1440 * 100vw);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mycard-item-title p {
+  font-size: calc(30 / 1440 * 100vw);
+  font-weight: bold;
+  margin: calc(10 / 1440 * 100vw);
+}
+
+.mycard-item-number {
+  font-size: calc(15 / 1440 * 100vw);
+  font-weight: bold;
+  margin: 0;
+}
+
+.mycard-item-info {
+  width: 100%;
+}
+
+.mycard-item-info li {
+  margin-left: calc(15 / 1440 * 100vw);
+  text-align: start;
+  font-size: calc(20 / 1440 * 100vw);
 }
 
 .mycard-addcard {
@@ -19,6 +55,7 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-bottom: calc(15 / 1440 * 100vw);
 }
 
 .mycard-addcard img {

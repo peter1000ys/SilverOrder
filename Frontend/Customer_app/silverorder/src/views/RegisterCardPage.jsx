@@ -3,16 +3,24 @@ import "../styles/RegisterCardPage.css";
 import usePurchaseStore from "../stores/purchase";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../constant";
+import useInfoStore from "../stores/infos"; // useInfoStore 가져오기
 
 const RegisterCardPage = () => {
+  const { userInfo } = useInfoStore(); // userInfo 가져오기
   const { getAllMyCard, registerCheckedCard } = usePurchaseStore();
   const [cards, setCards] = useState([]);
   const [selectedCards, setSelectedCards] = useState([]);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // userApiEmail이 존재하지 않으면 mypage로 리디렉션
+    if (!userInfo.userApiEmail) {
+      navigate(`${baseURL}/mypage`); // mypage로 이동
+      return; // 이후 코드 실행하지 않도록 return
+    }
+
     // 카드 정보 불러오기
-    const fetchCards = async () => {
+    const fetchAllMyCards = async () => {
       try {
         const response = await getAllMyCard();
         if (response) {
@@ -25,8 +33,8 @@ const RegisterCardPage = () => {
       }
     };
 
-    fetchCards();
-  }, [getAllMyCard]);
+    fetchAllMyCards();
+  }, [userInfo.userApiEmail, getAllMyCard, navigate]);
 
   // 체크박스 변경 핸들러
   const handleCheckboxChange = (card) => {

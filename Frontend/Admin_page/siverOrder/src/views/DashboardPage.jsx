@@ -1,11 +1,22 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Navbar from '../components/Navbar/Navbar';
 import DashboardStats from '../components/Dashboard/DashboardStats';
 import AgeChart from '../components/Dashboard/AgeChart';
 import LineChart from '../components/Dashboard/LineChart';
 import '../styles/DashboardPage.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import useInfoStore from "../stores/infos";
+
+
 const DashboardPage = () => {
+    const { sendStoreIdRequest } = useInfoStore();
+    const { userInfo } = useInfoStore();
+    useEffect(() => {
+        console.log(userInfo);
+
+      }, []);
+      
+
     return (
         <div className="dashboard">
             <Navbar />

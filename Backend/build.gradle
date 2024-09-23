@@ -36,6 +36,8 @@ dependencies {
 	implementation "org.projectlombok:lombok:1.18.20"
 	annotationProcessor "org.projectlombok:lombok:1.18.20"
 
+	//Prometheus
+	implementation 'io.micrometer:micrometer-registry-prometheus'
 
 	//Jwt
 	implementation 'io.jsonwebtoken:jjwt-api:0.11.5'

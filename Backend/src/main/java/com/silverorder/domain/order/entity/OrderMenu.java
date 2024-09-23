@@ -3,6 +3,7 @@ package com.silverorder.domain.order.entity;
 import com.silverorder.domain.menu.entity.Menu;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -17,6 +18,7 @@ import lombok.NoArgsConstructor;
 
 @Entity
 @Getter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "T_ORDER_MENU")
