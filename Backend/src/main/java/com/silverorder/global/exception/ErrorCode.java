@@ -49,7 +49,7 @@ public enum ErrorCode {
 
     //주문
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 주문을 찾을 수 없습니다"),
-    ORDER_USER_NOT_AUTHENTICATED(HttpStatus.UNAUTHORIZED,"주문고객이 아닙니다"),
+    ORDER_USER_UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"주문 고객이 아닙니다"),
     ORDER_PERSIST_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "주문 정보 저장 실패"),
 
     //리뷰

@@ -18,6 +18,13 @@ public class RabbitMQConfig {
     public static final String ORDER_QUEUE = "order-queue";
     public static final String ORDER_ROUTING_KEY = "order.status.changed";
 
+    public static final String ORDER_STATUS_QUEUE = "order-status-queue";
+
+    @Bean
+    public Queue orderStatusQueue() {
+        return new Queue(ORDER_STATUS_QUEUE, true);
+    }
+
     @Bean
     public Queue orderQueue() {
         return new Queue(ORDER_QUEUE, true);
