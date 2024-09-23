@@ -12,10 +12,10 @@
 
 .emailAPImodal-content {
   background: #fff;
-  padding: calc(20 / 1440 * 100vw);
-  border-radius: calc(8 / 1440 * 100vw);
-  width: calc(300 / 1440 * 100vw);
-  max-width: 90%;
+  padding: 20px;
+  border-radius: 8px;
+  width: 350px;
+  max-width: 412px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -24,36 +24,36 @@
 }
 
 .emailAPImodal-content h2 {
-  font-size: calc(40 / 1440 * 100vw);
-  margin: calc(15 / 1440 * 100vw) 0;
+  font-size: 40px;
+  margin: 15px 0px;
 }
 
 .emailAPImodal-content p {
-  font-size: calc(18 / 1440 * 100vw);
+  font-size: 18px;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
-  margin: calc(15 / 1440 * 100vw) 0;
+  margin: 15px 0px;
 }
 
 .emailAPImodal-content input {
-  width: calc(280 / 1440 * 100vw);
-  height: calc(50 / 1440 * 100vw);
-  font-size: calc(20 / 1440 * 100vw);
+  width: 280px;
+  height: 50px;
+  font-size: 20px;
 }
 
 .emailAPImodal-btns {
   width: 80%;
-  margin-top: calc(20 / 1440 * 100vw);
+  margin-top: 20px;
   display: flex;
   justify-content: space-between;
 }
 
 .emailAPImodal-checkBtn,
 .emailAPImodal-cancelBtn {
-  width: calc(75 / 1440 * 100vw);
-  height: calc(40 / 1440 * 100vw);
-  font-size: calc(20 / 1440 * 100vw);
+  width: 75px;
+  height: 40px;
+  font-size: 20px;
   border: none;
-  border-radius: calc(10 / 1440 * 100vw);
+  border-radius: 10px;
   cursor: pointer;
 }
 
@@ -65,4 +65,40 @@
 .emailAPImodal-cancelBtn {
   background-color: #666666;
   color: #ffffff;
+}
+
+@media (max-width: 412px) {
+  .emailAPImodal-content {
+    padding: 4.85vw;
+    border-radius: 1.94vw;
+    width: 84.95vw;
+  }
+
+  .emailAPImodal-content h2 {
+    font-size: 9.71vw;
+    margin: 3.64vw 0vw;
+  }
+
+  .emailAPImodal-content p {
+    font-size: 4.37vw;
+    margin: 3.64vw 0vw;
+  }
+
+  .emailAPImodal-content input {
+    width: 67.96vw;
+    height: 12.14vw;
+    font-size: 4.85vw;
+  }
+
+  .emailAPImodal-btns {
+    margin-top: 4.85vw;
+  }
+
+  .emailAPImodal-checkBtn,
+  .emailAPImodal-cancelBtn {
+    width: 18.2vw;
+    height: 9.71vw;
+    font-size: 4.85vw;
+    border-radius: 2.43vw;
+  }
 }

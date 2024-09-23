@@ -1,11 +1,10 @@
 .menu-item {
-  width: calc(330 / 1440 * 100vw);
-  height: calc(280 / 1440 * 100vw);
-  border: solid calc(1 / 1440 * 100vw) #cccccc;
-  border-radius: calc(10 / 1440 * 100vw);
-  margin-bottom: calc(20 / 1440 * 100vw);
-  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
-    calc(15 / 1440 * 100vw) rgb(123, 123, 123);
+  width: 330px;
+  height: 280px;
+  border: solid 1px #cccccc;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 5px 5px 15px rgb(123, 123, 123);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -24,14 +23,14 @@
 }
 
 .menu-item-img {
-  width: calc(120 / 1440 * 100vw);
-  height: calc(120 / 1440 * 100vw);
-  border: solid calc(1 / 1440 * 100vw) #cccccc;
+  width: 120px;
+  height: 120px;
+  border: solid 1px #cccccc;
   border-radius: 90%;
 }
 
 #menu-item-name {
-  font-size: calc(40 / 1440 * 100vw);
+  font-size: 40px;
   font-weight: bold;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
@@ -45,9 +44,9 @@
 
 .menu-item-normal,
 .menu-item-plus {
-  width: calc(150 / 1440 * 100vw);
-  height: calc(130 / 1440 * 100vw);
-  border-radius: calc(25 / 1440 * 100vw);
+  width: 150px;
+  height: 130px;
+  border-radius: 25px;
   border: none;
   background-color: #1428a0;
   color: #ffffff;
@@ -60,19 +59,60 @@
 }
 
 #menu-item-normal01 {
-  font-size: calc(35 / 1440 * 100vw);
+  font-size: 35px;
   font-weight: bold;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 #menu-item-plus01 {
-  font-size: calc(30 / 1440 * 100vw);
+  font-size: 30px;
   font-weight: bold;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 #menu-item-normal02,
 #menu-item-plus02 {
-  font-size: calc(25 / 1440 * 100vw);
+  font-size: 25px;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+@media (max-width: 412px) {
+  .menu-item {
+    width: 80.1vw;
+    height: 67.96vw;
+    border: solid 0.24vw #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 4.85vw;
+    box-shadow: 1.21vw 1.21vw 3.64vw rgb(123, 123, 123);
+  }
+
+  .menu-item-img {
+    width: 29.13vw;
+    height: 29.13vw;
+    border: solid 0.24vw #cccccc;
+  }
+
+  #menu-item-name {
+    font-size: 9.71vw;
+  }
+
+  .menu-item-normal,
+  .menu-item-plus {
+    width: 36.41vw;
+    height: 31.55vw;
+    border-radius: 6.07vw;
+  }
+
+  #menu-item-normal01 {
+    font-size: 8.5vw;
+  }
+
+  #menu-item-plus01 {
+    font-size: 7.28vw;
+  }
+
+  #menu-item-normal02,
+  #menu-item-plus02 {
+    font-size: 6.07vw;
+  }
 }
