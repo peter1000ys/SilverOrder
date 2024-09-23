@@ -29,7 +29,7 @@ public class SwaggerConfig {
         Server server;
         if ("prod".equals(activeProfile)) {
             server = new Server()
-                    .url("https://j11c202.p.ssafy.io/silverorder")
+                    .url("https://j11c202.p.ssafy.io/silverorder/api")
                     .description("운영 서버");
         } else {
             server = new Server()
