@@ -1,6 +1,7 @@
 package com.silverorder.domain.order.dto;
 
 import com.silverorder.domain.order.entity.Order;
+import com.silverorder.domain.order.entity.OrderMenu;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,9 +13,10 @@ import java.util.List;
 @NoArgsConstructor
 @Getter
 @Setter
-public class OrderRequestDto {
-        private Long storeId;
-        private Long totalPrice;
-        private List<MenuRequestDto> menuList;
-        private String require;
+public class OrderPayRequestDto {
+    private Long storeId;
+    private Long totalPrice;
+    private List<MenuRequestDto> menuList;
+    private Long paymentId;
+    private String require;
 }
