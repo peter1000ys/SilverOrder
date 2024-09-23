@@ -17,6 +17,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -73,18 +74,19 @@ public class UserController {
             summary = "가맹점 고유번호",
             description = "userId로 storeId를 조회합니다. 관리자인 경우만 가능합니다.")
     @ResponseStatus(HttpStatus.OK)
-    @GetMapping("/me/store/{userId}")
+    @GetMapping("/me/store")
     public ResponseEntity<?> getStoreId(
-            @AuthenticationPrincipal CustomUserDetails customUserDetails,
-            @PathVariable("userId") Long userId
+            @AuthenticationPrincipal CustomUserDetails customUserDetails
     ) throws Exception {
-        if(customUserDetails.getUser().getUserRole() == UserRole.ROLE_ADMIN) {
+        if(customUserDetails.getUser().getUserRole() != UserRole.ROLE_ADMIN) {
             throw new CustomException(ErrorCode.UNAUTHORIZED_ADMIN);
         }
 
         Long storeId = userService.getStoreIdByUserId(customUserDetails.getUser().getUserId());
 
-        return ResponseEntity.ok(storeId);
+        Map<String, Long> responseBody = new HashMap<>();
+        responseBody.put("storeId", storeId);
+        return ResponseEntity.ok(responseBody);
     }
 
 }

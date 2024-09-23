@@ -165,7 +165,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Long getStoreIdByUserId(Long userId) throws Exception {
-        return getStoreIdByUserId(userId);
+        return userRepository.getStoreIdByUserId(userId);
     }
 
 }
