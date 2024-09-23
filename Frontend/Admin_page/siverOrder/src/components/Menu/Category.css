@@ -12,6 +12,7 @@
   padding: calc(5 / 1440 * 100vw);
   border: calc(1 / 1440 * 100vw) solid #ddd;
   border-radius: calc(5 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .add-option-button {
@@ -23,6 +24,7 @@
   border-radius: calc(4 / 1440 * 100vw);
   cursor: pointer;
   margin-bottom: calc(20 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .add-option-button:hover {
@@ -32,6 +34,7 @@
 .added-options-list {
   list-style-type: none;
   padding-left: 0;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .added-options-list li {
@@ -41,6 +44,7 @@
   background-color: #f1f1f1;
   margin-bottom: calc(5 / 1440 * 100vw);
   border-radius: calc(4 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .remove-option-button {
@@ -50,6 +54,7 @@
   border-radius: calc(4 / 1440 * 100vw);
   padding: calc(5 / 1440 * 100vw) calc(10 / 1440 * 100vw);
   cursor: pointer;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .remove-option-button:hover {
@@ -69,6 +74,7 @@
   border-radius: calc(5 / 1440 * 100vw);
   cursor: pointer;
   border: none;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .submit {
@@ -78,4 +84,5 @@
   border-radius: calc(5 / 1440 * 100vw);
   cursor: pointer;
   border: none;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }

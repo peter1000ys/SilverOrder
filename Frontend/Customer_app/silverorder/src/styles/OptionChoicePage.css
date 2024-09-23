@@ -3,12 +3,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: calc(30 / 1440 * 100vw) 0;
+  margin: 30px 0px;
 }
 
 .option-menu-title h1 {
   margin: 0;
-  font-size: calc(45 / 1440 * 100vw);
+  font-size: 45px;
 }
 
 .option-select-box {
@@ -16,7 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: calc(30 / 1440 * 100vw);
+  margin-bottom: 30px;
 }
 
 .option-select-title {
@@ -27,8 +27,8 @@
 
 .option-select-title h2 {
   margin: 0;
-  margin-left: calc(10 / 1440 * 100vw);
-  font-size: calc(30 / 1440 * 100vw);
+  margin-left: 10px;
+  font-size: 30px;
 }
 
 .options-container {
@@ -40,15 +40,15 @@
 }
 
 .option-box {
-  width: calc(100 / 1440 * 100vw);
-  height: calc(100 / 1440 * 100vw);
+  width: 100px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
   align-items: center;
-  border: calc(1 / 1440 * 100vw) solid #ccc;
-  border-radius: calc(10 / 1440 * 100vw);
-  margin: calc(8 / 1440 * 100vw);
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  margin: 8px;
   cursor: pointer;
   text-align: center;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
@@ -58,30 +58,30 @@
   background-color: #1428a0;
   color: #ffffff;
   font-weight: bold;
-  border: calc(3 / 1440 * 100vw) solid black;
+  border: 3px solid black;
 }
 
 .options-container p {
   margin: 0;
-  font-size: calc(20 / 1440 * 100vw);
+  font-size: 20px;
 }
 
 .option-totalPrice-box {
   width: 100%;
   display: flex;
   justify-content: end;
-  margin: calc(30 / 1440 * 100vw) 0;
+  margin: 30px 0px;
 }
 
 .option-totalPrice-box p {
-  font-size: calc(30 / 1440 * 100vw);
+  font-size: 30px;
   margin: 0;
 }
 
 .option-totalPrice-box span {
-  border: calc(1 / 1440 * 100vw) solid #666666;
-  border-radius: calc(8 / 1440 * 100vw);
-  padding: calc(5 / 1440 * 100vw);
+  border: 1px solid #666666;
+  border-radius: 8px;
+  padding: 5px;
   font-weight: bold;
 }
 
@@ -90,17 +90,77 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-bottom: calc(15 / 1440 * 100vw);
+  margin-bottom: 15px;
 }
 
 .option-menu-addBtn {
-  width: calc(300 / 1440 * 100vw);
-  height: calc(60 / 1440 * 100vw);
+  width: 300px;
+  height: 60px;
   border: none;
-  border-radius: calc(10 / 1440 * 100vw);
+  border-radius: 10px;
   background-color: #1428a0;
   color: #ffffff;
-  font-size: calc(30 / 1440 * 100vw);
+  font-size: 30px;
   font-weight: bold;
   cursor: pointer;
+}
+
+@media (max-width: 412px) {
+  .option-menu-title {
+    margin: 7.28vw 0vw;
+  }
+
+  .option-menu-title h1 {
+    font-size: 10.92vw;
+  }
+
+  .option-select-box {
+    margin-bottom: 7.28vw;
+  }
+
+  .option-select-title h2 {
+    margin-left: 2.43vw;
+    font-size: 7.28vw;
+  }
+
+  .option-box {
+    width: 24.27vw;
+    height: 24.27vw;
+    border: 0.24vw solid #ccc;
+    border-radius: 2.43vw;
+    margin: 1.94vw;
+  }
+
+  .option-box.selected {
+    border: 0.73vw solid black;
+  }
+
+  .options-container p {
+    font-size: 4.85vw;
+  }
+
+  .option-totalPrice-box {
+    margin: 7.28vw 0vw;
+  }
+
+  .option-totalPrice-box p {
+    font-size: 7.28vw;
+  }
+
+  .option-totalPrice-box span {
+    border: 0.24vw solid #666666;
+    border-radius: 1.94vw;
+    padding: 1.21vw;
+  }
+
+  .option-menu-add {
+    margin-bottom: 3.64vw;
+  }
+
+  .option-menu-addBtn {
+    width: 72.82vw;
+    height: 14.56vw;
+    border-radius: 2.43vw;
+    font-size: 7.28vw;
+  }
 }
