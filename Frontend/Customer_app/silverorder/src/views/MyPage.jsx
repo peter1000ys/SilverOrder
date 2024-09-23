@@ -1,9 +1,14 @@
 import "../styles/MyPage.css";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 import { baseURL } from "../constant";
+import useInfoStore from "../stores/infos";
+import EmailAPIModal from "../components/AboutCard/EmailAPIModal";
 
 const MyPage = () => {
   const navigate = useNavigate();
+  const { userInfo } = useInfoStore(); // userInfo 가져오기
+  const [isModalOpen, setModalOpen] = useState(false); // 모달 상태를 관리
 
   const go_to_orderstate = () => {
     navigate(`${baseURL}/orderstate`);
@@ -14,7 +19,16 @@ const MyPage = () => {
   };
 
   const go_to_mycard = () => {
-    navigate(`${baseURL}/mycard`);
+    // userApiEmail이 null인지 검사
+    if (userInfo.userApiEmail === null) {
+      setModalOpen(true); // userApiEmail이 없으면 모달 열기
+    } else {
+      navigate(`${baseURL}/mycard`); // userApiEmail이 있으면 MycardPage로 이동
+    }
+  };
+
+  const handleModalClose = () => {
+    setModalOpen(false); // 모달 닫기
   };
 
   return (
@@ -28,6 +42,9 @@ const MyPage = () => {
       <div className="mypage-box03" onClick={go_to_mycard}>
         <h1>내 카드</h1>
       </div>
+
+      {/* modal이 열려 있을 때 modal을 표시 */}
+      {isModalOpen && <EmailAPIModal onClose={handleModalClose} />}
     </div>
   );
 };
