@@ -1,0 +1,130 @@
+.orderstate-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.orderstate-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 20px 0px;
+}
+
+.orderstate-order-info {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 30px;
+}
+
+.orderstate-menu-item {
+  width: 90%;
+  min-height: 150px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.orderstate-menu-item p {
+  margin: 0;
+}
+
+.orderstate-menu-name,
+.orderstate-menu-options,
+.orderstate-menu-price {
+  width: 90%;
+}
+
+.orderstate-menu-name {
+  font-size: 40px;
+  font-weight: bold;
+}
+
+.orderstate-menu-options {
+  font-size: 20px;
+  text-align: start;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.orderstate-menu-price {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: end;
+}
+
+.orderstate-now-state {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderstate-progress-text {
+  font-size: 25px;
+  font-weight: bold;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.orderstate-progress-bar-container {
+  background-color: #e0e0e0;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 90%;
+  height: 20px;
+}
+
+.orderstate-progress-bar {
+  background-color: #4caf50;
+  height: 100%;
+  border-radius: 10px;
+}
+
+@media (max-width: 412px) {
+  .orderstate-title {
+    font-size: 7.28vw;
+    margin: 4.85vw 0vw;
+  }
+
+  .orderstate-order-info {
+    margin-bottom: 7.28vw;
+  }
+
+  .orderstate-menu-item {
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 1.21vw;
+  }
+
+  .orderstate-menu-name {
+    font-size: 9.71vw;
+  }
+
+  .orderstate-menu-options {
+    font-size: 4.85vw;
+  }
+
+  .orderstate-menu-price {
+    font-size: 6.07vw;
+  }
+
+  .orderstate-progress-text {
+    font-size: 6.07vw;
+  }
+
+  .orderstate-progress-bar-container {
+    border-radius: 2.43vw;
+  }
+
+  .orderstate-progress-bar {
+    border-radius: 2.43vw;
+  }
+}
