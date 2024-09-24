@@ -29,18 +29,10 @@ import org.springframework.web.bind.annotation.*;
 @Tag(name = "Order", description = "주문 관리")
 @RestController
 @RequestMapping("/order")
+//@CrossOrigin("*")
 @RequiredArgsConstructor
 public class OrderController {
     private final OrderService orderService;
-
-    @MessageMapping("/order-complete-message/{storeId}")
-    @SendTo("/topic/order-complete/{storeId}")
-    public String message(@DestinationVariable Long storeId, String message) {
-        System.out.println("가게번호 : " + storeId);
-        System.out.println("메세지 도착 :" + message);
-        return message;
-    }
-
 
     @Operation(
             summary = "주문(결제) 진행",
@@ -65,7 +57,7 @@ public class OrderController {
     ) throws Exception {
 
         orderService.changeOrderStatus(orderStatusChangeDto);
-        return new ResponseEntity<>("", HttpStatus.OK);
+        return new ResponseEntity<>("주문 상태 변경 성공", HttpStatus.OK);
     }
 
 }

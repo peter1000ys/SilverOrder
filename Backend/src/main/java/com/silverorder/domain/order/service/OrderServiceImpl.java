@@ -10,6 +10,7 @@ import com.silverorder.global.exception.CustomException;
 import com.silverorder.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -30,6 +31,7 @@ public class OrderServiceImpl implements OrderService {
     private final OrderJpaRepository orderJpaRepository;
     private final PaymentService paymentService;
     private final RabbitTemplate rabbitTemplate;
+    private final SimpMessagingTemplate messagingTemplate;
 
 
     /**
@@ -70,6 +72,10 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.updateOrderStatus(orderStatusChangeDto);
 
         // 주문 ID에 따라 특정 경로로 메시지 발송 -> 클라이언트는 주문 ID 기반 구독
-        rabbitTemplate.convertAndSend("/topic/orderStatus/" + orderStatusChangeDto.getOrderId(), orderStatusChangeDto);
+        //rabbitTemplate.convertAndSend("/topic/orderStatus/" + String.valueOf(orderStatusChangeDto.getOrderId()), orderStatusChangeDto);
+
+        messagingTemplate.convertAndSend("/topic/orderStatus/" + String.valueOf(orderStatusChangeDto.getOrderId()), orderStatusChangeDto);
+
     }
+
 }

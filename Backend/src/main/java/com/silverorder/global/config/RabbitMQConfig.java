@@ -41,6 +41,11 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    public Binding bindingOrderStatusQueue(Queue orderStatusQueue, TopicExchange orderExchange) {
+        return BindingBuilder.bind(orderStatusQueue).to(orderExchange).with(ORDER_ROUTING_KEY);
+    }
+
+    @Bean
     public MessageConverter jsonMessageConverter() {
         return new Jackson2JsonMessageConverter();
     }
