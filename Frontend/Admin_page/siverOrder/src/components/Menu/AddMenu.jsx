@@ -20,12 +20,12 @@ const AddMenu = () => {
 
     // Option Management
     const [availableOptions, setAvailableOptions] = useState([]); // Example option list
-    const [selectedOption, setSelectedOption] = useState('------'); // Default selected option
+    const [selectedOption, setSelectedOption] = useState(1); // Default selected option
     const [addedOptions, setAddedOptions] = useState([]);
 
     // Menu Category Management
     const [availableCategories, setAvailableCategories] = useState([]); // Example category list
-    const [selectedCategory, setSelectedCategory] = useState('------'); // Default category
+    const [selectedCategory, setSelectedCategory] = useState(1); // Default category
 
     useEffect(() => {
         const loadData = async () => {
