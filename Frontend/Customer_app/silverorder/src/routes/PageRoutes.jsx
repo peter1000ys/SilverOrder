@@ -40,6 +40,9 @@ import OptionChoicePage from "../views/OptionChoicePage.jsx";
 // 카드 등록 페이지
 import RegisterCardPage from "../views/RegisterCardPage.jsx";
 
+// 결제 페이지
+import PurchasePage from "../views/PurchasePage.jsx";
+
 const PageRoutes = () => {
   const { isLogin } = useInfoStore();
 
@@ -92,6 +95,9 @@ const PageRoutes = () => {
             path={`${baseURL}/registercard`}
             element={<RegisterCardPage />}
           />
+
+          {/* 결제 페이지 */}
+          <Route path={`${baseURL}/purchase`} element={<PurchasePage />} />
         </>
       ) : (
         <Route path="*" element={<Navigate to={`${baseURL}/signin`} />} />

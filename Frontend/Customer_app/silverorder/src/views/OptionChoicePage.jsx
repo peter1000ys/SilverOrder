@@ -82,7 +82,8 @@ const OptionChoicePage = () => {
     };
 
     addToCart(newItem); // Zustand store의 addToCart 함수 호출
-    navigate(`${baseURL}/shoppingcart`); // 장바구니 페이지로 이동
+    alert("장바구니에 상품이 담겼습니다.");
+    navigate(`${baseURL}/store`); // 다른 메뉴 선택할수도 있으므로 매장 페이지로 이동
   };
 
   return (
