@@ -30,9 +30,7 @@ const EditCategory = () => {
     <div>
       <Navbar />
       <div className="edit-category-container">
-        <h1 className="edit-category-title">카테고리 및 옵션 수정</h1>
 
-        {/* Select whether to show categories or options */}
         <div className="selection-toggle">
           <button
             className={selectedType === 'category' ? 'selected' : ''}
@@ -48,7 +46,6 @@ const EditCategory = () => {
           </button>
         </div>
 
-        {/* Conditional rendering for category or option */}
         {selectedType === 'category' && (
           <div className="category-list">
             <h3>카테고리 목록</h3>

@@ -11,13 +11,12 @@ const EditOption = () => {
   const { option } = location.state;
   const { userInfo } = useInfoStore();
 
-  const { updateOptionCategory, fetchOptionDetail, optionDetails } = useOptionStore(); // Access zustand functions
-
+  const { updateOptionCategory, fetchOptionDetail, deleteOption, optionDetails } = useOptionStore(); 
   const [optionCategoryTitle, setOptionCategoryTitle] = useState(option.optionCategoryTitle);
   const [optionType, setOptionType] = useState(option.optionType);
-  const [options, setOptions] = useState(option.optionDtoList || []);  // Default to an empty array if undefined
+  const [options, setOptions] = useState(option.optionDtoList || []);  
 
-  // Fetch the latest option details when component mounts
+
   useEffect(() => {
     const loadOptionDetails = async () => {
       if (option.optionCategoryId) {
@@ -28,7 +27,7 @@ const EditOption = () => {
     loadOptionDetails();
   }, [fetchOptionDetail, option.optionCategoryId]);
 
-  // Update options state when new option details are fetched
+
   useEffect(() => {
     if (optionDetails && optionDetails.optionDtoList) {
       setOptions(optionDetails.optionDtoList);
@@ -36,36 +35,49 @@ const EditOption = () => {
   }, [optionDetails]);
 
   const handleSave = async () => {
-    // Ensure all options have a valid optionId
+
     const validOptions = options.map((opt) => ({
       ...opt,
-      optionId: opt.optionId || null,  // Ensure optionId is present or handle null IDs
+      optionId: opt.optionId || null,
     }));
   
     const updatedOptionCategory = {
       storeId: userInfo.storeId,
       optionCategoryTitle,
       optionType,
-      optionDtoList: validOptions, // This will hold the list of options to update
+      optionDtoList: validOptions,
     };
   
     try {
-      // Call zustand action to update the option category
+      
       await updateOptionCategory(option.optionCategoryId, updatedOptionCategory);
       console.log("Submitting option data:", updatedOptionCategory);
-      // After saving, navigate back to the option list or menu page
       navigate('/silverorder/admin/menu/category/edit');
     } catch (error) {
       console.error("Error updating option:", error);
     }
   };
 
-  // Handle option name or price changes
+
   const handleOptionChange = (index, field, value) => {
     const updatedOptions = options.map((opt, i) =>
       i === index ? { ...opt, [field]: value } : opt
     );
     setOptions(updatedOptions);
+  };
+
+
+  const handleDelete = async () => {
+    const confirmDelete = window.confirm("이 옵션 카테고리를 삭제하시겠습니까?");
+    if (confirmDelete) {
+      try {
+        await deleteOption(option.optionCategoryId);
+        console.log(`Deleted option category ID: ${option.optionCategoryId}`);
+        navigate('/silverorder/admin/menu/category/edit');
+      } catch (error) {
+        console.error("Error deleting option category:", error);
+      }
+    }
   };
 
   return (
@@ -74,7 +86,7 @@ const EditOption = () => {
       <div className="edit-option-container">
         <h1 className="edit-option-title">옵션 수정</h1>
 
-        {/* Option Category Title */}
+
         <div className="form-group">
           <label htmlFor="optionCategoryTitle">옵션 카테고리 이름</label>
           <input
@@ -85,7 +97,7 @@ const EditOption = () => {
           />
         </div>
 
-        {/* Options List */}
+
         <div className="options-list">
           <h3>옵션 목록</h3>
           {options && options.length > 0 ? (
@@ -111,8 +123,11 @@ const EditOption = () => {
           )}
         </div>
 
-        {/* Save Button */}
+
         <button className="save-button" onClick={handleSave}>저장</button>
+
+
+        <button className="delete-button" onClick={handleDelete}>삭제</button>
       </div>
     </div>
   );
