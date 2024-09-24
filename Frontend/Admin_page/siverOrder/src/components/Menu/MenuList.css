@@ -16,7 +16,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: calc(5 / 1440 * 100vw);
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   height: 90%;
 }

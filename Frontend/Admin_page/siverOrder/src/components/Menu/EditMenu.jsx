@@ -2,26 +2,39 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import Navbar from '../Navbar/Navbar';
 import './AddMenu.css';
+import useMenuStore from '../../stores/menu';
+import useOptionStore from '../../stores/option';
 
 const EditMenu = () => {
     const location = useLocation();
     const navigate = useNavigate();
     const { menu } = location.state; // Access the passed menu data
+    const { updateMenu } = useMenuStore();  // Assuming you have an updateMenu function in the store
+    const { options, fetchOptions } = useOptionStore(); // Fetch available options
 
     // State variables pre-populated with the menu data
-    const [menuName, setMenuName] = useState(menu.name || '');
-    const [shortName, setShortName] = useState(menu.shortName || '');
-    const [description, setDescription] = useState(menu.description || '');
-    const [price, setPrice] = useState(menu.price || '');
-    const [recommendation, setRecommendation] = useState(menu.recommendation || 1);
-    const [menuImage, setMenuImage] = useState(menu.image || null);
-    const [addedOptions, setAddedOptions] = useState(menu.options || []);
+    const [menuName, setMenuName] = useState(menu.menuName || '');
+    const [shortName, setShortName] = useState(menu.simpleName || '');
+    const [description, setDescription] = useState(menu.menuDesc || '');
+    const [price, setPrice] = useState(menu.menuPrice || '');
+    const [recommendation, setRecommendation] = useState(menu.recommend || 1);
+    const [menuImage, setMenuImage] = useState(menu.menuThumb || null);
+    const [addedOptions, setAddedOptions] = useState(menu.useOptionCategory || []);
 
     // Categories and options
-    const [availableOptions] = useState(["매운맛", "사이즈업", "토핑 추가", "치즈 추가", "양념 추가"]);
+    const [availableOptions, setAvailableOptions] = useState([]);
     const [selectedOption, setSelectedOption] = useState('');
-    const [availableCategories] = useState(["음료", "디저트"]);
-    const [selectedCategory, setSelectedCategory] = useState(menu.category || '음료');
+    const [availableCategories] = useState([{ id: menu.menuCategoryId, name: menu.menuCategoryName }]);
+    const [selectedCategory, setSelectedCategory] = useState(menu.menuCategoryId || '');
+
+    // Fetch options when the component mounts
+    useEffect(() => {
+        const loadOptions = async () => {
+            await fetchOptions();
+            setAvailableOptions(options);
+        };
+        loadOptions();
+    }, [fetchOptions, options]);
 
     const handleImageChange = (e) => {
         setMenuImage(e.target.files[0]);
@@ -36,31 +49,39 @@ const EditMenu = () => {
     };
 
     const handleAddOption = () => {
-        if (selectedOption && !addedOptions.includes(selectedOption)) {
-            setAddedOptions([...addedOptions, selectedOption]);
+        const selected = availableOptions.find(opt => opt.optionCategoryId === parseInt(selectedOption));
+        if (selected && !addedOptions.some(option => option.optionCategoryId === selected.optionCategoryId)) {
+            setAddedOptions([...addedOptions, selected]);
         }
     };
 
-    const handleRemoveOption = (option) => {
-        setAddedOptions(addedOptions.filter(opt => opt !== option));
+    const handleRemoveOption = (optionToRemove) => {
+        setAddedOptions(addedOptions.filter(option => option.optionCategoryId !== optionToRemove.optionCategoryId));
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // Here you would typically send the updated data to your backend API
-        console.log({
-            menuName,
-            shortName,
-            description,
-            price,
-            recommendation,
-            menuImage,
-            category: selectedCategory,
-            options: addedOptions
-        });
+        // Updated menu object
+        const updatedMenu = {
+            menuId: menu.menuId,  // Include the menu ID for updating
+            menuCategoryId: selectedCategory,
+            menuName: menuName,
+            simpleName: shortName,
+            menuDesc: description,
+            menuStatus: 'MENU_READY',
+            menuPrice: parseInt(price, 10),
+            recommend: recommendation,
+            useOptionCategory: addedOptions.map(option => option.optionCategoryId),  // Send only option IDs
+            menuThumb: menuImage ? menuImage.name : menu.menuThumb  // If no new image is uploaded, use the existing image
+        };
 
-        // Redirect back to the menu page after editing
-        navigate('/menu');
+        console.log("Submitting updated menu data:", updatedMenu);
+
+        // Call updateMenu API
+        await updateMenu(updatedMenu);
+
+        // Redirect to the menu list after updating
+        navigate('/silverorder/admin/menu');
     };
 
     return (
@@ -144,9 +165,9 @@ const EditMenu = () => {
                         <div className="form-group">
                             <label htmlFor="category">메뉴 카테고리</label>
                             <select id="category" value={selectedCategory} onChange={handleCategoryChange}>
-                                {availableCategories.map((category, index) => (
-                                    <option key={index} value={category}>
-                                        {category}
+                                {availableCategories.map((category) => (
+                                    <option key={category.id} value={category.id}>
+                                        {category.name}
                                     </option>
                                 ))}
                             </select>
@@ -165,9 +186,9 @@ const EditMenu = () => {
                         <div className="form-group">
                             <label htmlFor="options">옵션 선택</label>
                             <select id="options" value={selectedOption} onChange={handleOptionChange}>
-                                {availableOptions.map((option, index) => (
-                                    <option key={index} value={option}>
-                                        {option}
+                                {availableOptions.map((option) => (
+                                    <option key={option.optionCategoryId} value={option.optionCategoryId}>
+                                        {option.optionCategoryTitle}
                                     </option>
                                 ))}
                             </select>
@@ -179,9 +200,9 @@ const EditMenu = () => {
                         <div className="form-group">
                             <label>추가된 옵션</label>
                             <ul className="added-options-list">
-                                {addedOptions.map((option, index) => (
-                                    <li key={index}>
-                                        {option}
+                                {addedOptions.map((option) => (
+                                    <li key={option.optionCategoryId}>
+                                        {option.optionCategoryTitle}
                                         <button type="button" className="remove-option-button" onClick={() => handleRemoveOption(option)}>
                                             x
                                         </button>
