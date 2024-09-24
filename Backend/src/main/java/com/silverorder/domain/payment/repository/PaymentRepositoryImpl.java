@@ -151,6 +151,8 @@ public class PaymentRepositoryImpl implements PaymentRepository {
                         card.payment.id,
                         card.cardNum,
                         card.cardCVC,
+                        card.cardIssuerName,
+                        card.cardName,
                         card.discountRate
                 ))
                 .from(card)
