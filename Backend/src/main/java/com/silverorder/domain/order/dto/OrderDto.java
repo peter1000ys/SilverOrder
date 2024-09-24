@@ -23,7 +23,7 @@ public class OrderDto {
     private Long paymentId;
     private LocalDate orderDate;
     private String require;
-    private int orderStatus;
+    private OrderStatus orderStatus;
     private List<OrderMenuDto> menuList;
 
     @Schema(hidden = true)

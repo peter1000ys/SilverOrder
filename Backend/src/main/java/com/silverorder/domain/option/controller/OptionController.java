@@ -57,10 +57,9 @@ public class OptionController {
         return new ResponseEntity<>("옵션 카테고리 수정 완료", HttpStatus.OK);
     }
 
-    @Operation(summary = "옵션 카테고리 수정", description="가게에서 사용하는 옵션 카테고리와 해당 카테고리의 옵션들을 삭제합니다.")
+    @Operation(summary = "옵션 카테고리 삭제", description="가게에서 사용하는 옵션 카테고리와 해당 카테고리의 옵션들을 삭제합니다.")
     @DeleteMapping("/category/{optionCategoryId}")
     public ResponseEntity<?> deleteOptionCategory (
-            @RequestBody @Valid RequestOptionCategoryDto requestOptionCategoryDto,
             @PathVariable Long optionCategoryId,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {

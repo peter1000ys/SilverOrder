@@ -243,6 +243,7 @@ public class PaymentServiceImpl implements PaymentService {
         HeaderApiDto headerApiDto = new HeaderApiDto("createCreditCardTransaction", apiKey, cardRequestDto.getUserApiKey());
 
         // 등록 카드 유무 체크
+        log.info("check paymentId : {}", cardRequestDto.getPaymentId());
         Payment payment = paymentJpaRepository.findById(cardRequestDto.getPaymentId()).orElseThrow(() -> new CustomException(ErrorCode.CARD_NOT_FOUND));
 
         // 카드번호, cvc 조회
@@ -252,7 +253,7 @@ public class PaymentServiceImpl implements PaymentService {
         TransactionRequestDto transactionRequestDto = new TransactionRequestDto(
                 headerApiDto,
                 card.getCardNum(),
-                card.getCardNum(),
+                card.getCardCvc(),
                 cardRequestDto.getStoreId(),
                 cardRequestDto.getPaymentBalance()
         );
@@ -270,7 +271,8 @@ public class PaymentServiceImpl implements PaymentService {
 
             if(header.get("responseCode").equals("H0000")) {
                 //정상 처리 -> 트랜잭션 고유 번호 반환
-                return (Long) response.get("REC").get("transactionUniqueNo");
+                return (Long.parseLong((String) response.get("REC").get("transactionUniqueNo")));
+                //return (String) response.get("REC").get("transactionUniqueNo");
             } else {
                 // 실패
                 throw new CustomException(ErrorCode.CARD_PAY_FAILED);

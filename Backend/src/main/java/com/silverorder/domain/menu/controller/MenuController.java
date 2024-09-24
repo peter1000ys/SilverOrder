@@ -47,7 +47,7 @@ public class MenuController {
         return new ResponseEntity<>("메뉴 카테고리 등록 완료", HttpStatus.OK);
     }
 
-    @Operation(summary = "메뉴 카테고리 수정", description="가게에서 사용할 메뉴의 카테고리를 등록합니다.")
+    /*@Operation(summary = "메뉴 카테고리 수정", description="가게에서 사용할 메뉴의 카테고리를 등록합니다.")
     @PatchMapping("/category/{menuCategoryId}")
     public ResponseEntity<?> modifyMenuCategory (
             @RequestBody @Valid RequestMenuCategoryDto requestMenuCategoryDto,
@@ -57,7 +57,7 @@ public class MenuController {
         long userId = userDetails.getUser().getUserId();
         //menuService.saveMenuCategory(userId, requestMenuCategoryDto);
         return new ResponseEntity<>("메뉴 카테고리 수정 완료", HttpStatus.OK);
-    }
+    }*/
 
     @Operation(summary = "메뉴 등록", description="가게에서 판매할 메뉴를 등록합니다.")
     @PostMapping("/regist")

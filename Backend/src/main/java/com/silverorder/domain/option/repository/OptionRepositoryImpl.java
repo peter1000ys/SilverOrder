@@ -72,7 +72,6 @@ public class OptionRepositoryImpl implements OptionRepository{
      * 옵션 카테고리 수정
      * <pre>
      *      가맹점에서 사용할 옵션의 카테고리를 수정한다.
-     *      기존의 옵션은 삭제한다.
      * </pre>
      * @param modOptionCategory :
      * @param optionCategoryTitle : 옵션 카테고리 제목
@@ -103,7 +102,7 @@ public class OptionRepositoryImpl implements OptionRepository{
     }
 
     /**
-     * 옵션 카테고리 수정
+     * 옵션 카테고리 삭제
      * <pre>
      *      옵션 카테고리, 카테고리에 속한 옵션들, 해당 옵션 카테고리를 사용하고 있는
      *      메뉴의 사용 옵션을 삭제한다.
