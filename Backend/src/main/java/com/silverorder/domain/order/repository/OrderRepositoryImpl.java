@@ -34,16 +34,21 @@ public class OrderRepositoryImpl implements OrderRepository {
         em.persist(order);
 
         // Menu 저장
-        for (OrderMenuDto menuRequestDto : orderDto.getMenuList()) {
-            Menu menu = em.find(Menu.class, menuRequestDto.getMenuId());
-            OrderMenu orderMenu = menuRequestDto.toEntity(menu, order);
-            em.persist(orderMenu);
-            
-            // Option 저장
-            for (OrderOptionDto optionRequestDto : menuRequestDto.getOptionList()) {
-                Option option = em.find(Option.class, optionRequestDto.getOptionId());
-                OrderOption orderOption= optionRequestDto.toEntity(orderMenu, option);
-                em.persist(orderOption);
+        if(orderDto.getMenuList() != null && !orderDto.getMenuList().isEmpty()) {
+            for (OrderMenuDto menuRequestDto : orderDto.getMenuList()) {
+                Menu menu = em.find(Menu.class, menuRequestDto.getMenuId());
+                OrderMenu orderMenu = menuRequestDto.toEntity(menu, order);
+                em.persist(orderMenu);
+
+
+                // Option 저장
+                if (menuRequestDto.getOptionList() != null && !menuRequestDto.getOptionList().isEmpty()) {
+                    for (OrderOptionDto optionRequestDto : menuRequestDto.getOptionList()) {
+                        Option option = em.find(Option.class, optionRequestDto.getOptionId());
+                        OrderOption orderOption = optionRequestDto.toEntity(orderMenu, option);
+                        em.persist(orderOption);
+                    }
+                }
             }
         }
     }
