@@ -10,11 +10,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 500px;
     height: 100vh;
   }
   
   .login-container form{
+    padding-top: 300px;
     display: flex;
     flex-direction: column;
     justify-content: center;

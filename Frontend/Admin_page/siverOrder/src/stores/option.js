@@ -111,6 +111,28 @@ const useOptionStore = create((set, get) => ({
       } catch (error) {
         Notiflix.Notify.failure("옵션 카테고리 수정에 실패했습니다.");
       }
+    },
+
+    deleteOption: async (optionCategoryId) => {
+      const { token } = useInfoStore.getState();
+  
+      if (!token) {
+        Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
+        return;
+      }
+  
+      try {
+        await axios.delete(API_URL + `option/category/${optionCategoryId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        Notiflix.Notify.success("옵션 삭제 완료");
+        await get().fetchOptions();  // Refresh options after deletion
+      } catch (error) {
+        Notiflix.Notify.failure("옵션 삭제에 실패했습니다.");
+      }
     }
 
     

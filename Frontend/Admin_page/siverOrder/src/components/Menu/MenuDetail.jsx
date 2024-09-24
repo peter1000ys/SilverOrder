@@ -33,33 +33,33 @@ const MenuDetail = ({ menu }) => {
           <table>
             <tbody>
               <tr>
-                <td>이미지:</td>
+                <td>메뉴 상태: {menu.menuStatus}</td>
                 <td>
-                  <img src={menu.menuThumb} alt={menu.menuName} width="200" />
                 </td>
               </tr>
               <tr>
-                <td>분류:</td>
-                <td>{menu.menuCategoryName}</td> 
+                <td>분류: {menu.menuCategoryName}</td>
+                <td></td> 
               </tr>
               <tr>
-                <td>금액:</td>
-                <td>{menu.menuPrice.toLocaleString()} 원</td> 
+                <td>금액: {menu.menuPrice.toLocaleString()} 원</td>
+                <td></td> 
               </tr>
               <tr className="menu-description">
-                <td>설명:</td>
-                <td>{menu.menuDesc}</td> 
+                <td>설명:  {menu.menuDesc}</td>
+                <td></td> 
               </tr>
               <tr className="menu-option">
-                <td>옵션:</td>
-                <td>
-                  {optionsLoaded
+                <td>옵션:
+                {optionsLoaded
                     ? menuOptions.length > 0
                       ? menuOptions
                           .map(option => option.optionCategoryTitle)
                           .join(', ')  
                       : '옵션 없음'
                     : '옵션 로딩 중...'} 
+                </td>
+                <td>
                 </td>
               </tr>
             </tbody>
