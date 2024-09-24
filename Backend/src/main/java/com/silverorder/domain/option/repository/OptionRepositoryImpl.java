@@ -80,6 +80,12 @@ public class OptionRepositoryImpl implements OptionRepository{
     @Override
     public void modifyOptionCategory(OptionCategory modOptionCategory, String optionCategoryTitle, OptionType optionType) throws PersistenceException {
         try {
+            // 카테고리에서 사용중인 옵션 삭제
+            queryFactory
+                    .delete(option)
+                    .where(option.optionCategory.eq(modOptionCategory))
+                    .execute();
+
             // 카테고리 수정
             queryFactory
                     .update(optionCategory)
