@@ -1,5 +1,6 @@
 package com.silverorder.domain.order.entity;
 
+import com.silverorder.domain.order.dto.OrderStatus;
 import com.silverorder.domain.payment.entity.Payment;
 import com.silverorder.domain.store.entity.Store;
 import jakarta.persistence.*;
@@ -44,7 +45,8 @@ public class Order {
     private Long payPrice;
 
     @Column(name = "ORDER_STATUS", nullable = false)
-    private int orderStatus;
+    @Enumerated(value = EnumType.STRING)
+    private OrderStatus orderStatus;
 
     @Column(name = "REQUIRE", length = 200)
     private String require;

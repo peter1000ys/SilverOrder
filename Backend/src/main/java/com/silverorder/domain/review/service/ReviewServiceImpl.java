@@ -94,7 +94,7 @@ public class ReviewServiceImpl implements ReviewService{
 
         //주문고객 확인 로직
         if(!order.getPayment().getUser().equals(user))
-            throw new CustomException(ErrorCode.ORDER_USER_NOT_AUTHENTICATED);
+            throw new CustomException(ErrorCode.ORDER_USER_UNAUTHORIZED);
 
         reviewRepository.registUserReview(user, order, requestUserReviewDto);
     }
