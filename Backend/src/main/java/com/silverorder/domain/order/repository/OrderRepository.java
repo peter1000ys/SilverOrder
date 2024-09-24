@@ -1,7 +1,8 @@
 package com.silverorder.domain.order.repository;
+import com.silverorder.domain.order.dto.OrderDto;
+import jakarta.persistence.PersistenceException;
 
-import org.springframework.stereotype.Service;
+public interface OrderRepository {
+    void insertOrder(OrderDto orderDto) throws PersistenceException;
 
-@Service
-public class OrderRepository {
 }

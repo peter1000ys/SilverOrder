@@ -1,16 +1,17 @@
 import "../styles/OutdoorPage.css";
 import { useNavigate } from "react-router-dom";
 import silverorder_logo from "../img/silverorder_logo.png";
+import { baseURL } from "../constant";
 
-const StartPage = () => {
+const OutdoorPage = () => {
   const navigate = useNavigate();
 
   const go_to_sign_up = () => {
-    navigate("/silverorder/signup");
+    navigate(`${baseURL}/signup`);
   };
 
   const go_to_find_store = () => {
-    navigate("/silverorder/findstore");
+    navigate(`${baseURL}/findstore`);
   };
 
   return (
@@ -31,4 +32,4 @@ const StartPage = () => {
   );
 };
 
-export default StartPage;
+export default OutdoorPage;

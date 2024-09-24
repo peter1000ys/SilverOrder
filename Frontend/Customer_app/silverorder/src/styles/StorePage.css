@@ -10,12 +10,12 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: calc(30 / 1440 * 100vw) 0;
+  margin: 30px 0px;
 }
 
 .store-title h1 {
   font-weight: bold;
-  font-size: calc(40 / 1440 * 100vw);
+  font-size: 40px;
   margin: 0;
 }
 
@@ -24,11 +24,32 @@
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-bottom: 10px;
 }
 
 .SST-search-img {
-  width: calc(250 / 1440 * 100vw);
-  height: calc(250 / 1440 * 100vw);
-  border: calc(5 / 1440 * 100vw) solid black;
+  width: 250px;
+  height: 250px;
+  border: 5px solid black;
   border-radius: 90%;
+}
+
+@media (max-width: 412px) {
+  .store-title {
+    margin: 7.28vw 0vw;
+  }
+
+  .store-title h1 {
+    font-size: 9.71vw;
+  }
+
+  .SST-search-btn {
+    margin-bottom: 2.43vw;
+  }
+
+  .SST-search-img {
+    width: 60.68vw;
+    height: 60.68vw;
+    border: 1.21vw solid black;
+  }
 }

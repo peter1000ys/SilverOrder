@@ -46,6 +46,43 @@ const usePurchaseStore = create(() => ({
       console.log("에러:", error);
     }
   },
+
+  // 간편 결제 카드 등록
+  registerCheckedCard: async (selectedCards) => {
+    const { token } = useInfoStore.getState();
+    console.log(selectedCards);
+    try {
+      const response = await axios.post(
+        `${API_URL}payment/cardRegist`,
+        selectedCards,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("결과:", response.data);
+      return true;
+    } catch (error) {
+      console.log("에러:", error);
+    }
+  },
+
+  // 간편 결제 카드 조회
+  getRegisteredMyCard: async () => {
+    const { token } = useInfoStore.getState();
+    try {
+      const response = await axios.get(`${API_URL}payment/myCardList`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log("결과:", response.data);
+      return response.data;
+    } catch (error) {
+      console.log("에러:", error);
+    }
+  },
 }));
 
 export default usePurchaseStore;

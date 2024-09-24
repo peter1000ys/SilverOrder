@@ -26,8 +26,11 @@ public class Card {
     @NotNull
     private String cardCVC;
 
-    @Column(name = "DISCOUNT_CATEGORY", length = 50)
-    private String discountCategory;
+    @Column(name = "CARD_ISSUER_NAME")
+    private String cardIssuerName;
+
+    @Column(name = "CARD_NAME")
+    private String cardName;
 
     @Column(name = "DISCOUNT_RATE")
     private Double discountRate;

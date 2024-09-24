@@ -1,18 +1,18 @@
 .chart-box {
     background-color: #fff;
-    border-radius: 10px;
-    padding: 20px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    height: 450px;
+    border-radius: calc(10 / 1440 * 100vw);
+    padding: calc(20 / 1440 * 100vw);
+    box-shadow: 0 calc(4 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
+    height: calc(450 / 1440 * 100vw);
     width: 100%;
 }
 
 .chart-box h3 {
-    margin: 0 0 20px;
+    margin: 0 0 calc(20 / 1440 * 100vw);
     font-size: 1.2rem;
     color: #333;
 }
 
 .chart {
-    height: 350px;
+    height: calc(350 / 1440 * 100vw);
 }

@@ -9,7 +9,7 @@
 
 .mypage-container h1 {
   margin: 0;
-  font-size: calc(45 / 1440 * 100vw);
+  font-size: 45px;
   font-weight: bold;
 }
 
@@ -19,13 +19,28 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: calc(320 / 1440 * 100vw);
-  height: calc(100 / 1440 * 100vw);
-  border: calc(0.5 / 1440 * 100vw) solid #cccccc;
-  border-radius: calc((10 / 1440 * 100vw));
+  width: 320px;
+  height: 120px;
+  border: 0.5px solid #cccccc;
+  border-radius: 10px;
   text-align: center;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
-  box-shadow: calc(5 / 1440 * 100vw) calc(5 / 1440 * 100vw)
-    calc(5 / 1440 * 100vw) rgb(89, 89, 89);
+  box-shadow: 5px 5px 5px rgb(89, 89, 89);
   cursor: pointer;
+}
+
+@media (max-width: 412px) {
+  .mypage-container h1 {
+    font-size: 10.92vw;
+  }
+
+  .mypage-box01,
+  .mypage-box02,
+  .mypage-box03 {
+    width: 77.67vw;
+    height: 29.12vw;
+    border: 0.12vw solid #cccccc;
+    border-radius: 2.43vw;
+    box-shadow: 1.21vw 1.21vw 1.21vw rgb(89, 89, 89);
+  }
 }

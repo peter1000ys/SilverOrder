@@ -4,6 +4,8 @@ import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.payment.service.PaymentService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import com.silverorder.global.dto.CardDto;
+import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -35,9 +37,20 @@ public class PaymentController {
 
     @Operation(summary = "카드 결제", description = "카드 번호, cvc, 가맹점번호, 가격을 입력 받아 결제를 진행합니다.")
     @PostMapping("/pay/card")
-    public ResponseEntity<?> payCard(CardRequestDto cardRequestDto) throws Exception {
-        String responseMessage = paymentService.payCard(cardRequestDto);
-        return new ResponseEntity<>(responseMessage, HttpStatus.OK);
+    public ResponseEntity<?> payCard(
+            @RequestBody @Valid CardRequestDto cardRequestDto,
+            @AuthenticationPrincipal CustomUserDetails customUserDetails
+    ) throws Exception {
+        // 금융망 userKey 설정
+        String userApiKey = customUserDetails.getUser().getUserApiKey();
+        cardRequestDto.setUserApiKey(userApiKey);
+
+        // 결제 요청
+        if(paymentService.payCard(cardRequestDto) != null) {
+            return new ResponseEntity<>("정상 결제되었습니다.", HttpStatus.OK);
+        } else {
+            throw new CustomException(ErrorCode.CARD_PAY_FAILED);
+        }
     }
 
     @Operation(summary = "금융권 카드 조회", description="ssafy금융에서 보유한 카드들을 조회합니다.")

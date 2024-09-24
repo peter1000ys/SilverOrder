@@ -25,4 +25,6 @@ public interface UserRepository {
     void addAdminWithStoreId(User user, Long storeId) throws PersistenceException;
 
     void connectBank(Long userId, String userApiEmail, String userApiKey) throws PersistenceException;
+
+    Long getStoreIdByUserId(Long userId) throws PersistenceException;
 }

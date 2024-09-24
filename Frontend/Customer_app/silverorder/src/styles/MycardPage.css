@@ -1,27 +1,104 @@
-.mycard-container {
+.mycard-container,
+.mycard-list {
   width: 100%;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
 }
 
 .mycard-title h1 {
-  font-size: calc(40 / 1440 * 100vw);
+  font-size: 40px;
+}
+
+.mycard-item {
+  width: 90%;
+  height: 200px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.mycard-item-title p {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px;
+}
+
+.mycard-item-number {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.mycard-item-info {
+  width: 100%;
+}
+
+.mycard-item-info li {
+  margin-left: 15px;
+  text-align: start;
+  font-size: 20px;
 }
 
 .mycard-addcard {
   width: 90%;
-  height: calc(200 / 1440 * 100vw);
-  border: calc(1 / 1440 * 100vw) solid #cccccc;
-  border-radius: calc(10 / 1440 * 100vw);
+  height: 200px;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
+  margin-bottom: 15px;
 }
 
 .mycard-addcard img {
-  width: calc(120 / 1440 * 100vw);
-  height: calc(120 / 1440 * 100vw);
+  width: 120px;
+  height: 120px;
+}
+
+@media (max-width: 412px) {
+  .mycard-title h1 {
+    font-size: 9.71vw;
+  }
+
+  .mycard-item {
+    height: 48.54vw;
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 3.64vw;
+  }
+
+  .mycard-item-title p {
+    font-size: 7.28vw;
+    margin: 2.43vw;
+  }
+
+  .mycard-item-number {
+    font-size: 3.64vw;
+    margin: 0;
+  }
+
+  .mycard-item-info li {
+    margin-left: 3.64vw;
+    font-size: 4.85vw;
+  }
+
+  .mycard-addcard {
+    height: 48.54vw;
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 3.64vw;
+  }
+
+  .mycard-addcard img {
+    width: 29.13vw;
+    height: 29.13vw;
+  }
 }

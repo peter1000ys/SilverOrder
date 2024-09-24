@@ -1,64 +1,41 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import './MenuList.css';
+import useMenuStore from '../../stores/menu';  // Importing the store to fetch menus
 
 const MenuList = ({ onMenuSelect }) => {
-  // Menus with categories
-  const menus = [
-    {
-      id: 1,
-      name: '코코넛 커피 스무디',
-      description: '맛있는 코코넛 커피 스무디입니다.',
-      image: '/shinemusket_juice.webp',
-      category: '음료',
-    },
-    {
-      id: 2,
-      name: '레드오렌지주스',
-      description: '신선한 레드오렌지 주스입니다.',
-      image: '/shinemusket_juice.webp',
-      category: '음료',
-    },
-    {
-      id: 3,
-      name: '샤인머스켓주스',
-      description: '달콤한 샤인머스켓 주스입니다.',
-      image: '/shinemusket_juice.webp',
-      category: '음료',
-    },
-    {
-      id: 4,
-      name: '딸기 케이크',
-      description: '신선한 딸기 케이크입니다.',
-      image: '/basic.png',
-      category: '디저트',
-    },
-    {
-      id: 5,
-      name: '초코 브라우니',
-      description: '맛있는 초코 브라우니입니다.',
-      image: '/basic.png',
-      category: '디저트',
-    },
-    {
-      id: 6,
-      name: '블루베리 치즈케이크',
-      description: '달콤한 블루베리 치즈케이크입니다.',
-      image: '/basic.png',
-      category: '디저트',
-    },
-  ];
-
+  const { menus, fetchMenus } = useMenuStore();  // Get menus and fetch function from the store
+  const [loading, setLoading] = useState(true);  // Loading state
+  const [error, setError] = useState(null);      // Error state
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState('음료'); // Default category
+  const [selectedCategory, setSelectedCategory] = useState(''); // Default category
   const menusPerPage = 3; // Show 3 items per page
 
-  // Filter menus based on the selected category
-  const filteredMenus = menus.filter(menu => menu.category === selectedCategory);
+  useEffect(() => {
+    const loadMenus = async () => {
+      try {
+        await fetchMenus();  // Fetch the menus from the API
+        setLoading(false);   // Set loading to false after fetching data
+      } catch (err) {
+        setError('메뉴 목록을 불러오는데 실패했습니다.'); // Set error if fetching fails
+        setLoading(false);
+      }
+    };
 
+    loadMenus();  // Call the function to load the menus
+  }, [fetchMenus]);  // Dependency array to ensure it only fetches once
+
+  // Extract distinct categories from the menus
+  const categories = [...new Set(menus.map(menu => menu.menuCategoryName))];
+
+  // Filter menus based on the selected category
+  const filteredMenus = selectedCategory
+    ? menus.filter(menu => menu.menuCategoryName === selectedCategory)
+    : menus;
+
+  // Handle pagination
   const indexOfLastMenu = currentPage * menusPerPage;
   const indexOfFirstMenu = indexOfLastMenu - menusPerPage;
   const currentMenu = filteredMenus.slice(indexOfFirstMenu, indexOfLastMenu);
-
   const totalPages = Math.ceil(filteredMenus.length / menusPerPage);
 
   const nextPage = () => {
@@ -69,6 +46,15 @@ const MenuList = ({ onMenuSelect }) => {
     if (currentPage > 1) setCurrentPage(prev => prev - 1);
   };
 
+  // If loading or error occurred, handle it
+  if (loading) {
+    return <p>로딩 중...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
   return (
     <div className="menu-list">
       {/* Category dropdown */}
@@ -78,24 +64,33 @@ const MenuList = ({ onMenuSelect }) => {
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
         >
-          <option value="음료">음료</option>
-          <option value="디저트">디저트</option>
+          <option value="">전체</option>
+          {categories.map((category, index) => (
+            <option key={index} value={category}>
+              {category}
+            </option>
+          ))}
         </select>
       </div>
 
       {/* Menu items */}
       <div className="menu-grid">
-        {currentMenu.map((menu) => (
-          <div
-            key={menu.id}
-            className="menu-item"
-            onClick={() => onMenuSelect(menu)}
-          >
-            <img src={menu.image} alt={menu.name} />
-            <h3>{menu.name}</h3>
-            <p>{menu.description}</p>
-          </div>
-        ))}
+        {currentMenu.length > 0 ? (
+          currentMenu.map((menu) => (
+            <div
+              key={menu.menuId}
+              className="menu-item"
+              onClick={() => onMenuSelect(menu)}
+            >
+              <img src={menu.menuThumb} alt={menu.menuName} />
+              <h3>{menu.menuName}</h3>
+              <p>{menu.menuDesc}</p>
+              <p>가격: {menu.menuPrice}원</p>
+            </div>
+          ))
+        ) : (
+          <p>해당 카테고리에 메뉴가 없습니다.</p>
+        )}
       </div>
 
       {/* Pagination */}

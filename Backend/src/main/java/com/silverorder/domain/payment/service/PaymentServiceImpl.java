@@ -1,10 +1,11 @@
 package com.silverorder.domain.payment.service;
 
 import com.silverorder.domain.payment.dto.*;
-import com.silverorder.domain.payment.dto.RequestCardListDto;
 import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.payment.dto.TransactionRequestDto;
+import com.silverorder.domain.payment.entity.Card;
 import com.silverorder.domain.payment.entity.Payment;
+import com.silverorder.domain.payment.repository.PaymentJpaRepository;
 import com.silverorder.domain.payment.repository.PaymentRepository;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
@@ -21,7 +22,6 @@ import org.springframework.web.client.RestTemplate;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
 
 /**
  * <pre>
@@ -39,6 +39,7 @@ public class PaymentServiceImpl implements PaymentService {
     private final UserJpaRepository userJpaRepository;
     private final RestTemplate restTemplate;
     private final PaymentRepository paymentRepository;
+    private final PaymentJpaRepository paymentJpaRepository;
 
     @Value("${ssafy.api.key}")
     private String apiKey;
@@ -231,21 +232,28 @@ public class PaymentServiceImpl implements PaymentService {
         }
     }
 
-
+    /**
+     * 등록된 간편결제 카드로 결제 진행
+     * @param cardRequestDto 요청DTO
+     * @throws Exception
+     */
     @Override
-    public String payCard(CardRequestDto cardRequestDto) throws Exception {
+    public Long payCard(CardRequestDto cardRequestDto) throws Exception {
         // 요청 Header
-//        CardPayHeaderApiDto cardPayHeaderApiDto = new CardPayHeaderApiDto("createCreditCardTransaction", apiKey);
+        HeaderApiDto headerApiDto = new HeaderApiDto("createCreditCardTransaction", apiKey, cardRequestDto.getUserApiKey());
 
-        HeaderApiDto headerApiDto = new HeaderApiDto("createCreditCardTransaction", apiKey, "22f1a7e1-4461-453a-8b22-4e377f35761f");
+        // 등록 카드 유무 체크
+        Payment payment = paymentJpaRepository.findById(cardRequestDto.getPaymentId()).orElseThrow(() -> new CustomException(ErrorCode.CARD_NOT_FOUND));
+
+        // 카드번호, cvc 조회
+        ResponsePayCardDto card = paymentRepository.selectPayCard(payment.getId());
 
         // 요청 JSON
         TransactionRequestDto transactionRequestDto = new TransactionRequestDto(
-//              cardPayHeaderApiDto,
                 headerApiDto,
-                cardRequestDto.getCardNo(),
-                cardRequestDto.getCvc(),
-                cardRequestDto.getMerchantId(),
+                card.getCardNum(),
+                card.getCardNum(),
+                cardRequestDto.getStoreId(),
                 cardRequestDto.getPaymentBalance()
         );
 
@@ -256,11 +264,20 @@ public class PaymentServiceImpl implements PaymentService {
         Map<String, Map<String, Object>> response
                 = restTemplate.postForObject(url, transactionRequestDto, Map.class);
 
-        // responseMessage 추출
+        // responseHeader 추출, 처리
         if (response != null && response.get("Header") != null) {
-            return (String) response.get("Header").get("responseMessage");
+            Map<String, Object> header= response.get("Header");
+
+            if(header.get("responseCode").equals("H0000")) {
+                //정상 처리 -> 트랜잭션 고유 번호 반환
+                return (Long) response.get("REC").get("transactionUniqueNo");
+            } else {
+                // 실패
+                throw new CustomException(ErrorCode.CARD_PAY_FAILED);
+            }
         }
-        return null; // 응답이 없을 경우 처리
+        // 응답이 없을 경우 처리
+        return null;
     }
 
 }

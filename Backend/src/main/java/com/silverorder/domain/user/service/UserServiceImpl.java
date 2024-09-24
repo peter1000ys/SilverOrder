@@ -152,8 +152,6 @@ public class UserServiceImpl implements UserService {
 
         Map<String, String> response = restTemplate.postForObject(url, requestDto, Map.class);
 
-        System.out.println(response);
-
         // responseMessage 추출, 영속화
         if (response != null && response.get("userKey") != null) {
             // userKey 조회 성공 시, DB 저장
@@ -161,6 +159,11 @@ public class UserServiceImpl implements UserService {
         } else {
             throw new CustomException(ErrorCode.BANK_USER_NOT_FOUND);
         }
+    }
+
+    @Override
+    public Long getStoreIdByUserId(Long userId) throws Exception {
+        return userRepository.getStoreIdByUserId(userId);
     }
 
 }

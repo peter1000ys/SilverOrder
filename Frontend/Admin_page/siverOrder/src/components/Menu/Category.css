@@ -1,7 +1,7 @@
 .option-category, .menu-category {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: calc(10 / 1440 * 100vw);
 }
 
 .option-category label, .menu-category label {
@@ -9,20 +9,22 @@
 }
 
 .option-category input, .menu-category input, .option-category select {
-  padding: 5px;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  padding: calc(5 / 1440 * 100vw);
+  border: calc(1 / 1440 * 100vw) solid #ddd;
+  border-radius: calc(5 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .add-option-button {
   background-color: #28a745;
   color: white;
-  padding: 8px 12px;
+  padding: calc(8 / 1440 * 100vw) calc(12 / 1440 * 100vw);
   font-size: 1rem;
   border: none;
-  border-radius: 4px;
+  border-radius: calc(4 / 1440 * 100vw);
   cursor: pointer;
-  margin-bottom: 20px;
+  margin-bottom: calc(20 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .add-option-button:hover {
@@ -32,24 +34,27 @@
 .added-options-list {
   list-style-type: none;
   padding-left: 0;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .added-options-list li {
   display: flex;
   justify-content: space-between;
-  padding: 8px;
+  padding: calc(8 / 1440 * 100vw);
   background-color: #f1f1f1;
-  margin-bottom: 5px;
-  border-radius: 4px;
+  margin-bottom: calc(5 / 1440 * 100vw);
+  border-radius: calc(4 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .remove-option-button {
   background-color: #dc3545;
   color: white;
   border: none;
-  border-radius: 4px;
-  padding: 5px 10px;
+  border-radius: calc(4 / 1440 * 100vw);
+  padding: calc(5 / 1440 * 100vw) calc(10 / 1440 * 100vw);
   cursor: pointer;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .remove-option-button:hover {
@@ -59,23 +64,25 @@
 .action-buttons {
   display: flex;
   justify-content: space-between;
-  gap: 10px;
+  gap: calc(10 / 1440 * 100vw);
 }
 
 .cancel {
   background-color: #FF5B5B;
   color: white;
-  padding: 10px;
-  border-radius: 5px;
+  padding: calc(10 / 1440 * 100vw);
+  border-radius: calc(5 / 1440 * 100vw);
   cursor: pointer;
   border: none;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .submit {
   background-color: #2D8DFF;
   color: white;
-  padding: 10px;
-  border-radius: 5px;
+  padding: calc(10 / 1440 * 100vw);
+  border-radius: calc(5 / 1440 * 100vw);
   cursor: pointer;
   border: none;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }

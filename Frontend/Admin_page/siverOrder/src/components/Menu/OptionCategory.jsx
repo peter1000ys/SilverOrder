@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import './Category.css';
+import useInfoStore from '../../stores/infos';
 import useOptionStore from '../../stores/option';
 
-const OptionCategory = ({ onCancel, onSubmit }) => {
+const OptionCategory = ({ onCancel, onSubmit }) => {  // onSubmit 추가
     const [optionCategoryTitle, setOptionCategoryTitle] = useState(''); 
     const [optionType, setOptionType] = useState('OPTION_RADIO');
     const [optionName, setOptionName] = useState('');
     const [optionPrice, setOptionPrice] = useState('');
     const [optionDtoList, setOptionDtoList] = useState([]);
+    const { userInfo } = useInfoStore();
+    const { createOption } = useOptionStore();  // createOption 함수 불러오기
 
     const handleAddOption = () => {
         if (optionName && optionPrice) {
@@ -26,17 +29,18 @@ const OptionCategory = ({ onCancel, onSubmit }) => {
 
     const handleFormSubmit = () => {
         const data = {
-            storeId: 0,
+            storeId: userInfo.storeId,
             optionCategoryTitle,
             optionType,
             optionDtoList
         };
-        onSubmit(data);
+        console.log(data);
+        createOption(data);
+        onSubmit();  // 옵션 추가 후 모달 닫기 위해 onSubmit 호출
     };
 
     return (
         <div className="option-category">
-
             <div className="form-group">
                 <label>옵션 카테고리 이름</label>
                 <input

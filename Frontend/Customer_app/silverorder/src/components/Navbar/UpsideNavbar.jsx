@@ -4,6 +4,7 @@ import useInfoStore from "../../stores/infos";
 import left_arrow from "../../img/left_arrow.png";
 import clock from "../../img/clock.png";
 import notification from "../../img/notification.png";
+import { baseURL } from "../../constant";
 
 const UpsideNavbar = () => {
   const { logout } = useInfoStore();
@@ -15,7 +16,7 @@ const UpsideNavbar = () => {
   };
 
   const go_to_orderstate = () => {
-    navigate("/silverorder/orderstate");
+    navigate(`${baseURL}/orderstate`);
   };
 
   const handleLogout = () => {

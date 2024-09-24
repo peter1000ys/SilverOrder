@@ -10,7 +10,7 @@ const useOptionStore = create((set, get) => ({
     options: [],
 
     fetchOptions: async () => {
-        const { token, storeId } = useInfoStore.getState();
+        const { token, userInfo } = useInfoStore.getState();
 
         if (!token) {
             Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
@@ -18,7 +18,7 @@ const useOptionStore = create((set, get) => ({
           }
 
           try {
-            const response = await axios.get(API_URL + `option/category/${storeId}`, {
+            const response = await axios.get(API_URL + `option/category/${userInfo.storeId}`, {
               headers: {
                 Authorization: `Bearer ${token}`,
               },
@@ -51,7 +51,7 @@ const useOptionStore = create((set, get) => ({
     try {
       await axios.post(
         API_URL + `option/category`,
-        { newOption },
+        newOption,
         {
           headers: {
             Authorization: `Bearer ${token}`,
