@@ -24,6 +24,10 @@ const MenuPage = () => {
         setActiveComponent('selectCategory');
     };
 
+    const handleCategoryEditClick = () => {
+        navigate('/silverorder/admin/menu/category/edit');
+    };
+
     const handleNewMenuClick = () => {
         navigate('/silverorder/admin/menu/AddMenu');
     };
@@ -64,6 +68,7 @@ const MenuPage = () => {
                     )}
                 </div>
                 <div className="menu-actions">
+                    <button onClick={handleCategoryEditClick}>카테고리 수정</button>
                     <button onClick={handleCategoryClick}>카테고리 추가</button>
                     <button onClick={handleNewMenuClick}>상품 추가</button>
                 </div>

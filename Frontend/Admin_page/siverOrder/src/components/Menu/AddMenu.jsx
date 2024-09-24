@@ -88,7 +88,7 @@ const AddMenu = () => {
             menuStatus: 'MENU_READY',  // 상태 기본 값 설정
             menuPrice: parseInt(price, 10),
             recommend: recommendation,
-            useOptionCategory: addedOptions.map(option => option),  // 선택된 옵션 ID 목록
+            useOptionCategory: addedOptions.map(option => option.optionCategoryId),  // Only send optionCategoryId
             menuThumb: menuImage ? menuImage.name : ''  // 이미지 파일 이름
         };
     
@@ -100,6 +100,7 @@ const AddMenu = () => {
         // 등록 후 메뉴 페이지로 리다이렉트
         navigate('/silverorder/admin/menu');
     };
+    
     
     return (
       <div>
