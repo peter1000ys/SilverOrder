@@ -1,4 +1,4 @@
-import { Route, Routes, Navigate } from "react-router-dom";
+import { Route, Routes, Navigate, useLocation } from "react-router-dom";
 import useInfoStore from "../stores/infos.js";
 import { baseURL } from "../constant.js";
 
@@ -45,11 +45,22 @@ import PurchasePage from "../views/PurchasePage.jsx";
 
 const PageRoutes = () => {
   const { isLogin } = useInfoStore();
+  const location = useLocation();
+
+  // URL에서 쿼리 파라미터 추출
+  const queryParams = new URLSearchParams(location.search);
+  const storeIdString = queryParams.get("storeId"); // storeId 추출
+
+  // storeId를 정수로 변환
+  const storeId = storeIdString ? parseInt(storeIdString, 10) : null;
 
   return (
     <Routes>
       {/* QR 코드를 찍어서 들어왔을 때의 시작 페이지 */}
-      <Route path={`${baseURL}/`} element={<StartPage />} />
+      <Route
+        path={`${baseURL}/start`}
+        element={<StartPage storeId={storeId} />}
+      />
 
       {/* 회원가입 */}
       <Route path={`${baseURL}/signup`} element={<SignupPage />} />
@@ -58,7 +69,7 @@ const PageRoutes = () => {
       <Route path={`${baseURL}/signin`} element={<SigninPage />} />
 
       {/* QR 코드를 찍지 않고 들어왔을 때의 시작 페이지 */}
-      <Route path={`${baseURL}/outdoor`} element={<OutdoorPage />} />
+      <Route path={`${baseURL}/`} element={<OutdoorPage />} />
 
       {/* 주변 매장 찾아볼 페이지 */}
       <Route path={`${baseURL}/findstore`} element={<FindStorePage />} />
