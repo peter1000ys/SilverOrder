@@ -63,9 +63,14 @@ public class OptionController {
             @PathVariable Long optionCategoryId,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
-        long userId = userDetails.getUser().getUserId();
-        optionService.deleteOptionCategory(userId, optionCategoryId);
-        return new ResponseEntity<>("옵션 카테고리 삭제 완료", HttpStatus.OK);
+        try {
+            long userId = userDetails.getUser().getUserId();
+            optionService.deleteOptionCategory(userId, optionCategoryId);
+            return new ResponseEntity<>("옵션 카테고리 삭제 완료", HttpStatus.OK);
+        }catch(Exception e){
+            e.printStackTrace();
+            return null;
+        }
     }
 
     @Operation(summary = "옵션 카테고리 리스트 조회", description="가게에서 사용하는 옵션 카테고리들을 조회합니다.")
