@@ -1,6 +1,6 @@
 import "./styles/OrderDetailInfo.css";
 
-const OrderDetailInfo = ({ onClose }) => {
+const OrderDetailInfo = ({ orderId, onClose }) => {
   const DummyOrderDetail = [
     {
       orderMenuId: 7,
