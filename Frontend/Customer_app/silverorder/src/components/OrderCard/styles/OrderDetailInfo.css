@@ -1,0 +1,152 @@
+.orderdetail-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 배경 어둡게 */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.orderdetail-container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 350px;
+  max-width: 412px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.orderdetail-title {
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.orderdetail-item-box {
+  width: 95%;
+  height: 400px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  border-top: 2px solid black;
+  border-bottom: 2px solid black;
+  margin-bottom: 15px;
+}
+
+.orderdetail-item-box {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+.orderdetail-item-box::-webkit-scrollbar {
+  display: none; /* 크롬, 사파리, 엣지 */
+}
+
+.orderdetail-item {
+  width: 95%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  margin: 10px 0px;
+}
+
+.orderdetail-name p {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+.orderdetail-info {
+  width: 90%;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 10px 0px;
+}
+
+.orderdetail-options {
+  width: 70%;
+  text-align: start;
+}
+
+.orderdetail-options p {
+  font-size: 15px;
+  margin: 0;
+}
+
+.orderdetail-price {
+  width: 30%;
+  text-align: end;
+}
+
+.orderdetail-price p {
+  font-size: 15px;
+  font-weight: bold;
+  margin: 0;
+}
+
+.orderdetail-close-btn {
+  width: 200px;
+  height: 50px;
+  border: none;
+  border-radius: 10px;
+  background-color: #1428a0;
+  color: #fff;
+  font-size: 30px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+@media (max-width: 412px) {
+  .orderdetail-container {
+    padding: 4.85vw;
+    border-radius: 1.94vw;
+    width: 84.95vw;
+  }
+
+  .orderdetail-title {
+    font-size: 7.28vw;
+  }
+
+  .orderdetail-item-box {
+    border-top: 0.49vw solid black;
+    border-bottom: 0.49vw solid black;
+    margin-bottom: 3.64vw;
+  }
+
+  .orderdetail-item {
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin: 2.43vw 0vw;
+  }
+
+  .orderdetail-name p {
+    font-size: 7.28vw;
+    margin: 2.43vw 0vw;
+  }
+
+  .orderdetail-info {
+    margin: 2.43vw 0vw;
+  }
+
+  .orderdetail-options p,
+  .orderdetail-price p {
+    font-size: 3.64vw;
+  }
+
+  .orderdetail-close-btn {
+    width: 48.54vw;
+    border-radius: 2.43vw;
+    font-size: 7.28vw;
+  }
+}

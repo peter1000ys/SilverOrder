@@ -1,9 +1,12 @@
 import "../styles/OrderlistPage.css";
+import MyOrders from "../components/OrderCard/MyOrders";
 
 const OrderlistPage = () => {
   return (
-    <div>
-      <p>지난 주문 내역 확인 페이지</p>
+    <div className="orderlist-container">
+      <p className="orderlist-title">내 주문 내역</p>
+
+      <MyOrders />
     </div>
   );
 };
