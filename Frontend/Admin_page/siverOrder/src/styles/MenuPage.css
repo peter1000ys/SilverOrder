@@ -18,6 +18,7 @@
 
 .menu-detail-container {
   width: 30%;
+  padding-top: calc(15 / 1440 * 100vw);
   padding-left: calc(20 / 1440 * 100vw);
 }
 

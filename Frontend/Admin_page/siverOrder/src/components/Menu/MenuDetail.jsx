@@ -24,8 +24,8 @@ const MenuDetail = ({ menu }) => {
   return (
     <div className="menu-detail">
       <div className="menu-header">
-        <h3>메뉴 상세 정보</h3>
-        <h2>{menu.menuName}</h2> 
+        <h5>메뉴 상세 정보</h5>
+        <h5>{menu.menuName}</h5> 
       </div>
 
       <div className="menu-detail-content">
@@ -34,20 +34,19 @@ const MenuDetail = ({ menu }) => {
             <tbody>
               <tr>
                 <td>메뉴 상태: {menu.menuStatus}</td>
-                <td>
-                </td>
+
               </tr>
               <tr>
                 <td>분류: {menu.menuCategoryName}</td>
-                <td></td> 
+
               </tr>
               <tr>
                 <td>금액: {menu.menuPrice.toLocaleString()} 원</td>
-                <td></td> 
+
               </tr>
               <tr className="menu-description">
                 <td>설명:  {menu.menuDesc}</td>
-                <td></td> 
+
               </tr>
               <tr className="menu-option">
                 <td>옵션:
@@ -58,8 +57,6 @@ const MenuDetail = ({ menu }) => {
                           .join(', ')  
                       : '옵션 없음'
                     : '옵션 로딩 중...'} 
-                </td>
-                <td>
                 </td>
               </tr>
             </tbody>

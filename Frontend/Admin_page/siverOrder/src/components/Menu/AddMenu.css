@@ -82,11 +82,13 @@
   border: none;
   border-radius: calc(4 / 1440 * 100vw);
   cursor: pointer;
+  display: inline-block;
 }
 
 .add-option-button:hover {
   background-color: #218838;
 }
+
 
 .added-options-list {
   list-style-type: none;
