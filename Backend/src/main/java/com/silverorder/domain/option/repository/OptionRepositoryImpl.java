@@ -17,6 +17,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+import static com.silverorder.domain.menu.entity.QMenuOptionCategory.menuOptionCategory;
 import static com.silverorder.domain.option.entity.QOption.option;
 import static com.silverorder.domain.option.entity.QOptionCategory.optionCategory;
 
@@ -95,6 +96,7 @@ public class OptionRepositoryImpl implements OptionRepository{
                     .execute();
 
         } catch(Exception e){
+            //e.printStackTrace();
             throw new PersistenceException("옵션 카테고리 수정 중 에러 발생", e);
         }
     }
@@ -102,7 +104,8 @@ public class OptionRepositoryImpl implements OptionRepository{
     /**
      * 옵션 카테고리 삭제
      * <pre>
-     *      옵션 카테고리와 카테고리에 속한 옵션들을 삭제한다.
+     *      옵션 카테고리, 카테고리에 속한 옵션들, 해당 옵션 카테고리를 사용하고 있는
+     *      메뉴의 사용 옵션을 삭제한다.
      * </pre>
      * @param delOptionCategory : 옵션 카테고리 정보
      * @throws PersistenceException : JPA 표준 예외
@@ -116,6 +119,12 @@ public class OptionRepositoryImpl implements OptionRepository{
                     .where(option.optionCategory.eq(delOptionCategory))
                     .execute();
 
+            // 옵션 카테고리를 사용중인 메뉴의 옵션 삭제
+            queryFactory
+                    .delete(menuOptionCategory)
+                    .where(menuOptionCategory.optionCategory.eq(delOptionCategory))
+                    .execute();
+
             // 카테고리 삭제
             queryFactory
                     .delete(optionCategory)
@@ -123,7 +132,7 @@ public class OptionRepositoryImpl implements OptionRepository{
                     .execute();
 
         } catch(Exception e){
-            throw new PersistenceException("옵션 카테고리 수정 중 에러 발생", e);
+            throw new PersistenceException("옵션 카테고리 삭제 중 에러 발생", e);
         }
     }
 
