@@ -6,6 +6,10 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import java.time.LocalDate;
 
 @Entity
 @Getter
@@ -31,6 +35,14 @@ public class UserReview {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "USER_ID", nullable = false)
     private User user; //외래키
+
+    @Column(name = "CREATED_DATE", nullable = false)
+    @CreationTimestamp
+    private LocalDate createdDate;
+
+    @Column(name = "MODIFIED_DATE", nullable = false)
+    @UpdateTimestamp
+    private LocalDate modifiedDate;
 
 }
 

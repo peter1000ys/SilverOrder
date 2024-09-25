@@ -2,10 +2,15 @@ package com.silverorder.domain.order.service;
 
 import com.silverorder.domain.order.dto.OrderDto;
 import com.silverorder.domain.order.dto.OrderStatusChangeDto;
+import com.silverorder.domain.order.dto.ResponseOrderDetailDto;
+import com.silverorder.domain.order.dto.ResponseOrderDto;
+import com.silverorder.domain.order.entity.Order;
 import com.silverorder.domain.order.repository.OrderJpaRepository;
 import com.silverorder.domain.order.repository.OrderRepository;
 import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.payment.service.PaymentService;
+import com.silverorder.domain.user.entity.User;
+import com.silverorder.domain.user.repository.UserJpaRepository;
 import com.silverorder.global.exception.CustomException;
 import com.silverorder.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +18,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 
 /**
@@ -32,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
     private final PaymentService paymentService;
     private final RabbitTemplate rabbitTemplate;
     private final SimpMessagingTemplate messagingTemplate;
+    private final UserJpaRepository userJpaRepository;
 
 
     /**
@@ -76,6 +84,46 @@ public class OrderServiceImpl implements OrderService {
 
         messagingTemplate.convertAndSend("/topic/orderStatus/" + String.valueOf(orderStatusChangeDto.getOrderId()), orderStatusChangeDto);
 
+    }
+
+    /**
+     * 유저 주문 내역 조회
+     *
+     * @param userId
+     */
+    @Override
+    public List<ResponseOrderDto> userOrderList(Long userId) throws Exception {
+        // 유저 검사
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        return orderRepository.userOrderList(user);
+    }
+
+    /**
+     * 주문 메뉴 조회
+     *
+     * @param userId
+     * @param orderId
+     */
+    @Override
+    public List<ResponseOrderDetailDto> userOrderDetailList(Long userId, Long orderId) throws Exception {
+        // 유저 검사
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Order order = orderJpaRepository.findById(orderId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+
+        List<ResponseOrderDetailDto> orderDetailList =  orderRepository.userOrderDetailList(order);
+
+        if(orderDetailList != null && !orderDetailList.isEmpty()){
+            for(ResponseOrderDetailDto orderMenus : orderDetailList){
+                if(orderMenus.getOptionCount() > 0)
+                    orderMenus.setOptionList(orderRepository.orderMenuOption(orderMenus.getMenuId()));
+            }
+        }
+        return orderDetailList;
     }
 
 }
