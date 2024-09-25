@@ -19,6 +19,8 @@ const useInfoStore = create(
         userRole: null,
         userApiEmail: null,
       },
+      loginedStore: 0,
+      setLoginedStore: (value) => set({ loginedStore: value }),
 
       // 회원가입
       sendRegisterRequest: async (userEmail, userPassword, userBirth) => {
