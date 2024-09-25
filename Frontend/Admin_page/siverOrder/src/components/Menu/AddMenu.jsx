@@ -20,7 +20,7 @@ const AddMenu = () => {
 
     // Option Management
     const [availableOptions, setAvailableOptions] = useState([]); // Example option list
-    const [selectedOption, setSelectedOption] = useState(1); // Default selected option
+    const [selectedOption, setSelectedOption] = useState('-----');// Default selected option
     const [addedOptions, setAddedOptions] = useState([]);
 
     // Menu Category Management
@@ -70,6 +70,7 @@ const AddMenu = () => {
         if (selected && !addedOptions.some(option => option.optionCategoryId === selected.optionCategoryId)) {
             setAddedOptions([...addedOptions, selected]);
         }
+        setSelectedOption('-----');  // 옵션을 추가한 후 기본값으로 초기화
     };
     
     const handleRemoveOption = (optionToRemove) => {
@@ -211,9 +212,10 @@ const AddMenu = () => {
                         <label htmlFor="options">옵션 선택</label>
                         <div className="option-selector">
                             <select id="options" value={selectedOption} onChange={handleOptionChange}>
+                                <option value="-----">-----</option> {/* 기본값 추가 */}
                                 {availableOptions.map((option) => (
                                     <option key={option.optionCategoryId} value={option.optionCategoryId}>
-                                        {option.optionCategoryTitle}  {/* 옵션의 제목을 표시 */}
+                                        {option.optionCategoryTitle}
                                     </option>
                                 ))}
                             </select>

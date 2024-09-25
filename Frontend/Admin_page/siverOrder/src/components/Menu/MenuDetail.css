@@ -1,11 +1,12 @@
 .menu-detail {
   width: 100%;
-  height: calc(100vh - 250px);
+  height: 86.5%; /* 화면 높이에 맞추도록 수정 */
   display: flex;
   flex-direction: column;
   background-color: white;
   border-radius: calc(8 / 1440 * 100vw);
   box-shadow: 0 calc(4 / 1440 * 100vw) calc(6 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
+  overflow-y: auto; /* 내용이 넘칠 경우 스크롤 생기도록 수정 */
 }
 
 .menu-header {
@@ -19,51 +20,44 @@
 .menu-detail-content {
   padding: calc(20 / 1440 * 100vw);
   display: flex;
-  flex-direction: row;
+  flex-direction: column; /* 상단 정보와 액션 버튼이 수직 정렬되도록 수정 */
+  flex-grow: 1; /* 남은 공간을 채우도록 수정 */
 }
 
 .menu-info {
   flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.menu-description {
-  height: calc(120 / 1440 * 100vw);
-  vertical-align: top;
-}
-
-.menu-option {
-  height: calc(120 / 1440 * 100vw);
-  vertical-align: top;
-}
-
-.menu-col {
-  display: flex;
   justify-content: space-between;
 }
 
-
-.menu-detail table {
+.menu-info table {
   width: 100%;
-  border-collapse: collapse;
+  table-layout: fixed; /* 테이블 폭이 고정되도록 수정 */
+  word-wrap: break-word; /* 텍스트가 칸을 넘치지 않도록 처리 */
 }
 
-.menu-detail th, .menu-detail td {
+.menu-info th, .menu-info td {
   padding: calc(4 / 1440 * 100vw);
   text-align: left;
   border-bottom: calc(1 / 1440 * 100vw) solid #ddd;
+}
+
+.menu-description,
+.menu-option {
+  vertical-align: top;
+  word-break: break-all; /* 긴 설명이 칸을 넘지 않도록 처리 */
 }
 
 .action-buttons {
   display: flex;
   justify-content: space-between;
   margin-top: calc(20 / 1440 * 100vw);
+  gap: calc(10 / 1440 * 100vw);
 }
 
 .action-buttons button {
   flex: 1;
-  margin: 0 calc(5 / 1440 * 100vw);
   padding: calc(10 / 1440 * 100vw);
   font-size: calc(16 / 1440 * 100vw);
   border-radius: calc(5 / 1440 * 100vw);
