@@ -47,7 +47,7 @@ body,
   display: none; /* 크롬, 사파리, 엣지 */
 }
 
-/* 반응형 처리를 위해 화면 너비가 360px 이하일 때 */
+/* 반응형 처리를 위해 화면 너비가 412px 이하일 때 */
 @media (max-width: 412px) {
   #app-container {
     width: 100%; /* 화면 너비에 맞게 100%로 설정 */
