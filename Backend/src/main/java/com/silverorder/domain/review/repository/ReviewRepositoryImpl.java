@@ -129,7 +129,9 @@ public class ReviewRepositoryImpl implements ReviewRepository{
                      requestUserReviewDto.getContent(),
                      requestUserReviewDto.getRating(),
                      order,
-                     user
+                     user,
+                     LocalDate.now(),
+                     LocalDate.now()
             );
 
             em.persist(userReview);

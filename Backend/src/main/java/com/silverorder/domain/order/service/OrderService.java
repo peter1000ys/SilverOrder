@@ -1,7 +1,8 @@
 package com.silverorder.domain.order.service;
 
-import com.silverorder.domain.order.dto.OrderDto;
-import com.silverorder.domain.order.dto.OrderStatusChangeDto;
+import com.silverorder.domain.order.dto.*;
+
+import java.util.List;
 
 /**
  * <pre>
@@ -18,4 +19,11 @@ public interface OrderService {
 
     /** 주문 상태 변경 */
     void changeOrderStatus(OrderStatusChangeDto orderStatusChangeRequestDto) throws Exception;
+
+    /** 유저 주문 내역 조회 */
+    List<ResponseOrderDto> userOrderList(Long userId) throws Exception;
+
+    /** 주문 메뉴 조회 */
+    List<ResponseOrderDetailDto> userOrderDetailList(Long userId, Long orderId) throws Exception;
+
 }

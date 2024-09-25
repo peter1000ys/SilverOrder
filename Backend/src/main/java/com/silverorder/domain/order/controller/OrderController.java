@@ -1,7 +1,10 @@
 package com.silverorder.domain.order.controller;
 
+import com.silverorder.domain.menu.dto.ResponseMenuDto;
 import com.silverorder.domain.order.dto.OrderDto;
 import com.silverorder.domain.order.dto.OrderStatusChangeDto;
+import com.silverorder.domain.order.dto.ResponseOrderDetailDto;
+import com.silverorder.domain.order.dto.ResponseOrderDto;
 import com.silverorder.domain.order.service.OrderService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import com.silverorder.domain.user.dto.UserRole;
@@ -16,6 +19,8 @@ import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 
 /**
@@ -58,6 +63,27 @@ public class OrderController {
 
         orderService.changeOrderStatus(orderStatusChangeDto);
         return new ResponseEntity<>("주문 상태 변경 성공", HttpStatus.OK);
+    }
+
+    @Operation(summary = "주문 내역 조회", description="유저가 주문한 내역을 조회합니다.")
+    @GetMapping("/myOrder")
+    public ResponseEntity<?> userOrderList(
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        List<ResponseOrderDto> userOrderList = orderService.userOrderList(userId);
+        return ResponseEntity.ok(userOrderList);
+    }
+
+    @Operation(summary = "주문 내역 상세조회", description="주문한 메뉴를 조회합니다.")
+    @GetMapping("/orderDetail/{orderId}")
+    public ResponseEntity<?> userOrderDetailList(
+            @PathVariable Long orderId,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        List<ResponseOrderDetailDto> orderDetailList = orderService.userOrderDetailList(userId, orderId);
+        return ResponseEntity.ok(orderDetailList);
     }
 
 }
