@@ -92,30 +92,44 @@ const useMenuStore = create((set, get) => ({
 
     createMenu: async (newMenu) => {
         const { token } = useInfoStore.getState();
-        const { menus } = get();
 
         if (!token) {
             Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
             return;
         }
 
-        if (menus.some((menu) => menu.menuName === newMenu.menuName)) {
-            Notiflix.Notify.failure("이미 등록된 메뉴입니다.");
-            return;
-        }
-
         try {
-            await axios.post(
+            const formData = new FormData();
+
+            // Append all the form data fields
+            formData.append('storeId', newMenu.storeId);
+            formData.append('menuCategoryId', newMenu.menuCategoryId);
+            formData.append('menuName', newMenu.menuName);
+            formData.append('simpleName', newMenu.simpleName);
+            formData.append('menuDesc', newMenu.menuDesc);
+            formData.append('menuStatus', newMenu.menuStatus);
+            formData.append('menuPrice', newMenu.menuPrice);
+            formData.append('recommend', newMenu.recommend);
+            formData.append('menuThumb', newMenu.menuThumb); // The image file itself
+
+            // Handle array data
+            newMenu.useOptionCategory.forEach((optionId, index) => {
+                formData.append(`useOptionCategory[${index}]`, optionId);
+            });
+
+            const response = await axios.post(
                 API_URL + `menu/regist`,
-                newMenu,
+                formData, 
                 {
                     headers: {
-                      Authorization: `Bearer ${token}`,
+                        Authorization: `Bearer ${token}`,
+                        'Content-Type': 'multipart/form-data',
                     },
                 }
             );
-            await get().fetchMenus();
+
             Notiflix.Notify.success("메뉴 추가 완료");
+            await get().fetchMenus();
         } catch (error) {
             Notiflix.Notify.failure("메뉴 추가 실패");
         }

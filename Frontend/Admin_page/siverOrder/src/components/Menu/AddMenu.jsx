@@ -79,28 +79,46 @@ const AddMenu = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-         // 메뉴 등록을 위한 데이터 준비
-         const newMenu = {
+    
+        // FormData를 이용해 모든 데이터를 전송해야 하므로 이미지 파일을 추가
+        const formData = new FormData();
+        formData.append('storeId', userInfo.storeId);
+        formData.append('menuCategoryId', selectedCategory);
+        formData.append('menuName', menuName);
+        formData.append('simpleName', shortName);
+        formData.append('menuDesc', description);
+        formData.append('menuStatus', 'MENU_READY');
+        formData.append('menuPrice', parseInt(price, 10));
+        formData.append('recommend', recommendation);
+    
+        // 메뉴 이미지 파일 추가
+        if (menuImage) {
+            formData.append('menuThumb', menuImage);
+        }
+    
+        // 옵션 카테고리 추가
+        addedOptions.forEach((option, index) => {
+            formData.append(`useOptionCategory[${index}]`, option.optionCategoryId);
+        });
+    
+        // 메뉴 생성 API 호출
+        await createMenu({
             storeId: userInfo.storeId,
-            menuCategoryId: selectedCategory,  // 선택한 카테고리 ID
+            menuCategoryId: selectedCategory,
             menuName: menuName,
             simpleName: shortName,
             menuDesc: description,
-            menuStatus: 'MENU_READY',  // 상태 기본 값 설정
+            menuStatus: 'MENU_READY',
             menuPrice: parseInt(price, 10),
             recommend: recommendation,
-            useOptionCategory: addedOptions.map(option => option.optionCategoryId),  // Only send optionCategoryId
-            menuThumb: menuImage ? menuImage.name : ''  // 이미지 파일 이름
-        };
-    
-        console.log("Submitting menu data:", newMenu);  // 전송 전 데이터 확인
-    
-        // 메뉴 생성 API 호출
-        await createMenu(newMenu);
+            useOptionCategory: addedOptions.map(option => option.optionCategoryId),
+            menuThumb: menuImage, // 이미지 파일 추가
+        });
     
         // 등록 후 메뉴 페이지로 리다이렉트
         navigate('/silverorder/admin/menu');
     };
+    
     
     
     return (
