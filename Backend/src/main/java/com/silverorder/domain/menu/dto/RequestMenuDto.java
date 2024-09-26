@@ -56,7 +56,7 @@ public class RequestMenuDto {
     private int recommend;
 
     /** 메뉴 이미지 */
-    private MultipartFile MenuThumb;
+    private MultipartFile menuThumb;
 
     /** 사용 옵션 카테고리 ID */
     private long[] useOptionCategory;
