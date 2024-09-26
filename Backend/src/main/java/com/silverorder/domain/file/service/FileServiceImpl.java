@@ -55,7 +55,7 @@ public class FileServiceImpl implements FileService {
         );
 
         // Cloud 링크
-        String fileLink = "https://storage.googleapis.com/studycow-bucket/" + uuid;
+        String fileLink = "https://storage.googleapis.com/silver-order-bucket/" + uuid;
 
         return fileLink;
     }

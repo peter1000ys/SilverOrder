@@ -24,7 +24,7 @@ public class GoogleCloudStorageConfig {
     public Storage storage() throws IOException {
         ClassPathResource resource = new ClassPathResource("keystore/silver-order-8bf9ace6e13d.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(resource.getInputStream());
-        String projectId = "silverorder";
+        String projectId = "silver-order";
         return StorageOptions.newBuilder()
                 .setProjectId(projectId)
                 .setCredentials(credentials)
