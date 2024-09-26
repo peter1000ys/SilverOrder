@@ -1,9 +1,6 @@
 package com.silverorder.domain.menu.service;
 
-import com.silverorder.domain.menu.dto.RequestMenuCategoryDto;
-import com.silverorder.domain.menu.dto.RequestMenuDto;
-import com.silverorder.domain.menu.dto.ResponseMenuCategory;
-import com.silverorder.domain.menu.dto.ResponseMenuDto;
+import com.silverorder.domain.menu.dto.*;
 import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.menu.repository.MenuJpaRepository;
 import com.silverorder.domain.menu.repository.MenuRepository;
@@ -54,12 +51,12 @@ public class MenuServiceImpl implements MenuService{
     /**
      * 메뉴 등록
      * @param userId : 유저 id
-     * @param requestMenuDto : 메뉴 등록 dto
+     * @param menuDto : 메뉴 등록 dto
      * @throws Exception
      */
     @Override
     @Transactional
-    public void saveMenu(long userId, RequestMenuDto requestMenuDto) throws Exception {
+    public void saveMenu(Long userId, MenuDto menuDto) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
@@ -67,22 +64,22 @@ public class MenuServiceImpl implements MenuService{
             throw new CustomException(ErrorCode.NOT_AUTHENTICATED);
 
         //가맹점 확인 로직
-        Store store = storeJpaRepository.findById(requestMenuDto.getStoreId())
+        Store store = storeJpaRepository.findById(menuDto.getStoreId())
                 .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
         if(!store.getUser().equals(user))
             throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
 
         //메뉴 카테고리 확인 로직
         StoreMenuCategory storeMenuCategory = storeMenuCategoryJpaRepository.findById(
-                requestMenuDto.getMenuCategoryId())
+                menuDto.getMenuCategoryId())
                 .orElseThrow(() -> new CustomException(ErrorCode.MENU_CATEGORY_NOT_FOUND));
 
         //메뉴 등록
-        Menu menu = menuRepository.saveMenu(storeMenuCategory, requestMenuDto);
+        Menu menu = menuRepository.saveMenu(storeMenuCategory, menuDto);
         log.info("return menuId : {}", menu.getId());
 
         //사용 옵션 확인
-        long[] optionCategoryIds = requestMenuDto.getUseOptionCategory();
+        long[] optionCategoryIds = menuDto.getUseOptionCategory();
 
         //사용 옵션 존재 시
         if(optionCategoryIds != null
