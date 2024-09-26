@@ -1,49 +1,19 @@
 import "../styles/OptionChoicePage.css";
 import { useLocation, useNavigate } from "react-router-dom"; // useNavigate 추가
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import useCartStore from "../stores/cart"; // Zustand store 불러오기
 import { baseURL } from "../constant";
+import useMenuStore from "../stores/menu";
 
 const OptionChoicePage = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate
 
   const { addToCart } = useCartStore(); // Zustand에서 addToCart 함수 가져오기
 
-  // 더미 데이터: 옵션 리스트
-  const DummyOptions = {
-    optionlist: [
-      {
-        optionCategoryId: 1,
-        optionCategoryTitle: "샷 추가",
-        optionType: "OPTION_CHOICE",
-        optionDtoList: [
-          { optionId: 1, optionName: "기본", optionPrice: 0 },
-          { optionId: 2, optionName: "연하게", optionPrice: 0 },
-          { optionId: 3, optionName: "샷 1개 추가", optionPrice: 500 },
-        ],
-      },
-      {
-        optionCategoryId: 2,
-        optionCategoryTitle: "사이즈",
-        optionType: "OPTION_CHOICE",
-        optionDtoList: [
-          { optionId: 4, optionName: "기본", optionPrice: 0 },
-          { optionId: 5, optionName: "사이즈 업", optionPrice: 500 },
-        ],
-      },
-      {
-        optionCategoryId: 3,
-        optionCategoryTitle: "토핑 추가",
-        optionType: "OPTION_CHOICE",
-        optionDtoList: [
-          { optionId: 6, optionName: "토핑 X", optionPrice: 0 },
-          { optionId: 7, optionName: "자바칩", optionPrice: 300 },
-          { optionId: 9, optionName: "펄", optionPrice: 400 },
-          { optionId: 8, optionName: "휘핑크림", optionPrice: 500 },
-        ],
-      },
-    ],
-  };
+  const { optionList, fetchSelectedMenuOption } = useMenuStore((state) => ({
+    optionList: state.optionList,
+    fetchSelectedMenuOption: state.fetchSelectedMenuOption,
+  }));
 
   // 현재 위치에서 아이템 정보 가져오기
   const location = useLocation();
@@ -86,6 +56,10 @@ const OptionChoicePage = () => {
     navigate(`${baseURL}/store`); // 다른 메뉴 선택할수도 있으므로 매장 페이지로 이동
   };
 
+  useEffect(() => {
+    fetchSelectedMenuOption(item.productId);
+  }, [item.productId, fetchSelectedMenuOption]);
+
   return (
     <div>
       <div className="option-menu-title">
@@ -93,35 +67,44 @@ const OptionChoicePage = () => {
       </div>
 
       {/* 옵션 카테고리별로 옵션 렌더링 */}
-      {DummyOptions.optionlist.map((category) => (
-        <div key={category.optionCategoryId} className="option-select-box">
-          <div className="option-select-title">
-            <h2>{category.optionCategoryTitle}</h2>
+      {optionList ? ( // optionList가 null이 아닐 경우 렌더링
+        optionList.map((category) => (
+          <div key={category.optionCategoryId} className="option-select-box">
+            <div className="option-select-title">
+              <h2>{category.optionCategoryTitle}</h2>
+            </div>
+            <div className="options-container">
+              {category.optionDtoList.map((option) => (
+                <div
+                  key={option.optionId}
+                  className={`option-box ${
+                    selectedOptions[category.optionCategoryTitle]?.optionId ===
+                    option.optionId
+                      ? "selected"
+                      : ""
+                  }`} // 선택된 옵션에 클래스 추가
+                  onClick={() =>
+                    setSelectedOptions((prevSelectedOptions) => ({
+                      ...prevSelectedOptions, // 기존 선택 유지
+                      [category.optionCategoryTitle]: option, // 새로 선택된 옵션 추가
+                    }))
+                  }
+                >
+                  <p>{option.optionName}</p>
+                  <p>+{option.optionPrice}원</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="options-container">
-            {category.optionDtoList.map((option) => (
-              <div
-                key={option.optionId}
-                className={`option-box ${
-                  selectedOptions[category.optionCategoryTitle]?.optionId ===
-                  option.optionId
-                    ? "selected"
-                    : ""
-                }`} // 선택된 옵션에 클래스 추가
-                onClick={() =>
-                  setSelectedOptions((prevSelectedOptions) => ({
-                    ...prevSelectedOptions, // 기존 선택 유지
-                    [category.optionCategoryTitle]: option, // 새로 선택된 옵션 추가
-                  }))
-                }
-              >
-                <p>{option.optionName}</p>
-                <p>+{option.optionPrice}원</p>
-              </div>
-            ))}
+        ))
+      ) : (
+        <div className="option-none-box">
+          <div className="option-none">
+            {/* optionList가 null일 경우 메시지 출력 */}
+            <p>선택 가능한 옵션이 없습니다.</p>{" "}
           </div>
         </div>
-      ))}
+      )}
 
       {/* 총 가격 표시 */}
       <div className="option-totalPrice-box">
