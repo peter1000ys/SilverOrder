@@ -18,6 +18,13 @@ public class RabbitMQConfig {
     public static final String ORDER_QUEUE = "order-queue";
     public static final String ORDER_ROUTING_KEY = "order.status.changed";
 
+    public static final String ORDER_STATUS_QUEUE = "order-status-queue";
+
+    @Bean
+    public Queue orderStatusQueue() {
+        return new Queue(ORDER_STATUS_QUEUE, true);
+    }
+
     @Bean
     public Queue orderQueue() {
         return new Queue(ORDER_QUEUE, true);
@@ -31,6 +38,11 @@ public class RabbitMQConfig {
     @Bean
     public Binding binding(Queue orderQueue, TopicExchange orderExchange) {
         return BindingBuilder.bind(orderQueue).to(orderExchange).with(ORDER_ROUTING_KEY);
+    }
+
+    @Bean
+    public Binding bindingOrderStatusQueue(Queue orderStatusQueue, TopicExchange orderExchange) {
+        return BindingBuilder.bind(orderStatusQueue).to(orderExchange).with(ORDER_ROUTING_KEY);
     }
 
     @Bean

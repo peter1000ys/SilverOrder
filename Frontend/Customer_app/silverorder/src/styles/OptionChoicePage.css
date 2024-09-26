@@ -54,6 +54,11 @@
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
+.option-box p {
+  font-size: 18px;
+  margin: 0;
+}
+
 .option-box.selected {
   background-color: #1428a0;
   color: #ffffff;
@@ -61,9 +66,21 @@
   border: 3px solid black;
 }
 
-.options-container p {
-  margin: 0;
-  font-size: 20px;
+.option-none-box {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.option-none {
+  width: 90%;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .option-totalPrice-box {
@@ -131,12 +148,18 @@
     margin: 1.94vw;
   }
 
+  .option-box p {
+    font-size: 4.37vw;
+  }
+
   .option-box.selected {
     border: 0.73vw solid black;
   }
 
-  .options-container p {
-    font-size: 4.85vw;
+  .option-none {
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    font-size: 6.07vw;
   }
 
   .option-totalPrice-box {

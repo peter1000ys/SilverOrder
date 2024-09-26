@@ -14,6 +14,7 @@ import lombok.Setter;
 @Setter
 public class OrderOptionDto {
     private Long optionId;
+    private String optionName;
 
     public OrderOption toEntity(OrderMenu orderMenu, Option option) {
         return OrderOption.builder()

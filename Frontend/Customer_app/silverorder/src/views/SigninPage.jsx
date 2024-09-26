@@ -25,7 +25,7 @@ const SigninPage = () => {
   };
 
   const handleCancel = () => {
-    navigate(`${baseURL}/`);
+    navigate(`${baseURL}/start`);
   };
 
   if (isLogin) {

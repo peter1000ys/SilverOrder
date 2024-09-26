@@ -1,38 +1,39 @@
 import React, { useEffect, useState } from 'react';
 import './MenuList.css';
-import useMenuStore from '../../stores/menu';  // Importing the store to fetch menus
+import useMenuStore from '../../stores/menu';  
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MenuList = ({ onMenuSelect }) => {
-  const { menus, fetchMenus } = useMenuStore();  // Get menus and fetch function from the store
-  const [loading, setLoading] = useState(true);  // Loading state
-  const [error, setError] = useState(null);      // Error state
+  const { menus, fetchMenus } = useMenuStore();  
+  const [loading, setLoading] = useState(true);  
+  const [error, setError] = useState(null);      
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState(''); // Default category
-  const menusPerPage = 3; // Show 3 items per page
+  const [selectedCategory, setSelectedCategory] = useState(''); 
+  const menusPerPage = 3; 
 
   useEffect(() => {
     const loadMenus = async () => {
       try {
-        await fetchMenus();  // Fetch the menus from the API
-        setLoading(false);   // Set loading to false after fetching data
+        await fetchMenus();  
+        setLoading(false);   
       } catch (err) {
-        setError('메뉴 목록을 불러오는데 실패했습니다.'); // Set error if fetching fails
+        setError('메뉴 목록을 불러오는데 실패했습니다.');
         setLoading(false);
       }
     };
 
-    loadMenus();  // Call the function to load the menus
-  }, [fetchMenus]);  // Dependency array to ensure it only fetches once
+    loadMenus(); 
+  }, [fetchMenus]); 
 
-  // Extract distinct categories from the menus
+
   const categories = [...new Set(menus.map(menu => menu.menuCategoryName))];
 
-  // Filter menus based on the selected category
+
   const filteredMenus = selectedCategory
     ? menus.filter(menu => menu.menuCategoryName === selectedCategory)
     : menus;
 
-  // Handle pagination
+
   const indexOfLastMenu = currentPage * menusPerPage;
   const indexOfFirstMenu = indexOfLastMenu - menusPerPage;
   const currentMenu = filteredMenus.slice(indexOfFirstMenu, indexOfLastMenu);
@@ -46,10 +47,17 @@ const MenuList = ({ onMenuSelect }) => {
     if (currentPage > 1) setCurrentPage(prev => prev - 1);
   };
 
-  // If loading or error occurred, handle it
+
   if (loading) {
-    return <p>로딩 중...</p>;
+    return (
+      <div className="d-flex justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
+  
 
   if (error) {
     return <p>{error}</p>;
@@ -57,7 +65,6 @@ const MenuList = ({ onMenuSelect }) => {
 
   return (
     <div className="menu-list">
-      {/* Category dropdown */}
       <div className="category-toggle">
         <select
           className="category-select"
@@ -73,7 +80,6 @@ const MenuList = ({ onMenuSelect }) => {
         </select>
       </div>
 
-      {/* Menu items */}
       <div className="menu-grid">
         {currentMenu.length > 0 ? (
           currentMenu.map((menu) => (
@@ -93,7 +99,7 @@ const MenuList = ({ onMenuSelect }) => {
         )}
       </div>
 
-      {/* Pagination */}
+
       <div className="pagination-c">
         <button onClick={prevPage} disabled={currentPage === 1}>이전</button>
         <span>{currentPage} / {totalPages}</span>

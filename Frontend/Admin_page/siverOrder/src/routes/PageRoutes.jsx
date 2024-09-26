@@ -23,6 +23,12 @@ import AddMenu from "../components/Menu/AddMenu.jsx";
 
 import EditMenu from "../components/Menu/EditMenu.jsx";
 
+import EditCategory from "../components/Menu/EditCategory.jsx";
+
+import EditOption from "../components/Menu/EditOption.jsx";
+
+import EditMenuCategory from "../components/Menu/EditMenuCategory.jsx";
+
 const PageRoutes = () => {
 
     const { isLogin } = useInfoStore();
@@ -55,6 +61,12 @@ const PageRoutes = () => {
                     <Route path="/silverorder/admin/menu/AddMenu" element={<AddMenu />}/>
                     {/* 메뉴 수정 페이지 */}
                     <Route path="/silverorder/admin/menu/Edit" element={<EditMenu />}/>
+                    {/* 카테고리 수정 페이지 */}
+                    <Route path="/silverorder/admin/menu/category/edit" element={<EditCategory />}/>
+                    {/* 메뉴 카테고리 수정 페이지 */}
+                    <Route path="/silverorder/admin/menu/category/edit/menu" element={<EditMenuCategory />}/>
+                    {/* 옵션 수정 페이지 */}
+                    <Route path="/silverorder/admin/menu/category/edit/option" element={<EditOption />}/>
                 </>
             )}
         </Routes>

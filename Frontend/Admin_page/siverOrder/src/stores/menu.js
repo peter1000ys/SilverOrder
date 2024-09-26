@@ -146,6 +146,33 @@ const useMenuStore = create((set, get) => ({
             Notiflix.Notify.failure("메뉴 옵션 조회에 실패했습니다.");
         }
     },
+    updateMenuCategory: async (menuCategoryId, updatedCategory) => {
+        const { token } = useInfoStore.getState();
+
+        if (!token) {
+            Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
+            return;
+        }
+
+        try {
+            await axios.patch(
+                `${API_URL}menu/category/${menuCategoryId}`,
+                updatedCategory,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            console.log(updatedCategory);
+            await get().fetchCategories();
+            Notiflix.Notify.success("카테고리 수정 완료");
+        } catch (error) {
+            Notiflix.Notify.failure("카테고리 수정에 실패했습니다.");
+        }
+    },
+    
+
 }));
 
 export default useMenuStore;

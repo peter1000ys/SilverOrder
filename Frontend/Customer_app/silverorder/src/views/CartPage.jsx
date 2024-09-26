@@ -1,9 +1,12 @@
 import "../styles/CartPage.css";
 import useCartStore from "../stores/cart";
 import { useMemo } from "react"; // 성능 최적화를 위해 사용
+import { useNavigate } from "react-router-dom";
+import { baseURL } from "../constant";
 
 const CartPage = () => {
   const { cart, removeFromCart, clearCart } = useCartStore();
+  const navigate = useNavigate();
 
   // 카테고리별 상품 개수를 계산하는 함수
   const getCategoryCounts = useMemo(() => {
@@ -18,6 +21,25 @@ const CartPage = () => {
   const allPrice = useMemo(() => {
     return cart.reduce((total, item) => total + item.price, 0);
   }, [cart]);
+
+  // cart에 담긴 메뉴들 결제하기 위해 정보 전달 & 페이지 이동
+  const go_to_purchase = () => {
+    // 결제 페이지에 전달해야 할 정보
+    const purchaseInfo = {
+      totalPrice: allPrice,
+      menulist: cart.map((item) => ({
+        menuId: item.productId,
+        menuAmount: 1,
+        menuPrice: item.price,
+        optionList: item.options,
+      })),
+    };
+
+    console.log(purchaseInfo);
+
+    // purchaseInfo를 전달하면서 결제 페이지로 이동
+    navigate(`${baseURL}/purchase`, { state: { purchaseInfo } });
+  };
 
   return (
     <div className="cart-container">
@@ -76,7 +98,9 @@ const CartPage = () => {
             </button>
 
             {/* 결제 버튼 */}
-            <button className="cart-menu-purchase">결 제 하 기</button>
+            <button className="cart-menu-purchase" onClick={go_to_purchase}>
+              결 제 하 기
+            </button>
           </div>
         )}
       </div>

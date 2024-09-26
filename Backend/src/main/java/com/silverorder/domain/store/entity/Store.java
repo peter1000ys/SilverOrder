@@ -16,7 +16,6 @@ import lombok.Setter;
 @Table(name="T_STORE")
 public class Store {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "STORE_ID",nullable = false)
     private Long id;
 

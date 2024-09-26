@@ -1,10 +1,19 @@
 import "../styles/StartPage.css";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import silverorder_logo from "../img/silverorder_logo.png";
 import { baseURL } from "../constant";
+import useInfoStore from "../stores/infos";
 
-const StartPage = () => {
+const StartPage = ({ storeId }) => {
+  const { setLoginedStore } = useInfoStore();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (storeId) {
+      setLoginedStore(storeId); // storeId를 loginedStore에 저장
+    }
+  }, [storeId, setLoginedStore]);
 
   const go_to_sign_up = () => {
     navigate(`${baseURL}/signup`);

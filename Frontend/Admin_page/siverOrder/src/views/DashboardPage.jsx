@@ -40,7 +40,7 @@ const DashboardPage = () => {
                 {/* charts-section */}
                 <div className="row charts-section">
                     <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
-                        <LineChart title="최근 6개월 매출 차트" />
+                        <LineChart title="이번 주 일별 매출총액" />
                     </div>
                     <div className="col-lg-6 col-md-6 col-sm-12 mb-4">
                         <AgeChart title="연령별 인기 상품 Top 5" />

@@ -10,11 +10,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 500px;
     height: 100vh;
   }
   
   .login-container form{
+    padding-top: calc(100 / 1440 * 100vw);
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -22,32 +22,32 @@
   }
   
   .login-image {
-    width: 200px;
+    width: calc(200 / 1440 * 100vw);
     height: auto;
-    margin-bottom: 40px;
+    margin-bottom: calc(40 / 1440 * 100vw);
   }
   
   .login-input {
-    width: 350px;
-    padding: 20px;
-    margin: 15px 0;
+    width: calc(350 / 1440 * 100vw);
+    padding: calc(20 / 1440 * 100vw);
+    margin: calc(15 / 1440 * 100vw) 0;
     border: 1px solid #ccc;
-    border-radius: 30px;
+    border-radius: calc(30 / 1440 * 100vw);
     background-color: #e0e0e0;
-    font-size: 18px;
+    font-size: calc(18 / 1440 * 100vw);
     text-align: center;
   }
   
   .login-button {
-    width: 350px;
-    padding: 20px;
+    width: calc(350 / 1440 * 100vw);
+    padding: calc(20 / 1440 * 100vw);
     background-color: #2D8DFF;
     color: white;
     border: none;
-    border-radius: 30px;
-    font-size: 18px;
+    border-radius: calc(30 / 1440 * 100vw);
+    font-size: calc(18 / 1440 * 100vw);
     cursor: pointer;
-    margin-top: 25px;
+    margin-top: calc(25 / 1440 * 100vw);
   }
   
   .login-button:hover {
@@ -55,8 +55,8 @@
   }
   
   .signup-text {
-    margin-top: 25px;
-    font-size: 16px;
+    margin-top: calc(25 / 1440 * 100vw);
+    font-size: calc(16 / 1440 * 100vw);
     color: #666;
   }
   

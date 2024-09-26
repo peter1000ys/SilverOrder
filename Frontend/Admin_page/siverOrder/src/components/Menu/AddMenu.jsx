@@ -20,12 +20,12 @@ const AddMenu = () => {
 
     // Option Management
     const [availableOptions, setAvailableOptions] = useState([]); // Example option list
-    const [selectedOption, setSelectedOption] = useState('------'); // Default selected option
+    const [selectedOption, setSelectedOption] = useState('-----');// Default selected option
     const [addedOptions, setAddedOptions] = useState([]);
 
     // Menu Category Management
     const [availableCategories, setAvailableCategories] = useState([]); // Example category list
-    const [selectedCategory, setSelectedCategory] = useState('------'); // Default category
+    const [selectedCategory, setSelectedCategory] = useState(1); // Default category
 
     useEffect(() => {
         const loadData = async () => {
@@ -70,6 +70,7 @@ const AddMenu = () => {
         if (selected && !addedOptions.some(option => option.optionCategoryId === selected.optionCategoryId)) {
             setAddedOptions([...addedOptions, selected]);
         }
+        setSelectedOption('-----');  // 옵션을 추가한 후 기본값으로 초기화
     };
     
     const handleRemoveOption = (optionToRemove) => {
@@ -88,7 +89,7 @@ const AddMenu = () => {
             menuStatus: 'MENU_READY',  // 상태 기본 값 설정
             menuPrice: parseInt(price, 10),
             recommend: recommendation,
-            useOptionCategory: addedOptions.map(option => option),  // 선택된 옵션 ID 목록
+            useOptionCategory: addedOptions.map(option => option.optionCategoryId),  // Only send optionCategoryId
             menuThumb: menuImage ? menuImage.name : ''  // 이미지 파일 이름
         };
     
@@ -100,6 +101,7 @@ const AddMenu = () => {
         // 등록 후 메뉴 페이지로 리다이렉트
         navigate('/silverorder/admin/menu');
     };
+    
     
     return (
       <div>
@@ -210,9 +212,10 @@ const AddMenu = () => {
                         <label htmlFor="options">옵션 선택</label>
                         <div className="option-selector">
                             <select id="options" value={selectedOption} onChange={handleOptionChange}>
+                                <option value="-----">-----</option> {/* 기본값 추가 */}
                                 {availableOptions.map((option) => (
                                     <option key={option.optionCategoryId} value={option.optionCategoryId}>
-                                        {option.optionCategoryTitle}  {/* 옵션의 제목을 표시 */}
+                                        {option.optionCategoryTitle}
                                     </option>
                                 ))}
                             </select>

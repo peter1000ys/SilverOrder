@@ -16,6 +16,7 @@ import java.util.List;
 @Setter
 public class OrderMenuDto {
     private Long menuId;
+    private String menuName;
     private int menuAmount;
     private Long menuPrice;
     private List<OrderOptionDto> optionList;

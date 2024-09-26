@@ -8,6 +8,7 @@ const API_URL =
 
 const useOptionStore = create((set, get) => ({
     options: [],
+    optionDetails: [],
 
     fetchOptions: async () => {
         const { token, userInfo } = useInfoStore.getState();
@@ -65,6 +66,77 @@ const useOptionStore = create((set, get) => ({
       Notiflix.Notify.failure("옵션 추가 실패");
     }
     },
+
+    fetchOptionDetail: async (optionCategoryId) => {
+        const { token } = useInfoStore.getState();
+    
+        if (!token) {
+            Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
+            return;
+        }
+    
+        try {
+            const response = await axios.get(API_URL + `option/category/detail/${optionCategoryId}`, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                },
+            });
+            console.log(response.data);
+            
+            set({ optionDetails: response.data });
+            Notiflix.Notify.success("옵션 상세 조회 완료");
+        } catch (error) {
+            Notiflix.Notify.failure("옵션 상세 조회에 실패했습니다.");
+        }
+    },
+
+    updateOptionCategory: async (optionCategoryId, updatedOptionCategory) => {
+      const { token } = useInfoStore.getState();
+  
+      if (!token) {
+        Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
+        return;
+      }
+  
+      try {
+        await axios.patch(API_URL + `option/category/${optionCategoryId}`, updatedOptionCategory, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          }
+        });
+  
+        Notiflix.Notify.success("옵션 카테고리 수정 완료");
+        await get().fetchOptions();
+      } catch (error) {
+        Notiflix.Notify.failure("옵션 카테고리 수정에 실패했습니다.");
+      }
+    },
+
+    deleteOption: async (optionCategoryId) => {
+      const { token } = useInfoStore.getState();
+  
+      if (!token) {
+        Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
+        return;
+      }
+  
+      try {
+        await axios.delete(API_URL + `option/category/${optionCategoryId}`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+  
+        Notiflix.Notify.success("옵션 삭제 완료");
+        await get().fetchOptions();  // Refresh options after deletion
+      } catch (error) {
+        Notiflix.Notify.failure("옵션 삭제에 실패했습니다.");
+      }
+    }
+
+    
+  
 }));
 
 export default useOptionStore;
