@@ -108,6 +108,7 @@ pipeline {
                         -e SSAFY_API_KEY=${SSAFY_API_KEY} \
                         -e MSSQL_KEY=${MSSQL_KEY} \
                         -e RABBITMQ_KEY=${RABBITMQ_KEY} \
+                        -e TZ=Asia/Seoul \
                         backend:${BUILD_NUMBER}
                     """
                 }
