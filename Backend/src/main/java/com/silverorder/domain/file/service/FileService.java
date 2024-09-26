@@ -1,4 +1,4 @@
-package com.studycow.service.file;
+package com.silverorder.domain.file.service;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -10,7 +10,7 @@ import java.io.IOException;
  * </pre>
  *
  * @author 박봉균
- * @since JDK17
+ * @since JDK17 Eclipse Temurin
  */
 public interface FileService {
     /** 파일 업로드 */

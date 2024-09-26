@@ -1,9 +1,7 @@
 package com.silverorder.domain.review.controller;
 
-import com.silverorder.domain.review.dto.RequestOwnerReviewDto;
-import com.silverorder.domain.review.dto.RequestUserReviewDto;
-import com.silverorder.domain.review.dto.ResponseMyReviewDto;
-import com.silverorder.domain.review.dto.ResponseReviewDto;
+import com.silverorder.domain.file.service.FileService;
+import com.silverorder.domain.review.dto.*;
 import com.silverorder.domain.review.service.ReviewService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
@@ -32,6 +30,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class ReviewController {
     private final ReviewService reviewService;
+    private final FileService fileService;
 
     @Operation(summary = "리뷰 리스트 조회", description="가맹점의 리뷰들을 조회합니다.")
     @GetMapping("/list/{storeId}")
@@ -60,8 +59,22 @@ public class ReviewController {
             @RequestBody @Valid RequestUserReviewDto requestUserReviewDto,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
+        UserReviewDto userReviewDto = new UserReviewDto(
+          requestUserReviewDto.getContent(),
+          requestUserReviewDto.getRating(),
+          requestUserReviewDto.getOrderId(),
+          null
+        );
+
+        // 요청에 파일 있을 경우 클라우드에 업로드 후 링크 생성
+        if (requestUserReviewDto.getReviewThumb() != null) {
+            String fileLink = fileService.uploadFile(requestUserReviewDto.getReviewThumb());
+            userReviewDto.setReviewThumb(fileLink);
+        }
+
+
         long userId = userDetails.getUser().getUserId();
-        reviewService.registUserReview(userId, requestUserReviewDto);
+        reviewService.registUserReview(userId, userReviewDto);
         return new ResponseEntity<>("고객 리뷰 등록 완료", HttpStatus.OK);
     }
 

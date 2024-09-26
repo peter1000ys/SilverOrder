@@ -1,4 +1,4 @@
-package com.studycow.dto.file;
+package com.silverorder.domain.file.dto;
 
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotBlank;

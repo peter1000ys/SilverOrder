@@ -2,7 +2,7 @@ package com.silverorder.domain.menu.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.silverorder.domain.menu.dto.RequestMenuDto;
+import com.silverorder.domain.menu.dto.MenuDto;
 import com.silverorder.domain.menu.dto.ResponseMenuCategory;
 import com.silverorder.domain.menu.dto.ResponseMenuDto;
 import com.silverorder.domain.menu.entity.Menu;
@@ -44,23 +44,23 @@ public class MenuRepositoryImpl implements MenuRepository{
      *      가게에서 사용할 메뉴를 등록한다
      * </pre>
      * @param storeMenuCategory : 메뉴 카테고리 entity
-     * @param requestMenuDto : 메뉴정보 dto
+     * @param menuDto : 메뉴정보 dto
      * @return : 메뉴 entity
      * @throws PersistenceException : JPA 표준 예외
      */
     @Override
-    public Menu saveMenu(StoreMenuCategory storeMenuCategory, RequestMenuDto requestMenuDto) throws PersistenceException {
+    public Menu saveMenu(StoreMenuCategory storeMenuCategory, MenuDto menuDto) throws PersistenceException {
         try {
             Menu menu = new Menu(
                     null,
                     storeMenuCategory,
-                    requestMenuDto.getMenuName(),
-                    requestMenuDto.getSimpleName(),
-                    requestMenuDto.getMenuDesc(),
-                    requestMenuDto.getMenuStatus(),
-                    requestMenuDto.getMenuPrice(),
-                    requestMenuDto.getRecommend(),
-                    requestMenuDto.getMenuThumb()
+                    menuDto.getMenuName(),
+                    menuDto.getSimpleName(),
+                    menuDto.getMenuDesc(),
+                    menuDto.getMenuStatus(),
+                    menuDto.getMenuPrice(),
+                    menuDto.getRecommend(),
+                    menuDto.getMenuThumb()
             );
 
             em.persist(menu);

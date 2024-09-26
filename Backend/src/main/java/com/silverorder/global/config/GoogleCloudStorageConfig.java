@@ -1,4 +1,4 @@
-package com.studycow.config;
+package com.silverorder.global.config;
 
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.storage.Storage;
@@ -22,9 +22,9 @@ public class GoogleCloudStorageConfig {
 
     @Bean
     public Storage storage() throws IOException {
-        ClassPathResource resource = new ClassPathResource("keystore/studycow-7e95dffd67ff.json");
+        ClassPathResource resource = new ClassPathResource("keystore/silver-order-8bf9ace6e13d.json");
         GoogleCredentials credentials = GoogleCredentials.fromStream(resource.getInputStream());
-        String projectId = "studycow";
+        String projectId = "silverorder";
         return StorageOptions.newBuilder()
                 .setProjectId(projectId)
                 .setCredentials(credentials)

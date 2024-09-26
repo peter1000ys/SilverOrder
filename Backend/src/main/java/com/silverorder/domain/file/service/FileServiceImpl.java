@@ -1,10 +1,10 @@
-package com.studycow.service.file;
+package com.silverorder.domain.file.service;
 
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.BlobInfo;
 import com.google.cloud.storage.Storage;
-import com.studycow.exception.CustomException;
-import com.studycow.exception.ErrorCode;
+import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ import java.util.UUID;
  * </pre>
  *
  * @author 박봉균
- * @since JDK17
+ * @since JDK17 Eclipse Temurin
  */
 @Service
 @RequiredArgsConstructor
@@ -85,11 +85,12 @@ public class FileServiceImpl implements FileService {
 
     /**
      * 파일 링크에서 uuid로 된 파일명 추출
+     *
      * @param fileLink 파일 링크
      * @return String 파일명
      */
     private String extractFileNameFromLink(String fileLink) {
-        // https://storage.googleapis.com/studycow_bucket/fileName.jpg
+        // https://storage.googleapis.com/silver-order-bucket/fileName.jpg
         // '/'를 delimiter로 나누기
         String[] parts = fileLink.split("/");
 

@@ -1,5 +1,6 @@
 package com.silverorder.domain.menu.repository;
 
+import com.silverorder.domain.menu.dto.MenuDto;
 import com.silverorder.domain.menu.dto.RequestMenuDto;
 import com.silverorder.domain.menu.dto.ResponseMenuCategory;
 import com.silverorder.domain.menu.dto.ResponseMenuDto;
@@ -13,7 +14,7 @@ import jakarta.persistence.PersistenceException;
 import java.util.List;
 
 public interface MenuRepository {
-    Menu saveMenu(StoreMenuCategory storeMenuCategory, RequestMenuDto requestMenuDto) throws PersistenceException;
+    Menu saveMenu(StoreMenuCategory storeMenuCategory, MenuDto MenuDto) throws PersistenceException;
 
     void saveMenuOptionCategory(Menu menu, OptionCategory optionCategory);
 
