@@ -24,7 +24,7 @@ const CommentModal = ({ isOpen, onClose, onSubmit, commentContent }) => {
 
     return isOpen ? (
         <div className="modal-overlay">
-            <div className="modal-content">
+            <div className="modal-content1">
                 <textarea
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}

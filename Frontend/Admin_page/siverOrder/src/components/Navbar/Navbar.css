@@ -24,7 +24,7 @@
   .navbar-logo {
     display: flex;
     align-items: center;
-    
+    padding-right: calc(20 / 1440 * 100vw);
   }
   
   .nav-logo {

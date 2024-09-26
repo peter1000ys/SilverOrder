@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './MenuList.css';
 import useMenuStore from '../../stores/menu';  
+import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MenuList = ({ onMenuSelect }) => {
   const { menus, fetchMenus } = useMenuStore();  
@@ -48,8 +49,15 @@ const MenuList = ({ onMenuSelect }) => {
 
 
   if (loading) {
-    return <p>로딩 중...</p>;
+    return (
+      <div className="d-flex justify-content-center">
+        <div className="spinner-border" role="status">
+          <span className="visually-hidden">Loading...</span>
+        </div>
+      </div>
+    );
   }
+  
 
   if (error) {
     return <p>{error}</p>;
