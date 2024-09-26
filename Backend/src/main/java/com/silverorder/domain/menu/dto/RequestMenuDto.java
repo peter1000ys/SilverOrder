@@ -51,8 +51,8 @@ public class RequestMenuDto {
     private int menuPrice;
 
     /** 평점 */
-    @Max(value = 5, message = "최대 평점은 5입니다.")
-    @Min(value = 1, message = "최소 평점은 1입니다.")
+    @Max(value = 1, message = "0 또는 1입니다.")
+    @Min(value = 0, message = "0 또는 1입니다.")
     private int recommend;
 
     /** 메뉴 이미지 */
