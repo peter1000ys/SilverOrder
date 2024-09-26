@@ -1,14 +1,13 @@
 package com.silverorder.domain.order.service;
 
-import com.silverorder.domain.order.dto.OrderDto;
-import com.silverorder.domain.order.dto.OrderStatusChangeDto;
-import com.silverorder.domain.order.dto.ResponseOrderDetailDto;
-import com.silverorder.domain.order.dto.ResponseOrderDto;
+import com.silverorder.domain.order.dto.*;
 import com.silverorder.domain.order.entity.Order;
 import com.silverorder.domain.order.repository.OrderJpaRepository;
 import com.silverorder.domain.order.repository.OrderRepository;
 import com.silverorder.domain.payment.dto.CardRequestDto;
 import com.silverorder.domain.payment.service.PaymentService;
+import com.silverorder.domain.store.entity.Store;
+import com.silverorder.domain.store.repository.StoreJpaRepository;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
 import com.silverorder.global.exception.CustomException;
@@ -40,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
     private final RabbitTemplate rabbitTemplate;
     private final SimpMessagingTemplate messagingTemplate;
     private final UserJpaRepository userJpaRepository;
+    private final StoreJpaRepository storeJpaRepository;
 
 
     /**
@@ -124,6 +124,46 @@ public class OrderServiceImpl implements OrderService {
             }
         }
         return orderDetailList;
+    }
+
+    /**
+     * 가게 주문 리스트
+     *
+     * @param userId
+     * @param storeId
+     */
+    @Override
+    public List<ResponseOrderStoreDto> storeOrderList(Long userId, Long storeId) throws Exception {
+        // 유저 검사
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        // 가게 검사
+        Store store = storeJpaRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        // 금일 가게의 주문내역 조회
+        List<ResponseOrderStoreDto> responseOrderStoreDtoList
+                = orderRepository.storeOrderList(store);
+
+
+        if(responseOrderStoreDtoList != null && !responseOrderStoreDtoList.isEmpty()){
+            // 주문 상세조회
+            for(ResponseOrderStoreDto orders : responseOrderStoreDtoList){
+                Order order = orderJpaRepository.findById(orders.getOrderId())
+                        .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+                orders.setMenuList(orderRepository.userOrderDetailList(order));
+
+                for(ResponseOrderDetailDto orderDetails : orders.getMenuList()){
+                    if(orderDetails.getOptionCount() > 0){
+                        // 주문 메뉴의 옵션 조회
+                        orderDetails.setOptionList(orderRepository.orderMenuOption(orderDetails.getOrderMenuId()));
+                    }
+                }
+            }
+        }
+
+        return responseOrderStoreDtoList;
     }
 
 }

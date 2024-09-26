@@ -19,6 +19,7 @@ import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.silverorder.domain.option.entity.QOption.option;
@@ -107,6 +108,7 @@ public class OrderRepositoryImpl implements OrderRepository {
                     .innerJoin(payment).on(order.payment.id.eq(payment.id))
                     .innerJoin(card).on(card.payment.id.eq(payment.id))
                     .where(order.payment.user.eq(user))
+                    .orderBy(order.id.desc())
                     .fetch();
         }catch(Exception e){
             e.printStackTrace();
@@ -162,6 +164,36 @@ public class OrderRepositoryImpl implements OrderRepository {
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenceException("주문메뉴 옵션 조회 중 에러 발생", e);
+        }
+    }
+
+    /**
+     * 가게의 주문 리스트
+     *
+     * @param store
+     */
+    @Override
+    public List<ResponseOrderStoreDto> storeOrderList(Store store) throws PersistenceException {
+        try {
+            return queryFactory
+                    .select(Projections.constructor(ResponseOrderStoreDto.class,
+                            order.id,
+                            order.payment.id,
+                            order.tradeNum,
+                            order.payPrice,
+                            order.orderTime,
+                            order.orderDate,
+                            order.orderStatus
+                    ))
+                    .from(order)
+                    .where(order.store.eq(store).and(
+                            order.orderDate.between(LocalDate.now().minusDays(1), LocalDate.now())
+                    ))
+                    .orderBy(order.id.desc())
+                    .fetch();
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new PersistenceException("가게 주문 조회 중 에러 발생", e);
         }
     }
 }

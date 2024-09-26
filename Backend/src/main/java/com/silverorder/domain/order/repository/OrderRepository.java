@@ -1,6 +1,7 @@
 package com.silverorder.domain.order.repository;
 import com.silverorder.domain.order.dto.*;
 import com.silverorder.domain.order.entity.Order;
+import com.silverorder.domain.store.entity.Store;
 import com.silverorder.domain.user.entity.User;
 import jakarta.persistence.PersistenceException;
 
@@ -29,4 +30,7 @@ public interface OrderRepository {
 
     /** 주문 메뉴의 옵션 리스트 */
     List<OrderOptionDto> orderMenuOption(Long orderMenuId) throws PersistenceException;
+
+    /** 가게의 주문 리스트 */
+    List<ResponseOrderStoreDto> storeOrderList(Store store) throws PersistenceException;
 }

@@ -1,10 +1,7 @@
 package com.silverorder.domain.order.controller;
 
 import com.silverorder.domain.menu.dto.ResponseMenuDto;
-import com.silverorder.domain.order.dto.OrderDto;
-import com.silverorder.domain.order.dto.OrderStatusChangeDto;
-import com.silverorder.domain.order.dto.ResponseOrderDetailDto;
-import com.silverorder.domain.order.dto.ResponseOrderDto;
+import com.silverorder.domain.order.dto.*;
 import com.silverorder.domain.order.service.OrderService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import com.silverorder.domain.user.dto.UserRole;
@@ -77,13 +74,24 @@ public class OrderController {
 
     @Operation(summary = "주문 내역 상세조회", description="주문한 메뉴를 조회합니다.")
     @GetMapping("/orderDetail/{orderId}")
-    public ResponseEntity<?> userOrderDetailList(
+    public ResponseEntity<?> storeOrderList(
             @PathVariable Long orderId,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
         long userId = userDetails.getUser().getUserId();
         List<ResponseOrderDetailDto> orderDetailList = orderService.userOrderDetailList(userId, orderId);
         return ResponseEntity.ok(orderDetailList);
+    }
+
+    @Operation(summary = "금일의 가게 주문 내역 조회", description="금일 가게의 주문 내역을 조회합니다.")
+    @GetMapping("/storeOrder/{storeId}")
+    public ResponseEntity<?> userOrderDetailList(
+            @PathVariable Long storeId,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        List<ResponseOrderStoreDto> responseOrderStoreDtoList = orderService.storeOrderList(userId, storeId);
+        return ResponseEntity.ok(responseOrderStoreDtoList);
     }
 
 }
