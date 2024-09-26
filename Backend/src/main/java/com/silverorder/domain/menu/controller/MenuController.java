@@ -1,8 +1,8 @@
 package com.silverorder.domain.menu.controller;
 
-import com.silverorder.domain.file.service.FileService;
 import com.silverorder.domain.menu.dto.*;
 import com.silverorder.domain.menu.service.MenuService;
+import com.silverorder.domain.option.dto.RequestOptionCategoryDto;
 import com.silverorder.domain.option.dto.ResponseOptionDto;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +18,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * <pre>
@@ -34,7 +35,6 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class MenuController {
     private final MenuService menuService;
-    private final FileService fileService;
 
     @Operation(summary = "메뉴 카테고리 등록", description="가게에서 사용할 메뉴의 카테고리를 등록합니다.")
     @PostMapping("/category")
@@ -62,31 +62,11 @@ public class MenuController {
     @Operation(summary = "메뉴 등록", description="가게에서 판매할 메뉴를 등록합니다.")
     @PostMapping("/regist")
     public ResponseEntity<?> registMenu(
-            @ModelAttribute @Valid RequestMenuDto requestMenuDto,
+            @RequestBody @Valid RequestMenuDto requestMenuDto,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
-        MenuDto menuDto = new MenuDto(
-                requestMenuDto.getStoreId(),
-                requestMenuDto.getMenuCategoryId(),
-                requestMenuDto.getMenuName(),
-                requestMenuDto.getSimpleName(),
-                requestMenuDto.getMenuDesc(),
-                requestMenuDto.getMenuStatus(),
-                requestMenuDto.getMenuPrice(),
-                requestMenuDto.getRecommend(),
-                null,
-                requestMenuDto.getUseOptionCategory()
-        );
-
-        // 요청에 파일 있을 경우 클라우드에 업로드 후 링크 생성
-        if (requestMenuDto.getMenuThumb() != null) {
-            String fileLink = fileService.uploadFile(requestMenuDto.getMenuThumb());
-            menuDto.setMenuThumb(fileLink);
-        }
-
-        // 메뉴 저장
-        Long userId = userDetails.getUser().getUserId();
-        menuService.saveMenu(userId, menuDto);
+        long userId = userDetails.getUser().getUserId();
+        menuService.saveMenu(userId, requestMenuDto);
         return new ResponseEntity<>("메뉴 등록 완료", HttpStatus.OK);
     }
 

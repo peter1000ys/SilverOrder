@@ -2,7 +2,10 @@ package com.silverorder.domain.review.service;
 
 import com.silverorder.domain.order.entity.Order;
 import com.silverorder.domain.order.repository.OrderJpaRepository;
-import com.silverorder.domain.review.dto.*;
+import com.silverorder.domain.review.dto.RequestOwnerReviewDto;
+import com.silverorder.domain.review.dto.RequestUserReviewDto;
+import com.silverorder.domain.review.dto.ResponseMyReviewDto;
+import com.silverorder.domain.review.dto.ResponseReviewDto;
 import com.silverorder.domain.review.entity.UserReview;
 import com.silverorder.domain.review.repository.ReviewRepository;
 import com.silverorder.domain.review.repository.UserReviewJpaRepository;
@@ -75,25 +78,25 @@ public class ReviewServiceImpl implements ReviewService{
     /**
      * 사용자 리뷰 등록
      * @param userId : 유저 id
-     * @param userReviewDto : 사용자 리뷰 등록 정보
+     * @param requestUserReviewDto : 사용자 리뷰 등록 정보
      * @throws Exception
      */
     @Override
     @Transactional
-    public void registUserReview(long userId, UserReviewDto userReviewDto) throws Exception {
+    public void registUserReview(long userId, RequestUserReviewDto requestUserReviewDto) throws Exception {
         //유저 확인 로직
         User user = userJpaRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
 
         //주문 확인 로직
-        Order order = orderJpaRepository.findById(userReviewDto.getOrderId())
+        Order order = orderJpaRepository.findById(requestUserReviewDto.getOrderId())
                 .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
         //주문고객 확인 로직
         if(!order.getPayment().getUser().equals(user))
             throw new CustomException(ErrorCode.ORDER_USER_UNAUTHORIZED);
 
-        reviewRepository.registUserReview(user, order, userReviewDto);
+        reviewRepository.registUserReview(user, order, requestUserReviewDto);
     }
 
     /**

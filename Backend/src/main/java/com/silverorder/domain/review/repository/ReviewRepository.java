@@ -1,7 +1,10 @@
 package com.silverorder.domain.review.repository;
 
 import com.silverorder.domain.order.entity.Order;
-import com.silverorder.domain.review.dto.*;
+import com.silverorder.domain.review.dto.RequestOwnerReviewDto;
+import com.silverorder.domain.review.dto.RequestUserReviewDto;
+import com.silverorder.domain.review.dto.ResponseMyReviewDto;
+import com.silverorder.domain.review.dto.ResponseReviewDto;
 import com.silverorder.domain.review.entity.UserReview;
 import com.silverorder.domain.store.entity.Store;
 import com.silverorder.domain.user.entity.User;
@@ -20,6 +23,6 @@ public interface ReviewRepository {
     List<ResponseReviewDto> listUserReview(Store store) throws PersistenceException;
     List<ResponseMyReviewDto> listMyReview(User user) throws PersistenceException;
 
-    void registUserReview(User user, Order order, UserReviewDto userReviewDto) throws PersistenceException;
+    void registUserReview(User user, Order order, RequestUserReviewDto requestUserReviewDto) throws PersistenceException;
     void registOwnerReview(UserReview userReview, RequestOwnerReviewDto requestOwnerReviewDto) throws PersistenceException;
 }

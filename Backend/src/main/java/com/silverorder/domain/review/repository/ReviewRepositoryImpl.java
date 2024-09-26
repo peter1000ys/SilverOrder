@@ -4,7 +4,10 @@ import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.order.entity.Order;
-import com.silverorder.domain.review.dto.*;
+import com.silverorder.domain.review.dto.RequestOwnerReviewDto;
+import com.silverorder.domain.review.dto.RequestUserReviewDto;
+import com.silverorder.domain.review.dto.ResponseMyReviewDto;
+import com.silverorder.domain.review.dto.ResponseReviewDto;
 import com.silverorder.domain.review.entity.OwnerReview;
 import com.silverorder.domain.review.entity.UserReview;
 import com.silverorder.domain.store.entity.Store;
@@ -114,18 +117,17 @@ public class ReviewRepositoryImpl implements ReviewRepository{
      * </pre>
      * @param order : 주문 entity
      * @param user : 유저 entity
-     * @param userReviewDto : 리뷰정보 dto
+     * @param requestUserReviewDto : 리뷰정보 dto
      * @return : 유저 리뷰 리스트
      * @throws PersistenceException : JPA 표준 예외
      */
     @Override
-    public void registUserReview(User user, Order order, UserReviewDto userReviewDto) throws PersistenceException {
+    public void registUserReview(User user, Order order, RequestUserReviewDto requestUserReviewDto) throws PersistenceException {
         try {
              UserReview userReview = new UserReview(
                      null,
-                     userReviewDto.getContent(),
-                     userReviewDto.getRating(),
-                     userReviewDto.getReviewThumb(),
+                     requestUserReviewDto.getContent(),
+                     requestUserReviewDto.getRating(),
                      order,
                      user,
                      LocalDate.now(),

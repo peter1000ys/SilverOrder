@@ -28,9 +28,6 @@ public class UserReview {
     @Column(name = "RATING", nullable = false)
     private int rating;
 
-    @Column(name = "REVIEW_THUMB", length = 100)
-    private String reviewThumb;
-
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ORDER_ID", nullable = false)
     private Order order; //외래키

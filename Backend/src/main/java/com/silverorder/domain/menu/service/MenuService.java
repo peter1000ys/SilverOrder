@@ -1,6 +1,9 @@
 package com.silverorder.domain.menu.service;
 
-import com.silverorder.domain.menu.dto.*;
+import com.silverorder.domain.menu.dto.RequestMenuCategoryDto;
+import com.silverorder.domain.menu.dto.RequestMenuDto;
+import com.silverorder.domain.menu.dto.ResponseMenuCategory;
+import com.silverorder.domain.menu.dto.ResponseMenuDto;
 import com.silverorder.domain.option.dto.ResponseOptionDto;
 
 import java.util.List;
@@ -13,7 +16,7 @@ import java.util.List;
  * @since JDK17
  */
 public interface MenuService {
-    void saveMenu(Long userId, MenuDto menuDto) throws Exception;
+    void saveMenu(long userId, RequestMenuDto requestMenuDto) throws Exception;
 
     void saveMenuCategory(long userId, RequestMenuCategoryDto requestMenuCategoryDto) throws Exception;
 
