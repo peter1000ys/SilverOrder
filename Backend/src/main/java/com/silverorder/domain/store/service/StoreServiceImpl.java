@@ -22,7 +22,7 @@ import java.util.List;
 @Service
 @Transactional
 @RequiredArgsConstructor
-public class StoreServiceImpl {
+public class StoreServiceImpl implements StoreService {
 
     private final StoreJpaRepository storeJpaRepository;
 
@@ -47,6 +47,11 @@ public class StoreServiceImpl {
                 .build();
 
         return response;
+    }
+
+    @Override
+    public ResponseLatitudeLongitudeDTO getStoreLocate(ResponseLatitudeLongitudeDTO request) {
+        return null;
     }
 
     public List<Store> getAllStore(){

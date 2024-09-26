@@ -1,5 +1,6 @@
 package com.silverorder.domain.store.service;
 
+import com.silverorder.domain.store.dto.RequestLatitudeLongitudeDTO;
 import com.silverorder.domain.store.dto.ResponseLatitudeLongitudeDTO;
 import com.silverorder.domain.store.entity.Store;
 
@@ -11,7 +12,7 @@ import java.util.List;
  * @since JDK17 Eclipse Temurin
  */
 public interface StoreService {
-    ResponseLatitudeLongitudeDTO getStoreLocate(ResponseLatitudeLongitudeDTO request);
+    ResponseLatitudeLongitudeDTO getStoreLocate(RequestLatitudeLongitudeDTO request);
     List<Store> getAllStore();
     List<ResponseLatitudeLongitudeDTO> calculateStoreDistance(ResponseLatitudeLongitudeDTO request);
 }
