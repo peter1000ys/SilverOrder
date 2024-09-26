@@ -1,9 +1,12 @@
 package com.silverorder.domain.store.controller;
 
+import com.silverorder.domain.order.dto.ResponseOrderDto;
 import com.silverorder.domain.store.dto.RequestLatitudeLongitudeDTO;
 import com.silverorder.domain.store.dto.ResponseLatitudeLongitudeDTO;
+import com.silverorder.domain.store.dto.ResponseProcSalesDto;
 import com.silverorder.domain.store.dto.ResponseNearStore;
 import com.silverorder.domain.store.service.StoreServiceImpl;
+import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
@@ -33,6 +36,17 @@ public class StoreController {
         ResponseLatitudeLongitudeDTO response = storeService.getStoreLocate(request);
 
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "가게 매출현황 조회", description="일, 주, 월, 년의 총 매출을 조회합니다.")
+    @GetMapping("/mySales/{storeId}")
+    public ResponseEntity<?> userOrderList(
+            @PathVariable Long storeId,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        ResponseProcSalesDto responseProcSalesDto = storeService.storeSales(userId, storeId);
+        return ResponseEntity.ok(responseProcSalesDto);
     }
 
     @Operation(summary = "근처 매장 조회", description = "사용자 위치 기준 1km 이내의 매장을 표시합니다")

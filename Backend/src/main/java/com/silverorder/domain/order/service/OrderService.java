@@ -26,4 +26,7 @@ public interface OrderService {
     /** 주문 메뉴 조회 */
     List<ResponseOrderDetailDto> userOrderDetailList(Long userId, Long orderId) throws Exception;
 
+    /** 가게 주문 리스트 */
+    List<ResponseOrderStoreDto> storeOrderList(Long userId, Long storeId) throws Exception;
+
 }

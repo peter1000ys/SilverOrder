@@ -3,8 +3,12 @@ package com.silverorder.domain.store.service;
 import com.silverorder.domain.store.dto.RequestLatitudeLongitudeDTO;
 import com.silverorder.domain.store.dto.ResponseLatitudeLongitudeDTO;
 import com.silverorder.domain.store.dto.ResponseNearStore;
+import com.silverorder.domain.store.dto.ResponseProcSalesDto;
 import com.silverorder.domain.store.entity.Store;
 import com.silverorder.domain.store.repository.StoreJpaRepository;
+import com.silverorder.domain.store.repository.StoreRepository;
+import com.silverorder.domain.user.entity.User;
+import com.silverorder.domain.user.repository.UserJpaRepository;
 import com.silverorder.global.exception.CustomException;
 import com.silverorder.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
@@ -20,11 +24,13 @@ import java.util.List;
  * @since JDK17 Eclipse Temurin
  */
 @Service
-@Transactional
+@Transactional(readOnly = true)
 @RequiredArgsConstructor
-public class StoreServiceImpl implements StoreService {
+public class StoreServiceImpl implements StoreService{
 
     private final StoreJpaRepository storeJpaRepository;
+    private final UserJpaRepository userJpaRepository;
+    private final StoreRepository storeRepository;
 
     /**
      * 매장 위,경도 반환
@@ -49,9 +55,22 @@ public class StoreServiceImpl implements StoreService {
         return response;
     }
 
+    /**
+     * 가맹점 매출현황
+     *
+     * @param storeId
+     */
     @Override
-    public ResponseLatitudeLongitudeDTO getStoreLocate(ResponseLatitudeLongitudeDTO request) {
-        return null;
+    public ResponseProcSalesDto storeSales(Long userId, Long storeId) throws Exception {
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Store store = storeJpaRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        if(!store.getUser().equals(user)) throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
+
+        return storeRepository.storeSales(store);
     }
 
     public List<Store> getAllStore(){
@@ -60,6 +79,7 @@ public class StoreServiceImpl implements StoreService {
         return stores;
     }
 
+    @Override
     public List<ResponseNearStore> calculateStoreDistance(ResponseLatitudeLongitudeDTO request) {
         double userLatitude = request.getLatitude();
         double userLongitude = request.getLongitude();
