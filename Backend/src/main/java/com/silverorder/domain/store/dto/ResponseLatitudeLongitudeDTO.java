@@ -4,6 +4,7 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
 /**
@@ -12,7 +13,7 @@ import org.hibernate.validator.constraints.Range;
  * @since JDK17 Eclipse Temurin
  */
 @Getter
-@Builder
+@Setter
 public class ResponseLatitudeLongitudeDTO {
 
     @NotNull
