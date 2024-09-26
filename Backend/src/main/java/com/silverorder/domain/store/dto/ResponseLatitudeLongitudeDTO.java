@@ -14,6 +14,7 @@ import org.hibernate.validator.constraints.Range;
  */
 @Getter
 @Setter
+@Builder
 public class ResponseLatitudeLongitudeDTO {
 
     @NotNull

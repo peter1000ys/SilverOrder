@@ -1,7 +1,9 @@
 package com.silverorder.domain.store.dto;
 
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Range;
 
@@ -19,4 +21,8 @@ public class ResponseNearStore extends ResponseLatitudeLongitudeDTO{
 
     @NotNull
     String storeName;
+
+    public ResponseNearStore(double latitude, double longitude) {
+        super(latitude, longitude);
+    }
 }

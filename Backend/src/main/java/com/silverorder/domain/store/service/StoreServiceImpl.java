@@ -69,7 +69,7 @@ public class StoreServiceImpl {
             double distance = calculateDistance(userLatitude, userLongitude, storeLatitude, storeLongitude);
 
             if (distance <= 1.0) { // 1km 이내인 경우
-                ResponseNearStore dto = new ResponseNearStore();
+                ResponseNearStore dto = new ResponseNearStore(storeLatitude,storeLongitude);
                 dto.setLatitude(storeLatitude);
                 dto.setLongitude(storeLongitude);
                 dto.setStoreId(store.getId());
