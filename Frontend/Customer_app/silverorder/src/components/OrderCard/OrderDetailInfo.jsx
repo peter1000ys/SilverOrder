@@ -1,54 +1,27 @@
 import "./styles/OrderDetailInfo.css";
+import { useState, useEffect } from "react";
+import useOrderStore from "../../stores/order";
 
 const OrderDetailInfo = ({ orderId, onClose }) => {
-  const DummyOrderDetail = [
-    {
-      orderMenuId: 7,
-      menuId: 7,
-      menuName: "블랙 밀크티",
-      menuAmount: 1,
-      menuPrice: 4500,
-      optionCount: 1,
-      optionList: [
-        {
-          optionId: 7,
-          optionName: "사이즈 업",
-        },
-      ],
-    },
-    {
-      orderMenuId: 8,
-      menuId: 1,
-      menuName: "아메리카노",
-      menuAmount: 1,
-      menuPrice: 1500,
-      optionCount: 0,
-      optionList: null,
-    },
-    {
-      orderMenuId: 9,
-      menuId: 2,
-      menuName: "카페라떼",
-      menuAmount: 1,
-      menuPrice: 3000,
-      optionCount: 1,
-      optionList: [
-        {
-          optionId: 7,
-          optionName: "사이즈 업",
-        },
-      ],
-    },
-    {
-      orderMenuId: 10,
-      menuId: 2,
-      menuName: "카페라떼",
-      menuAmount: 1,
-      menuPrice: 2500,
-      optionCount: 0,
-      optionList: null,
-    },
-  ];
+  const [orderDetail, setOrderDetail] = useState([]);
+  const { fetchBeforeOrderDetail } = useOrderStore();
+
+  useEffect(() => {
+    const fetchOrderDetail = async (orderId) => {
+      try {
+        const response = await fetchBeforeOrderDetail(orderId);
+        if (response) {
+          setOrderDetail(response);
+        } else {
+          console.error("로딩 에러 발생");
+        }
+      } catch (error) {
+        console.error("주문 내역 상세 불러오기 실패:", error);
+      }
+    };
+
+    fetchOrderDetail(orderId);
+  }, [fetchBeforeOrderDetail, setOrderDetail]);
 
   return (
     <div className="orderdetail-overlay">
@@ -56,7 +29,7 @@ const OrderDetailInfo = ({ orderId, onClose }) => {
         <p className="orderdetail-title">상세 정보</p>
 
         <div className="orderdetail-item-box">
-          {DummyOrderDetail.map((order) => (
+          {orderDetail.map((order) => (
             <div key={order.orderMenuId} className="orderdetail-item">
               <div className="orderdetail-name">
                 <p>

@@ -72,6 +72,7 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
                         .authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_WHITELIST).permitAll()
+                        .requestMatchers("/api/auth/register/admin", "/api/auth/register/general", "/api/auth/login").permitAll()
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated());
 
