@@ -30,6 +30,9 @@ public class OrderDto {
     private Long tradeNum;
 
     public Order toEntity(Store store, Payment payment) {
+       if(this.orderStatus == null) {
+           this.orderStatus = OrderStatus.ORDER_IN;
+       }
         return Order.builder()
                 .orderStatus(this.orderStatus)
                 .require(this.require)
