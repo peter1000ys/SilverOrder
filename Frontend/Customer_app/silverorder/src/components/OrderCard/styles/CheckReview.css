@@ -28,6 +28,59 @@
   font-weight: bold;
 }
 
+.review-image-preview {
+  width: 200px;
+  height: 200px;
+  background: none;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.review-image-preview img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.hidden-file-input {
+  display: none;
+}
+
+.custom-file-upload {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 150px; /* 버튼 너비 */
+  height: 30px; /* 버튼 높이 */
+  padding: 10px;
+  background-color: #1248a0;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  font-size: 25px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.review-star {
+  font-size: 50px;
+  cursor: pointer;
+  color: lightgray;
+}
+
+.review-star.filled {
+  color: gold;
+}
+
+.review-rating {
+  margin-bottom: 10px;
+}
+
 .review-input {
   width: 300px;
   height: 100px;
