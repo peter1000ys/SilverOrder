@@ -108,6 +108,38 @@ public class ReviewRepositoryImpl implements ReviewRepository{
     }
 
     /**
+     * 리뷰 단건 조회
+     *
+     * @param order
+     */
+    @Override
+    public ResponseReviewDto userReview(Order order) throws PersistenceException {
+        try{
+            return queryFactory
+                    .select(Projections.constructor(ResponseReviewDto.class,
+                                    userReview.id,
+                                    userReview.content,
+                                    userReview.rating,
+                                    userReview.order.id,
+                                    userReview.user.id,
+                                    userReview.user.userEmail,
+                                    ownerReview.id,
+                                    ownerReview.content,
+                                    ownerReview.createdDate,
+                                    ownerReview.modifiedDate
+                            )
+                    )
+                    .from(userReview)
+                    .leftJoin(ownerReview).on(ownerReview.userReview.id.eq(userReview.id))
+                    .where(userReview.order.eq(order))
+                    .fetchOne();
+        }catch(Exception e) {
+            //e.printStackTrace();
+            throw new PersistenceException("유저 리뷰 조회 중 에러 발생", e);
+        }
+    }
+
+    /**
      * 고객 리뷰 등록
      * <pre>
      *      주문 내역을 통해 리뷰를 등록합니다.
