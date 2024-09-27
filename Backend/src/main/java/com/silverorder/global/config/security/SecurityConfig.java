@@ -44,6 +44,7 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
             "/silverorder/",
             "/auth/**",
             "/silverorder/auth/**",
+            "/silverorder/api/auth/**",
             "/swagger-ui/**",
             "/swagger-ui-custom.html",
             "/v3/api-docs/**",
