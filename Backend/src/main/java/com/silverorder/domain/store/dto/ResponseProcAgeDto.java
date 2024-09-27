@@ -4,12 +4,11 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseProcSalesDto {
-    private ProcSalesDto procSalesDto;
-    private List<ProcWeekDto> procWeekDtoList;
+public class ResponseProcAgeDto {
+    private Long menuId;
+    private String menuName;
+    private Integer amount;
 }

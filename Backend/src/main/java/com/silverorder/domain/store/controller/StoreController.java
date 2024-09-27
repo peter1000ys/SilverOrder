@@ -1,10 +1,6 @@
 package com.silverorder.domain.store.controller;
 
-import com.silverorder.domain.order.dto.ResponseOrderDto;
-import com.silverorder.domain.store.dto.RequestLatitudeLongitudeDTO;
-import com.silverorder.domain.store.dto.ResponseLatitudeLongitudeDTO;
-import com.silverorder.domain.store.dto.ResponseProcSalesDto;
-import com.silverorder.domain.store.dto.ResponseNearStore;
+import com.silverorder.domain.store.dto.*;
 import com.silverorder.domain.store.service.StoreServiceImpl;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,8 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -55,6 +49,18 @@ public class StoreController {
 
         List<ResponseNearStore> response = storeService.calculateStoreDistance(request);
         return ResponseEntity.ok(response);
+    }
+
+    @Operation(summary = "연령별 판매 메뉴 조회", description="한달동안 연령별로 판매된 메뉴의 개수를 조회합니다.")
+    @GetMapping("/procAge/{storeId}/{purchaseAge}")
+    public ResponseEntity<?> procAgeList(
+            @PathVariable Long storeId,
+            @PathVariable Integer purchaseAge,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        List<ResponseProcAgeDto> responseProcAgeDtoList = storeService.procAgeSales(userId, storeId, purchaseAge);
+        return ResponseEntity.ok(responseProcAgeDtoList);
     }
 
 }

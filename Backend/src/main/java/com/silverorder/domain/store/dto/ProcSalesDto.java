@@ -4,12 +4,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseProcSalesDto {
-    private ProcSalesDto procSalesDto;
-    private List<ProcWeekDto> procWeekDtoList;
+public class ProcSalesDto {
+    private Long todaySales;
+    private Long weekSales;
+    private Long monthSales;
+    private Long yearSales;
 }

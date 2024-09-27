@@ -2,20 +2,22 @@ package com.silverorder.domain.store.repository;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.CaseBuilder;
-import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.silverorder.domain.order.dto.ResponseOrderDetailDto;
-import com.silverorder.domain.store.dto.ResponseProcSalesDto;
+import com.silverorder.domain.store.dto.ResponseProcAgeDto;
+import com.silverorder.domain.store.dto.ProcSalesDto;
+import com.silverorder.domain.store.dto.ProcWeekDto;
 import com.silverorder.domain.store.entity.Store;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.PersistenceException;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.List;
 
+import static com.silverorder.domain.menu.entity.QMenu.menu;
+import static com.silverorder.domain.store.entity.QStoreAgeSalesCalculate.storeAgeSalesCalculate;
 import static com.silverorder.domain.store.entity.QStoreSalesCalculate.storeSalesCalculate;
 
 @Repository
@@ -31,10 +33,10 @@ public class StoreRepositoryImpl implements StoreRepository{
      * @param store
      */
     @Override
-    public ResponseProcSalesDto storeSales(Store store) throws PersistenceException {
+    public ProcSalesDto storeSales(Store store) throws PersistenceException {
         try {
             return queryFactory
-                    .select(Projections.constructor(ResponseProcSalesDto.class,
+                    .select(Projections.constructor(ProcSalesDto.class,
                             new CaseBuilder()
                                     .when(storeSalesCalculate.procDate.eq(LocalDate.now()))
                                     .then(storeSalesCalculate.procDailySales)
@@ -65,7 +67,69 @@ public class StoreRepositoryImpl implements StoreRepository{
                     .fetchOne();
         }catch(Exception e){
             e.printStackTrace();
-            throw new PersistenceException("주문 상세내역 조회 중 에러 발생", e);
+            throw new PersistenceException("가맹점 매출 조회 중 에러 발생", e);
+        }
+    }
+
+    /**
+     * 최근 1주일간의 매출 현황
+     *
+     * @param store
+     */
+    @Override
+    public List<ProcWeekDto> procWeekSales(Store store) throws PersistenceException {
+        try {
+            return queryFactory
+                    .select(Projections.constructor(ProcWeekDto.class,
+                            storeSalesCalculate.id,
+                            storeSalesCalculate.procDate,
+                            storeSalesCalculate.procDailySales
+                    ))
+                    .from(storeSalesCalculate)
+                    .where(storeSalesCalculate.store.eq(store).and(
+                            storeSalesCalculate.procDate.between(
+                                    LocalDate.now().minusWeeks(1),
+                                    LocalDate.now()
+                            )
+                    ))
+                    .orderBy(storeSalesCalculate.procDate.asc())
+                    .fetch();
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new PersistenceException("가맹점 매출 조회 중 에러 발생", e);
+        }
+    }
+
+    /**
+     * 연령별 메뉴 매출
+     *
+     * @param store
+     * @param purchaseAge
+     */
+    @Override
+    public List<ResponseProcAgeDto> procAgeSales(Store store, Integer purchaseAge) throws PersistenceException {
+        try {
+            return queryFactory
+                    .select(Projections.constructor(ResponseProcAgeDto.class,
+                            storeAgeSalesCalculate.menu.id,
+                            menu.menuName,
+                            storeAgeSalesCalculate.procMenuAmount.sum()
+                    ))
+                    .from(storeAgeSalesCalculate)
+                    .innerJoin(menu).on(storeAgeSalesCalculate.menu.id.eq(menu.id))
+                    .where(storeAgeSalesCalculate.store.eq(store).and(
+                            storeAgeSalesCalculate.procDate.between(
+                                    LocalDate.now().minusMonths(1),
+                                    LocalDate.now()
+                            )).and(
+                            storeAgeSalesCalculate.purchaseAge.eq(purchaseAge)
+                    ))
+                    .groupBy(storeAgeSalesCalculate.menu.id, menu.menuName)
+                    .orderBy(storeAgeSalesCalculate.procMenuAmount.sum().desc())
+                    .fetch();
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new PersistenceException("연령별 구매 메뉴 조회 중 에러 발생", e);
         }
     }
 }

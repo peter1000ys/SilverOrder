@@ -1,12 +1,9 @@
 package com.silverorder.domain.store.service;
 
-import com.silverorder.domain.store.dto.RequestLatitudeLongitudeDTO;
-import com.silverorder.domain.store.dto.ResponseLatitudeLongitudeDTO;
-import com.silverorder.domain.store.dto.ResponseNearStore;
+import com.silverorder.domain.store.dto.*;
 import com.silverorder.domain.store.entity.Store;
 
 import java.util.List;
-import com.silverorder.domain.store.dto.ResponseProcSalesDto;
 
 /**
  * 스토어 관련 서비스
@@ -20,4 +17,7 @@ public interface StoreService {
 
     /** 가맹점 매출현황 */
     ResponseProcSalesDto storeSales(Long userId, Long storeId) throws Exception;
+
+    /** 연령별 메뉴 매출 */
+    List<ResponseProcAgeDto> procAgeSales(Long userId, Long storeId, Integer purchaseAge) throws Exception;
 }
