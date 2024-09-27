@@ -43,7 +43,7 @@ public class OrderRepositoryImpl implements OrderRepository {
      * @throws PersistenceException JPA 표준 예외
      */
     @Override
-    public void insertOrder(OrderDto orderDto) throws PersistenceException {
+    public Long insertOrder(OrderDto orderDto) throws PersistenceException {
         // Order 저장
         Store store = em.find(Store.class, orderDto.getStoreId());
         Payment payment = em.find(Payment.class, orderDto.getPaymentId());
@@ -68,6 +68,10 @@ public class OrderRepositoryImpl implements OrderRepository {
                 }
             }
         }
+
+        em.flush();
+
+        return order.getId();
     }
 
     /**
@@ -134,7 +138,7 @@ public class OrderRepositoryImpl implements OrderRepository {
                             orderOption.id.count()
                     ))
                     .from(orderMenu)
-                    .innerJoin(orderOption).on(orderMenu.id.eq(orderOption.orderMenu.id))
+                    .leftJoin(orderOption).on(orderMenu.id.eq(orderOption.orderMenu.id))
                     .where(orderMenu.order.eq(userOrder))
                     .groupBy(orderMenu.id, orderMenu.menu.id, orderMenu.menu.menuName,
                             orderMenu.menuAmount, orderMenu.menuPrice)

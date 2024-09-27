@@ -51,6 +51,7 @@ public enum ErrorCode {
     ORDER_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 주문을 찾을 수 없습니다"),
     ORDER_USER_UNAUTHORIZED(HttpStatus.UNAUTHORIZED,"주문 고객이 아닙니다"),
     ORDER_PERSIST_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "주문 정보 저장 실패"),
+    ORDER_FAILED(HttpStatus.INTERNAL_SERVER_ERROR, "주문에 실패하였습니다."),
 
     //리뷰
     USER_REVIEW_NOT_FOUND(HttpStatus.NOT_FOUND,"해당 사용자 리뷰를 찾을 수 없습니다"),

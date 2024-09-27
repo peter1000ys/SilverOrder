@@ -27,7 +27,7 @@ const CartPage = () => {
     // 결제 페이지에 전달해야 할 정보
     const purchaseInfo = {
       totalPrice: allPrice,
-      menulist: cart.map((item) => ({
+      menuList: cart.map((item) => ({
         menuId: item.productId,
         menuAmount: 1,
         menuPrice: item.price,

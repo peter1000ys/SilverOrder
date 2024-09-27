@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -50,19 +51,25 @@ public class OrderServiceImpl implements OrderService {
      */
     @Transactional
     @Override
-    public void saveOrder(OrderDto orderDto, String userKey) throws Exception {
+    public Optional<OrderInDto> saveOrder(OrderDto orderDto, String userKey) throws Exception {
         CardRequestDto cardRequestDto = new CardRequestDto(
                 orderDto.getPaymentId(),
                 orderDto.getStoreId(),
                 orderDto.getTotalPrice(),
                 userKey
-                );
+        );
+        Optional<OrderInDto> orderInDto = Optional.empty();
 
         Long transactionUniqueNo = paymentService.payCard(cardRequestDto);
         if(transactionUniqueNo != null) {
             orderDto.setTradeNum(transactionUniqueNo);
-            orderRepository.insertOrder(orderDto);
+            Long orderId = orderRepository.insertOrder(orderDto);
+            Long storeId = orderDto.getStoreId();
+            orderInDto = Optional.of(new OrderInDto(orderId, storeId));
+            messagingTemplate.convertAndSend("/topic/orderIn/" + String.valueOf(storeId), orderInDto);
         }
+
+        return orderInDto;
     }
 
     /**
@@ -101,13 +108,13 @@ public class OrderServiceImpl implements OrderService {
     }
 
     /**
-     * 주문 메뉴 조회
+     * 주문 상세내역 조회
      *
      * @param userId
      * @param orderId
      */
     @Override
-    public List<ResponseOrderDetailDto> userOrderDetailList(Long userId, Long orderId) throws Exception {
+    public ResponseOrderStoreDto userOrderDetailList(Long userId, Long orderId) throws Exception {
         // 유저 검사
         User user = userJpaRepository.findById(userId)
                 .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
@@ -115,15 +122,33 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderJpaRepository.findById(orderId)
                 .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
 
-        List<ResponseOrderDetailDto> orderDetailList =  orderRepository.userOrderDetailList(order);
+        ResponseOrderStoreDto orderDetailDto = new ResponseOrderStoreDto(
+                order.getId(),
+                order.getPayment().getId(),
+                order.getTradeNum(),
+                order.getPayPrice(),
+                order.getOrderDate(),
+                order.getOrderTime(),
+                order.getOrderStatus(),
+                orderRepository.userOrderDetailList(order)
+        );
+
+        if(orderDetailDto.getMenuList() != null && !orderDetailDto.getMenuList().isEmpty()) {
+            for (ResponseOrderDetailDto orderMenus : orderDetailDto.getMenuList()) {
+                if (orderMenus.getOptionCount() > 0)
+                    orderMenus.setOptionList(orderRepository.orderMenuOption(orderMenus.getMenuId()));
+            }
+        }
+        return orderDetailDto;
+
+        /*List<ResponseOrderDetailDto> orderDetailList =  orderRepository.userOrderDetailList(order);
 
         if(orderDetailList != null && !orderDetailList.isEmpty()){
             for(ResponseOrderDetailDto orderMenus : orderDetailList){
                 if(orderMenus.getOptionCount() > 0)
                     orderMenus.setOptionList(orderRepository.orderMenuOption(orderMenus.getMenuId()));
             }
-        }
-        return orderDetailList;
+        }*/
     }
 
     /**
