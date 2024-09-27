@@ -1,9 +1,6 @@
 package com.silverorder.domain.store.service;
 
-import com.silverorder.domain.store.dto.RequestLatitudeLongitudeDTO;
-import com.silverorder.domain.store.dto.ResponseLatitudeLongitudeDTO;
-import com.silverorder.domain.store.dto.ResponseNearStore;
-import com.silverorder.domain.store.dto.ResponseProcSalesDto;
+import com.silverorder.domain.store.dto.*;
 import com.silverorder.domain.store.entity.Store;
 import com.silverorder.domain.store.repository.StoreJpaRepository;
 import com.silverorder.domain.store.repository.StoreRepository;
@@ -70,7 +67,31 @@ public class StoreServiceImpl implements StoreService{
 
         if(!store.getUser().equals(user)) throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
 
-        return storeRepository.storeSales(store);
+
+        return new ResponseProcSalesDto(
+                storeRepository.storeSales(store),
+                storeRepository.procWeekSales(store)
+        );
+    }
+
+    /**
+     * 연령별 메뉴 매출
+     *
+     * @param userId
+     * @param storeId
+     * @param purchaseAge
+     */
+    @Override
+    public List<ResponseProcAgeDto> procAgeSales(Long userId, Long storeId, Integer purchaseAge) throws Exception {
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Store store = storeJpaRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        if (!store.getUser().equals(user)) throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
+
+        return storeRepository.procAgeSales(store, purchaseAge);
     }
 
     public List<Store> getAllStore(){

@@ -4,12 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.time.LocalDate;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ResponseProcSalesDto {
-    private ProcSalesDto procSalesDto;
-    private List<ProcWeekDto> procWeekDtoList;
+public class ProcWeekDto {
+    private Long procId;
+    private LocalDate procDate;
+    private Long procDailySales;
 }
