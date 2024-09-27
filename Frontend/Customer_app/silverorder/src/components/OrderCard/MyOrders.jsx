@@ -1,45 +1,32 @@
 import "./styles/MyOrders.css";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import OrderDetailInfo from "../OrderCard/OrderDetailInfo";
 import CheckReview from "../OrderCard/CheckReview";
+import useOrderStore from "../../stores/order";
 
 const MyOrders = () => {
   const [isModalOpen01, setIsModalOpen01] = useState(false);
   const [isModalOpen02, setIsModalOpen02] = useState(false);
   const [currentOrderId, setCurrentOrderId] = useState(0);
+  const { fetchBeforeOrderList } = useOrderStore();
+  const [orderList, setOrderList] = useState([]);
 
-  const DummyOrderList = [
-    {
-      orderId: 5,
-      storeId: 1799,
-      storeName: "메가커피 싸피점",
-      paymentId: 2,
-      cardName: "SSAFY 스마일카드",
-      totalPrice: 9500,
-      orderDate: "2024-09-25",
-      orderStatus: "ORDER_DONE",
-    },
-    {
-      orderId: 6,
-      storeId: 1799,
-      storeName: "메가커피 싸피점",
-      paymentId: 2,
-      cardName: "SSAFY 스마일카드",
-      totalPrice: 9500,
-      orderDate: "2024-09-26",
-      orderStatus: "ORDER_DONE",
-    },
-    {
-      orderId: 7,
-      storeId: 1799,
-      storeName: "메가커피 싸피점",
-      paymentId: 2,
-      cardName: "SSAFY 스마일카드",
-      totalPrice: 9500,
-      orderDate: "2024-09-27",
-      orderStatus: "ORDER_IN",
-    },
-  ];
+  useEffect(() => {
+    const fetchOrderList = async () => {
+      try {
+        const response = await fetchBeforeOrderList();
+        if (response) {
+          setOrderList(response);
+        } else {
+          console.error("로딩 에러 발생");
+        }
+      } catch (error) {
+        console.error("지난 주문 내역 불러오기 실패:", error);
+      }
+    };
+
+    fetchOrderList();
+  }, [fetchBeforeOrderList, setOrderList]);
 
   const openDetailInfo = (orderId) => {
     setCurrentOrderId(orderId);
@@ -52,10 +39,8 @@ const MyOrders = () => {
   };
 
   const openReviewModal = (orderId) => {
-    console.log("openReviewModal triggered for order:", orderId); // 상태 확인용 콘솔 로그
     setCurrentOrderId(orderId);
     setIsModalOpen02(true); // 리뷰 작성 모달 열기
-    console.log("isModalOpen02:", isModalOpen02); // 상태 확인용 콘솔 로그
   };
 
   const closeReviewModal = () => {
@@ -65,7 +50,7 @@ const MyOrders = () => {
 
   return (
     <div className="myorders-container">
-      {DummyOrderList.map((order) => (
+      {orderList.map((order) => (
         <div key={order.orderId} className="myorders-order-item">
           <div className="myorders-order-date">
             <p>{order.orderDate}</p>
