@@ -60,6 +60,11 @@
   text-align: end;
 }
 
+.orderstate-menu-none {
+  font-size: 25px;
+  font-weight: bold;
+}
+
 .orderstate-now-state {
   width: 100%;
   display: flex;
@@ -113,6 +118,10 @@
   }
 
   .orderstate-menu-price {
+    font-size: 6.07vw;
+  }
+
+  .orderstate-menu-none {
     font-size: 6.07vw;
   }
 
