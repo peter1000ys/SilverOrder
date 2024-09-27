@@ -34,12 +34,12 @@ const OptionChoicePage = () => {
 
   // 장바구니에 추가하는 함수
   const handleAddToCart = () => {
-    const selectedOptionDetails = Object.values(selectedOptions).map(
-      (option) => ({
-        optionId: option.optionId, // 선택한 옵션의 ID
-        optionName: option.optionName, // 선택한 옵션의 이름
-      })
-    );
+    const selectedOptionDetails = Object.keys(selectedOptions).length
+      ? Object.values(selectedOptions).map((option) => ({
+          optionId: option.optionId, // 선택한 옵션의 ID
+          optionName: option.optionName, // 선택한 옵션의 이름
+        }))
+      : null; // 선택된 옵션이 없으면 null로 설정
 
     const totalPrice = calculateTotalPrice(); // 총 가격 계산
 

@@ -17,7 +17,7 @@ const PurchasePage = () => {
   const [carouselIndex, setCarouselIndex] = useState(0); // carousel의 현재 인덱스를 관리하는 state
   const [cards, setCards] = useState([]); // 카드 데이터를 저장할 state
 
-  const { getRegisteredMyCard } = usePurchaseStore();
+  const { getRegisteredMyCard, sendPurchaseRequest } = usePurchaseStore();
   const { loginedStore } = useInfoStore();
 
   // 카드 정보를 불러오는 useEffect
@@ -65,16 +65,33 @@ const PurchasePage = () => {
     );
   };
 
+  // 결제 요청 보내기
   const payMoney = () => {
     if (purchaseInfo && selectedCard) {
       // 선택한 카드의 paymentId를 purchaseInfo에 추가
       const updatedPurchaseInfo = {
         ...purchaseInfo,
+        storeId: loginedStore,
         paymentId: selectedCard.paymentId, // 선택한 카드의 paymentId를 추가
         require: requestDetails, // 입력된 요청 사항 추가
       };
 
       console.log(updatedPurchaseInfo);
+
+      const checkPurchaseResult = async () => {
+        try {
+          const response = await sendPurchaseRequest(updatedPurchaseInfo);
+          if (response) {
+            alert(response);
+          } else {
+            console.error("에러 발생");
+          }
+        } catch (error) {
+          console.log("결제 중 에러 발생", error);
+        }
+      };
+
+      checkPurchaseResult();
     }
   };
 
@@ -115,7 +132,17 @@ const PurchasePage = () => {
                 {highestDiscountCard.cardName}
               </p>
               <p className="purchase-card-number">
-                ({highestDiscountCard.cardNum})
+                (
+                {highestDiscountCard.cardNum
+                  .match(/.{1,4}/g)
+                  .map((segment, i) => {
+                    if (i === 1 || i === 3) {
+                      return "****";
+                    }
+                    return segment;
+                  })
+                  .join(" ")}{" "}
+                )
               </p>
               <p className="purchase-card-discountrate">
                 할인율: {highestDiscountCard.discountRate}%
@@ -151,7 +178,17 @@ const PurchasePage = () => {
                   {cards[carouselIndex].cardName}
                 </p>
                 <p className="purchase-card-number">
-                  ({cards[carouselIndex].cardNum})
+                  (
+                  {cards[carouselIndex].cardNum
+                    .match(/.{1,4}/g)
+                    .map((segment, i) => {
+                      if (i === 1 || i === 3) {
+                        return "****";
+                      }
+                      return segment;
+                    })
+                    .join(" ")}{" "}
+                  )
                 </p>
                 <p className="purchase-card-discountrate">
                   할인율: {cards[carouselIndex].discountRate}%
