@@ -135,13 +135,13 @@ public class OrderController {
             }
     )
     @GetMapping("/orderDetail/{orderId}")
-    public ResponseEntity<?> storeOrderList(
+    public ResponseEntity<?> storeOrderDetail(
             @PathVariable Long orderId,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
         long userId = userDetails.getUser().getUserId();
-        List<ResponseOrderDetailDto> orderDetailList = orderService.userOrderDetailList(userId, orderId);
-        return ResponseEntity.ok(orderDetailList);
+        ResponseOrderStoreDto orderDetail = orderService.userOrderDetailList(userId, orderId);
+        return ResponseEntity.ok(orderDetail);
     }
 
 
