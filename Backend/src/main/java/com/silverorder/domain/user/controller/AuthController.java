@@ -22,7 +22,15 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 @RequestMapping("/auth")
 @Tag(name = "Auth", description = "Jwt 토큰 발급 등 회원 인증 인가")
-@CrossOrigin("*")
+@CrossOrigin(
+        originPatterns = {
+                "http://localhost:*",
+                "http://127.0.0.1:*",
+                "https://j11c202.p.ssafy.io:*",
+                "https://j11c202.p.ssafy.io/**",
+                "http://43.202.56.93:*"
+        }
+)
 public class AuthController {
 
     private final UserService userService;
