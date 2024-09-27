@@ -82,7 +82,7 @@ const PurchasePage = () => {
         try {
           const response = await sendPurchaseRequest(updatedPurchaseInfo);
           if (response) {
-            alert(response);
+            alert(`결제 성공! 주문 번호는 ${response.orderId}번입니다.`);
           } else {
             console.error("에러 발생");
           }
