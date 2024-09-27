@@ -17,8 +17,12 @@ import java.util.List;
  * @since JDK17
  */
 public interface ReviewRepository {
+    /** 가맹점의 리뷰 조회 */
     List<ResponseReviewDto> listUserReview(Store store) throws PersistenceException;
+    /** 유저의 작성 리뷰 조회 */
     List<ResponseMyReviewDto> listMyReview(User user) throws PersistenceException;
+    /** 리뷰 단건 조회 */
+    ResponseReviewDto userReview(Order order) throws PersistenceException;
 
     void registUserReview(User user, Order order, UserReviewDto userReviewDto) throws PersistenceException;
     void registOwnerReview(UserReview userReview, RequestOwnerReviewDto requestOwnerReviewDto) throws PersistenceException;
