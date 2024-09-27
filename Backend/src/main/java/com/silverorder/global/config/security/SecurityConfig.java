@@ -98,14 +98,20 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-//        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "http://127.0.0.1:*", "https://j11c202.p.ssafy.io:*", "https://j11c202.p.ssafy.io/**", "http://43.202.56.93:*"));
-        configuration.setAllowedOrigins(Arrays.asList("*"));
+        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "http://127.0.0.1:*", "https://j11c202.p.ssafy.io:*", "https://j11c202.p.ssafy.io/**", "http://43.202.56.93:*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(false);
+        configuration.setAllowCredentials(true);
+
+        CorsConfiguration authConfiguration = new CorsConfiguration();
+        authConfiguration.setAllowedOrigins(Arrays.asList("*"));
+        authConfiguration.setAllowedMethods(Arrays.asList("*"));
+        authConfiguration.setAllowedHeaders(Arrays.asList("*"));
+        authConfiguration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
+        source.registerCorsConfiguration("/auth/**", authConfiguration);
         return source;
     }
 
