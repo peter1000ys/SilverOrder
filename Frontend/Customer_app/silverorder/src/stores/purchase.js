@@ -34,13 +34,14 @@ const usePurchaseStore = create(() => ({
   // 금융권 카드 조회
   getAllMyCard: async () => {
     const { token } = useInfoStore.getState();
+
     try {
       const response = await axios.get(`${API_URL}payment/cardList`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("결과:", response.data);
+      console.log("금융권 카드 조회 결과:", response.data);
       return response.data;
     } catch (error) {
       console.log("에러:", error);
@@ -51,6 +52,7 @@ const usePurchaseStore = create(() => ({
   registerCheckedCard: async (selectedCards) => {
     const { token } = useInfoStore.getState();
     console.log(selectedCards);
+
     try {
       const response = await axios.post(
         `${API_URL}payment/cardRegist`,
@@ -61,7 +63,7 @@ const usePurchaseStore = create(() => ({
           },
         }
       );
-      console.log("결과:", response.data);
+      console.log("간편 결제 카드 등록 결과:", response.data);
       return true;
     } catch (error) {
       console.log("에러:", error);
@@ -71,14 +73,36 @@ const usePurchaseStore = create(() => ({
   // 간편 결제 카드 조회
   getRegisteredMyCard: async () => {
     const { token } = useInfoStore.getState();
+
     try {
       const response = await axios.get(`${API_URL}payment/myCardList`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       });
-      console.log("결과:", response.data);
+      console.log("간편 결제 카드 조회 결과:", response.data);
       return response.data;
+    } catch (error) {
+      console.log("에러:", error);
+    }
+  },
+
+  // 결제 API
+  sendPurchaseRequest: async (purchaseInfo) => {
+    const { token } = useInfoStore.getState();
+
+    try {
+      const response = await axios.post(
+        `${API_URL}order/transaction`,
+        purchaseInfo,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("결제 결과:", response.data);
+      return "결제 완료";
     } catch (error) {
       console.log("에러:", error);
     }

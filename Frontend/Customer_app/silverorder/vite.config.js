@@ -13,6 +13,7 @@ export default defineConfig({
         short_name: "silverorder",
         description: "시니어를 위한 편리한 주문 어플, SILVER ORDER",
         theme_color: "#ffffff",
+        display: "standalone",
         icons: [
           {
             src: "icon-192x192.png",
