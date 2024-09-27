@@ -67,7 +67,7 @@ public class ReviewController {
     @Operation(summary = "고객 리뷰 입력", description="자신의 주문을 기준으로 리뷰를 입력합니다.")
     @PostMapping("/userRegist")
     public ResponseEntity<?> registUserReview(
-            @RequestBody @Valid RequestUserReviewDto requestUserReviewDto,
+            @ModelAttribute @Valid RequestUserReviewDto requestUserReviewDto,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
         UserReviewDto userReviewDto = new UserReviewDto(
