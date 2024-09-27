@@ -43,6 +43,7 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
     private static final String[] AUTH_WHITELIST = {
             "/silverorder/",
             "/auth/**",
+            "/api/auth/**",
             "/silverorder/auth/**",
             "/silverorder/api/auth/**",
             "/swagger-ui/**",
@@ -72,7 +73,7 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
                         .authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_WHITELIST).permitAll()
-                        .requestMatchers("/api/auth/register/admin", "/api/auth/register/general", "/api/auth/login").permitAll()
+//                        .requestMatchers("/api/auth/register/admin", "/api/auth/register/general", "/api/auth/login").permitAll()
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated());
 
