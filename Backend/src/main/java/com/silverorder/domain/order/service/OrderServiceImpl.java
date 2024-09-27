@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -50,19 +51,25 @@ public class OrderServiceImpl implements OrderService {
      */
     @Transactional
     @Override
-    public void saveOrder(OrderDto orderDto, String userKey) throws Exception {
+    public Optional<OrderInDto> saveOrder(OrderDto orderDto, String userKey) throws Exception {
         CardRequestDto cardRequestDto = new CardRequestDto(
                 orderDto.getPaymentId(),
                 orderDto.getStoreId(),
                 orderDto.getTotalPrice(),
                 userKey
-                );
+        );
+        Optional<OrderInDto> orderInDto = Optional.empty();
 
         Long transactionUniqueNo = paymentService.payCard(cardRequestDto);
         if(transactionUniqueNo != null) {
             orderDto.setTradeNum(transactionUniqueNo);
-            orderRepository.insertOrder(orderDto);
+            Long orderId = orderRepository.insertOrder(orderDto);
+            Long storeId = orderDto.getStoreId();
+            orderInDto = Optional.of(new OrderInDto(orderId, storeId));
+            messagingTemplate.convertAndSend("/topic/orderIn/" + String.valueOf(storeId), orderInDto);
         }
+
+        return orderInDto;
     }
 
     /**

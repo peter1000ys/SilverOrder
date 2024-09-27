@@ -6,6 +6,7 @@ import com.silverorder.domain.order.service.OrderService;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import com.silverorder.domain.user.dto.UserRole;
 import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -38,15 +40,19 @@ public class OrderController {
 
     @Operation(
             summary = "주문(결제) 진행",
-            description = "가맹점ID, 간편결제수단ID, 메뉴, 요청사항, 금액 등을 입력 받아 결제를 진행하고, 성공 시, 주문 정보를 저장합니다.")
+            description = "가맹점ID, 간편결제수단ID, 메뉴, 요청사항, 금액 등을 입력 받아 결제를 진행하고, 성공 시, 주문 정보를 저장합니다.<br>" +
+                    "{'orderId':'Long', 'storeId':'Long'}"
+    )
     @PostMapping("/transaction")
     @ResponseStatus(HttpStatus.OK)
     public ResponseEntity<?> orderTransaction(
             @RequestBody OrderDto orderDto,
             @AuthenticationPrincipal CustomUserDetails customUserDetails
     ) throws Exception {
-        orderService.saveOrder(orderDto, customUserDetails.getUser().getUserApiKey());
-        return new ResponseEntity<>("주문 완료", HttpStatus.OK);
+        OrderInDto orderInDto = orderService.saveOrder(orderDto, customUserDetails.getUser().getUserApiKey())
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_FAILED));
+
+        return new ResponseEntity<>(orderInDto, HttpStatus.OK);
     }
 
     @Operation(

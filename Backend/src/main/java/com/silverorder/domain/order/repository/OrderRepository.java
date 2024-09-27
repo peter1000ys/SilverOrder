@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface OrderRepository {
     /** 주문 정보 영속화 */
-    void insertOrder(OrderDto orderDto) throws PersistenceException;
+    Long insertOrder(OrderDto orderDto) throws PersistenceException;
 
     /** 주문 상태 변경 */
     void updateOrderStatus(OrderStatusChangeDto orderStatusChangeDto) throws PersistenceException;
