@@ -83,6 +83,7 @@ const PurchasePage = () => {
           const response = await sendPurchaseRequest(updatedPurchaseInfo);
           if (response) {
             alert(`결제 성공! 주문 번호는 ${response.orderId}번입니다.`);
+            navigate(`${baseURL}/orderstate`);
           } else {
             console.error("에러 발생");
           }
