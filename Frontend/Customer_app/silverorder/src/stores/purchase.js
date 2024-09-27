@@ -102,7 +102,7 @@ const usePurchaseStore = create(() => ({
         }
       );
       console.log("결제 결과:", response.data);
-      return "결제 완료";
+      return response.data;
     } catch (error) {
       console.log("에러:", error);
     }
