@@ -29,8 +29,6 @@ const OrderstatePage = () => {
   const getStatusMessage = () => {
     switch (orderInfo.orderStatus) {
       case "ORDER_IN":
-        return "주문이 접수되길 기다리고 있습니다.";
-      case "ORDER_ACCEPTED":
         return "주문이 접수되었습니다.";
       case "ORDER_IN_PROGRESS":
         return "주문이 준비 중입니다.";
@@ -44,7 +42,7 @@ const OrderstatePage = () => {
   // 진행 상태 바의 채워진 비율을 계산하는 함수
   const getProgressBarWidth = () => {
     switch (orderInfo.orderStatus) {
-      case "ORDER_ACCEPTED":
+      case "ORDER_IN":
         return "10%";
       case "ORDER_IN_PROGRESS":
         return "50%";
@@ -88,19 +86,13 @@ const OrderstatePage = () => {
 
           {/* 현재 내 주문 상태 */}
           <div className="orderstate-now-state">
-            {orderInfo.orderStatus === "ORDER_IN" ? (
-              <p className="orderstate-progress-text">{getStatusMessage()}</p>
-            ) : (
-              <>
-                <div className="orderstate-progress-bar-container">
-                  <div
-                    className="orderstate-progress-bar"
-                    style={{ width: getProgressBarWidth() }}
-                  ></div>
-                </div>
-                <p className="orderstate-progress-text">{getStatusMessage()}</p>
-              </>
-            )}
+            <div className="orderstate-progress-bar-container">
+              <div
+                className="orderstate-progress-bar"
+                style={{ width: getProgressBarWidth() }}
+              ></div>
+            </div>
+            <p className="orderstate-progress-text">{getStatusMessage()}</p>
           </div>
         </>
       ) : (
