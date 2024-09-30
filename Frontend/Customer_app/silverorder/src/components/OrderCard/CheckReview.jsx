@@ -51,11 +51,11 @@ const CheckReview = ({ orderId, onClose }) => {
         <p className="review-title">리뷰 작성하기</p>
 
         {/* 이미지 미리보기 */}
-        {reviewThumb ? (
-          <div className="review-image-preview">
+        <div className="review-image-preview">
+          {reviewThumb ? (
             <img src={reviewThumb} alt="리뷰 이미지 미리보기" />
-          </div>
-        ) : null}
+          ) : null}
+        </div>
 
         {/* 이미지를 업로드하는 부분 */}
         <label htmlFor="file-upload" className="custom-file-upload">

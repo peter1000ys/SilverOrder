@@ -8,7 +8,6 @@ const API_URL =
 const useReviewStore = create(() => ({
   // 리뷰 작성하기
   sendReviewRequest: async (orderId, content, imgFile, rating) => {
-    // 매개변수 이름 수정
     const { token } = useInfoStore.getState();
 
     const formData = new FormData();
@@ -36,6 +35,43 @@ const useReviewStore = create(() => ({
     } catch (error) {
       console.error("리뷰 작성 실패:", error);
       return false; // 실패 시 false 반환
+    }
+  },
+
+  // 내가 작성한 모든 리뷰 불러오기
+  fetchAllMyReviews: async () => {
+    const { token } = useInfoStore.getState();
+
+    try {
+      const response = await axios.get(`${API_URL}review/myReviews`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("내 리뷰들 불러오기 실패:", error);
+    }
+  },
+
+  // 선택한 주문의 리뷰 보기
+  fetchSelectedReview: async (orderId) => {
+    const { token } = useInfoStore.getState();
+
+    try {
+      const response = await axios.get(
+        `${API_URL}review/orderReview/${orderId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log(response.data);
+      return response.data;
+    } catch (error) {
+      console.error("선택한 주문의 리뷰 불러오기 실패:", error);
     }
   },
 }));

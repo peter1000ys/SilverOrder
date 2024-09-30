@@ -46,7 +46,8 @@
 }
 
 .myorders-detail-btn,
-.myorders-review-btn {
+.myorders-review-btn01,
+.myorders-review-btn02 {
   width: 150px;
   height: 60px;
   border: none;
@@ -55,5 +56,40 @@
   color: #ffffff;
   font-size: 20px;
   font-weight: bold;
+}
+
+.myorders-detail-btn,
+.myorders-review-btn02 {
   background-color: #1428a0;
+}
+
+.myorders-review-btn01 {
+  background-color: #2db400;
+}
+
+@media (max-width: 412px) {
+  .myorders-order-item {
+    min-height: 48.54vw;
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 3.64vw;
+  }
+
+  .myorders-order-date p {
+    font-size: 6.07vw;
+  }
+
+  .myorders-order-store p,
+  .myorders-order-price p {
+    font-size: 4.37vw;
+  }
+
+  .myorders-detail-btn,
+  .myorders-review-btn01,
+  .myorders-review-btn02 {
+    width: 36.41vw;
+    height: 14.56vw;
+    border-radius: 2.43vw;
+    font-size: 4.85vw;
+  }
 }
