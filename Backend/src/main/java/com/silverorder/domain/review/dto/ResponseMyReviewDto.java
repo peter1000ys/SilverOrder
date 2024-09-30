@@ -16,6 +16,7 @@ public class ResponseMyReviewDto {
     private Long orderId;
     private Long storeId;
     private String storeName;
+    private String reviewThumb;
     private Long commentId;
     private String commentContent;
     private LocalDate CreatedDate;
