@@ -19,6 +19,10 @@ const OrderPage = () => {
     setSelectedOrder(order);
   };
 
+  const handleCloseOrderDetail = () => {
+    setSelectedOrder(null); // 상세 페이지 닫기
+  };
+
   return (
     <div className='order'>
       <Navbar />
@@ -29,7 +33,9 @@ const OrderPage = () => {
             <OrderList selectedTab={selectedTab} onOrderSelect={handleOrderSelect} />
           </div>
           <div className="col-lg-4 col-md-4 col-sm-12">
-            {selectedOrder && <OrderDetail order={selectedOrder} />}
+            {selectedOrder && (
+              <OrderDetail order={selectedOrder} onClose={handleCloseOrderDetail} />
+            )}
           </div>
         </div>
       </div>
