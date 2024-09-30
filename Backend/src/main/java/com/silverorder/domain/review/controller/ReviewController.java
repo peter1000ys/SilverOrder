@@ -53,10 +53,21 @@ public class ReviewController {
         return ResponseEntity.ok(responseMyReviewDtoList);
     }
 
+    @Operation(summary = "주문의 리뷰 조회", description="특정 주문의 리뷰를 조회합니다.")
+    @GetMapping("/orderReview/{orderId}")
+    public ResponseEntity<?> orderReviews(
+            @PathVariable Long orderId,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+        ResponseReviewDto responseReviewDto = reviewService.userReview(userId, orderId);
+        return ResponseEntity.ok(responseReviewDto);
+    }
+
     @Operation(summary = "고객 리뷰 입력", description="자신의 주문을 기준으로 리뷰를 입력합니다.")
     @PostMapping("/userRegist")
     public ResponseEntity<?> registUserReview(
-            @RequestBody @Valid RequestUserReviewDto requestUserReviewDto,
+            @ModelAttribute @Valid RequestUserReviewDto requestUserReviewDto,
             @AuthenticationPrincipal CustomUserDetails userDetails
     ) throws Exception {
         UserReviewDto userReviewDto = new UserReviewDto(

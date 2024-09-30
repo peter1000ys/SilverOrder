@@ -43,7 +43,9 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
     private static final String[] AUTH_WHITELIST = {
             "/silverorder/",
             "/auth/**",
+            "/api/auth/**",
             "/silverorder/auth/**",
+            "/silverorder/api/auth/**",
             "/swagger-ui/**",
             "/swagger-ui-custom.html",
             "/v3/api-docs/**",
@@ -71,6 +73,7 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
                         .authenticationEntryPoint(authenticationEntryPoint))
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(AUTH_WHITELIST).permitAll()
+//                        .requestMatchers("/api/auth/register/admin", "/api/auth/register/general", "/api/auth/login").permitAll()
                         .requestMatchers("/ws/**").permitAll()
                         .anyRequest().authenticated());
 
@@ -95,10 +98,15 @@ public class SecurityConfig implements WebSocketMessageBrokerConfigurer {
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "http://127.0.0.1:*", "https://j11c202.p.ssafy.io:*"));
+//        configuration.setAllowedOriginPatterns(Arrays.asList("http://localhost:*", "http://127.0.0.1:*", "https://j11c202.p.ssafy.io:*", "https://j11c202.p.ssafy.io/**", "http://43.202.56.93:*"));
+//        configuration.setAllowedMethods(Arrays.asList("*"));
+//        configuration.setAllowedHeaders(Arrays.asList("*"));
+//        configuration.setAllowCredentials(true);
+
+        configuration.setAllowedOrigins(Arrays.asList("*"));
         configuration.setAllowedMethods(Arrays.asList("*"));
         configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true);
+        configuration.setAllowCredentials(false);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);

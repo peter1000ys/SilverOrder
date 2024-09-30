@@ -73,6 +73,24 @@ public class ReviewServiceImpl implements ReviewService{
     }
 
     /**
+     * 리뷰 단건 조회
+     *
+     * @param userId
+     * @param orderId
+     */
+    @Override
+    public ResponseReviewDto userReview(Long userId, Long orderId) throws Exception {
+        //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        Order order = orderJpaRepository.findById(orderId)
+                .orElseThrow(() -> new CustomException(ErrorCode.ORDER_NOT_FOUND));
+
+        return reviewRepository.userReview(order);
+    }
+
+    /**
      * 사용자 리뷰 등록
      * @param userId : 유저 id
      * @param userReviewDto : 사용자 리뷰 등록 정보
