@@ -37,6 +37,7 @@ public class STTController {
         //임시 파일 텍스트 변환 후 삭제
         String result = sttService.clovaSpeechToText(tempFile.getAbsolutePath());
         tempFile.delete();
+        System.out.println(result);
 
         //결과 처리
         JSONObject jsonResult = new JSONObject(result);

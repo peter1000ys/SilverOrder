@@ -9,7 +9,6 @@ const API_URL =
 const useOrderStore = create((set, get) => ({
   orders: [],
 
-  // Function to fetch orders (already present in your store)
   fetchOrders: async () => {
     const { token, userInfo } = useInfoStore.getState();
 
@@ -25,6 +24,8 @@ const useOrderStore = create((set, get) => ({
         },
       });
 
+      console.log(response.data);
+
       const orderData = response.data.map((order) => ({
         ...order,
       }));
@@ -35,21 +36,21 @@ const useOrderStore = create((set, get) => ({
     }
   },
 
-
-  changeOrderStatus: async (orderId, orderStatus) => {
+  // 주문 상태 변경 함수
+  changeOrderState: async (orderId, newStatus) => {
     const { token } = useInfoStore.getState();
 
     if (!token) {
-      Notiflix.Notify.failure("로그인이 필요합니다.");
+      Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
       return;
     }
 
     try {
       const response = await axios.patch(
-        API_URL + "order/change-status", 
+        API_URL + "order/change-status",
         {
           orderId: orderId,
-          orderStatus: orderStatus,
+          orderStatus: newStatus,
         },
         {
           headers: {
@@ -59,18 +60,15 @@ const useOrderStore = create((set, get) => ({
         }
       );
 
+      console.log(response.data); // 성공 응답 확인
 
-      if (response.status === 200) {
-        const updatedOrders = get().orders.map((order) =>
-          order.id === orderId ? { ...order, orderStatus: orderStatus } : order
-        );
-        set({ orders: updatedOrders });
-        Notiflix.Notify.success("주문 상태가 성공적으로 변경되었습니다.");
-      } else {
-        Notiflix.Notify.failure("주문 상태 변경에 실패했습니다.");
-      }
+      // 상태 변경 후 알림
+      Notiflix.Notify.success("주문 상태가 성공적으로 변경되었습니다.");
+
+      // 주문 목록 다시 불러오기
+      get().fetchOrders();
     } catch (error) {
-      Notiflix.Notify.failure("서버와의 통신 중 오류가 발생했습니다.");
+      Notiflix.Notify.failure("주문 상태 변경에 실패했습니다.");
     }
   },
 }));
