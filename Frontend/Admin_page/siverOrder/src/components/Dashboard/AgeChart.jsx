@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Bar } from 'react-chartjs-2';
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from 'chart.js';
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Tooltip, Legend } from 'chart.js';
 import './AgeChart.css';
+import useDashboardStore from '../../stores/dashboard'; // 연령별 판매 데이터를 가져오는 스토어
 
 // Chart.js에 사용할 모듈 등록
 ChartJS.register(
@@ -12,48 +13,32 @@ ChartJS.register(
   Legend
 );
 
-const ageGroupData = {
-  '10대': {
-    labels: ['아이스티', '콜라', '오렌지주스', '레몬에이드', '딸기주스'],
-    data: [300, 250, 200, 150, 100],
-  },
-  '20대': {
-    labels: ['아메리카노', '딸기주스', '카푸치노', '카라멜마키아토', '아이스티'],
-    data: [700, 500, 500, 400, 300],
-  },
-  '30대': {
-    labels: ['카페라떼', '카푸치노', '아메리카노', '에스프레소', '모카'],
-    data: [600, 550, 450, 400, 350],
-  },
-  '40대': {
-    labels: ['아메리카노', '카페라떼', '아이스티', '에스프레소', '카푸치노'],
-    data: [800, 600, 550, 400, 300],
-  },
-  '50대': {
-    labels: ['아메리카노', '아이스티', '카페라떼', '에스프레소', '모카'],
-    data: [900, 700, 600, 500, 400],
-  },
-};
-
 const AgeChart = ({ title }) => {
-  const [selectedAgeGroup, setSelectedAgeGroup] = useState('20대'); // 기본 연령대는 '20대'
+  const [selectedAgeGroup, setSelectedAgeGroup] = useState(20); // 기본 연령대는 '20대'
+  const { fetchPopularityByOrder, popularityData } = useDashboardStore(); // 상태와 함수 가져오기
 
-  // 선택된 연령대에 따라 데이터를 가져옴
-  const selectedData = ageGroupData[selectedAgeGroup];
+  // 연령대가 변경될 때마다 API를 통해 데이터를 가져옴
+  useEffect(() => {
+    fetchPopularityByOrder(1799, selectedAgeGroup); // 1799는 storeId 예시, 실제 storeId로 대체
+  }, [selectedAgeGroup, fetchPopularityByOrder]);
+
+  // popularityData가 존재하면, labels와 data를 생성
+  const labels = popularityData ? popularityData.map(item => item.menuName) : ['데이터 없음'];
+  const data = popularityData ? popularityData.map(item => item.amount) : [0];
 
   const barChartData = {
-    labels: selectedData.labels,
+    labels: labels, // 메뉴 이름
     datasets: [
       {
         label: '판매량',
-        data: selectedData.data,
+        data: data, // 판매량 데이터
         backgroundColor: 'rgba(54, 162, 235, 0.6)',
       },
     ],
   };
 
   const chartOptions = {
-    indexAxis: 'y', // 이 부분이 가로 막대 그래프를 만듭니다.
+    indexAxis: 'y', // 가로 막대 그래프
     responsive: true,
     plugins: {
       legend: {
@@ -69,7 +54,7 @@ const AgeChart = ({ title }) => {
 
   // 연령대 선택 핸들러
   const handleAgeGroupChange = (event) => {
-    setSelectedAgeGroup(event.target.value);
+    setSelectedAgeGroup(Number(event.target.value)); // 연령대 숫자로 변환
   };
 
   return (
@@ -79,11 +64,11 @@ const AgeChart = ({ title }) => {
         <div className="age-toggle">
           <label htmlFor="age-group">연령대 선택: </label>
           <select id="age-group" value={selectedAgeGroup} onChange={handleAgeGroupChange}>
-            {Object.keys(ageGroupData).map((ageGroup) => (
-              <option key={ageGroup} value={ageGroup}>
-                {ageGroup}
-              </option>
-            ))}
+            <option value={10}>10대</option>
+            <option value={20}>20대</option>
+            <option value={30}>30대</option>
+            <option value={40}>40대</option>
+            <option value={50}>50대</option>
           </select>
         </div>
       </div>
