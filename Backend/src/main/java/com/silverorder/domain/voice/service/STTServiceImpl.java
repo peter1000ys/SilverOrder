@@ -1,8 +1,10 @@
 package com.silverorder.domain.voice.service;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -19,12 +21,19 @@ import java.net.URL;
  */
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class STTServiceImpl implements STTService {
+    private final RestTemplate restTemplate;
 
     @Value("${clova.client.id}")
     private String clientId;
     @Value("${clova.client.secret}")
     private String clientSecret;
+
+    @Value("${jupiter.api.url}")
+    private String jupiterApiUrl;
+
+    private String apiUrl;
 
     /**
      * 음성 파일을 받아서 텍스트로 변환
@@ -79,6 +88,15 @@ public class STTServiceImpl implements STTService {
         resultText = response.toString();
 
         return resultText;
+    }
+
+    @Override
+    public void menuRecommand(Long storeId, String filePathName) throws Exception {
+        String voiceText = clovaSpeechToText(filePathName);
+
+        apiUrl = "/insert/menu";
+        String url = jupiterApiUrl + apiUrl;
+        restTemplate.postForEntity(url, voiceText, Void.class);
     }
 
 }

@@ -10,4 +10,5 @@ package com.silverorder.domain.voice.service;
  */
 public interface STTService {
     String clovaSpeechToText(String filePathName) throws Exception;
+    void menuRecommand(Long storeId, String filePathName) throws Exception;
 }

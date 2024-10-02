@@ -52,4 +52,28 @@ public class STTController {
         }
     }
 
+    @Operation(summary = "음성인식 메뉴추천", description = "음성에 따라 메뉴를 추천합니다.")
+    @PostMapping("/process")
+    public ResponseEntity<String> getSpeech(@RequestParam("file") MultipartFile file) throws Exception {
+        //음성 파일 받아서 임시 파일 생성
+        File tempFile = File.createTempFile("temp", null);
+        file.transferTo(tempFile);
+
+        //임시 파일 텍스트 변환 후 삭제
+        String result = sttService.clovaSpeechToText(tempFile.getAbsolutePath());
+        tempFile.delete();
+
+        //결과 처리
+        JSONObject jsonResult = new JSONObject(result);
+        String text = jsonResult.getString("text");
+
+        if (text.contains("네") || text.contains("예")) {
+            return ResponseEntity.ok("긍정적인 응답입니다.");
+        } else if (text.contains("아니오") || text.contains("아니요")) {
+            return ResponseEntity.ok("부정적인 응답입니다.");
+        } else {
+            return ResponseEntity.ok("명확한 응답이 아닙니다.");
+        }
+    }
+
 }
