@@ -14,6 +14,7 @@ const useWebSocketStore = create((set, get) => ({
     const socket = new SockJS(
       `${protocol}//${window.location.host}/silverorder/ws-stomp`
     );
+
     console.log(`${protocol}//${window.location.host}/silverorder/ws-stomp`);
 
     const client = Stomp.over(socket);
