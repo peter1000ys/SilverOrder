@@ -12,10 +12,12 @@ const useWebSocketStore = create((set, get) => ({
     console.log(window.location.protocol);
     // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
     const socket = new SockJS(
-      `${protocol}//${window.location.host}/silverorder/ws-stomp`
+      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
     );
 
-    console.log(`${protocol}//${window.location.host}/silverorder/ws-stomp`);
+    console.log(
+      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    );
 
     const client = Stomp.over(socket);
 
