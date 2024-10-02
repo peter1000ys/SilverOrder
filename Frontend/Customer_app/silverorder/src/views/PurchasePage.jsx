@@ -5,6 +5,7 @@ import { baseURL } from "../constant";
 import { useLocation } from "react-router-dom";
 import useInfoStore from "../stores/infos";
 import usePurchaseStore from "../stores/purchase";
+import useWebSocketStore from "../stores/websocket";
 
 const PurchasePage = () => {
   const location = useLocation();
@@ -19,6 +20,8 @@ const PurchasePage = () => {
 
   const { getRegisteredMyCard, sendPurchaseRequest } = usePurchaseStore();
   const { loginedStore } = useInfoStore();
+
+  const { subscribeToOrder } = useWebSocketStore();
 
   // 카드 정보를 불러오는 useEffect
   useEffect(() => {
@@ -83,6 +86,7 @@ const PurchasePage = () => {
           const response = await sendPurchaseRequest(updatedPurchaseInfo);
           if (response) {
             alert(`결제 성공! 주문 번호는 ${response.orderId}번입니다.`);
+            subscribeToOrder(response.orderId);
             navigate(`${baseURL}/orderstate`);
           } else {
             console.error("에러 발생");
