@@ -1,6 +1,6 @@
 import "../styles/SignupPage.css";
 import { useState } from "react";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, useLocation } from "react-router-dom";
 import useInfoStore from "../stores/infos";
 import sign_up_logo from "../img/icon-512x512.png";
 import { baseURL } from "../constant";
@@ -13,6 +13,10 @@ const SignupPage = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [birthcode, setBirthcode] = useState("");
 
+  const location = useLocation();
+  // 전달된 storeId 가져오기
+  const storeId = location.state?.storeId || 0;
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -24,7 +28,10 @@ const SignupPage = () => {
 
     const success = await sendRegisterRequest(email, password, birthcode);
     if (success) {
+      console.log("회원가입 성공!");
       sendLoginRequest(email, password);
+    } else {
+      console.log("회원가입 실패!");
     }
   };
 
@@ -35,7 +42,11 @@ const SignupPage = () => {
   };
 
   if (isLogin) {
-    return <Navigate to={`${baseURL}/store`} />; // 로그인 상태라면 상점 페이지로 redirect
+    if (storeId === 0) {
+      return <Navigate to={`${baseURL}/outdoor`} />;
+    } else {
+      return <Navigate to={`${baseURL}/store`} />;
+    }
   }
 
   return (

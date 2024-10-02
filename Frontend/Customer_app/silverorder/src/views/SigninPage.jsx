@@ -1,17 +1,21 @@
 import "../styles/SigninPage.css";
 import { useState } from "react";
 import useInfoStore from "../stores/infos";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate, Navigate, useLocation } from "react-router-dom";
 import sign_in_logo from "../img/icon-512x512.png";
 import { baseURL } from "../constant";
 
 const SigninPage = () => {
   const navigate = useNavigate();
+  const location = useLocation();
 
   const { sendLoginRequest, isLogin } = useInfoStore();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  // 전달된 storeId 가져오기
+  const storeId = location.state?.storeId || 0;
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -19,17 +23,26 @@ const SigninPage = () => {
     const success = await sendLoginRequest(email, password);
     if (success) {
       console.log("로그인 성공");
+      if (storeId === 0) {
+        navigate(`${baseURL}/outdoor`);
+      } else {
+        navigate(`${baseURL}/store`);
+      }
     } else {
       console.log("로그인 실패");
     }
   };
 
   const handleCancel = () => {
-    navigate(`${baseURL}/start`);
+    navigate(`${baseURL}/`);
   };
 
   if (isLogin) {
-    return <Navigate to={`${baseURL}/store`} />; // 로그인 상태라면 상점 페이지로 redirect
+    if (storeId === 0) {
+      return <Navigate to={`${baseURL}/outdoor`} />;
+    } else {
+      return <Navigate to={`${baseURL}/store`} />;
+    }
   }
 
   return (

@@ -31,12 +31,6 @@
   align-items: center;
 }
 
-.site-notification {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-}
-
 .order-state-check {
   width: 40px;
   height: 40px;
@@ -64,11 +58,6 @@
 
   .upnav-rightside {
     margin-right: 3.64vw;
-  }
-
-  .site-notification {
-    width: 9.71vw;
-    height: 9.71vw;
   }
 
   .order-state-check {
