@@ -57,10 +57,7 @@ const PageRoutes = () => {
   return (
     <Routes>
       {/* QR 코드를 찍어서 들어왔을 때의 시작 페이지 */}
-      <Route
-        path={`${baseURL}/start`}
-        element={<StartPage storeId={storeId} />}
-      />
+      <Route path={`${baseURL}/`} element={<StartPage storeId={storeId} />} />
 
       {/* 회원가입 */}
       <Route path={`${baseURL}/signup`} element={<SignupPage />} />
@@ -69,7 +66,7 @@ const PageRoutes = () => {
       <Route path={`${baseURL}/signin`} element={<SigninPage />} />
 
       {/* QR 코드를 찍지 않고 들어왔을 때의 시작 페이지 */}
-      <Route path={`${baseURL}/`} element={<OutdoorPage />} />
+      <Route path={`${baseURL}/outdoor`} element={<OutdoorPage />} />
 
       {/* 주변 매장 찾아볼 페이지 */}
       <Route path={`${baseURL}/findstore`} element={<FindStorePage />} />

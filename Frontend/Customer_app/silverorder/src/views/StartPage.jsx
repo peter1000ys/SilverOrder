@@ -16,11 +16,11 @@ const StartPage = ({ storeId }) => {
   }, [storeId, setLoginedStore]);
 
   const go_to_sign_up = () => {
-    navigate(`${baseURL}/signup`);
+    navigate(`${baseURL}/signup`, { state: { storeId } });
   };
 
   const go_to_sign_in = () => {
-    navigate(`${baseURL}/signin`);
+    navigate(`${baseURL}/signin`, { state: { storeId } });
   };
 
   return (
