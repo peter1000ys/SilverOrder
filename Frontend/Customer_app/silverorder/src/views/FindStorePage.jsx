@@ -1,169 +1,47 @@
-import "../styles/FindStorePage.css";
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import axios from "axios";
-import useInfoStore from "../stores/infos";
-import human_logo from "../img/gps_human.png";
-import store_logo from "../img/gps_store.png";
+import React, { useEffect } from "react";
+import useMapStore from "../stores/map"; // Zustand 스토어 가져오기
+import "../styles/FindStorePage.css"; // 스타일 시트 가져오기
 
 const FindStorePage = () => {
-  const [location, setLocation] = useState({
-    latitude: null,
-    longitude: null,
-    error: null,
-  });
+  const {
+    location, // 현재 위치 상태 (위도, 경도)
+    mapLoaded, // 지도 로드 여부 상태
+    fetchLocation, // 현재 위치를 가져오는 함수
+    initializeMap, // Kakao 지도를 초기화하는 함수
+    fetchNearbyStores, // 주변 가게 정보를 API로 가져오는 함수
+    updateMap, // 지도를 업데이트하는 함수
+  } = useMapStore(); // Zustand 스토어에서 필요한 상태와 함수들을 가져옴
 
-  const [mapLoaded, setMapLoaded] = useState(false);
-  const [nearStores, setNearStores] = useState([]); // 주변 가게 정보 저장
-  const mapRef = useRef(null);
-  const markerRef = useRef(null);
-
-  const API_URL =
-    import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
-
-  // 위치 정보를 가져오는 함수
-  const fetchLocation = useCallback(() => {
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          setLocation({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude,
-            error: null,
-          });
-        },
-        (error) => {
-          setLocation((prev) => ({ ...prev, error: error.message }));
-        }
-      );
-    } else {
-      setLocation((prev) => ({
-        ...prev,
-        error: "이 브라우저에서는 위치 정보를 지원하지 않습니다.",
-      }));
-    }
-  }, []);
-
-  // 지도를 초기화하는 함수
-  const initializeMap = useCallback(() => {
-    if (!window.kakao || !window.kakao.maps) {
-      console.error("Kakao Maps API가 로드되지 않았습니다.");
-      return;
-    }
-
-    const container = document.getElementById("kakaomap");
-    if (!container) {
-      console.error("지도를 표시할 div를 찾을 수 없습니다.");
-      return;
-    }
-
-    const options = {
-      center: new window.kakao.maps.LatLng(37.5665, 126.978),
-      level: 3,
-    };
-
-    try {
-      mapRef.current = new window.kakao.maps.Map(container, options);
-      setMapLoaded(true);
-    } catch (error) {
-      console.error("지도 초기화 실패:", error);
-    }
-  }, []);
-
-  // 주변 가게 정보를 가져오는 함수
-  const fetchNearbyStores = useCallback(async () => {
-    if (location.latitude && location.longitude) {
-      const { token } = useInfoStore.getState();
-
-      const params = {
-        latitude: location.latitude,
-        longitude: location.longitude,
-      };
-
-      try {
-        const response = await axios.get(`${API_URL}store/list/near`, {
-          headers: {
-            Authorization: `Bearer ${token}`, // 수정된 부분
-          },
-          params: params, // 수정된 부분: GET 요청의 쿼리 파라미터로 데이터 전달
-        });
-        console.log(response.data);
-        setNearStores(response.data); // API 응답에서 가게 정보 저장
-      } catch (error) {
-        console.error("가게 정보 가져오기 실패:", error);
-      }
-    }
-  }, [location.latitude, location.longitude, API_URL]);
-
-  // 지도를 업데이트하는 함수
-  const updateMap = useCallback(() => {
-    if (!mapRef.current || !location.latitude || !location.longitude) {
-      return;
-    }
-
-    const newCenter = new window.kakao.maps.LatLng(
-      location.latitude,
-      location.longitude
-    );
-    mapRef.current.setCenter(newCenter);
-
-    // 사용자 위치 마커
-    if (markerRef.current) {
-      markerRef.current.setMap(null);
-    }
-
-    markerRef.current = new window.kakao.maps.Marker({
-      position: newCenter,
-      title: "내 위치",
-      image: new window.kakao.maps.MarkerImage(
-        human_logo,
-        new window.kakao.maps.Size(24, 35)
-      ), // 사용자 마커 이미지
-    });
-    markerRef.current.setMap(mapRef.current);
-
-    // 주변 가게 마커 표시
-    nearStores.forEach((store) => {
-      const storePosition = new window.kakao.maps.LatLng(
-        store.latitude,
-        store.longitude
-      ); // 가게의 위도와 경도
-      const storeMarker = new window.kakao.maps.Marker({
-        position: storePosition,
-        title: store.storeName,
-        image: new window.kakao.maps.MarkerImage(
-          store_logo,
-          new window.kakao.maps.Size(24, 35)
-        ), // 가게 마커 이미지
-      });
-      storeMarker.setMap(mapRef.current);
-    });
-  }, [location, nearStores]);
-
-  // 카카오 맵 API 스크립트 로드 및 초기화
+  // Kakao 지도 API를 로드하고 지도 초기화
   useEffect(() => {
-    const KAKAO_API_KEY = "내 api key";
-    const script = document.createElement("script");
-    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false`;
-    script.async = true;
+    const KAKAO_API_KEY = "내 카카오 api 키"; // Kakao API 키
+    const script = document.createElement("script"); // 스크립트 태그 생성
+    script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false`; // Kakao 지도 API 스크립트 로드
+    script.async = true; // 비동기 로드 설정
 
     script.onload = () => {
       window.kakao.maps.load(() => {
-        initializeMap();
-        fetchLocation(); // 지도가 초기화된 후에 위치 정보를 가져옴
+        initializeMap(); // 지도 초기화 함수 호출
+        fetchLocation(); // 현재 위치 가져오는 함수 호출
       });
     };
 
-    document.head.appendChild(script);
+    document.head.appendChild(script); // 스크립트를 문서의 head에 추가
     return () => {
-      document.head.removeChild(script);
+      document.head.removeChild(script); // 컴포넌트 언마운트 시 스크립트 제거
     };
-  }, [initializeMap, fetchLocation]);
+  }, [initializeMap, fetchLocation]); // 의존성 배열에 초기화 함수들을 추가하여, 첫 렌더 시 실행
 
-  // 위치 정보와 지도가 로드된 후 가게 정보와 지도를 업데이트
+  // 위치 정보가 설정되고 지도가 로드되면 가게 정보와 지도를 업데이트
   useEffect(() => {
     if (mapLoaded && location.latitude && location.longitude) {
-      fetchNearbyStores(); // 지도 로드 및 위치 설정 완료 시 가게 정보 가져오기
-      updateMap(); // 위치 정보와 지도 로드 완료 시 지도 업데이트
+      console.log(
+        "지도 로드 및 위치 업데이트:",
+        location.latitude,
+        location.longitude
+      ); // 현재 위치 확인 로그 출력
+      fetchNearbyStores(); // 주변 가게 정보 가져오는 함수 호출
+      updateMap(); // 지도 업데이트 함수 호출
     }
   }, [
     mapLoaded,
@@ -171,15 +49,17 @@ const FindStorePage = () => {
     location.longitude,
     fetchNearbyStores,
     updateMap,
-  ]); // 모든 필요한 상태와 함수를 의존성 배열에 추가
+  ]); // 의존성 배열에 상태와 함수 추가
 
   return (
     <div className="map-container">
-      <div id="kakaomap"></div>
+      <div id="kakaomap"></div> {/* Kakao 지도 표시 영역 */}
       <button className="gpsbtn" onClick={fetchLocation}>
         내 위치
-      </button>
-      {location.error && <p>{location.error}</p>} {/* 에러 메시지 출력 */}
+      </button>{" "}
+      {/* "내 위치" 버튼 클릭 시 fetchLocation 함수 호출 */}
+      {location.error && <p>{location.error}</p>}{" "}
+      {/* 오류 발생 시 오류 메시지 출력 */}
     </div>
   );
 };
