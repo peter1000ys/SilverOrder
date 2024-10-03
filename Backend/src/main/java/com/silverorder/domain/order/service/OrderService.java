@@ -1,6 +1,8 @@
 package com.silverorder.domain.order.service;
 
 import com.silverorder.domain.order.dto.*;
+import com.silverorder.domain.store.entity.Store;
+import com.silverorder.domain.user.entity.User;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,5 +31,8 @@ public interface OrderService {
 
     /** 가게 주문 리스트 */
     List<ResponseOrderStoreDto> storeOrderList(Long userId, Long storeId) throws Exception;
+
+    /** 유저의 가장 최근 주문내역 조회 */
+    Long[] userRecentOrder(User user, Store store) throws Exception;
 
 }

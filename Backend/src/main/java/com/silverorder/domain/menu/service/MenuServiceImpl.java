@@ -149,6 +149,11 @@ public class MenuServiceImpl implements MenuService{
         return menuRepository.listMenu(store, user);
     }
 
+    @Override
+    public List<ResponseMenuDto> listMenuIds(Long[] menuIds) throws Exception {
+        return menuRepository.listMenuIds(menuIds);
+    }
+
     /**
      * 메뉴의 옵션 조회
      * @param menuId : 메뉴id

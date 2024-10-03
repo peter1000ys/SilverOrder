@@ -191,4 +191,19 @@ public class OrderServiceImpl implements OrderService {
         return responseOrderStoreDtoList;
     }
 
+    /**
+     * 유저의 가장 최근 주문내역 조회
+     */
+    @Override
+    public Long[] userRecentOrder(User user, Store store) throws Exception {
+        Order recentOrder = orderRepository.userRecentOrder(user, store);
+
+        if(recentOrder == null){
+            return new Long[0];
+        }
+        else{
+            return orderRepository.userRecentMenuIds(recentOrder);
+        }
+    }
+
 }

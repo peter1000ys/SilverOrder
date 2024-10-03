@@ -33,4 +33,10 @@ public interface OrderRepository {
 
     /** 가게의 주문 리스트 */
     List<ResponseOrderStoreDto> storeOrderList(Store store) throws PersistenceException;
+
+    /** 유저의 가장 최근 주문내역 조회 */
+    Order userRecentOrder(User user, Store store) throws PersistenceException;
+
+    /** 주문의 메뉴리스트 조회 */
+    Long[] userRecentMenuIds(Order order) throws PersistenceException;
 }

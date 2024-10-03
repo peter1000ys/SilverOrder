@@ -22,6 +22,8 @@ public interface MenuRepository {
 
     List<ResponseMenuDto> listMenu(Store store, User user) throws PersistenceException;
 
+    List<ResponseMenuDto> listMenuIds(Long[] menuIds) throws PersistenceException;
+
     List<OptionCategory> menuOptions(Menu menu) throws PersistenceException;
 
     List<ResponseMenuCategory> menuCategoryList(Store store) throws PersistenceException;
