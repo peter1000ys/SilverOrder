@@ -19,6 +19,8 @@ public interface MenuService {
 
     List<ResponseMenuDto> listMenu(long userId, long storeId) throws Exception;
 
+    List<ResponseMenuDto> listMenuIds(Long[] menuIds) throws Exception;
+
     List<ResponseOptionDto> menuOptionList(long menuId) throws Exception;
 
     List<ResponseMenuCategory> menuCategoryList(long storeId) throws Exception;

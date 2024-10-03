@@ -1,5 +1,16 @@
 package com.silverorder.domain.voice.service;
 
+import com.silverorder.domain.menu.dto.ResponseMenuDto;
+import com.silverorder.domain.menu.service.MenuService;
+import com.silverorder.domain.order.service.OrderService;
+import com.silverorder.domain.store.entity.Store;
+import com.silverorder.domain.store.repository.StoreJpaRepository;
+import com.silverorder.domain.user.entity.User;
+import com.silverorder.domain.user.repository.UserJpaRepository;
+import com.silverorder.domain.voice.dto.RequestJupyter;
+import com.silverorder.domain.voice.dto.ResponseJupyter;
+import com.silverorder.global.exception.CustomException;
+import com.silverorder.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
@@ -9,6 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.List;
 
 
 /**
@@ -24,6 +36,10 @@ import java.net.URL;
 @RequiredArgsConstructor
 public class STTServiceImpl implements STTService {
     private final RestTemplate restTemplate;
+    private final UserJpaRepository userJpaRepository;
+    private final StoreJpaRepository storeJpaRepository;
+    private final OrderService orderService;
+    private final MenuService menuService;
 
     @Value("${clova.client.id}")
     private String clientId;
@@ -91,12 +107,51 @@ public class STTServiceImpl implements STTService {
     }
 
     @Override
-    public void menuRecommand(Long storeId, String filePathName) throws Exception {
+    public ResponseJupyter menuRecommand(Long storeId, String filePathName, Long userId) throws Exception {
+        //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+
+        //가맹점 확인 로직
+        Store store = storeJpaRepository.findById(storeId)
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+        //음성을 텍스트로 변환
         String voiceText = clovaSpeechToText(filePathName);
 
-        apiUrl = "/insert/menu";
+        //post 요청할 dto 생성
+        //RequestJupyter requestJupyter = new RequestJupyter(voiceText, storeId);
+        RequestJupyter requestJupyter = new RequestJupyter(voiceText);
+
+        apiUrl = "/process_order";
         String url = jupiterApiUrl + apiUrl;
-        restTemplate.postForEntity(url, voiceText, Void.class);
+
+        //post 요청
+        ResponseJupyter responseJupyter =
+                restTemplate.postForObject(url, requestJupyter, ResponseJupyter.class);
+
+        //조회할 메뉴의 ids
+        Long[] menuIds = null;
+
+        if(responseJupyter != null) {
+            if (responseJupyter.getResponseString() != null &&
+                    responseJupyter.getResponseString().equals("user_experience_based")) {
+
+                menuIds = orderService.userRecentOrder(user, store);
+            } else {
+                menuIds = new Long[1];
+                menuIds[0] = Long.parseLong(responseJupyter.getRecommendMenuId());
+            }
+
+            if(menuIds.length == 0){
+                responseJupyter.setQaResult("최근 주문한 내역이 없습니다.");
+            }else{
+                responseJupyter.setMenuList(menuService.listMenuIds(menuIds));
+            }
+        }else{
+            new ResponseJupyter(null, null, "서버 연결 실패");
+        }
+        return responseJupyter;
     }
 
 }

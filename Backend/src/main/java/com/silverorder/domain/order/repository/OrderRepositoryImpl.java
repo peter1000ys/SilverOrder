@@ -20,6 +20,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.List;
 
 import static com.silverorder.domain.option.entity.QOption.option;
@@ -198,6 +199,49 @@ public class OrderRepositoryImpl implements OrderRepository {
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenceException("가게 주문 조회 중 에러 발생", e);
+        }
+    }
+
+    /**
+     * 유저의 가장 최근 주문내역 조회
+     *
+     * @param user
+     * @param store
+     */
+    @Override
+    public Order userRecentOrder(User user, Store store) throws PersistenceException {
+        try {
+            return queryFactory
+                    .select(order)
+                    .from(order)
+                    .innerJoin(payment).on(order.payment.id.eq(payment.id))
+                    .where(order.payment.user.eq(user))
+                    .orderBy(order.id.desc())
+                    .fetchOne();
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new PersistenceException("주문내역 조회 중 에러 발생", e);
+        }
+    }
+
+    /**
+     * 주문의 메뉴리스트 조회
+     *
+     * @param myOrder
+     */
+    @Override
+    public Long[] userRecentMenuIds(Order myOrder) throws PersistenceException {
+        try {
+            List<Long> result = queryFactory
+                    .select(orderMenu.menu.id)
+                    .from(orderMenu)
+                    .where(orderMenu.order.eq(myOrder))
+                    .fetch();
+
+            return result.toArray(new Long[0]);
+        }catch(Exception e){
+            e.printStackTrace();
+            throw new PersistenceException("주문내역 조회 중 에러 발생", e);
         }
     }
 }
