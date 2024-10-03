@@ -5,7 +5,9 @@ import { baseURL } from "../constant";
 import { useLocation } from "react-router-dom";
 import useInfoStore from "../stores/infos";
 import usePurchaseStore from "../stores/purchase";
+import useCartStore from "../stores/cart";
 import useWebSocketStore from "../stores/websocket";
+import Notiflix from "notiflix";
 
 const PurchasePage = () => {
   const location = useLocation();
@@ -20,6 +22,8 @@ const PurchasePage = () => {
 
   const { getRegisteredMyCard, sendPurchaseRequest } = usePurchaseStore();
   const { loginedStore } = useInfoStore();
+
+  const { clearCart } = useCartStore();
 
   const { subscribeToOrder } = useWebSocketStore();
 
@@ -85,8 +89,11 @@ const PurchasePage = () => {
         try {
           const response = await sendPurchaseRequest(updatedPurchaseInfo);
           if (response) {
-            alert(`결제 성공! 주문 번호는 ${response.orderId}번입니다.`);
+            Notiflix.Notify.success(
+              `결제 성공! 주문 번호는 ${response.orderId}번입니다.`
+            );
             subscribeToOrder(response.orderId);
+            clearCart();
             navigate(`${baseURL}/orderstate`);
           } else {
             console.error("에러 발생");

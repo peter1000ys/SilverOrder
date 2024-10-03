@@ -1,10 +1,13 @@
 import { create } from "zustand";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
+import Notiflix from "notiflix";
 
 const useWebSocketStore = create((set, get) => ({
   stompClient: null, // STOMP 클라이언트 초기화
   connectionStatus: "Disconnected", // 연결 상태 초기화
+
+  nowOrderStatus: null, // 현재 orderStatus
 
   connect: () => {
     // // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
@@ -55,6 +58,21 @@ const useWebSocketStore = create((set, get) => ({
 
             console.log("Order ID:", orderId); // 주문 ID 출력
             console.log("Order Status:", orderStatus); // 주문 상태 출력
+
+            // orderStatus 상태 업데이트
+            set({ nowOrderStatus: orderStatus });
+
+            switch (orderStatus) {
+              case "ORDER_IN":
+                Notiflix.Notify.success(`${orderId}번 주문이 접수되었습니다.`);
+                break;
+              case "ORDER_IN_PROGRESS":
+                Notiflix.Notify.success(`${orderId}번 주문을 제조 중입니다.`);
+                break;
+              case "ORDER_DONE":
+                Notiflix.Notify.success(`${orderId}번 주문이 완료되었습니다.`);
+                break;
+            }
 
             // 주문 상태에 따라 필요한 작업 수행
             // 예: UI 업데이트 또는 알림 처리 등
