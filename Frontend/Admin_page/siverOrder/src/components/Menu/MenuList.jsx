@@ -1,38 +1,35 @@
 import React, { useEffect, useState } from 'react';
 import './MenuList.css';
-import useMenuStore from '../../stores/menu';  
+import useMenuStore from '../../stores/menu';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 const MenuList = ({ onMenuSelect }) => {
-  const { menus, fetchMenus } = useMenuStore();  
-  const [loading, setLoading] = useState(true);  
-  const [error, setError] = useState(null);      
+  const { menus, fetchMenus } = useMenuStore();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
   const [currentPage, setCurrentPage] = useState(1);
-  const [selectedCategory, setSelectedCategory] = useState(''); 
-  const menusPerPage = 3; 
+  const [selectedCategory, setSelectedCategory] = useState('');
+  const menusPerPage = 3;
 
   useEffect(() => {
     const loadMenus = async () => {
       try {
-        await fetchMenus();  
-        setLoading(false);   
+        await fetchMenus();
+        setLoading(false);
       } catch (err) {
         setError('메뉴 목록을 불러오는데 실패했습니다.');
         setLoading(false);
       }
     };
 
-    loadMenus(); 
-  }, [fetchMenus]); 
-
+    loadMenus();
+  }, [fetchMenus]);
 
   const categories = [...new Set(menus.map(menu => menu.menuCategoryName))];
-
 
   const filteredMenus = selectedCategory
     ? menus.filter(menu => menu.menuCategoryName === selectedCategory)
     : menus;
-
 
   const indexOfLastMenu = currentPage * menusPerPage;
   const indexOfFirstMenu = indexOfLastMenu - menusPerPage;
@@ -47,6 +44,11 @@ const MenuList = ({ onMenuSelect }) => {
     if (currentPage > 1) setCurrentPage(prev => prev - 1);
   };
 
+  // Reset current page to 1 when category changes
+  const handleCategoryChange = (e) => {
+    setSelectedCategory(e.target.value);
+    setCurrentPage(1); // Reset to first page
+  };
 
   if (loading) {
     return (
@@ -57,7 +59,6 @@ const MenuList = ({ onMenuSelect }) => {
       </div>
     );
   }
-  
 
   if (error) {
     return <p>{error}</p>;
@@ -69,7 +70,7 @@ const MenuList = ({ onMenuSelect }) => {
         <select
           className="category-select"
           value={selectedCategory}
-          onChange={(e) => setSelectedCategory(e.target.value)}
+          onChange={handleCategoryChange}
         >
           <option value="">전체</option>
           {categories.map((category, index) => (
@@ -99,11 +100,10 @@ const MenuList = ({ onMenuSelect }) => {
         )}
       </div>
 
-
       <div className="pagination-c">
-        <button onClick={prevPage} disabled={currentPage === 1}>이전</button>
-        <span>{currentPage} / {totalPages}</span>
-        <button onClick={nextPage} disabled={currentPage === totalPages}>다음</button>
+        <button onClick={prevPage} disabled={currentPage === 1 || totalPages === 0}>이전</button>
+        <span>{totalPages > 0 ? `${currentPage} / ${totalPages}` : '0 / 0'}</span>
+        <button onClick={nextPage} disabled={currentPage === totalPages || totalPages === 0}>다음</button>
       </div>
     </div>
   );

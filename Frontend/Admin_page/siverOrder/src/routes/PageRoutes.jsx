@@ -47,7 +47,7 @@ const PageRoutes = () => {
                 </>
             )}
 
-            {isLogin && (
+            {!isLogin && (
                 <>
                     {/* 주문 페이지 */}
                     <Route path="/silverorder/admin/order" element={<OrderPage />} />
