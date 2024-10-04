@@ -1,0 +1,69 @@
+.order-list {
+    width: 100%;
+    height: calc(100vh - 250px); 
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    border-radius: calc(8 / 1440 * 100vw);
+    padding: calc(20 / 1440 * 100vw);
+    box-shadow: calc(0 / 1440 * 100vw) calc(4 / 1440 * 100vw) calc(6 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
+    font-size: calc(16 / 1440 * 100vw);
+    overflow: hidden;
+}
+
+.order-list-content {
+    flex-grow: 1;
+    overflow-y: auto;
+    margin-bottom: calc(20 / 1440 * 100vw);
+}
+
+.order-list table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.order-list th, .order-list td {
+    padding: calc(15 / 1440 * 100vw);
+    text-align: center;
+    border-bottom: calc(1 / 1440 * 100vw) solid #ddd;
+}
+
+.order-list tbody tr:hover {
+    background-color: #f1f1f1;
+    cursor: pointer;
+}
+
+.status-text {
+    color: red;
+}
+
+/* Pagination styling */
+.pagination-c {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: calc(10 / 1440 * 100vw) 0;
+    background-color: white;
+    margin-top: auto; /* 페이징 버튼이 항상 맨 아래에 고정되도록 */
+}
+
+.pagination-c button {
+    padding: calc(12 / 1440 * 100vw) calc(50 / 1440 * 100vw);
+    margin: 0 calc(50 / 1440 * 100vw);
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: calc(5 / 1440 * 100vw);
+    cursor: pointer;
+    outline: none;
+    font-size: calc(25 / 1440 * 100vw);
+}
+
+.pagination-c button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination-c span {
+    font-size: calc(25 / 1440 * 100vw);
+}
