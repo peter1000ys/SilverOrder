@@ -1,0 +1,20 @@
+.stat-box {
+    background-color: #ffffff;
+    border-radius: calc(10 / 1440 * 100vw);
+    padding: calc(20 / 1440 * 100vw);
+    height: calc(150 / 1440 * 100vw);
+    box-shadow: 0 calc(4 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
+}
+
+.stat-box h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #007BFF;
+}
+
+.stat-box p {
+    margin: calc(10 / 1440 * 100vw) 0 0;
+    font-size: 3rem;
+    font-weight: bolder;
+    color: #000000;
+}

@@ -1,0 +1,88 @@
+.option-category, .menu-category {
+  display: flex;
+  flex-direction: column;
+  gap: calc(10 / 1440 * 100vw);
+}
+
+.option-category label, .menu-category label {
+  font-weight: bold;
+}
+
+.option-category input, .menu-category input, .option-category select {
+  padding: calc(5 / 1440 * 100vw);
+  border: calc(1 / 1440 * 100vw) solid #ddd;
+  border-radius: calc(5 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.add-option-button {
+  background-color: #28a745;
+  color: white;
+  padding: calc(8 / 1440 * 100vw) calc(12 / 1440 * 100vw);
+  font-size: 1rem;
+  border: none;
+  border-radius: calc(4 / 1440 * 100vw);
+  cursor: pointer;
+  margin-bottom: calc(20 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.add-option-button:hover {
+  background-color: #218838;
+}
+
+.added-options-list {
+  list-style-type: none;
+  padding-left: 0;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.added-options-list li {
+  display: flex;
+  justify-content: space-between;
+  padding: calc(8 / 1440 * 100vw);
+  background-color: #f1f1f1;
+  margin-bottom: calc(5 / 1440 * 100vw);
+  border-radius: calc(4 / 1440 * 100vw);
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.remove-option-button {
+  background-color: #dc3545;
+  color: white;
+  border: none;
+  border-radius: calc(4 / 1440 * 100vw);
+  padding: calc(5 / 1440 * 100vw) calc(10 / 1440 * 100vw);
+  cursor: pointer;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.remove-option-button:hover {
+  background-color: #c82333;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: calc(10 / 1440 * 100vw);
+}
+
+.cancel {
+  background-color: #FF5B5B;
+  color: white;
+  padding: calc(10 / 1440 * 100vw);
+  border-radius: calc(5 / 1440 * 100vw);
+  cursor: pointer;
+  border: none;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.submit {
+  background-color: #2D8DFF;
+  color: white;
+  padding: calc(10 / 1440 * 100vw);
+  border-radius: calc(5 / 1440 * 100vw);
+  cursor: pointer;
+  border: none;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
