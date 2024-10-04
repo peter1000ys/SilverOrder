@@ -43,6 +43,9 @@ import RegisterCardPage from "../views/RegisterCardPage.jsx";
 // 결제 페이지
 import PurchasePage from "../views/PurchasePage.jsx";
 
+// 음성인식 주문 페이지
+import SoundSearchPage from "../views/SoundSearchPage.jsx";
+
 const PageRoutes = () => {
   const { isLogin } = useInfoStore();
   const location = useLocation();
@@ -106,6 +109,12 @@ const PageRoutes = () => {
 
           {/* 결제 페이지 */}
           <Route path={`${baseURL}/purchase`} element={<PurchasePage />} />
+
+          {/* 음성인식 주문 페이지 */}
+          <Route
+            path={`${baseURL}/soundsearch`}
+            element={<SoundSearchPage />}
+          />
         </>
       ) : (
         <Route path="*" element={<Navigate to={`${baseURL}/signin`} />} />
