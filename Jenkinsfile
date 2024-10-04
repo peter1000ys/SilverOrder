@@ -36,7 +36,7 @@ pipeline {
                         }
                     }
                     steps {
-                        dir('Frontend/Admin_page/siverOrder') {
+                        dir('Frontend/Admin_page/silverOrder') {
                         
                             sh 'node --version'
                             sh 'npm --version'
