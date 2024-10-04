@@ -8,6 +8,7 @@ pipeline {
         SSAFY_API_KEY = credentials('ssafy-api-key')
         MSSQL_KEY = credentials('mssql-key')
         RABBITMQ_KEY = credentials('rabbitmq-key')
+        JUPITER_API_URL = credentials('jupiter-api-url')
     }
     stages {
         stage('Checkout') {
