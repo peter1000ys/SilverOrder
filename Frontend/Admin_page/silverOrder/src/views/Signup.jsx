@@ -3,6 +3,7 @@ import '../styles/Signup.css';
 import useInfoStore from "../stores/infos";
 import { Navigate } from "react-router-dom";
 import Logo from "../logo/logo.png";
+import Notiflix from 'notiflix';
 const Signup = () => {
   const { sendLoginRequest, sendRegisterRequest, isLogin } = useInfoStore();
   const [email, setEmail] = useState("");

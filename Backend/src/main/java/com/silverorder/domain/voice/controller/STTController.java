@@ -1,11 +1,14 @@
 package com.silverorder.domain.voice.controller;
 
+import com.silverorder.domain.user.dto.CustomUserDetails;
+import com.silverorder.domain.voice.dto.ResponseJupyter;
 import com.silverorder.domain.voice.service.STTService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -50,6 +53,26 @@ public class STTController {
         } else {
             return ResponseEntity.ok("명확한 응답이 아닙니다.");
         }
+    }
+
+    @Operation(summary = "음성인식 메뉴추천", description = "음성에 따라 메뉴를 추천합니다.")
+    @PostMapping("/testing/{storeId}")
+    public ResponseEntity<?> getSpeech(
+            @RequestParam("file") MultipartFile file,
+            @PathVariable Long storeId,
+            @AuthenticationPrincipal CustomUserDetails userDetails) throws Exception {
+        long userId = userDetails.getUser().getUserId();
+
+        //음성 파일 받아서 임시 파일 생성
+        File tempFile = File.createTempFile("temp", null);
+        file.transferTo(tempFile);
+
+        //임시 파일 텍스트 변환 후 삭제
+        ResponseJupyter responseJupyter =
+                sttService.menuRecommand(storeId, tempFile.getAbsolutePath(), userId);
+        tempFile.delete();
+
+        return ResponseEntity.ok(responseJupyter);
     }
 
 }

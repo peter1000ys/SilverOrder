@@ -24,9 +24,9 @@ const OutdoorPage = () => {
         >
           주변매장 찾아보기
         </button>
-        <button className="outdoor-page-signup-btn" onClick={go_to_sign_up}>
+        {/* <button className="outdoor-page-signup-btn" onClick={go_to_sign_up}>
           회 원 가 입
-        </button>
+        </button> */}
       </div>
     </div>
   );

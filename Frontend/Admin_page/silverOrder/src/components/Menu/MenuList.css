@@ -23,7 +23,7 @@
 
 .menu-item {
   width: 30%;
-  height: 70%;
+  height: 80%;
   border: calc(1 / 1440 * 100vw) solid #ddd;
   border-radius: calc(10 / 1440 * 100vw);
   padding: calc(15 / 1440 * 100vw);

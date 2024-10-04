@@ -6,6 +6,7 @@ import Notiflix from "notiflix";
 const API_URL = 
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
 
+
 const useInfoStore = create(
     persist(
         (set, get) => ({
@@ -99,7 +100,7 @@ const useInfoStore = create(
                 return false;
               }
             },
-              
+            
             // 로그아웃
             logout: (navigate) => {
               set({ isLogin: false, token: null });

@@ -82,6 +82,7 @@
   border: none;
   border-radius: calc(4 / 1440 * 100vw);
   cursor: pointer;
+  margin-bottom: 0;
   display: inline-block;
 }
 

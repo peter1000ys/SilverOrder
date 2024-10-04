@@ -17,6 +17,7 @@ import jakarta.persistence.PersistenceException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static com.silverorder.domain.menu.entity.QMenu.menu;
@@ -153,6 +154,30 @@ public class MenuRepositoryImpl implements MenuRepository{
                     ))
                     .from(menu)
                     .where(menu.storeMenuCategory.store.eq(store))
+                    .fetch();
+        }catch(Exception e){
+            throw new PersistenceException("메뉴 조회 중 에러 발생", e);
+        }
+    }
+
+    @Override
+    public List<ResponseMenuDto> listMenuIds(Long[] menuIds) throws PersistenceException {
+        try{
+            return queryFactory
+                    .select(Projections.constructor(ResponseMenuDto.class,
+                            menu.id,
+                            menu.storeMenuCategory.id,
+                            menu.storeMenuCategory.menuCategoryName,
+                            menu.menuName,
+                            menu.simpleName,
+                            menu.menuDesc,
+                            menu.menuStatus,
+                            menu.menuPrice,
+                            menu.recommend,
+                            menu.thumb
+                    ))
+                    .from(menu)
+                    .where(menu.id.in(Arrays.asList(menuIds)))
                     .fetch();
         }catch(Exception e){
             throw new PersistenceException("메뉴 조회 중 에러 발생", e);

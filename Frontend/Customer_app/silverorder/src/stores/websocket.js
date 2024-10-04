@@ -1,29 +1,32 @@
 import { create } from "zustand";
 import SockJS from "sockjs-client";
 import { Stomp } from "@stomp/stompjs";
+import Notiflix from "notiflix";
 
 const useWebSocketStore = create((set, get) => ({
   stompClient: null, // STOMP 클라이언트 초기화
   connectionStatus: "Disconnected", // 연결 상태 초기화
 
+  nowOrderStatus: null, // 현재 orderStatus
+
   connect: () => {
-    // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
-    const protocol = window.location.protocol === "https:" ? "https:" : "http:";
-    console.log(window.location.protocol);
-    // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
-    const socket = new SockJS(
-      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    );
+    // // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
+    // const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+    // console.log(window.location.protocol);
+    // // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
+    // const socket = new SockJS(
+    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    // );
 
-    console.log(
-      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    );
+    // console.log(
+    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    // );
 
-    const client = Stomp.over(socket);
-
-    // // SockJS를 사용하여 WebSocket 서버에 연결
-    // const socket = new SockJS("http://localhost:8080/silverorder/ws-stomp");
     // const client = Stomp.over(socket);
+
+    // SockJS를 사용하여 WebSocket 서버에 연결
+    const socket = new SockJS("http://localhost:8080/silverorder/ws-stomp");
+    const client = Stomp.over(socket);
 
     // STOMP 클라이언트 연결 설정
     client.connect(
@@ -55,6 +58,21 @@ const useWebSocketStore = create((set, get) => ({
 
             console.log("Order ID:", orderId); // 주문 ID 출력
             console.log("Order Status:", orderStatus); // 주문 상태 출력
+
+            // orderStatus 상태 업데이트
+            set({ nowOrderStatus: orderStatus });
+
+            switch (orderStatus) {
+              case "ORDER_IN":
+                Notiflix.Notify.success(`${orderId}번 주문이 접수되었습니다.`);
+                break;
+              case "ORDER_IN_PROGRESS":
+                Notiflix.Notify.success(`${orderId}번 주문을 제조 중입니다.`);
+                break;
+              case "ORDER_DONE":
+                Notiflix.Notify.success(`${orderId}번 주문이 완료되었습니다.`);
+                break;
+            }
 
             // 주문 상태에 따라 필요한 작업 수행
             // 예: UI 업데이트 또는 알림 처리 등

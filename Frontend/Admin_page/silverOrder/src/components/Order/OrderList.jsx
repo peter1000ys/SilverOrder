@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import './styles/OrderList.css';
-import useOrderStore from '../../stores/order'; // useOrderStore를 가져옴
+import useOrderStore from '../../stores/order';
 
 const OrderList = ({ selectedTab, onOrderSelect }) => {
-  const { orders, fetchOrders } = useOrderStore(); // 상태와 fetch 함수 가져옴
+  const { orders, fetchOrders } = useOrderStore();
   const [currentPage, setCurrentPage] = useState(1);
   const [ordersPerPage, setOrdersPerPage] = useState(8);
 
@@ -32,7 +32,7 @@ const OrderList = ({ selectedTab, onOrderSelect }) => {
 
   // 선택된 탭이 변경되면 페이지를 1로 초기화
   useEffect(() => {
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to first page on tab change
   }, [selectedTab]);
 
   const translateStatus = (status) => {
@@ -47,19 +47,17 @@ const OrderList = ({ selectedTab, onOrderSelect }) => {
         return status;
     }
   };
-  
 
   const indexOfLastOrder = currentPage * ordersPerPage;
   const indexOfFirstOrder = indexOfLastOrder - ordersPerPage;
-  
-  // 상태별로 필터링 후 현재 페이지에 해당하는 주문 목록만 표시
-  const currentOrders = orders
-    .filter(order => translateStatus(order.orderStatus) === selectedTab)
-    .slice(indexOfFirstOrder, indexOfLastOrder);
 
-  const totalPages = Math.ceil(
-    orders.filter(order => translateStatus(order.orderStatus) === selectedTab).length / ordersPerPage
+  // 상태별로 필터링 후 현재 페이지에 해당하는 주문 목록만 표시
+  const filteredOrders = orders.filter(
+    order => translateStatus(order.orderStatus) === selectedTab
   );
+  const currentOrders = filteredOrders.slice(indexOfFirstOrder, indexOfLastOrder);
+
+  const totalPages = Math.ceil(filteredOrders.length / ordersPerPage);
 
   const nextPage = () => {
     if (currentPage < totalPages) setCurrentPage(prev => prev + 1);
@@ -82,21 +80,27 @@ const OrderList = ({ selectedTab, onOrderSelect }) => {
             </tr>
           </thead>
           <tbody>
-            {currentOrders.map(order => (
-              <tr key={order.orderId} onClick={() => onOrderSelect(order)}>
-                <td>{order.orderId}</td>
-                <td>{order.orderDate}</td>
-                <td>{order.totalPrice}</td>
-                <td className='status-text'>{translateStatus(order.orderStatus)}</td>
+            {currentOrders.length > 0 ? (
+              currentOrders.map(order => (
+                <tr key={order.orderId} onClick={() => onOrderSelect(order)}>
+                  <td>{order.orderId}</td>
+                  <td>{order.orderDate}</td>
+                  <td>{order.totalPrice}</td>
+                  <td className='status-text'>{translateStatus(order.orderStatus)}</td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4">해당 상태의 주문이 없습니다.</td>
               </tr>
-            ))}
+            )}
           </tbody>
         </table>
       </div>
       <div className="pagination-c">
-        <button onClick={prevPage} disabled={currentPage === 1}>&lt;</button>
-        <span>{currentPage} / {totalPages}</span>
-        <button onClick={nextPage} disabled={currentPage === totalPages}>&gt;</button>
+        <button onClick={prevPage} disabled={currentPage === 1 || totalPages === 0}>&lt;</button>
+        <span>{totalPages > 0 ? `${currentPage} / ${totalPages}` : '0 / 0'}</span>
+        <button onClick={nextPage} disabled={currentPage === totalPages || totalPages === 0}>&gt;</button>
       </div>
     </div>
   );

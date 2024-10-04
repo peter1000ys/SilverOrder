@@ -16,13 +16,16 @@ import com.silverorder.domain.store.repository.StoreJpaRepository;
 import com.silverorder.domain.user.dto.UserRole;
 import com.silverorder.domain.user.entity.User;
 import com.silverorder.domain.user.repository.UserJpaRepository;
+import com.silverorder.global.dto.ResponseCardListDto;
 import com.silverorder.global.exception.CustomException;
 import com.silverorder.global.exception.ErrorCode;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestTemplate;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,7 +49,12 @@ public class MenuServiceImpl implements MenuService{
     private final UserJpaRepository userJpaRepository;
     private final StoreJpaRepository storeJpaRepository;
     private final OptionRepository optionRepository;
+    private final RestTemplate restTemplate;
 
+    @Value("${jupiter.api.url}")
+    private String jupiterApiUrl;
+
+    private String apiUrl;
 
     /**
      * 메뉴 등록
@@ -92,6 +100,8 @@ public class MenuServiceImpl implements MenuService{
                 menuRepository.saveMenuOptionCategory(menu, optionCategory);
             }
         }
+
+        //saveMenuChromaDb(menu, store.getId());
     }
 
     /**
@@ -137,6 +147,11 @@ public class MenuServiceImpl implements MenuService{
 
         //옵션을 제외한 메뉴 조회
         return menuRepository.listMenu(store, user);
+    }
+
+    @Override
+    public List<ResponseMenuDto> listMenuIds(Long[] menuIds) throws Exception {
+        return menuRepository.listMenuIds(menuIds);
     }
 
     /**
@@ -191,5 +206,15 @@ public class MenuServiceImpl implements MenuService{
 
         //옵션을 제외한 메뉴 조회
         return menuRepository.menuCategoryList(store);
+    }
+
+    private void saveMenuChromaDb(Menu menu, Long storeId) throws Exception{
+        ChromaMenuDto chromaMenuDto = new ChromaMenuDto(
+                menu.getId().toString(), menu.getMenuDesc(), storeId.toString()
+        );
+
+        apiUrl = "/insert/menu";
+        String url = jupiterApiUrl + apiUrl;
+        restTemplate.postForEntity(url, chromaMenuDto, Void.class);
     }
 }

@@ -43,7 +43,6 @@ const UpsideNavbar = () => {
           src={clock}
           alt="주문 상태 확인"
         />
-        <img className="site-notification" src={notification} alt="알림" />
       </div>
     </div>
   );

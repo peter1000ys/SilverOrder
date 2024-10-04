@@ -157,7 +157,7 @@ const useMenuStore = create((set, get) => ({
             set({ menuOptions: menuOptionsData });
             Notiflix.Notify.success("메뉴 옵션 조회 완료");
         } catch (error) {
-            Notiflix.Notify.failure("메뉴 옵션 조회에 실패했습니다.");
+            console.log("메뉴 옵션 조회에 실패했습니다.");
         }
     },
     updateMenuCategory: async (menuCategoryId, updatedCategory) => {
