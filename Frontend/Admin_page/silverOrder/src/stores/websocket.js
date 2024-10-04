@@ -12,23 +12,23 @@ const useWebSocketStore = create((set, get) => ({
       return;
     }
 
-    // // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
-    // const protocol = window.location.protocol === "https:" ? "https:" : "http:";
-    // console.log(window.location.protocol);
-    // // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
-    // const socket = new SockJS(
-    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    // );
+    // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
+    const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+    console.log(window.location.protocol);
+    // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
+    const socket = new SockJS(
+      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    );
 
-    // console.log(
-    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    // );
+    console.log(
+      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    );
 
-    // const client = Stomp.over(socket);
+    const client = Stomp.over(socket);
     
     // SockJS를 사용하여 서버에 연결
-    const socket = new SockJS('http://localhost:8080/silverorder/ws-stomp'); // Socket을 바로 여기서 선언
-    const stompClient = Stomp.over(socket); // WebSocket 객체를 Stomp에 넘김
+    // const socket = new SockJS('http://localhost:8080/silverorder/ws-stomp'); // Socket을 바로 여기서 선언
+    // const stompClient = Stomp.over(socket); // WebSocket 객체를 Stomp에 넘김
 
     stompClient.connect({}, (frame) => {
       console.log('Connected to WebSocket:', frame);
