@@ -26,3 +26,23 @@
   font-size: 20px;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
+
+.playbox-result-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playbox-result-info,
+.playbox-result-loading-text {
+  font-size: 18px;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.playbox-result-box {
+  width: 100%;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+}

@@ -12,6 +12,7 @@ const useSoundsearchStore = create(() => ({
 
     const formData = new FormData();
     formData.append("file", audioBlob, "recording.wav");
+    console.log(formData);
 
     try {
       const response = await axios.post(
