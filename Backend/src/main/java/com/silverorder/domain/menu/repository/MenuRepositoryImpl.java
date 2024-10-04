@@ -74,9 +74,46 @@ public class MenuRepositoryImpl implements MenuRepository{
     }
 
     /**
+     * 메뉴 수정
+     * <pre>
+     *      가게에서 사용할 메뉴를 수정한다
+     * </pre>
+     * @param menuId : 메뉴 ID
+     * @param storeMenuCategory : 메뉴 카테고리 entity
+     * @param menuDto : 메뉴정보 DTO
+     * @return : 메뉴 entity
+     * @throws PersistenceException : JPA 표준 예외
+     */
+    @Override
+    public Menu updateMenu(Long menuId, StoreMenuCategory storeMenuCategory, MenuDto menuDto) throws PersistenceException {
+        try {
+            Menu newMenu = new Menu(
+                    menuId,
+                    storeMenuCategory,
+                    menuDto.getMenuName(),
+                    menuDto.getSimpleName(),
+                    menuDto.getMenuDesc(),
+                    menuDto.getMenuStatus(),
+                    menuDto.getMenuPrice(),
+                    menuDto.getRecommend(),
+                    menuDto.getMenuThumb()
+            );
+
+            Menu menu = em.find(Menu.class, menuId);
+            menu = newMenu;
+
+            em.flush();
+
+            return menu;
+        } catch(Exception e){
+            throw new PersistenceException("메뉴 등록 중 에러 발생", e);
+        }
+    }
+
+    /**
      * 메뉴 옵션 관계 등록
      * <pre>
-     *      메뉴에서 사용할 메뉴 카테고리를 저장한다
+     *      메뉴에서 사용할 옵션 카테고리를 저장한다
      * </pre>
      * @param menu : 메뉴 entity
      * @param optionCategory : 옵션 카테고리 entity

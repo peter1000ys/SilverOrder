@@ -15,6 +15,8 @@ import java.util.List;
 public interface MenuService {
     void saveMenu(Long userId, MenuDto menuDto) throws Exception;
 
+    void changeMenu(Long userId, Long menuId, MenuDto menuDto) throws Exception;
+
     void saveMenuCategory(long userId, RequestMenuCategoryDto requestMenuCategoryDto) throws Exception;
 
     List<ResponseMenuDto> listMenu(long userId, long storeId) throws Exception;

@@ -105,6 +105,54 @@ public class MenuServiceImpl implements MenuService{
     }
 
     /**
+     * 메뉴 수정
+     * @param userId : 유저 id
+     * @param menuDto : 메뉴 등록 dto
+     * @throws Exception
+     */
+    @Override
+    @Transactional
+    public void changeMenu(Long userId, Long menuId, MenuDto menuDto) throws Exception {
+        //유저 확인 로직
+        User user = userJpaRepository.findById(userId)
+                .orElseThrow(() -> new CustomException(ErrorCode.USER_NOT_FOUND));
+        if(user.getUserRole() != UserRole.ROLE_ADMIN)
+            throw new CustomException(ErrorCode.NOT_AUTHENTICATED);
+
+        //가맹점 확인 로직
+        Store store = storeJpaRepository.findById(menuDto.getStoreId())
+                .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+        if(!store.getUser().equals(user))
+            throw new CustomException(ErrorCode.STORE_NOT_AUTHENTICATED);
+
+        //메뉴 카테고리 확인 로직
+        StoreMenuCategory storeMenuCategory = storeMenuCategoryJpaRepository.findById(
+                        menuDto.getMenuCategoryId())
+                .orElseThrow(() -> new CustomException(ErrorCode.MENU_CATEGORY_NOT_FOUND));
+
+        //메뉴 등록
+        Menu menu = menuRepository.updateMenu(menuId, storeMenuCategory, menuDto);
+        log.info("return menuId : {}", menu.getId());
+
+        //사용 옵션 확인
+        long[] optionCategoryIds = menuDto.getUseOptionCategory();
+
+        //사용 옵션 존재 시
+        if(optionCategoryIds != null
+                && optionCategoryIds.length >= 1) {
+            for (long optionCategoryId : optionCategoryIds) {
+                OptionCategory optionCategory = optionCategoryJpaRepository.findById(
+                                optionCategoryId)
+                        .orElseThrow(() -> new CustomException(ErrorCode.OPTION_CATEGORY_NOT_FOUND));
+                //메뉴의 사용 옵션 등록
+                menuRepository.saveMenuOptionCategory(menu, optionCategory);
+            }
+        }
+
+        //saveMenuChromaDb(menu, store.getId());
+    }
+
+    /**
      * 메뉴 카테고리 등록
      * @param userId : 유저 id
      * @param requestMenuCategoryDto : 메뉴 카테고리 dto

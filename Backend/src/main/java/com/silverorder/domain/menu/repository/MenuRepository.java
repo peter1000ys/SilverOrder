@@ -16,6 +16,8 @@ import java.util.List;
 public interface MenuRepository {
     Menu saveMenu(StoreMenuCategory storeMenuCategory, MenuDto MenuDto) throws PersistenceException;
 
+    Menu updateMenu(Long menuId, StoreMenuCategory storeMenuCategory, MenuDto MenuDto) throws PersistenceException;
+
     void saveMenuOptionCategory(Menu menu, OptionCategory optionCategory);
 
     void saveStoreMenuCategory(Store store, String menuCategoryName) throws PersistenceException;
