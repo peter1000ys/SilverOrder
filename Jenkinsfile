@@ -73,7 +73,7 @@ pipeline {
             parallel {
                 stage('Web Version') {
                     steps {
-                        dir('Frontend/Admin_page/siverOrder') {
+                        dir('Frontend/Admin_page/silverOrder') {
                             sh 'docker build -t frontend-web:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile .'
                             sh 'docker stop frontend-web || true'
                             sh 'docker rm frontend-web || true'
