@@ -58,17 +58,25 @@ const PlayBox = () => {
   };
 
   return (
-    <div>
+    <div className="playbox-search-container">
       {soundFile ? (
         <div className="playbox-result-container">
           {resultData ? (
-            <p>API 결과: {resultData}</p>
+            <>
+              <p className="playbox-result-info">{resultData.qa_result}</p>
+
+              <div className="playbox-result-box">
+                <p>{resultData.menuList[0].menuName}</p>
+              </div>
+            </>
           ) : (
-            <p>결과를 처리 중입니다...</p>
+            <p className="playbox-result-loading-text">
+              결과를 처리 중입니다...
+            </p>
           )}
 
-          {/* 녹음된 파일을 재생할 수 있는 오디오 플레이어 추가(녹음 성공여부 테스트용) */}
-          <audio controls src={URL.createObjectURL(soundFile)} />
+          {/* 녹음된 파일을 재생할 수 있는 오디오 플레이어 추가(녹음 성공여부 테스트용)
+          <audio controls src={URL.createObjectURL(soundFile)} /> */}
         </div>
       ) : (
         <div className="playbox-search-container">
