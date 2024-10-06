@@ -38,3 +38,13 @@
   box-shadow: 5px 5px 15px rgb(89, 89, 89);
   margin: 10px 0; /* 버튼 사이 간격 추가 */
 }
+
+@media (max-width: 412px) {
+  .start-page-signin-btn,
+  .start-page-signup-btn {
+    font-size: 12.14vw;
+    border-radius: 2.43vw;
+    box-shadow: 1.21vw 1.21vw 3.64vw rgb(89, 89, 89);
+    margin: 2.43vw 0; /* 버튼 사이 간격 추가 */
+  }
+}

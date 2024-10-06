@@ -4,6 +4,7 @@ import { useNavigate, Navigate, useLocation } from "react-router-dom";
 import useInfoStore from "../stores/infos";
 import sign_up_logo from "../img/icon-512x512.png";
 import { baseURL } from "../constant";
+import Notiflix from "notiflix";
 
 const SignupPage = () => {
   const { sendRegisterRequest, sendLoginRequest, isLogin } = useInfoStore();
@@ -22,16 +23,23 @@ const SignupPage = () => {
 
     // 비밀번호 확인 검증
     if (password !== confirmPassword) {
-      console.log("비밀번호가 일치하지 않습니다.");
+      Notiflix.Notify.warning("비밀번호가 일치하지 않습니다.");
+      return;
+    }
+
+    // 생년월일 형식 검증 (정규식: 0000-00-00 형태)
+    const birthcodeRegex = /^\d{4}-\d{2}-\d{2}$/;
+    if (!birthcodeRegex.test(birthcode)) {
+      Notiflix.Notify.warning("생년월일 형식을 맞춰주세요 (예: 0000-00-00).");
       return;
     }
 
     const success = await sendRegisterRequest(email, password, birthcode);
     if (success) {
-      console.log("회원가입 성공!");
+      Notiflix.Notify.success("회원가입 성공!");
       sendLoginRequest(email, password);
     } else {
-      console.log("회원가입 실패!");
+      Notiflix.Notify.failure("회원가입 실패!");
     }
   };
 

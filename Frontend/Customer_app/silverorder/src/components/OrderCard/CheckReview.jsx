@@ -1,6 +1,7 @@
 import "./styles/CheckReview.css";
 import { useState } from "react";
 import useReviewStore from "../../stores/review";
+import Notiflix from "notiflix";
 
 const CheckReview = ({ orderId, onClose }) => {
   const [content, setContent] = useState("");
@@ -19,22 +20,20 @@ const CheckReview = ({ orderId, onClose }) => {
 
   const handleReviewResult = async () => {
     if (!content.trim()) {
-      alert("리뷰 내용을 입력하세요.");
+      Notiflix.Notify.warning("리뷰 내용을 입력하세요.");
       return;
     }
     if (rating === 0) {
-      alert("별점을 선택하세요.");
+      Notiflix.Notify.warning("별점을 선택하세요.");
       return;
     }
-
-    console.log(imgFile);
 
     const result = await sendReviewRequest(orderId, content, imgFile, rating);
 
     if (result === true) {
-      alert("리뷰 작성이 완료되었습니다.");
+      Notiflix.Notify.success("리뷰 작성이 완료되었습니다.");
     } else {
-      console.error("리뷰 작성에 실패했습니다.");
+      Notiflix.Notify.failure("리뷰 작성에 실패했습니다.");
     }
 
     onClose();
