@@ -99,20 +99,24 @@ const MyOrders = () => {
             >
               주문정보
             </button>
-            {hasReview(order.orderId) ? (
-              <button
-                className="myorders-review-btn01"
-                onClick={() => openWatchReviewModal(order.orderId)}
-              >
-                리뷰보기
-              </button>
+            {order.orderStatus === "ORDER_DONE" ? (
+              hasReview(order.orderId) ? (
+                <button
+                  className="myorders-review-btn01"
+                  onClick={() => openWatchReviewModal(order.orderId)}
+                >
+                  리뷰보기
+                </button>
+              ) : (
+                <button
+                  className="myorders-review-btn02"
+                  onClick={() => openCheckReviewModal(order.orderId)}
+                >
+                  리뷰쓰기
+                </button>
+              )
             ) : (
-              <button
-                className="myorders-review-btn02"
-                onClick={() => openCheckReviewModal(order.orderId)}
-              >
-                리뷰쓰기
-              </button>
+              <button className="myorders-incomplete-btn">주문 미완료</button>
             )}
           </div>
           <div className="myorders-order-price">

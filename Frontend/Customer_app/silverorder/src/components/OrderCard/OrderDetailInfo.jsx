@@ -33,7 +33,7 @@ const OrderDetailInfo = ({ orderId, onClose }) => {
             <div key={order.orderMenuId} className="orderdetail-item">
               <div className="orderdetail-name">
                 <p>
-                  {order.menuName}({order.menuAmount}잔)
+                  {order.menuName} ({order.menuAmount}잔)
                 </p>
               </div>
               <div className="orderdetail-info">
