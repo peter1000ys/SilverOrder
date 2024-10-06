@@ -3,8 +3,9 @@ import { useNavigate } from "react-router-dom";
 import useInfoStore from "../../stores/infos";
 import left_arrow from "../../img/left_arrow.png";
 import clock from "../../img/clock.png";
-import notification from "../../img/notification.png";
+import logout_img from "../../img/logout.png";
 import { baseURL } from "../../constant";
+import Notiflix from "notiflix";
 
 const UpsideNavbar = () => {
   const { logout } = useInfoStore();
@@ -20,7 +21,24 @@ const UpsideNavbar = () => {
   };
 
   const handleLogout = () => {
-    logout(navigate); // navigate를 전달
+    Notiflix.Confirm.show(
+      "로그아웃", // 제목
+      "정말 로그아웃하시겠습니까?", // 메시지
+      "네", // 확인 버튼 텍스트
+      "아니오", // 취소 버튼 텍스트
+      () => {
+        logout(navigate); // 사용자가 "네"를 클릭했을 때 실행
+      },
+      () => {
+        // 사용자가 "아니오"를 클릭했을 때는 아무것도 하지 않음
+      },
+      {
+        width: "320px",
+        borderRadius: "8px",
+        titleColor: "#000",
+        okButtonBackground: "#d33",
+      }
+    );
   };
 
   return (
@@ -33,15 +51,18 @@ const UpsideNavbar = () => {
           alt="뒤로가기"
         />
       </div>
-      <div className="upnav-logout" onClick={handleLogout}>
-        <p>로그아웃</p>
-      </div>
       <div className="upnav-rightside">
         <img
           className="order-state-check"
           onClick={go_to_orderstate}
           src={clock}
           alt="주문 상태 확인"
+        />
+        <img
+          className="user-logout"
+          onClick={handleLogout}
+          src={logout_img}
+          alt="로그아웃"
         />
       </div>
     </div>

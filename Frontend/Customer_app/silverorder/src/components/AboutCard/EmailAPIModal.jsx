@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./styles/EmailAPIModal.css";
 import usePurchaseStore from "../../stores/purchase";
+import Notiflix from "notiflix";
 
 const EmailAPIModal = ({ onClose }) => {
   const [inputEmail, setInputEmail] = useState("");
@@ -14,17 +15,19 @@ const EmailAPIModal = ({ onClose }) => {
   // 이메일 검증 및 API 호출 처리
   const handleConfirm = async () => {
     if (inputEmail.trim() === "") {
-      alert("이메일을 입력해주세요.");
+      Notiflix.Notify.warning("이메일을 입력해주세요.");
       return;
     }
 
     try {
       await requestFinanceAPI(inputEmail);
-      alert("이메일 인증이 완료되었습니다.");
+      Notiflix.Notify.success("이메일 인증이 완료되었습니다.");
       onClose(); // 모달 닫기
     } catch (error) {
       console.error("이메일 인증 오류:", error);
-      alert("이메일 인증에 실패하였습니다. 다시 시도해주세요.");
+      Notiflix.Notify.failure(
+        "이메일 인증에 실패하였습니다. 다시 시도해주세요."
+      );
     }
   };
 

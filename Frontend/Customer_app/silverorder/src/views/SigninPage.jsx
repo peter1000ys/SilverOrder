@@ -4,6 +4,7 @@ import useInfoStore from "../stores/infos";
 import { useNavigate, Navigate, useLocation } from "react-router-dom";
 import sign_in_logo from "../img/icon-512x512.png";
 import { baseURL } from "../constant";
+import Notiflix from "notiflix";
 
 const SigninPage = () => {
   const navigate = useNavigate();
@@ -22,14 +23,14 @@ const SigninPage = () => {
 
     const success = await sendLoginRequest(email, password);
     if (success) {
-      console.log("로그인 성공");
+      Notiflix.Notify.success("로그인 성공");
       if (storeId === 0) {
         navigate(`${baseURL}/outdoor`);
       } else {
         navigate(`${baseURL}/store`);
       }
     } else {
-      console.log("로그인 실패");
+      Notiflix.Notify.failure("로그인 실패");
     }
   };
 

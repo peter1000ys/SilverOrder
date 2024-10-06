@@ -47,6 +47,11 @@ const useMapStore = create((set, get) => ({
         (error) => {
           console.log("위치 가져오기 실패:", error); // 오류 로그
           get().setLocation({ error: error.message }); // 오류 메시지 저장
+        },
+        {
+          enableHighAccuracy: true, // 더 정확한 위치를 요청
+          timeout: 5000, // 위치를 가져오는 시간 제한
+          maximumAge: 0, // 캐시된 위치를 사용하지 않도록 설정
         }
       );
     } else {

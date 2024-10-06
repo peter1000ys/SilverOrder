@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import useCartStore from "../stores/cart"; // Zustand store 불러오기
 import { baseURL } from "../constant";
 import useMenuStore from "../stores/menu";
+import Notiflix from "notiflix";
 
 const OptionChoicePage = () => {
   const navigate = useNavigate(); // 페이지 이동을 위한 navigate
@@ -52,7 +53,7 @@ const OptionChoicePage = () => {
     };
 
     addToCart(newItem); // Zustand store의 addToCart 함수 호출
-    alert("장바구니에 상품이 담겼습니다.");
+    Notiflix.Notify.success("장바구니에 상품이 담겼습니다.");
     navigate(`${baseURL}/store`); // 다른 메뉴 선택할수도 있으므로 매장 페이지로 이동
   };
 

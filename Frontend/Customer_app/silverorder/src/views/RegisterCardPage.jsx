@@ -4,6 +4,7 @@ import usePurchaseStore from "../stores/purchase";
 import { useNavigate } from "react-router-dom";
 import { baseURL } from "../constant";
 import useInfoStore from "../stores/infos"; // useInfoStore 가져오기
+import Notiflix from "notiflix";
 
 const RegisterCardPage = () => {
   const { userInfo } = useInfoStore(); // userInfo 가져오기
@@ -59,13 +60,15 @@ const RegisterCardPage = () => {
   const registerSelectedCard = async () => {
     try {
       if (selectedCards.length === 0) {
-        alert("선택된 카드가 없습니다. 카드를 선택해주세요.");
+        Notiflix.Notify.failure("선택된 카드가 없습니다. 카드를 선택해주세요.");
         return;
       }
 
       const response = await registerCheckedCard(selectedCards);
       if (response) {
-        alert("선택한 카드가 간편 결제 카드 목록에 추가되었습니다.");
+        Notiflix.Notify.success(
+          "선택한 카드가 간편 결제 카드 목록에 추가되었습니다."
+        );
         setSelectedCards([]); // selectedCard 초기화
         navigate(`${baseURL}/mycard`);
       } else {

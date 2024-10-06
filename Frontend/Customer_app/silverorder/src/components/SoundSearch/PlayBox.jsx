@@ -1,8 +1,12 @@
 import { useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import "./styles/PlayBox.css";
 import play_btn from "../../img/play_btn.png";
 import stop_btn from "../../img/stop_btn.png";
 import useSoundsearchStore from "../../stores/soundsearch";
+import useCartStore from "../../stores/cart";
+import { baseURL } from "../../constant";
+import Notiflix from "notiflix";
 
 const PlayBox = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -12,6 +16,9 @@ const PlayBox = () => {
   const audioChunksRef = useRef([]); // 녹음된 데이터 조각을 저장하는 변수
 
   const { sendAudioToAPI } = useSoundsearchStore();
+
+  const { addToCart } = useCartStore();
+  const navigate = useNavigate();
 
   // API 요청 함수
   const requestSoundsearchResult = async (audioBlob) => {
@@ -57,6 +64,22 @@ const PlayBox = () => {
     }
   };
 
+  // 옵션 선택 없이 기본으로 장바구니에 추가
+  const handleAddToCart = ({ category, productId, name, price, options }) => {
+    // productId, name, price, options를 사용하여 새로운 item 객체 생성
+    const item = { category, productId, name, price, options };
+    // 장바구니에 제품 추가
+    addToCart(item);
+    Notiflix.Notify.success("장바구니에 상품이 담겼습니다.");
+  };
+
+  // 옵션 선택하러 가기
+  const go_to_optionpage = ({ category, productId, name, price, options }) => {
+    // productId, name, price, options를 사용하여 새로운 item 객체 생성
+    const item = { category, productId, name, price, options };
+    navigate(`${baseURL}/choiceoption`, { state: { item } });
+  };
+
   return (
     <div className="playbox-search-container">
       {soundFile ? (
@@ -67,6 +90,34 @@ const PlayBox = () => {
 
               <div className="playbox-result-box">
                 <p>{resultData.menuList[0].menuName}</p>
+                <button
+                  className="playbox-addcart-normal-btn"
+                  onClick={() =>
+                    handleAddToCart({
+                      category: resultData.menuList[0].menuCategoryName,
+                      productId: resultData.menuList[0].menuId,
+                      name: resultData.menuList[0].menuName,
+                      price: resultData.menuList[0].menuPrice,
+                      options: null,
+                    })
+                  }
+                >
+                  기본
+                </button>
+                <button
+                  className="playbox-addcart-option-btn"
+                  onClick={() =>
+                    go_to_optionpage({
+                      category: resultData.menuList[0].menuCategoryName,
+                      productId: resultData.menuList[0].menuId,
+                      name: resultData.menuList[0].menuName,
+                      price: resultData.menuList[0].menuPrice,
+                      options: null,
+                    })
+                  }
+                >
+                  옵션 추가
+                </button>
               </div>
             </>
           ) : (
