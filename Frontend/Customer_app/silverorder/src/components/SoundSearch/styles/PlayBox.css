@@ -49,4 +49,110 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin-bottom: 18px;
+}
+
+.playbox-result-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+.playbox-result-menu-infos {
+  width: 350px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.playbox-result-menu-img {
+  width: 100px;
+  height: 100px;
+}
+
+.playbox-result-menu-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: none;
+  border-radius: 90%;
+}
+
+.playbox-result-menu-desc {
+  width: 200px;
+}
+
+.playbox-result-menu-desc p {
+  font-size: 17px;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.playbox-result-btns {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.playbox-addcart-normal-btn,
+.playbox-addcart-option-btn {
+  width: 130px;
+  height: 70px;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #1428a0;
+  color: #ffffff;
+}
+
+.playbox-addcart-info {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.playbox-addcart-price {
+  font-size: 17px;
+  margin: 0;
+}
+
+.playbox-search-other-btn {
+  width: 250px;
+  height: 70px;
+  border: none;
+  border-radius: 10px;
+  background-color: #666666;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 25px;
+}
+
+/* 스피너 스타일 */
+.playbox-result-loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.playbox-result-loading-text {
+  font-size: 30px;
+  font-weight: bold;
+  word-break: keep-all;
 }

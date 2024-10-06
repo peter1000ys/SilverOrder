@@ -27,6 +27,7 @@ const PlayBox = () => {
       setResultData(result); // API로부터 받은 결과를 저장
     } catch (error) {
       console.error("결과 요청 실패:", error);
+      Notiflix.Notify.failure("메뉴 검색에 실패했습니다.");
       setResultData(null); // 실패 시에는 결과를 null로 설정
     }
   };
@@ -80,6 +81,12 @@ const PlayBox = () => {
     navigate(`${baseURL}/choiceoption`, { state: { item } });
   };
 
+  // 음성 인식을 다시 시작할 수 있게 상태를 초기화하는 함수
+  const handleSearchAgain = () => {
+    setSoundFile(null); // 녹음 파일 상태 초기화
+    setResultData(null); // API 결과 상태 초기화
+  };
+
   return (
     <div className="playbox-search-container">
       {soundFile ? (
@@ -89,45 +96,73 @@ const PlayBox = () => {
               <p className="playbox-result-info">{resultData.qa_result}</p>
 
               <div className="playbox-result-box">
-                <p>{resultData.menuList[0].menuName}</p>
-                <button
-                  className="playbox-addcart-normal-btn"
-                  onClick={() =>
-                    handleAddToCart({
-                      category: resultData.menuList[0].menuCategoryName,
-                      productId: resultData.menuList[0].menuId,
-                      name: resultData.menuList[0].menuName,
-                      price: resultData.menuList[0].menuPrice,
-                      options: null,
-                    })
-                  }
-                >
-                  기본
-                </button>
-                <button
-                  className="playbox-addcart-option-btn"
-                  onClick={() =>
-                    go_to_optionpage({
-                      category: resultData.menuList[0].menuCategoryName,
-                      productId: resultData.menuList[0].menuId,
-                      name: resultData.menuList[0].menuName,
-                      price: resultData.menuList[0].menuPrice,
-                      options: null,
-                    })
-                  }
-                >
-                  옵션 추가
-                </button>
+                <p className="playbox-result-title">
+                  {resultData.menuList[0].menuName}
+                </p>
+                <div className="playbox-result-menu-infos">
+                  <div className="playbox-result-menu-img">
+                    <img
+                      src={resultData.menuList[0].menuThumb}
+                      alt="메뉴 사진"
+                    />
+                  </div>
+                  <div className="playbox-result-menu-desc">
+                    <p>{resultData.menuList[0].menuDesc}</p>
+                  </div>
+                </div>
+                <div className="playbox-result-btns">
+                  <button
+                    className="playbox-addcart-normal-btn"
+                    onClick={() =>
+                      handleAddToCart({
+                        category: resultData.menuList[0].menuCategoryName,
+                        productId: resultData.menuList[0].menuId,
+                        name: resultData.menuList[0].menuName,
+                        price: resultData.menuList[0].menuPrice,
+                        options: null,
+                      })
+                    }
+                  >
+                    <p className="playbox-addcart-info">기 본</p>
+                    <p className="playbox-addcart-price">
+                      ({resultData.menuList[0].menuPrice})
+                    </p>
+                  </button>
+                  <button
+                    className="playbox-addcart-option-btn"
+                    onClick={() =>
+                      go_to_optionpage({
+                        category: resultData.menuList[0].menuCategoryName,
+                        productId: resultData.menuList[0].menuId,
+                        name: resultData.menuList[0].menuName,
+                        price: resultData.menuList[0].menuPrice,
+                        options: null,
+                      })
+                    }
+                  >
+                    <p className="playbox-addcart-info">옵션 추가</p>
+                    <p className="playbox-addcart-price">
+                      ({resultData.menuList[0].menuPrice}+a)
+                    </p>
+                  </button>
+                </div>
               </div>
+
+              <button
+                className="playbox-search-other-btn"
+                onClick={handleSearchAgain}
+              >
+                다른 메뉴 찾아보기
+              </button>
             </>
           ) : (
-            <p className="playbox-result-loading-text">
-              결과를 처리 중입니다...
-            </p>
+            <>
+              <div className="playbox-result-loading-spinner"></div>
+              <p className="playbox-result-loading-text">
+                결과를 처리 중입니다...
+              </p>
+            </>
           )}
-
-          {/* 녹음된 파일을 재생할 수 있는 오디오 플레이어 추가(녹음 성공여부 테스트용)
-          <audio controls src={URL.createObjectURL(soundFile)} /> */}
         </div>
       ) : (
         <div className="playbox-search-container">
