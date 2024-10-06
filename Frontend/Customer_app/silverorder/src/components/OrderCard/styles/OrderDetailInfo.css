@@ -61,9 +61,10 @@
 }
 
 .orderdetail-name p {
-  font-size: 30px;
+  font-size: 25px;
   font-weight: bold;
   margin: 10px 0px;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
 
 .orderdetail-info {
@@ -131,7 +132,7 @@
   }
 
   .orderdetail-name p {
-    font-size: 7.28vw;
+    font-size: 6.07vw;
     margin: 2.43vw 0vw;
   }
 
