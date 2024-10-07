@@ -105,8 +105,15 @@
   border: none;
   border-radius: 10px;
   cursor: pointer;
-  background-color: #1428a0;
   color: #ffffff;
+}
+
+.playbox-addcart-normal-btn {
+  background-color: #1248a0;
+}
+
+.playbox-addcart-option-btn {
+  background-color: rgb(255, 128, 149);
 }
 
 .playbox-addcart-info {
