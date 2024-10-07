@@ -1,5 +1,5 @@
 import "../styles/OrderstatePage.css";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import usePurchaseStore from "../stores/purchase";
 import useOrderStore from "../stores/order";
 import useWebSocketStore from "../stores/websocket";
@@ -11,33 +11,30 @@ const OrderstatePage = () => {
 
   const { nowOrderStatus } = useWebSocketStore();
 
+  const fetchLastOrder = useCallback(async () => {
+    try {
+      const response = await fetchLastOrderInfo(lastOrderId);
+      if (response) {
+        setOrderInfo(response);
+      } else {
+        console.error("로딩 에러 발생");
+      }
+    } catch (error) {
+      console.error("최근 주문내역 불러오기 실패:", error);
+    }
+  }, [fetchLastOrderInfo, lastOrderId]);
+
+  useEffect(() => {
+    fetchLastOrder();
+  }, [fetchLastOrder]);
+
   useEffect(() => {
     if (nowOrderStatus) {
       console.log("주문 상태 변경 감지:", nowOrderStatus);
-      // 새로고침 대신 orderInfo를 업데이트
-      setOrderInfo((prevOrderInfo) => ({
-        ...prevOrderInfo,
-        orderStatus: nowOrderStatus,
-      }));
+      // 상태 변경 시 전체 주문 정보를 새로 가져옴
+      fetchLastOrder();
     }
-  }, [nowOrderStatus]); // nowOrderStatus가 변경될 때마다 실행
-
-  useEffect(() => {
-    const fetchLastOrder = async () => {
-      try {
-        const response = await fetchLastOrderInfo(lastOrderId);
-        if (response) {
-          setOrderInfo(response);
-        } else {
-          console.error("로딩 에러 발생");
-        }
-      } catch (error) {
-        console.error("최근 주문내역 불러오기 실패:", error);
-      }
-    };
-
-    fetchLastOrder(lastOrderId);
-  }, [fetchLastOrderInfo, setOrderInfo]);
+  }, [nowOrderStatus, fetchLastOrder]);
 
   // 주문 상태에 따른 메시지 및 진행 상태 바 비율 설정
   const getStatusMessage = () => {
