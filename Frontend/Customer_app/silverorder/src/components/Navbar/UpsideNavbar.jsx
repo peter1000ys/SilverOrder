@@ -1,8 +1,9 @@
 import "./styles/UpsideNavbar.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import useInfoStore from "../../stores/infos";
 import left_arrow from "../../img/arrow-go-back-fill.png";
 import clock from "../../img/time-line.png";
+import clock_fill from "../../img/time-fill.png";
 import logout_img from "../../img/logout-box-r-line.png";
 import { baseURL } from "../../constant";
 import Notiflix from "notiflix";
@@ -11,6 +12,7 @@ const UpsideNavbar = () => {
   const { logout } = useInfoStore();
 
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleback = () => {
     navigate(-1); // 뒤로 가기
@@ -55,7 +57,7 @@ const UpsideNavbar = () => {
         <img
           className="order-state-check"
           onClick={go_to_orderstate}
-          src={clock}
+          src={location.pathname.includes("/orderstate") ? clock_fill : clock}
           alt="주문 상태 확인"
         />
         <img
