@@ -24,13 +24,29 @@
 .order-detail table {
     width: 100%;
     border-collapse: collapse;
+    table-layout: fixed; /* 테이블의 각 셀의 너비를 고정 */
 }
 
 .order-detail th, .order-detail td {
     padding: calc(8 / 1440 * 100vw);
     text-align: left;
     border-bottom: calc(1 / 1440 * 100vw) solid #ddd;
+    word-wrap: break-word; /* 긴 텍스트가 있을 경우 줄바꿈 처리 */
 }
+
+/* 각 열의 너비를 설정 (비율에 맞게 설정) */
+.order-detail th:nth-child(1), .order-detail td:nth-child(1) {
+    width: 60%; /* 메뉴 이름 */
+}
+
+.order-detail th:nth-child(2), .order-detail td:nth-child(2) {
+    width: 20%; /* 수량 */
+}
+
+.order-detail th:nth-child(3), .order-detail td:nth-child(3) {
+    width: 20%; /* 금액 */
+}
+
 
 .total-and-buttons {
     padding: calc(20 / 1440 * 100vw);

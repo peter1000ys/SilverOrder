@@ -46,12 +46,16 @@ function App() {
     if (storeId) {
       connectWebSocket(storeId); // WebSocket 연결
 
-      // WebSocket에서 메시지를 받을 때 토스트 알림을 띄우고 페이지 새로고침
+      // WebSocket에서 메시지를 받을 때 로컬 스토리지에 알림 저장 및 페이지 새로고침
       const handleNewOrder = () => {
-        window.location.reload(); // 페이지 전체 새로고침
         setToastMessage('주문이 추가되었습니다!');
         setShowToast(true);
-        
+
+        // 알림을 로컬 스토리지에 저장
+        localStorage.setItem('showNotification', 'true');
+
+        // 페이지 새로고침
+        window.location.reload();
       };
 
       // WebSocket 메시지 처리 콜백 설정
@@ -62,6 +66,16 @@ function App() {
       disconnectWebSocket(); // WebSocket 연결 해제
     };
   }, [storeId, connectWebSocket, disconnectWebSocket]);
+
+  // 페이지가 처음 로드될 때 로컬 스토리지에서 알림 확인
+  useEffect(() => {
+    const showNotification = localStorage.getItem('showNotification');
+    if (showNotification) {
+      setToastMessage('주문이 추가되었습니다!');
+      setShowToast(true);
+      localStorage.removeItem('showNotification'); // 알림이 한 번 뜨고 나면 제거
+    }
+  }, []);
 
   return (
     <ThemeProvider theme={theme}>
