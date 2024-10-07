@@ -9,6 +9,7 @@ pipeline {
         MSSQL_KEY = credentials('mssql-key')
         RABBITMQ_KEY = credentials('rabbitmq-key')
         JUPITER_API_URL = credentials('jupiter-api-url')
+        VITE_KAKAO_MAP_API_KEY = credentails('VITE_KAKAO_MAP_API_KEY')
     }
     stages {
         stage('Checkout') {
@@ -87,7 +88,7 @@ pipeline {
                             sh 'docker build -t frontend-app:${BUILD_NUMBER} --build-arg VITE_API_BASE_URL=${VITE_API_BASE_URL} -f Dockerfile .'
                             sh 'docker stop frontend-app || true'
                             sh 'docker rm frontend-app || true'
-                            sh 'docker run -d --name frontend-app --network silverOrder -p 3001:80 frontend-app:${BUILD_NUMBER}'
+                            sh 'docker run -d --name frontend-app --network silverOrder -p 3001:80 frontend-app:${BUILD_NUMBER} -e VITE_KAKAO_MAP_API_KEY = ${VITE_KAKAO_MAP_API_KEY}'
                         }
                     }
                 }
