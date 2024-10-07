@@ -4,10 +4,7 @@ import "./Styles/MenuList.css";
 import MenuInfo from "./MenuInfo";
 
 const MenuList = () => {
-  const { fetchMenulistAPI, menuList } = useMenuStore((state) => ({
-    fetchMenulistAPI: state.fetchMenulistAPI,
-    menuList: state.menuList,
-  }));
+  const { fetchMenulistAPI, menuList } = useMenuStore();
 
   const [selectedCategory, setSelectedCategory] = useState(null); // 선택된 카테고리 상태
   const [filteredData, setFilteredData] = useState(menuList); // 필터링된 데이터를 저장하는 상태
@@ -27,17 +24,32 @@ const MenuList = () => {
     setFilteredData(menuList);
   }, [menuList]); // menuList가 변경될 때마다 실행
 
-  // "음료" 카테고리로 필터링하는 함수
-  const showDrinks = () => {
-    if (selectedCategory === "음료") {
+  // "커피" 카테고리로 필터링하는 함수
+  const showCoffees = () => {
+    if (selectedCategory === "커피") {
       setSelectedCategory(null); // 동일한 카테고리 선택 시 선택 해제
       setFilteredData(menuList); // 전체 메뉴로 초기화
     } else {
-      setSelectedCategory("음료");
-      const drinks = menuList.filter(
-        (product) => product.menuCategoryName === "음료"
+      setSelectedCategory("커피");
+      const coffees = menuList.filter(
+        (product) => product.menuCategoryName === "커피"
       );
-      setFilteredData(drinks);
+      setFilteredData(coffees);
+      setIsSearching(false); // 카테고리 필터링 시 검색 상태 해제
+    }
+  };
+
+  // "커피" 카테고리로 필터링하는 함수
+  const showTeas = () => {
+    if (selectedCategory === "차") {
+      setSelectedCategory(null); // 동일한 카테고리 선택 시 선택 해제
+      setFilteredData(menuList); // 전체 메뉴로 초기화
+    } else {
+      setSelectedCategory("차");
+      const teas = menuList.filter(
+        (product) => product.menuCategoryName === "차"
+      );
+      setFilteredData(teas);
       setIsSearching(false); // 카테고리 필터링 시 검색 상태 해제
     }
   };
@@ -111,14 +123,22 @@ const MenuList = () => {
           {/* 카테고리 선택에 따라 스타일이 변경되도록 className 설정 */}
           <button
             className={`menu-category-btn01 ${
-              selectedCategory === "음료" ? "active" : ""
+              selectedCategory === "커피" ? "active" : ""
             }`}
-            onClick={showDrinks}
+            onClick={showCoffees}
           >
-            음료
+            커피
           </button>
           <button
             className={`menu-category-btn02 ${
+              selectedCategory === "차" ? "active" : ""
+            }`}
+            onClick={showTeas}
+          >
+            차
+          </button>
+          <button
+            className={`menu-category-btn03 ${
               selectedCategory === "디저트" ? "active" : ""
             }`}
             onClick={showDesserts}
