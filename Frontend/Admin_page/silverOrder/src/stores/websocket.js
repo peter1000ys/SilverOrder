@@ -24,7 +24,7 @@ const useWebSocketStore = create((set, get) => ({
       `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
     );
 
-    const client = Stomp.over(socket);
+    const stompClient = Stomp.over(socket);
     
     // 로컬 환경
     // // SockJS를 사용하여 서버에 연결
