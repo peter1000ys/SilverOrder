@@ -29,8 +29,6 @@ const SigninPage = () => {
       } else {
         navigate(`${baseURL}/store`);
       }
-    } else {
-      Notiflix.Notify.failure("로그인 실패");
     }
   };
 
