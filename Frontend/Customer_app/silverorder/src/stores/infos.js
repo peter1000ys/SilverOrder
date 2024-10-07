@@ -63,11 +63,11 @@ const useInfoStore = create(
                 userApiEmail: response.data.userApiEmail,
               },
             });
-            return true;
+            return "success";
           } else if (response.status === 400) {
-            Notiflix.Notify.error("비밀번호가 틀렸습니다.");
+            return "password error";
           } else if (response.status === 404) {
-            Notiflix.Notify.error("존재하지 않는 이메일입니다.");
+            return "unknown user";
           }
         } catch (e) {
           return false;
