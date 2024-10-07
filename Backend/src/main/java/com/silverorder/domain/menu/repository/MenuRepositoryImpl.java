@@ -3,11 +3,13 @@ package com.silverorder.domain.menu.repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.silverorder.domain.menu.dto.MenuDto;
+import com.silverorder.domain.menu.dto.MenuStatusChangeDto;
 import com.silverorder.domain.menu.dto.ResponseMenuCategory;
 import com.silverorder.domain.menu.dto.ResponseMenuDto;
 import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.menu.entity.MenuOptionCategory;
 import com.silverorder.domain.option.entity.OptionCategory;
+import com.silverorder.domain.order.dto.OrderStatusChangeDto;
 import com.silverorder.domain.store.entity.Store;
 import com.silverorder.domain.store.entity.StoreMenuCategory;
 import com.silverorder.domain.user.entity.User;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import static com.silverorder.domain.menu.entity.QMenu.menu;
 import static com.silverorder.domain.menu.entity.QMenuOptionCategory.menuOptionCategory;
+import static com.silverorder.domain.order.entity.QOrder.order;
 import static com.silverorder.domain.store.entity.QStoreMenuCategory.storeMenuCategory;
 
 /**
@@ -74,9 +77,46 @@ public class MenuRepositoryImpl implements MenuRepository{
     }
 
     /**
+     * 메뉴 수정
+     * <pre>
+     *      가게에서 사용할 메뉴를 수정한다
+     * </pre>
+     * @param menuId : 메뉴 ID
+     * @param storeMenuCategory : 메뉴 카테고리 entity
+     * @param menuDto : 메뉴정보 DTO
+     * @return : 메뉴 entity
+     * @throws PersistenceException : JPA 표준 예외
+     */
+    @Override
+    public Menu updateMenu(Long menuId, StoreMenuCategory storeMenuCategory, MenuDto menuDto) throws PersistenceException {
+        try {
+            Menu newMenu = new Menu(
+                    menuId,
+                    storeMenuCategory,
+                    menuDto.getMenuName(),
+                    menuDto.getSimpleName(),
+                    menuDto.getMenuDesc(),
+                    menuDto.getMenuStatus(),
+                    menuDto.getMenuPrice(),
+                    menuDto.getRecommend(),
+                    menuDto.getMenuThumb()
+            );
+
+            Menu menu = em.find(Menu.class, menuId);
+            menu = newMenu;
+
+            em.flush();
+
+            return menu;
+        } catch(Exception e){
+            throw new PersistenceException("메뉴 등록 중 에러 발생", e);
+        }
+    }
+
+    /**
      * 메뉴 옵션 관계 등록
      * <pre>
-     *      메뉴에서 사용할 메뉴 카테고리를 저장한다
+     *      메뉴에서 사용할 옵션 카테고리를 저장한다
      * </pre>
      * @param menu : 메뉴 entity
      * @param optionCategory : 옵션 카테고리 entity
@@ -213,5 +253,18 @@ public class MenuRepositoryImpl implements MenuRepository{
         }
     }
 
-
+    /**
+     * 메뉴 상태 변경
+     *
+     * @param menuStatusChangeDto 메뉴상태 변경 DTO
+     * @throws PersistenceException JPA 표준 예외
+     */
+    @Override
+    public void updateMenuStatus(MenuStatusChangeDto menuStatusChangeDto) throws PersistenceException {
+        queryFactory
+                .update(menu)
+                .set(menu.menuStatus, menuStatusChangeDto.getMenuStatus())
+                .where(menu.id.eq(menuStatusChangeDto.getMenuId()))
+                .execute();
+    }
 }

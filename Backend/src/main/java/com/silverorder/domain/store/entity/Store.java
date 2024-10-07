@@ -23,14 +23,14 @@ public class Store {
     @JoinColumn(name = "USER_ID", nullable = true)
     private User user;
 
-    @Column(name = "STORE_NAME", length = 30, nullable = false)
+    @Column(name = "STORE_NAME", length = 100, nullable = false)
     @NotNull
     private String storeName;
 
     @Column(name = "STORE_DESC", length = 200)
     private String storeDesc;
 
-    @Column(name = "STORE_CATEGORY", length = 4, nullable = false)
+    @Column(name = "STORE_CATEGORY", length = 50, nullable = false)
     @NotNull
     private String storeCategory;
 
@@ -38,7 +38,7 @@ public class Store {
     @NotNull
     private double storeRate;
 
-    @Column(name = "STORE_STATUS", length = 4, nullable = false)
+    @Column(name = "STORE_STATUS", length = 50, nullable = false)
     @NotNull
     private String storeStatus;
 

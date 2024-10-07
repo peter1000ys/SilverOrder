@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 const MenuPage = () => {
     const [selectedMenu, setSelectedMenu] = useState(null);
     const [activeComponent, setActiveComponent] = useState('');
-    const [showOptionModal, setShowOptionModal] = useState(false); // Modal state
+    const [showOptionModal, setShowOptionModal] = useState(false);
     const navigate = useNavigate();
 
     const handleMenuSelect = (menu) => {
@@ -33,7 +33,7 @@ const MenuPage = () => {
     };
 
     const handleOptionSelect = () => {
-        setShowOptionModal(true); // Show modal when "옵션" is selected
+        setShowOptionModal(true);
     };
 
     const handleMenuSelectCategory = () => {
@@ -41,11 +41,11 @@ const MenuPage = () => {
     };
 
     const handleCancel = () => {
-        setShowOptionModal(false); // Hide modal when cancel
+        setShowOptionModal(false);
     };
 
     const handleSubmit = () => {
-        setShowOptionModal(false); // Hide modal after submitting
+        setShowOptionModal(false);
     };
 
     return (
@@ -74,7 +74,7 @@ const MenuPage = () => {
                 </div>
             </div>
 
-            {/* Bootstrap Modal for Option Category */}
+            
             <div className={`modal fade ${showOptionModal ? 'show' : ''}`} style={{ display: showOptionModal ? 'block' : 'none' }}>
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -89,7 +89,7 @@ const MenuPage = () => {
                 </div>
             </div>
 
-            {/* Bootstrap modal backdrop */}
+            
             {showOptionModal && <div className="modal-backdrop fade show"></div>}
         </div>
     );

@@ -1,0 +1,24 @@
+.soundsearch-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.soundsearch-title {
+  text-align: center;
+}
+
+.soundsearch-title h1 {
+  font-size: 35px;
+  font-weight: bold;
+  margin: 20px 0px;
+}
+
+@media (max-width: 412px) {
+  .soundsearch-title h1 {
+    font-size: 8.5vw;
+    margin: 4.85vw 0vw;
+  }
+}

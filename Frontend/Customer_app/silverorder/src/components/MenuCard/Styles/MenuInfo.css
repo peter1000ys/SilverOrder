@@ -1,9 +1,10 @@
 .menu-item {
   width: 330px;
-  height: 280px;
+  height: auto;
   border: solid 1px #cccccc;
   border-radius: 10px;
   margin-bottom: 20px;
+  padding: 10px;
   box-shadow: 5px 5px 15px rgb(123, 123, 123);
   display: flex;
   flex-direction: column;
@@ -23,14 +24,14 @@
 }
 
 .menu-item-img {
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border: solid 1px #cccccc;
   border-radius: 90%;
 }
 
 #menu-item-name {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: bold;
   word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
 }
@@ -40,6 +41,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-top: 10px;
 }
 
 .menu-item-normal,
@@ -83,17 +85,22 @@
     border: solid 0.24vw #cccccc;
     border-radius: 2.43vw;
     margin-bottom: 4.85vw;
+    padding: 2.43vw;
     box-shadow: 1.21vw 1.21vw 3.64vw rgb(123, 123, 123);
   }
 
   .menu-item-img {
-    width: 29.13vw;
-    height: 29.13vw;
+    width: 24.27vw;
+    height: 24.27vw;
     border: solid 0.24vw #cccccc;
   }
 
   #menu-item-name {
-    font-size: 9.71vw;
+    font-size: 7.28vw;
+  }
+
+  .menu-item-option-btn {
+    margin-top: 2.43vw;
   }
 
   .menu-item-normal,

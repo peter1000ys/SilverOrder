@@ -84,42 +84,50 @@ const MyOrders = () => {
 
   return (
     <div className="myorders-container">
-      {orderList.map((order) => (
-        <div key={order.orderId} className="myorders-order-item">
-          <div className="myorders-order-date">
-            <p>{order.orderDate}</p>
-          </div>
-          <div className="myorders-order-store">
-            <p>{order.storeName}</p>
-          </div>
-          <div className="myorders-info-btns">
-            <button
-              className="myorders-detail-btn"
-              onClick={() => openDetailInfo(order.orderId)}
-            >
-              주문정보
-            </button>
-            {hasReview(order.orderId) ? (
+      {orderList.length === 0 ? (
+        <p className="myorders-no-orders">주문 내역이 존재하지 않습니다.</p>
+      ) : (
+        orderList.map((order) => (
+          <div key={order.orderId} className="myorders-order-item">
+            <div className="myorders-order-date">
+              <p>{order.orderDate}</p>
+            </div>
+            <div className="myorders-order-store">
+              <p>{order.storeName}</p>
+            </div>
+            <div className="myorders-info-btns">
               <button
-                className="myorders-review-btn01"
-                onClick={() => openWatchReviewModal(order.orderId)}
+                className="myorders-detail-btn"
+                onClick={() => openDetailInfo(order.orderId)}
               >
-                리뷰보기
+                주문정보
               </button>
-            ) : (
-              <button
-                className="myorders-review-btn02"
-                onClick={() => openCheckReviewModal(order.orderId)}
-              >
-                리뷰쓰기
-              </button>
-            )}
+              {order.orderStatus === "ORDER_DONE" ? (
+                hasReview(order.orderId) ? (
+                  <button
+                    className="myorders-review-btn01"
+                    onClick={() => openWatchReviewModal(order.orderId)}
+                  >
+                    리뷰보기
+                  </button>
+                ) : (
+                  <button
+                    className="myorders-review-btn02"
+                    onClick={() => openCheckReviewModal(order.orderId)}
+                  >
+                    리뷰쓰기
+                  </button>
+                )
+              ) : (
+                <button className="myorders-incomplete-btn">주문 미완료</button>
+              )}
+            </div>
+            <div className="myorders-order-price">
+              <p>{order.totalPrice}원</p>
+            </div>
           </div>
-          <div className="myorders-order-price">
-            <p>{order.totalPrice}원</p>
-          </div>
-        </div>
-      ))}
+        ))
+      )}
 
       {isModalOpen01 && (
         <OrderDetailInfo orderId={currentOrderId} onClose={closeDetailInfo} />

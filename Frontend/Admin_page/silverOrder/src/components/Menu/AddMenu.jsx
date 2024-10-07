@@ -198,9 +198,9 @@ const AddMenu = () => {
 
                 </div>
 
-                {/* Right side - image upload and options */}
+                
                 <div className="form-right">
-                  {/* Menu Category Selection */}
+                  
                   <div className="form-group">
                         <label htmlFor="category">메뉴 카테고리</label>
                         <div className="option-selector">
@@ -230,7 +230,7 @@ const AddMenu = () => {
                         <label htmlFor="options">옵션 선택</label>
                         <div className="option-selector">
                             <select id="options" value={selectedOption} onChange={handleOptionChange}>
-                                <option value="-----">-----</option> {/* 기본값 추가 */}
+                                <option value="-----">-----</option>
                                 {availableOptions.map((option) => (
                                     <option key={option.optionCategoryId} value={option.optionCategoryId}>
                                         {option.optionCategoryTitle}

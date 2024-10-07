@@ -11,7 +11,7 @@ const useWebSocketStore = create((set, get) => ({
       console.error('storeId가 없습니다. WebSocket을 연결할 수 없습니다.');
       return;
     }
-
+    //베포 환경
     // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
     const protocol = window.location.protocol === "https:" ? "https:" : "http:";
     console.log(window.location.protocol);
@@ -24,9 +24,10 @@ const useWebSocketStore = create((set, get) => ({
       `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
     );
 
-    const client = Stomp.over(socket);
+    const stompClient = Stomp.over(socket);
     
-    // SockJS를 사용하여 서버에 연결
+    // 로컬 환경
+    // // SockJS를 사용하여 서버에 연결
     // const socket = new SockJS('http://localhost:8080/silverorder/ws-stomp'); // Socket을 바로 여기서 선언
     // const stompClient = Stomp.over(socket); // WebSocket 객체를 Stomp에 넘김
 

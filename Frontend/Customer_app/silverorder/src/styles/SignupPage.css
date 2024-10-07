@@ -73,3 +73,34 @@
   border: none;
   box-shadow: 5px 5px 15px rgb(89, 89, 89);
 }
+
+@media (max-width: 412px) {
+  .sign-up-logo {
+    width: 60.68vw;
+    height: 58.25vw;
+    border: 0.49vw solid #cccccc;
+  }
+
+  .signup-input-box {
+    border-bottom: 0.49vw solid black;
+    margin-bottom: 3.64vw;
+  }
+
+  #signup-input01,
+  #signup-input02,
+  #signup-input03,
+  #signup-input04 {
+    width: 72.82vw;
+    height: 10.92vw;
+    font-size: 7.28vw;
+  }
+
+  .signup-btn,
+  .signup-cancel-btn {
+    width: 31.55vw;
+    height: 12.14vw;
+    font-size: 8.5vw;
+    border-radius: 1.7vw;
+    box-shadow: 1.21vw 1.21vw 3.64vw rgb(89, 89, 89);
+  }
+}

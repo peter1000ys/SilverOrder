@@ -4,8 +4,12 @@ import com.silverorder.domain.file.service.FileService;
 import com.silverorder.domain.menu.dto.*;
 import com.silverorder.domain.menu.service.MenuService;
 import com.silverorder.domain.option.dto.ResponseOptionDto;
+import com.silverorder.domain.order.dto.OrderStatusChangeDto;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -90,6 +94,39 @@ public class MenuController {
         return new ResponseEntity<>("메뉴 등록 완료", HttpStatus.OK);
     }
 
+
+    @Operation(summary = "메뉴 수정", description="가맹점의 특정 메뉴를 수정합니다.")
+    @PatchMapping("/update/{menuId}")
+    public ResponseEntity<?> updateMenu(
+            @PathVariable("menuId") Long menuId,
+            @ModelAttribute @Valid RequestMenuDto requestMenuDto,
+            @AuthenticationPrincipal CustomUserDetails userDetails
+    ) throws Exception {
+        MenuDto menuDto = new MenuDto(
+                requestMenuDto.getStoreId(),
+                requestMenuDto.getMenuCategoryId(),
+                requestMenuDto.getMenuName(),
+                requestMenuDto.getSimpleName(),
+                requestMenuDto.getMenuDesc(),
+                requestMenuDto.getMenuStatus(),
+                requestMenuDto.getMenuPrice(),
+                requestMenuDto.getRecommend(),
+                null,
+                requestMenuDto.getUseOptionCategory()
+        );
+
+        // 요청에 파일 있을 경우 클라우드에 업로드 후 링크 생성
+        if (requestMenuDto.getMenuThumb() != null) {
+            String fileLink = fileService.uploadFile(requestMenuDto.getMenuThumb());
+            menuDto.setMenuThumb(fileLink);
+        }
+
+        // 메뉴 저장
+        Long userId = userDetails.getUser().getUserId();
+        menuService.changeMenu(userId, menuId, menuDto);
+        return new ResponseEntity<>("메뉴 수정 완료", HttpStatus.OK);
+    }
+
     @Operation(summary = "메뉴 리스트 조회", description="가게에서 판매하는 메뉴를 조회합니다.")
     @GetMapping("{storeId}/list")
     public ResponseEntity<?> listMenu(
@@ -138,4 +175,27 @@ public class MenuController {
                 }).toList();
         return ResponseEntity.ok(statuses);
     }
+
+    /**
+     * 메뉴 상태 변경
+     */
+    @Operation(
+            summary = "메뉴 상태 변경",
+            description = "'MENU_READY', 'MENU_SOLD_OUT', MENU_DISCONTINUED' 중 하나로 상태 변경.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "성공",
+                            content = @Content(schema = @Schema(type = "string", example = "메뉴 상태 변경 성공")))
+            }
+    )
+    @PatchMapping("/change-status")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> changeMenuStatus(
+            @RequestBody MenuStatusChangeDto menuStatusChangeDto
+    ) throws Exception {
+        menuService.changeMenuStatus(menuStatusChangeDto);
+        return new ResponseEntity<>("메뉴 상태 변경 성공", HttpStatus.OK);
+    }
+
 }

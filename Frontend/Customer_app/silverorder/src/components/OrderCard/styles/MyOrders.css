@@ -6,6 +6,10 @@
   align-items: center;
 }
 
+.myorders-no-orders {
+  font-size: 25px;
+}
+
 .myorders-order-item {
   width: 90%;
   min-height: 200px;
@@ -47,12 +51,12 @@
 
 .myorders-detail-btn,
 .myorders-review-btn01,
-.myorders-review-btn02 {
+.myorders-review-btn02,
+.myorders-incomplete-btn {
   width: 150px;
   height: 60px;
   border: none;
   border-radius: 10px;
-  cursor: pointer;
   color: #ffffff;
   font-size: 20px;
   font-weight: bold;
@@ -61,13 +65,23 @@
 .myorders-detail-btn,
 .myorders-review-btn02 {
   background-color: #1428a0;
+  cursor: pointer;
 }
 
 .myorders-review-btn01 {
   background-color: #2db400;
+  cursor: pointer;
+}
+
+.myorders-incomplete-btn {
+  background-color: #be2e22;
 }
 
 @media (max-width: 412px) {
+  .myorders-no-orders {
+    font-size: 6.07vw;
+  }
+
   .myorders-order-item {
     min-height: 48.54vw;
     border: 0.24vw solid #cccccc;
@@ -86,7 +100,8 @@
 
   .myorders-detail-btn,
   .myorders-review-btn01,
-  .myorders-review-btn02 {
+  .myorders-review-btn02,
+  .myorders-incomplete-btn {
     width: 36.41vw;
     height: 14.56vw;
     border-radius: 2.43vw;

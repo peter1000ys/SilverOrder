@@ -12,9 +12,10 @@ const FindStorePage = () => {
     updateMap, // 지도를 업데이트하는 함수
   } = useMapStore(); // Zustand 스토어에서 필요한 상태와 함수들을 가져옴
 
+  const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_MAP_API_KEY; // Kakao API 키
+
   // Kakao 지도 API를 로드하고 지도 초기화
   useEffect(() => {
-    const KAKAO_API_KEY = "내 카카오 api 키"; // Kakao API 키
     const script = document.createElement("script"); // 스크립트 태그 생성
     script.src = `//dapi.kakao.com/v2/maps/sdk.js?appkey=${KAKAO_API_KEY}&autoload=false`; // Kakao 지도 API 스크립트 로드
     script.async = true; // 비동기 로드 설정

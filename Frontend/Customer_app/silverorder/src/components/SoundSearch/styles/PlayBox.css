@@ -1,0 +1,250 @@
+.playbox-search-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playbox-record-btn {
+  width: 150px; /* 원하는 버튼의 너비 */
+  height: 150px; /* 원하는 버튼의 높이 */
+  border: 5px solid #000000; /* 기본 테두리 제거 */
+  border-radius: 90%;
+  background: none;
+  cursor: pointer; /* 클릭 가능한 커서 모양 */
+}
+
+/* 버튼 안의 이미지 크기 고정 */
+.record-btn-icon {
+  width: 75%; /* 버튼의 너비에 맞춰 이미지 크기 조정 */
+  height: 75%; /* 버튼의 높이에 맞춰 이미지 크기 조정 */
+  object-fit: contain; /* 이미지가 버튼 안에 맞게 비율 유지 */
+}
+
+.playbox-record-info {
+  font-size: 20px;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.playbox-result-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.playbox-result-info,
+.playbox-result-loading-text {
+  font-size: 18px;
+  word-break: keep-all; /* 단어가 중간에 잘리는 것 방지 */
+}
+
+.playbox-result-box {
+  width: 100%;
+  border: 1px solid #cccccc;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 18px;
+}
+
+.playbox-result-title {
+  font-size: 30px;
+  font-weight: bold;
+  margin: 10px 0px;
+}
+
+.playbox-result-menu-infos {
+  width: 350px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.playbox-result-menu-img {
+  width: 100px;
+  height: 100px;
+}
+
+.playbox-result-menu-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border: none;
+  border-radius: 90%;
+}
+
+.playbox-result-menu-desc {
+  width: 200px;
+}
+
+.playbox-result-menu-desc p {
+  font-size: 17px;
+  margin: 0;
+  word-break: keep-all;
+}
+
+.playbox-result-btns {
+  width: 90%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.playbox-addcart-normal-btn,
+.playbox-addcart-option-btn {
+  width: 130px;
+  height: 70px;
+  padding: 5px;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  color: #ffffff;
+}
+
+.playbox-addcart-normal-btn {
+  background-color: #1248a0;
+}
+
+.playbox-addcart-option-btn {
+  background-color: rgb(255, 128, 149);
+}
+
+.playbox-addcart-info {
+  font-size: 22px;
+  font-weight: bold;
+  margin: 0;
+  margin-bottom: 10px;
+}
+
+.playbox-addcart-price {
+  font-size: 17px;
+  margin: 0;
+}
+
+.playbox-search-other-btn {
+  width: 250px;
+  height: 70px;
+  border: none;
+  border-radius: 10px;
+  background-color: #666666;
+  cursor: pointer;
+  color: #ffffff;
+  font-size: 25px;
+}
+
+/* 스피너 스타일 */
+.playbox-result-loading-spinner {
+  border: 8px solid #f3f3f3;
+  border-top: 8px solid #3498db;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.playbox-result-loading-text {
+  font-size: 30px;
+  font-weight: bold;
+  word-break: keep-all;
+}
+
+@media (max-width: 412px) {
+  .playbox-record-btn {
+    width: 36.41vw; /* 원하는 버튼의 너비 */
+    height: 36.41vw; /* 원하는 버튼의 높이 */
+    border: 1.21vw solid #000000; /* 기본 테두리 제거 */
+  }
+
+  .playbox-record-info {
+    font-size: 4.85vw;
+  }
+
+  .playbox-result-info,
+  .playbox-result-loading-text {
+    font-size: 4.37vw;
+  }
+
+  .playbox-result-box {
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 4.37vw;
+  }
+
+  .playbox-result-title {
+    font-size: 7.28vw;
+    margin: 2.43vw 0vw;
+  }
+
+  .playbox-result-menu-infos {
+    width: 84.95vw;
+    margin-bottom: 2.43vw;
+  }
+
+  .playbox-result-menu-img {
+    width: 24.27vw;
+    height: 24.27vw;
+  }
+
+  .playbox-result-menu-desc {
+    width: 48.54vw;
+  }
+
+  .playbox-result-menu-desc p {
+    font-size: 4.13vw;
+  }
+
+  .playbox-result-btns {
+    margin-bottom: 2.43vw;
+  }
+
+  .playbox-addcart-normal-btn,
+  .playbox-addcart-option-btn {
+    width: 31.55vw;
+    height: 16.99vw;
+    padding: 1.21vw;
+    border-radius: 2.43vw;
+  }
+
+  .playbox-addcart-info {
+    font-size: 5.34vw;
+    margin-bottom: 2.43vw;
+  }
+
+  .playbox-addcart-price {
+    font-size: 4.13vw;
+  }
+
+  .playbox-search-other-btn {
+    width: 60.68vw;
+    height: 16.99vw;
+    border-radius: 2.43vw;
+    font-size: 6.07vw;
+  }
+
+  .playbox-result-loading-spinner {
+    border: 1.94vw solid #f3f3f3;
+    border-top: 1.94vw solid #3498db;
+    width: 14.56vw;
+    height: 14.56vw;
+  }
+
+  .playbox-result-loading-text {
+    font-size: 7.28vw;
+  }
+}

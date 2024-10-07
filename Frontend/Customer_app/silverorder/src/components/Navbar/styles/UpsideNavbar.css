@@ -19,23 +19,18 @@
   cursor: pointer;
 }
 
-.upnav-logout p {
-  font-size: 25px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
 .upnav-rightside {
   display: flex;
   margin-right: 15px;
   align-items: center;
 }
 
-.order-state-check {
+.order-state-check,
+.user-logout {
   width: 40px;
   height: 40px;
   cursor: pointer;
-  margin-right: 10px;
+  margin: 0px 10px;
 }
 
 @media (max-width: 412px) {
@@ -52,17 +47,14 @@
     height: 9.71vw;
   }
 
-  .upnav-logout p {
-    font-size: 6.07vw;
-  }
-
   .upnav-rightside {
     margin-right: 3.64vw;
   }
 
-  .order-state-check {
+  .order-state-check,
+  .user-logout {
     width: 9.71vw;
     height: 9.71vw;
-    margin-right: 2.42vw;
+    margin: 0vw 2.43vw;
   }
 }
