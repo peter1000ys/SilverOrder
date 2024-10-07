@@ -48,9 +48,10 @@ function App() {
 
       // WebSocket에서 메시지를 받을 때 토스트 알림을 띄우고 페이지 새로고침
       const handleNewOrder = () => {
+        window.location.reload(); // 페이지 전체 새로고침
         setToastMessage('주문이 추가되었습니다!');
         setShowToast(true);
-        window.location.reload(); // 페이지 전체 새로고침
+        
       };
 
       // WebSocket 메시지 처리 콜백 설정

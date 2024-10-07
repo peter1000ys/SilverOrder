@@ -31,22 +31,22 @@
   color: white;
   border: none;
   cursor: pointer;
-  margin-right: 10px; /* Add some space between buttons */
+  margin-right: 10px; 
 }
 
 .save-button:hover {
   background-color: #0056b3;
 }
 
-/* New styles for delete button */
+
 .delete-button {
   padding: 10px 20px;
-  background-color: #dc3545; /* Bootstrap red */
+  background-color: #dc3545; 
   color: white;
   border: none;
   cursor: pointer;
 }
 
 .delete-button:hover {
-  background-color: #c82333; /* Darker red for hover */
+  background-color: #c82333;
 }

@@ -9,21 +9,21 @@ const EditMenuCategory = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const { userInfo } = useInfoStore();
-  const { category } = location.state;  // Access the passed category data
-  const [categoryName, setCategoryName] = useState(category.menuCategoryName); // State for category name
+  const { category } = location.state;  
+  const [categoryName, setCategoryName] = useState(category.menuCategoryName); 
 
-  const { updateMenuCategory } = useMenuStore(); // Access the zustand action
+  const { updateMenuCategory } = useMenuStore(); 
 
   const handleSave = async () => {
     const updatedCategory = {
-      storeId: userInfo.storeId,  // Ensure storeId is passed along with the update
-      menuCategoryName: categoryName,  // Updated category name
+      storeId: userInfo.storeId,  
+      menuCategoryName: categoryName,  
     };
 
-    // Call the zustand update function
+   
     await updateMenuCategory(category.menuCategoryId, updatedCategory);
 
-    // After saving, navigate back to the category list page
+    
     navigate('/silverorder/admin/menu/category/edit');
   };
 

@@ -8,9 +8,9 @@ const CommentModal = ({ isOpen, onClose, onSubmit, commentContent }) => {
 
     useEffect(() => {
         if (commentContent) {
-            setComment(commentContent); // If there is a comment, display it in the textarea
+            setComment(commentContent); 
         } else {
-            setComment(''); // If no comment, reset textarea for new input
+            setComment('');
         }
     }, [commentContent]);
 
@@ -29,7 +29,7 @@ const CommentModal = ({ isOpen, onClose, onSubmit, commentContent }) => {
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
                     placeholder="댓글을 입력하세요..."
-                    disabled={commentContent !== null && commentContent.length > 0} // Only disable when viewing an existing comment
+                    disabled={commentContent !== null && commentContent.length > 0}
                 />
                 <div className="modal-actions">
                     {commentContent === null || commentContent === '' ? (
@@ -58,12 +58,12 @@ const ReviewList = () => {
     const [sortOption, setSortOption] = useState('ratingDesc');
     const [filterOption, setFilterOption] = useState('all');
     const [currentPage, setCurrentPage] = useState(1);
-    const [selectedReview, setSelectedReview] = useState(null); // For selected review in the modal
-    const [isModalOpen, setIsModalOpen] = useState(false); // To control modal visibility
-    const [currentComment, setCurrentComment] = useState(''); // To track current comment content
+    const [selectedReview, setSelectedReview] = useState(null); 
+    const [isModalOpen, setIsModalOpen] = useState(false); 
+    const [currentComment, setCurrentComment] = useState(''); 
     const reviewsPerPage = 8;
 
-    const { reviews, fetchReviews, createComment } = useReviewStore(); // Accessing createComment and fetchReviews
+    const { reviews, fetchReviews, createComment } = useReviewStore(); 
 
     useEffect(() => {
         const loadReviews = async () => {
@@ -114,10 +114,10 @@ const ReviewList = () => {
     const handleCommentClick = (review) => {
         setSelectedReview(review);
         if (review.commentId) {
-            // If the review already has a comment, show it in the modal
+            
             setCurrentComment(review.commentContent || '');
         } else {
-            // If no comment exists, allow the user to add a new one
+            
             setCurrentComment('');
         }
         setIsModalOpen(true);
@@ -126,7 +126,7 @@ const ReviewList = () => {
     const handleModalClose = () => {
         setIsModalOpen(false);
         setSelectedReview(null);
-        setCurrentComment(''); // Reset comment content
+        setCurrentComment(''); 
     };
 
     const handleCommentSubmit = async (comment) => {
@@ -134,7 +134,7 @@ const ReviewList = () => {
             try {
                 await createComment(selectedReview.reviewId, comment);
                 Notiflix.Notify.success('댓글이 성공적으로 등록되었습니다.');
-                await fetchReviews(); // Refresh the reviews after submitting the comment
+                await fetchReviews();
             } catch (error) {
                 Notiflix.Notify.failure('댓글 등록에 실패했습니다.');
             }
@@ -163,7 +163,7 @@ const ReviewList = () => {
                         <th>이름</th>
                         <th>코멘트</th>
                         <th>평점</th>
-                        <th>작성일</th>
+                        <th>댓글 작성일</th>
                         <th>댓글</th>
                     </tr>
                 </thead>
@@ -202,12 +202,12 @@ const ReviewList = () => {
                 ))}
             </div>
 
-            {/* Comment Modal */}
+           
             <CommentModal
                 isOpen={isModalOpen}
                 onClose={handleModalClose}
                 onSubmit={handleCommentSubmit}
-                commentContent={currentComment} // Pass the current comment content
+                commentContent={currentComment}
             />
         </div>
     );

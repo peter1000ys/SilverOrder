@@ -1,6 +1,6 @@
 .menu-list {
     width: 70%;
-    height: calc(100vh - 250px); 
+    height: calc(100vh - 220px); 
     display: flex;
     flex-direction: column;
     background-color: white;
@@ -18,49 +18,55 @@
   gap: calc(5 / 1440 * 100vw);
   justify-content: space-evenly;
   align-items: center;
-  height: 90%;
+  height: 75%;
 }
 
 .menu-item {
   width: 30%;
   height: 80%;
-  border: calc(1 / 1440 * 100vw) solid #ddd;
+  position: relative;
+  border: none;
   border-radius: calc(10 / 1440 * 100vw);
-  padding: calc(15 / 1440 * 100vw);
+  overflow: hidden; 
   box-shadow: 0 calc(4 / 1440 * 100vw) calc(8 / 1440 * 100vw) rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 }
 
 .menu-item img {
   width: 100%;
-  height: 60%;
-  border-radius: calc(10 / 1440 * 100vw);
+  height: 100%;
+  object-fit: cover;
 }
 
 .menu-item h3 {
-  font-size: calc(18 / 1440 * 100vw);
-  margin: calc(10 / 1440 * 100vw) 0 calc(5 / 1440 * 100vw) 0;
+  position: absolute;
+  bottom: 15%; 
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: calc(20 / 1440 * 100vw);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin: 0;
+  padding: 0 calc(10 / 1440 * 100vw);
   white-space: nowrap;
   overflow: hidden;
-  text-overflow: ellipsis; /* 말줄임표 */
+  text-overflow: ellipsis;
 }
 
 .menu-item p {
-  font-size: calc(14 / 1440 * 100vw);
-  color: #555;
-  word-wrap: break-word; /* 텍스트가 너무 길 경우 줄바꿈 */
-  overflow: hidden;
-  text-overflow: ellipsis; /* 말줄임표 */
-  display: -webkit-box;
-  -webkit-line-clamp: 2; /* 두 줄까지만 표시 */
-  -webkit-box-orient: vertical;
+  position: absolute;
+  bottom: 5%; 
+  left: 0;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: calc(16 / 1440 * 100vw);
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  margin: 0;
+  padding: 0 calc(10 / 1440 * 100vw);
 }
-
 .menu-item:hover {
   transform: scale(1.05);
 }

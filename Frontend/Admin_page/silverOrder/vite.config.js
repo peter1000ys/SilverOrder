@@ -5,7 +5,7 @@ import { NodeGlobalsPolyfillPlugin } from '@esbuild-plugins/node-globals-polyfil
 // Vite 설정
 export default defineConfig({
   plugins: [react()],
-  base: '/silverorder/admin/', // 이 부분이 중요
+  base: '/silverorder/admin/',
   build: {
     outDir: 'dist',
     assetsDir: 'assets',

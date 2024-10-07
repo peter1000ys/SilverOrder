@@ -18,8 +18,13 @@ const MenuDetail = ({ menu }) => {
   }, [menu.menuId, fetchMenuOptions]);
 
   const handleEditClick = () => {
-    navigate('/silverorder/admin/menu/Edit', { state: { menu } });
+    if (!menu.menuId) {
+        Notiflix.Notify.failure("메뉴 ID가 없습니다. 다시 시도해 주세요.");
+        return;
+    }
+    navigate('/silverorder/admin/menu/Edit', { state: { menuId: menu.menuId, menu } });
   };
+
 
   return (
     <div className="menu-detail">

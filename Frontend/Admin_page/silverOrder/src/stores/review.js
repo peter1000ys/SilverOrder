@@ -1,4 +1,3 @@
-// reviews.js
 import { create } from "zustand";
 import axios from "axios";
 import useInfoStore from "./infos";

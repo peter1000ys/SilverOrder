@@ -44,10 +44,10 @@ const MenuList = ({ onMenuSelect }) => {
     if (currentPage > 1) setCurrentPage(prev => prev - 1);
   };
 
-  // Reset current page to 1 when category changes
+
   const handleCategoryChange = (e) => {
     setSelectedCategory(e.target.value);
-    setCurrentPage(1); // Reset to first page
+    setCurrentPage(1);
   };
 
   if (loading) {
@@ -91,7 +91,6 @@ const MenuList = ({ onMenuSelect }) => {
             >
               <img src={menu.menuThumb} alt={menu.menuName} />
               <h3>{menu.menuName}</h3>
-              <p>{menu.menuDesc}</p>
               <p>가격: {menu.menuPrice}원</p>
             </div>
           ))
