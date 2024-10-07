@@ -3,6 +3,7 @@ import { persist } from "zustand/middleware";
 import axios from "axios";
 import useCartStore from "./cart";
 import { baseURL } from "../constant";
+import Notiflix from "notiflix";
 
 const API_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
@@ -63,8 +64,10 @@ const useInfoStore = create(
               },
             });
             return true;
-          } else {
-            console.log("로그인 에러");
+          } else if (response.status === 400) {
+            Notiflix.Notify.error("비밀번호가 틀렸습니다.");
+          } else if (response.status === 404) {
+            Notiflix.Notify.error("존재하지 않는 이메일입니다.");
           }
         } catch (e) {
           return false;
