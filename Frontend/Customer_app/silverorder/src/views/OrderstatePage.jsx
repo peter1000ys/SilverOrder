@@ -13,9 +13,12 @@ const OrderstatePage = () => {
 
   useEffect(() => {
     if (nowOrderStatus) {
-      console.log("주문 상태 변경 감지, 페이지 새로 고침:", nowOrderStatus);
-      // 페이지 새로 고침
-      window.location.reload();
+      console.log("주문 상태 변경 감지:", nowOrderStatus);
+      // 새로고침 대신 orderInfo를 업데이트
+      setOrderInfo((prevOrderInfo) => ({
+        ...prevOrderInfo,
+        orderStatus: nowOrderStatus,
+      }));
     }
   }, [nowOrderStatus]); // nowOrderStatus가 변경될 때마다 실행
 
