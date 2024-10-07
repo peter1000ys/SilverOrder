@@ -38,7 +38,9 @@ const OrderDetailInfo = ({ orderId, onClose }) => {
               </div>
               <div className="orderdetail-info">
                 <div className="orderdetail-options">
-                  {order.optionCount === 0 ? (
+                  {order.optionCount === 0 ||
+                  !order.optionList ||
+                  order.optionList.length === 0 ? (
                     <p>옵션: X</p>
                   ) : (
                     <p>
