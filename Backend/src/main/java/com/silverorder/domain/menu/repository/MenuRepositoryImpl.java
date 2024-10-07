@@ -3,11 +3,13 @@ package com.silverorder.domain.menu.repository;
 import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.silverorder.domain.menu.dto.MenuDto;
+import com.silverorder.domain.menu.dto.MenuStatusChangeDto;
 import com.silverorder.domain.menu.dto.ResponseMenuCategory;
 import com.silverorder.domain.menu.dto.ResponseMenuDto;
 import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.menu.entity.MenuOptionCategory;
 import com.silverorder.domain.option.entity.OptionCategory;
+import com.silverorder.domain.order.dto.OrderStatusChangeDto;
 import com.silverorder.domain.store.entity.Store;
 import com.silverorder.domain.store.entity.StoreMenuCategory;
 import com.silverorder.domain.user.entity.User;
@@ -22,6 +24,7 @@ import java.util.List;
 
 import static com.silverorder.domain.menu.entity.QMenu.menu;
 import static com.silverorder.domain.menu.entity.QMenuOptionCategory.menuOptionCategory;
+import static com.silverorder.domain.order.entity.QOrder.order;
 import static com.silverorder.domain.store.entity.QStoreMenuCategory.storeMenuCategory;
 
 /**
@@ -250,5 +253,18 @@ public class MenuRepositoryImpl implements MenuRepository{
         }
     }
 
-
+    /**
+     * 메뉴 상태 변경
+     *
+     * @param menuStatusChangeDto 메뉴상태 변경 DTO
+     * @throws PersistenceException JPA 표준 예외
+     */
+    @Override
+    public void updateMenuStatus(MenuStatusChangeDto menuStatusChangeDto) throws PersistenceException {
+        queryFactory
+                .update(menu)
+                .set(menu.menuStatus, menuStatusChangeDto.getMenuStatus())
+                .where(menu.id.eq(menuStatusChangeDto.getMenuId()))
+                .execute();
+    }
 }

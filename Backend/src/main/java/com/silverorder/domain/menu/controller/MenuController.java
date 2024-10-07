@@ -4,8 +4,12 @@ import com.silverorder.domain.file.service.FileService;
 import com.silverorder.domain.menu.dto.*;
 import com.silverorder.domain.menu.service.MenuService;
 import com.silverorder.domain.option.dto.ResponseOptionDto;
+import com.silverorder.domain.order.dto.OrderStatusChangeDto;
 import com.silverorder.domain.user.dto.CustomUserDetails;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -171,4 +175,27 @@ public class MenuController {
                 }).toList();
         return ResponseEntity.ok(statuses);
     }
+
+    /**
+     * 메뉴 상태 변경
+     */
+    @Operation(
+            summary = "메뉴 상태 변경",
+            description = "'MENU_READY', 'MENU_SOLD_OUT', MENU_DISCONTINUED' 중 하나로 상태 변경.",
+            responses = {
+                    @ApiResponse(
+                            responseCode = "200",
+                            description = "성공",
+                            content = @Content(schema = @Schema(type = "string", example = "메뉴 상태 변경 성공")))
+            }
+    )
+    @PatchMapping("/change-status")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<?> changeMenuStatus(
+            @RequestBody MenuStatusChangeDto menuStatusChangeDto
+    ) throws Exception {
+        menuService.changeMenuStatus(menuStatusChangeDto);
+        return new ResponseEntity<>("메뉴 상태 변경 성공", HttpStatus.OK);
+    }
+
 }
