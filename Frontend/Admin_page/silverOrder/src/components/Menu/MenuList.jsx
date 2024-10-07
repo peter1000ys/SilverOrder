@@ -91,7 +91,7 @@ const MenuList = ({ onMenuSelect }) => {
             >
               <img src={menu.menuThumb} alt={menu.menuName} />
               <h3>{menu.menuName}</h3>
-              <p>가격: {menu.menuPrice}원</p>
+              <p>{menu.menuPrice}원</p>
             </div>
           ))
         ) : (

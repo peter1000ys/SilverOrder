@@ -213,6 +213,32 @@ const useMenuStore = create((set, get) => ({
         }
     },
     
+    updateMenuStatus: async (menuId, menuStatus) => {  // 새로운 함수 추가
+        const { token } = useInfoStore.getState();
+        
+        if (!token) {
+            Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
+            return;
+        }
+
+        try {
+            const response = await axios.patch(
+                `${API_URL}menu/change-status`, 
+                { menuId, menuStatus },
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                        "Content-Type": "application/json"
+                    }
+                }
+            );
+            Notiflix.Notify.success("메뉴 상태가 업데이트되었습니다.");
+            await get().fetchMenus(); // 상태 변경 후 메뉴 목록을 다시 불러옵니다.
+        } catch (error) {
+            Notiflix.Notify.failure("메뉴 상태 업데이트에 실패했습니다.");
+        }
+    },
+    
 
 }));
 
