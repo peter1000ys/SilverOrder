@@ -27,7 +27,6 @@ const PlayBox = () => {
       setResultData(result); // API로부터 받은 결과를 저장
     } catch (error) {
       console.error("결과 요청 실패:", error);
-      Notiflix.Notify.failure("메뉴 검색에 실패했습니다.");
       setResultData(null); // 실패 시에는 결과를 null로 설정
     }
   };

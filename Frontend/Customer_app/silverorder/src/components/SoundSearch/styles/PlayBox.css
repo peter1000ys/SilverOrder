@@ -156,3 +156,88 @@
   font-weight: bold;
   word-break: keep-all;
 }
+
+@media (max-width: 412px) {
+  .playbox-record-btn {
+    width: 36.41vw; /* 원하는 버튼의 너비 */
+    height: 36.41vw; /* 원하는 버튼의 높이 */
+    border: 1.21vw solid #000000; /* 기본 테두리 제거 */
+  }
+
+  .playbox-record-info {
+    font-size: 4.85vw;
+  }
+
+  .playbox-result-info,
+  .playbox-result-loading-text {
+    font-size: 4.37vw;
+  }
+
+  .playbox-result-box {
+    border: 0.24vw solid #cccccc;
+    border-radius: 2.43vw;
+    margin-bottom: 4.37vw;
+  }
+
+  .playbox-result-title {
+    font-size: 7.28vw;
+    margin: 2.43vw 0vw;
+  }
+
+  .playbox-result-menu-infos {
+    width: 84.95vw;
+    margin-bottom: 2.43vw;
+  }
+
+  .playbox-result-menu-img {
+    width: 24.27vw;
+    height: 24.27vw;
+  }
+
+  .playbox-result-menu-desc {
+    width: 48.54vw;
+  }
+
+  .playbox-result-menu-desc p {
+    font-size: 4.13vw;
+  }
+
+  .playbox-result-btns {
+    margin-bottom: 2.43vw;
+  }
+
+  .playbox-addcart-normal-btn,
+  .playbox-addcart-option-btn {
+    width: 31.55vw;
+    height: 16.99vw;
+    padding: 1.21vw;
+    border-radius: 2.43vw;
+  }
+
+  .playbox-addcart-info {
+    font-size: 5.34vw;
+    margin-bottom: 2.43vw;
+  }
+
+  .playbox-addcart-price {
+    font-size: 4.13vw;
+  }
+
+  .playbox-search-other-btn {
+    width: 60.68vw;
+    height: 16.99vw;
+    border-radius: 2.43vw;
+    font-size: 6.07vw;
+  }
+
+  .playbox-result-loading-spinner {
+    border: 1.94vw solid #f3f3f3;
+    border-top: 1.94vw solid #3498db;
+    width: 14.56vw;
+    height: 14.56vw;
+  }
+
+  .playbox-result-loading-text {
+    font-size: 7.28vw;
+  }
+}
