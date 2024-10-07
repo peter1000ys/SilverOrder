@@ -22,7 +22,7 @@
 
 .registerCard-item {
   width: 90%;
-  height: 190px;
+  height: auto;
   border: 1px solid #cccccc;
   border-radius: 10px;
   /* background-color: red; */
@@ -45,6 +45,7 @@
   margin-left: 15px;
   text-align: start;
   font-size: 15px;
+  word-break: keep-all;
 }
 
 .registerCard-item-checkbox {
@@ -101,7 +102,6 @@
   }
 
   .registerCard-item {
-    height: 46.12vw;
     border: 0.24vw solid #cccccc;
     border-radius: 2.43vw;
     margin-bottom: 3.64vw;
