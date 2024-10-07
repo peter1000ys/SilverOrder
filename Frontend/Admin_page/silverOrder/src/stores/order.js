@@ -61,7 +61,7 @@ const useOrderStore = create((set, get) => ({
       );
 
       console.log(response.data); // 성공 응답 확인
-
+      window.location.reload();
       // 상태 변경 후 알림
       Notiflix.Notify.success("주문 상태가 성공적으로 변경되었습니다.");
 
