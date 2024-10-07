@@ -41,7 +41,7 @@
 .total-amount {
     font-size: calc(30 / 1440 * 100vw);
     color: red;
-    margin-bottom: calc(10 / 1440 * 100vw); /* Space before buttons */
+    margin-bottom: calc(10 / 1440 * 100vw);
     text-align: right;
 }
 

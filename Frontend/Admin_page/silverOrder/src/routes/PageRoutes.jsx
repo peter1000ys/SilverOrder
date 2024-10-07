@@ -18,15 +18,15 @@ import ReviewPage from "../views/ReviewPage.jsx";
 
 // 대시보드 페이지
 import DashboardPage from "../views/DashboardPage.jsx";
-
+// 메뉴 추가 페이지
 import AddMenu from "../components/Menu/AddMenu.jsx";
-
+// 메뉴 수정 페이지
 import EditMenu from "../components/Menu/EditMenu.jsx";
-
+// 카테고리 수정 페이지
 import EditCategory from "../components/Menu/EditCategory.jsx";
-
+// 옵션 수정 페이지
 import EditOption from "../components/Menu/EditOption.jsx";
-
+// 메뉴 카테고리 수정 페이지
 import EditMenuCategory from "../components/Menu/EditMenuCategory.jsx";
 
 const PageRoutes = () => {

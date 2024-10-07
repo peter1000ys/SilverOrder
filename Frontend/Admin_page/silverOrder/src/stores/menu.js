@@ -101,7 +101,7 @@ const useMenuStore = create((set, get) => ({
         try {
             const formData = new FormData();
 
-            // Append all the form data fields
+            
             formData.append('storeId', newMenu.storeId);
             formData.append('menuCategoryId', newMenu.menuCategoryId);
             formData.append('menuName', newMenu.menuName);
@@ -110,9 +110,9 @@ const useMenuStore = create((set, get) => ({
             formData.append('menuStatus', newMenu.menuStatus);
             formData.append('menuPrice', newMenu.menuPrice);
             formData.append('recommend', newMenu.recommend);
-            formData.append('menuThumb', newMenu.menuThumb); // The image file itself
+            formData.append('menuThumb', newMenu.menuThumb);
 
-            // Handle array data
+            
             newMenu.useOptionCategory.forEach((optionId, index) => {
                 formData.append(`useOptionCategory[${index}]`, optionId);
             });
@@ -134,6 +134,33 @@ const useMenuStore = create((set, get) => ({
             Notiflix.Notify.failure("메뉴 추가 실패");
         }
     },
+
+
+    updateMenu: async (menuId, formData) => {
+        const { token } = useInfoStore.getState();
+        
+        if (!token) {
+            Notiflix.Notify.failure("제대로 로그인이 되었는지 확인 부탁드립니다.");
+            return;
+        }
+    
+        try {
+            const response = await axios.patch(API_URL + `menu/update/${menuId}`, formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+    
+            Notiflix.Notify.success("메뉴 수정 완료");
+            await get().fetchMenus();
+        } catch (error) {
+            Notiflix.Notify.failure("메뉴 수정 실패");
+        }
+    },
+    
+    
+      
 
     fetchMenuOptions: async (menuId) => {
         const { token } = useInfoStore.getState();
