@@ -29,6 +29,7 @@ const MenuDetail = ({ menu }) => {
 
   const handleStatusUpdate = async () => {
     await updateMenuStatus(menu.menuId, selectedStatus);  // API 호출로 상태 업데이트
+    window.location.reload();
   };
 
   const handleEditClick = () => {
