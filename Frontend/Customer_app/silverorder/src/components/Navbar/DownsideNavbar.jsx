@@ -1,9 +1,9 @@
 import "./styles/DownsideNavbar.css";
 import { useNavigate } from "react-router-dom";
-import shopping_cart from "../../img/shopping_cart.png";
-import scroll from "../../img/scroll.png";
-import home from "../../img/home.png";
-import user from "../../img/user.png";
+import shopping_cart from "../../img/shopping-cart-2-line.png";
+import scroll from "../../img/file-list-3-line.png";
+import home from "../../img/home-2-line.png";
+import user from "../../img/user-line.png";
 import { baseURL } from "../../constant";
 
 const DownsideNavbar = () => {

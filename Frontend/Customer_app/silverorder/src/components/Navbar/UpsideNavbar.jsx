@@ -1,9 +1,9 @@
 import "./styles/UpsideNavbar.css";
 import { useNavigate } from "react-router-dom";
 import useInfoStore from "../../stores/infos";
-import left_arrow from "../../img/left_arrow.png";
-import clock from "../../img/clock.png";
-import logout_img from "../../img/logout.png";
+import left_arrow from "../../img/arrow-go-back-fill.png";
+import clock from "../../img/time-line.png";
+import logout_img from "../../img/logout-box-r-line.png";
 import { baseURL } from "../../constant";
 import Notiflix from "notiflix";
 

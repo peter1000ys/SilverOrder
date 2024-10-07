@@ -11,10 +11,7 @@ const OptionChoicePage = () => {
 
   const { addToCart } = useCartStore(); // Zustand에서 addToCart 함수 가져오기
 
-  const { optionList, fetchSelectedMenuOption } = useMenuStore((state) => ({
-    optionList: state.optionList,
-    fetchSelectedMenuOption: state.fetchSelectedMenuOption,
-  }));
+  const { optionList, fetchSelectedMenuOption } = useMenuStore();
 
   // 현재 위치에서 아이템 정보 가져오기
   const location = useLocation();
