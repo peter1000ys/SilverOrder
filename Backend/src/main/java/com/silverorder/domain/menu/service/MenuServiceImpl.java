@@ -265,4 +265,14 @@ public class MenuServiceImpl implements MenuService{
         String url = jupiterApiUrl + apiUrl;
         restTemplate.postForEntity(url, chromaMenuDto, Void.class);
     }
+
+    @Override
+    public void changeMenuStatus(MenuStatusChangeDto menuStatusChangeDto) throws Exception {
+        // 메뉴 존재 유효성 검사
+        menuJpaRepository.findById(menuStatusChangeDto.getMenuId())
+                .orElseThrow(() -> new CustomException(ErrorCode.MENU_NOT_FOUND));
+
+        // 메뉴 상태 변경 로직
+        menuRepository.updateMenuStatus(menuStatusChangeDto);
+    }
 }

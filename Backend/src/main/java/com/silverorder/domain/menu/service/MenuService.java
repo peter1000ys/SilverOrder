@@ -26,4 +26,6 @@ public interface MenuService {
     List<ResponseOptionDto> menuOptionList(long menuId) throws Exception;
 
     List<ResponseMenuCategory> menuCategoryList(long storeId) throws Exception;
+
+    void changeMenuStatus(MenuStatusChangeDto menuStatusChangeDto) throws Exception;
 }

@@ -23,8 +23,9 @@ INSERT INTO silverorder.dbo.t_card (card_cvc,card_issuer_name,card_name,card_num
 	 (N'299',N'롯데카드',N'디지로카London',N'1003839006311502',20.0,4);
 
 INSERT INTO silverorder.dbo.t_store_menu_category (menu_category_name,store_id) VALUES
-	 (N'ICE 커피',2176),
-	 (N'HOT 커피',2176);
+	 (N'커피',2176),
+	 (N'차',2176),
+	 (N'디저트',2176);
 
 INSERT INTO silverorder.dbo.t_option_category (option_category_title,option_type,store_id) VALUES
 	 (N'원두선택',N'OPTION_RADIO',2176),
@@ -46,12 +47,12 @@ INSERT INTO silverorder.dbo.t_option (option_name,option_price,option_category_i
 
 INSERT INTO silverorder.dbo.t_menu (menu_desc,menu_name,menu_price,menu_status,recommend,simple_name,thumb,menu_category_id) VALUES
 	 (N'풍미가 진한 에스프레소에 물을 넣어 연하게 마시는 아이스 커피입니다.',N'아이스 아메리카노',4500,N'MENU_READY',0,N'아이스 아메리카노',N'https://storage.googleapis.com/silver-order-bucket/Angel_ICE_Americano.jpeg',1),
-	 (N'풍미가 진한 에스프레소에 물을 넣어 연하게 마시는 따뜻한 커피입니다.',N'따뜻한 아메리카노',4500,N'MENU_READY',0,N'따뜻한 아메리카노',N'https://storage.googleapis.com/silver-order-bucket/Angel_HOT_Americano.jpeg',2),
-	 (N'농축유를 블렌딩하여 더욱 진하고 고소한 프리미엄 따뜻한 카페라떼',N'따뜻한 로열카페라떼',5500,N'MENU_READY',0,N'따뜻한 카페라떼',N'https://storage.googleapis.com/silver-order-bucket/Angel_HOT_Latte.jpg',2),
+	 (N'풍미가 진한 에스프레소에 물을 넣어 연하게 마시는 따뜻한 커피입니다.',N'따뜻한 아메리카노',4500,N'MENU_READY',0,N'따뜻한 아메리카노',N'https://storage.googleapis.com/silver-order-bucket/Angel_HOT_Americano.jpeg',1),
+	 (N'농축유를 블렌딩하여 더욱 진하고 고소한 프리미엄 따뜻한 카페라떼',N'따뜻한 로열카페라떼',5500,N'MENU_READY',0,N'따뜻한 카페라떼',N'https://storage.googleapis.com/silver-order-bucket/Angel_HOT_Latte.jpg',1),
 	 (N'농축유를 블렌딩하여 더욱 진하고 고소한 프리미엄 아이스 카페라떼',N'아이스 로열카페라떼',5500,N'MENU_READY',0,N'아이스 카페라떼',N'https://storage.googleapis.com/silver-order-bucket/Angel_ICE_Latte.jpg',1),
 	 (N'더욱 진하고 부드러운 로열골드밀크와 담백한 슈크림의 조화롭고 시원한 크림카페라떼(단일 사이즈 / 크기 변경 불가)',N'아이스 로열슈크림라떼',5900,N'MENU_READY',0,N'아이스 슈크림라떼',N'https://storage.googleapis.com/silver-order-bucket/Angel_CreamLatte.png',1),
 	 (N'풍미가 진한 에스프레소와 고소한 우유에 달콤한 바닐라 시럽이 어우러진 아이스 커피입니다.',N'아이스 바닐라 카페라떼',5500,N'MENU_READY',0,N'아이스 바닐라 라떼',N'https://storage.googleapis.com/silver-order-bucket/Angel_ICE_VanillaLatte.jpg',1),
-	 (N'풍미가 진한 에스프레소와 고소한 스팀 밀크에 달콤한 바닐라 시럽이 어우러진 따뜻한 커피입니다.',N'따뜻한 바닐라 카페라떼',5500,N'MENU_READY',0,N'따뜻한 바닐라 라떼',N'https://storage.googleapis.com/silver-order-bucket/Angel_HOT_VanillaLatte.jpg',2),
+	 (N'풍미가 진한 에스프레소와 고소한 스팀 밀크에 달콤한 바닐라 시럽이 어우러진 따뜻한 커피입니다.',N'따뜻한 바닐라 카페라떼',5500,N'MENU_READY',0,N'따뜻한 바닐라 라떼',N'https://storage.googleapis.com/silver-order-bucket/Angel_HOT_VanillaLatte.jpg',1),
 	 (N'달콤한 카라멜과 우유 거품의 부드러운 맛이 에스프레소와 어우러진 아이스 커피입니다.',N'아이스 카라멜 마끼아또',5900,N'MENU_READY',0,N'아이스 카라멜 마끼아또',N'https://storage.googleapis.com/silver-order-bucket/Angel_ICE_CaramelMacchiato.jpg',1);
 
 INSERT INTO silverorder.dbo.t_menu_option_category (menu_id,option_category_id) VALUES

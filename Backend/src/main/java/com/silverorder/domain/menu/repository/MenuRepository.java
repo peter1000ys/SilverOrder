@@ -1,9 +1,6 @@
 package com.silverorder.domain.menu.repository;
 
-import com.silverorder.domain.menu.dto.MenuDto;
-import com.silverorder.domain.menu.dto.RequestMenuDto;
-import com.silverorder.domain.menu.dto.ResponseMenuCategory;
-import com.silverorder.domain.menu.dto.ResponseMenuDto;
+import com.silverorder.domain.menu.dto.*;
 import com.silverorder.domain.menu.entity.Menu;
 import com.silverorder.domain.option.entity.OptionCategory;
 import com.silverorder.domain.store.entity.Store;
@@ -29,4 +26,6 @@ public interface MenuRepository {
     List<OptionCategory> menuOptions(Menu menu) throws PersistenceException;
 
     List<ResponseMenuCategory> menuCategoryList(Store store) throws PersistenceException;
+
+    void updateMenuStatus(MenuStatusChangeDto menuStatusChangeDto) throws PersistenceException;
 }
