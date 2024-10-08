@@ -6,6 +6,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.silverorder.domain.store.dto.ResponseProcAgeDto;
 import com.silverorder.domain.store.dto.ProcSalesDto;
 import com.silverorder.domain.store.dto.ProcWeekDto;
+import com.silverorder.domain.store.dto.StoreDto;
 import com.silverorder.domain.store.entity.Store;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
@@ -17,6 +18,7 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.silverorder.domain.menu.entity.QMenu.menu;
+import static com.silverorder.domain.store.entity.QStore.store;
 import static com.silverorder.domain.store.entity.QStoreAgeSalesCalculate.storeAgeSalesCalculate;
 import static com.silverorder.domain.store.entity.QStoreSalesCalculate.storeSalesCalculate;
 

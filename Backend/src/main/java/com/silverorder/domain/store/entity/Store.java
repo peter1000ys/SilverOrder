@@ -1,16 +1,15 @@
 package com.silverorder.domain.store.entity;
 
+import com.silverorder.domain.store.dto.StoreDto;
 import com.silverorder.domain.user.entity.User;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 @Entity
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name="T_STORE")
@@ -62,4 +61,22 @@ public class Store {
     @Column(name = "CLOSE_TIME", length = 4, nullable = false)
     @NotNull
     private String closeTime;
+
+    public StoreDto toDto(Store store) {
+        return StoreDto.builder()
+                .storeId(store.getId())
+                .storeName(store.getStoreName())
+                .storeDesc(store.getStoreDesc())
+                .storeCategory(store.getStoreCategory())
+                .storeRate(store.getStoreRate())
+                .storeStatus(store.getStoreStatus())
+                .address(store.getAddress())
+                .latitude(store.getLatitude())
+                .longitude(store.getLongitude())
+                .accountNum(store.getAccountNum())
+                .openTime(store.getOpenTime())
+                .closeTime(store.getCloseTime())
+                .build();
+    }
+
 }
