@@ -20,6 +20,9 @@ body,
   background-color: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding-bottom: env(
+    safe-area-inset-bottom
+  ); /* iPhone 등에서 하단 '안전 영역'에 맞춰 패딩 추가 */
 }
 
 .fixed-top {
@@ -31,10 +34,20 @@ body,
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
+  margin-bottom: 80px; /* 고정된 하단 바의 높이만큼 여백 추가 */
 }
 
 .fixed-bottom {
   flex-shrink: 0;
+  position: fixed; /* 항상 화면 하단에 고정되도록 설정 */
+  bottom: 0;
+  width: 100%;
+  z-index: 1000; /* 다른 요소들보다 앞에 나오도록 z-index 설정 */
+  background-color: #fff;
+  border-top: 1px solid #ccc; /* 상단에 경계선을 추가해 시각적으로 구분 */
+  padding-bottom: env(
+    safe-area-inset-bottom
+  ); /* 하단 '안전 영역'을 위한 패딩 */
 }
 
 /* 크로스 브라우저 스크롤바 숨기기 */
@@ -52,5 +65,8 @@ body,
   #app-container {
     width: 100%; /* 화면 너비에 맞게 100%로 설정 */
     height: 100vh; /* 화면 높이에 맞게 100vh로 설정 */
+    padding-bottom: env(
+      safe-area-inset-bottom
+    ); /* 하단 안전 영역에 맞춘 패딩 추가 */
   }
 }
