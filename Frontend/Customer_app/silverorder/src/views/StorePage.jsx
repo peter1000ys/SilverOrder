@@ -2,7 +2,7 @@ import "../styles/StorePage.css";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import MenuList from "../components/MenuCard/MenuList";
-import mike from "../img/mike.png";
+import mic from "../img/mic.png";
 import { baseURL } from "../constant";
 import useInfoStore from "../stores/infos";
 
@@ -35,7 +35,7 @@ const StorePage = () => {
         <h1>{storeName}</h1>
       </div>
       <div className="SST-search-btn" onClick={go_to_sound_search}>
-        <img className="SST-search-img" src={mike} alt="음성인식 버튼" />
+        <img className="SST-search-img" src={mic} alt="음성인식 버튼" />
       </div>
       <MenuList />
     </div>
