@@ -21,18 +21,24 @@ const SigninPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const response = await sendLoginRequest(email, password);
-    if (response === "success") {
-      Notiflix.Notify.success("로그인 성공");
-      if (storeId === 0) {
-        navigate(`${baseURL}/outdoor`);
-      } else {
-        navigate(`${baseURL}/store`);
+    try {
+      const response = await sendLoginRequest(email, password);
+      if (response === "success") {
+        Notiflix.Notify.success("로그인 성공");
+        if (storeId === 0) {
+          navigate(`${baseURL}/outdoor`);
+        } else {
+          navigate(`${baseURL}/store`);
+        }
+      } else if (response === "password error") {
+        Notiflix.Notify.error("비밀번호가 틀렸습니다.");
+      } else if (response === "unknown user") {
+        Notiflix.Notify.error("존재하지 않는 이메일입니다.");
       }
-    } else if (response === "password error") {
-      Notiflix.Notify.error("비밀번호가 틀렸습니다.");
-    } else if (response === "unknown user") {
-      Notiflix.Notify.error("존재하지 않는 이메일입니다.");
+    } catch (error) {
+      // 비동기 처리 중 오류 발생 시 처리
+      Notiflix.Notify.failure("로그인 중 오류가 발생했습니다.");
+      console.error("로그인 오류:", error);
     }
   };
 
@@ -64,7 +70,7 @@ const SigninPage = () => {
               placeholder="이메일"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              required // 해당 필드가 반드시 채워져야 함 (빈 상태로 제출 방지)
+              required
             />
           </div>
           <div className="signin-input-box">
@@ -74,7 +80,7 @@ const SigninPage = () => {
               placeholder="비밀번호"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              required // 해당 필드가 반드시 채워져야 함 (빈 상태로 제출 방지)
+              required
             />
           </div>
         </div>
