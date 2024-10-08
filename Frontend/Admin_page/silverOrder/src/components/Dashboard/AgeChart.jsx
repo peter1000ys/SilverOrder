@@ -74,7 +74,7 @@ const AgeChart = ({ title }) => {
             <option value={30}>30대</option>
             <option value={40}>40대</option>
             <option value={50}>50대</option>
-            <option value={60}>60대 이하</option>
+            <option value={60}>60대 이상</option>
           </select>
         </div>
       </div>
