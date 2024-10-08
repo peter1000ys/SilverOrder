@@ -11,12 +11,14 @@
   justify-content: center;
   align-items: center;
   margin: 30px 0px;
+  text-align: center;
 }
 
 .store-title h1 {
   font-weight: bold;
-  font-size: 40px;
+  font-size: 35px;
   margin: 0;
+  word-break: keep-all;
 }
 
 .SST-search-btn {
@@ -40,7 +42,7 @@
   }
 
   .store-title h1 {
-    font-size: 9.71vw;
+    font-size: 8.5vw;
   }
 
   .SST-search-btn {

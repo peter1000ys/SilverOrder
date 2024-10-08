@@ -110,7 +110,7 @@ const useMapStore = create((set, get) => ({
       title: "내 위치",
       image: new window.kakao.maps.MarkerImage(
         human_logo,
-        new window.kakao.maps.Size(24, 35)
+        new window.kakao.maps.Size(35, 35)
       ),
     });
     get().setMarkerRef(userMarker);
@@ -132,7 +132,7 @@ const useMapStore = create((set, get) => ({
         title: store.storeName,
         image: new window.kakao.maps.MarkerImage(
           store_logo,
-          new window.kakao.maps.Size(24, 35)
+          new window.kakao.maps.Size(35, 35)
         ),
       });
       storeMarker.setMap(mapRef);
