@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import useMapStore from "../stores/map"; // Zustand 스토어 가져오기
 import "../styles/FindStorePage.css"; // 스타일 시트 가져오기
 
@@ -11,6 +11,8 @@ const FindStorePage = () => {
     fetchNearbyStores, // 주변 가게 정보를 API로 가져오는 함수
     updateMap, // 지도를 업데이트하는 함수
   } = useMapStore(); // Zustand 스토어에서 필요한 상태와 함수들을 가져옴
+
+  const [selectedStoreName, setSelectedStoreName] = useState(""); // 선택된 가게 이름을 저장하는 상태
 
   const KAKAO_API_KEY = import.meta.env.VITE_KAKAO_MAP_API_KEY; // Kakao API 키
 
@@ -41,7 +43,24 @@ const FindStorePage = () => {
         location.latitude,
         location.longitude
       ); // 현재 위치 확인 로그 출력
-      fetchNearbyStores(); // 주변 가게 정보 가져오는 함수 호출
+
+      fetchNearbyStores().then((stores) => {
+        // API에서 가게 정보를 가져옴
+        const map = window.kakao.maps; // Kakao 지도 객체
+        stores.forEach((store) => {
+          // 각 가게에 대해 마커 생성
+          const marker = new map.Marker({
+            position: new map.LatLng(store.latitude, store.longitude), // 가게 위치 설정
+            map: window.kakaoMap, // 생성된 지도에 마커 표시
+          });
+
+          // 마커 클릭 이벤트 추가
+          map.event.addListener(marker, "click", () => {
+            setSelectedStoreName(store.name); // 마커 클릭 시 가게 이름 상태 업데이트
+          });
+        });
+      });
+
       updateMap(); // 지도 업데이트 함수 호출
     }
   }, [
@@ -61,6 +80,11 @@ const FindStorePage = () => {
       {/* "내 위치" 버튼 클릭 시 fetchLocation 함수 호출 */}
       {location.error && <p>{location.error}</p>}{" "}
       {/* 오류 발생 시 오류 메시지 출력 */}
+      {selectedStoreName && (
+        <div className="store-info">
+          <p>선택된 가게: {selectedStoreName}</p> {/* 선택된 가게 이름 출력 */}
+        </div>
+      )}
     </div>
   );
 };
