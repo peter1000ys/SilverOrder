@@ -3,12 +3,13 @@ import { useState, useEffect, useCallback } from "react";
 import usePurchaseStore from "../stores/purchase";
 import useOrderStore from "../stores/order";
 import useWebSocketStore from "../stores/websocket";
+import Notiflix from "notiflix";
 
 const OrderstatePage = () => {
   const [orderInfo, setOrderInfo] = useState({});
+  const [prevOrderStatus, setPrevOrderStatus] = useState(null); // 상태를 기억하는 변수 추가
   const { lastOrderId } = usePurchaseStore();
   const { fetchLastOrderInfo } = useOrderStore();
-
   const { nowOrderStatus } = useWebSocketStore();
 
   const fetchLastOrder = useCallback(async () => {
@@ -29,12 +30,27 @@ const OrderstatePage = () => {
   }, [fetchLastOrder]);
 
   useEffect(() => {
-    if (nowOrderStatus) {
+    if (nowOrderStatus && nowOrderStatus !== prevOrderStatus) {
       console.log("주문 상태 변경 감지:", nowOrderStatus);
+      // 페이지가 새로 렌더링된 후에 알림 출력
+      switch (nowOrderStatus) {
+        case "ORDER_IN":
+          Notiflix.Notify.success("주문이 접수되었습니다.");
+          break;
+        case "ORDER_IN_PROGRESS":
+          Notiflix.Notify.success("주문이 준비 중입니다.");
+          break;
+        case "ORDER_DONE":
+          Notiflix.Notify.success("주문이 완료되었습니다.");
+          break;
+        default:
+          break;
+      }
       // 상태 변경 시 전체 주문 정보를 새로 가져옴
       fetchLastOrder();
+      setPrevOrderStatus(nowOrderStatus); // 이전 상태를 현재 상태로 업데이트
     }
-  }, [nowOrderStatus, fetchLastOrder]);
+  }, [nowOrderStatus, prevOrderStatus, fetchLastOrder]);
 
   // 주문 상태에 따른 메시지 및 진행 상태 바 비율 설정
   const getStatusMessage = () => {

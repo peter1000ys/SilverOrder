@@ -3,7 +3,6 @@ import { persist } from "zustand/middleware";
 import axios from "axios";
 import useCartStore from "./cart";
 import { baseURL } from "../constant";
-import Notiflix from "notiflix";
 
 const API_URL =
   import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/";
@@ -110,6 +109,21 @@ const useInfoStore = create(
           }
         } catch (error) {
           console.error("회원 정보 조회 오류:", error);
+        }
+      },
+
+      // 가게 상호명 확인
+      fetchStoreName: async () => {
+        const { token, loginedStore } = get();
+        try {
+          const response = await axios.get(API_URL + `store/${loginedStore}`, {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          return response.data.storeName;
+        } catch (error) {
+          console.log(error);
         }
       },
     }),
