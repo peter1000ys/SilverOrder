@@ -114,7 +114,7 @@ public class StoreServiceImpl implements StoreService{
 
             double distance = calculateDistance(userLatitude, userLongitude, storeLatitude, storeLongitude);
 
-            if (distance <= 1.0) { // 1km 이내인 경우
+            if (distance <= 3.0) { // 3km 이내인 경우
                 ResponseNearStore dto = new ResponseNearStore(storeLatitude,storeLongitude);
                 dto.setLatitude(storeLatitude);
                 dto.setLongitude(storeLongitude);
