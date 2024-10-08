@@ -31,9 +31,9 @@ const SigninPage = () => {
           navigate(`${baseURL}/store`);
         }
       } else if (response === "password error") {
-        Notiflix.Notify.error("비밀번호가 틀렸습니다.");
+        Notiflix.Notify.failure("비밀번호가 틀렸습니다.");
       } else if (response === "unknown user") {
-        Notiflix.Notify.error("존재하지 않는 이메일입니다.");
+        Notiflix.Notify.failure("존재하지 않는 이메일입니다.");
       }
     } catch (error) {
       // 비동기 처리 중 오류 발생 시 처리
