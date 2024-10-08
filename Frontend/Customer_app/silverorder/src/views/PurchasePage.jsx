@@ -60,6 +60,23 @@ const PurchasePage = () => {
     }
   }, [selectedOption, carouselIndex, cards, highestDiscountCard]);
 
+  useEffect(() => {
+    setSelectedCard(highestDiscountCard);
+      //추천 결제 프롬프트
+      Notiflix.Confirm.prompt(
+        '추천 결제로 바로 결제하시겠습니까?',
+        '요청사항',
+        '',
+        '결제',
+        '아니오',
+        (clientRequest) => { //결제 버튼
+          setRequestDetails(clientRequest);
+          payMoney();
+          console.log("결제");
+        });
+  }, []);
+
+
   // 다음 카드로 이동
   const handleNextCard = () => {
     setCarouselIndex((prevIndex) => (prevIndex + 1) % cards.length);
