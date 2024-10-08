@@ -69,11 +69,12 @@ const AgeChart = ({ title }) => {
         <div className="age-toggle">
           <label htmlFor="age-group">연령대 선택: </label>
           <select id="age-group" value={selectedAgeGroup} onChange={handleAgeGroupChange}>
-            <option value={10}>10대</option>
+            <option value={10}>미성년자</option>
             <option value={20}>20대</option>
             <option value={30}>30대</option>
             <option value={40}>40대</option>
             <option value={50}>50대</option>
+            <option value={60}>60대 이하</option>
           </select>
         </div>
       </div>
