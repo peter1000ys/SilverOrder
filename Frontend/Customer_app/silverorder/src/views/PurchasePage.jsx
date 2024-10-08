@@ -72,7 +72,6 @@ const PurchasePage = () => {
         (clientRequest) => { //결제 버튼
           setRequestDetails(clientRequest);
           payMoney();
-          console.log("결제");
         });
   }, []);
 
