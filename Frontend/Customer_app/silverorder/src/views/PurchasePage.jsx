@@ -19,6 +19,7 @@ const PurchasePage = () => {
   const [selectedOption, setSelectedOption] = useState(null); // 선택한 옵션을 관리하는 state
   const [carouselIndex, setCarouselIndex] = useState(0); // carousel의 현재 인덱스를 관리하는 state
   const [cards, setCards] = useState([]); // 카드 데이터를 저장할 state
+  const [isFirstRender, setIsFirstRender] = useState(true);   //최초 랜더링 여부
 
   const { getRegisteredMyCard, sendPurchaseRequest } = usePurchaseStore();
   const { loginedStore } = useInfoStore();
@@ -51,6 +52,47 @@ const PurchasePage = () => {
     cards[0] || {}
   );
 
+
+  // 추천 카드 결제 Confirm useEffect
+  useEffect(() => {
+    if (selectedCard && selectedCard !== highestDiscountCard) {
+      // 선택된 카드가 다를 경우에만 업데이트
+      setSelectedCard(highestDiscountCard);
+    }
+
+    if (highestDiscountCard && highestDiscountCard.cardName && isFirstRender && purchaseInfo) {
+      // 추천 결제 프롬프트
+      Notiflix.Confirm.prompt(
+        `최대 할인율: ${highestDiscountCard.cardName}`,
+        '요청사항 입력',
+        '',
+        '즉시 결제',
+        '아니오',
+        (clientRequest) => { // 결제 버튼 클릭 시
+          recommendPayMoney(clientRequest);
+        },
+        () => { // '아니오' 버튼 클릭 시 취소 처리
+          console.log('결제를 취소했습니다.');
+        },
+        {
+          titleColor: '#1428a0',
+          titleFontSize: '28px',
+          titleMaxLength: 100,
+          messageColor: '#1e1e1e',
+          messageFontSize: '20px',
+          buttonsFontSize: '25px',
+          okButtonColor: '#f8f8f8',
+          okButtonBackground: '#1428a0',
+        }
+      )
+    
+      // 최초 렌더링 후 상태 업데이트
+      setIsFirstRender(false);
+    }
+    
+  }, [highestDiscountCard, selectedCard, isFirstRender, purchaseInfo]); // highestDiscountCard와 selectedCard를 의존성 배열에 추가
+
+  
   useEffect(() => {
     // 선택한 옵션에 따라 selectedCard를 설정
     if (selectedOption === "highest") {
@@ -60,20 +102,8 @@ const PurchasePage = () => {
     }
   }, [selectedOption, carouselIndex, cards, highestDiscountCard]);
 
-  useEffect(() => {
-    setSelectedCard(highestDiscountCard);
-      //추천 결제 프롬프트
-      Notiflix.Confirm.prompt(
-        '추천 결제로 바로 결제하시겠습니까?',
-        '요청사항',
-        '',
-        '결제',
-        '아니오',
-        (clientRequest) => { //결제 버튼
-          setRequestDetails(clientRequest);
-          payMoney();
-        });
-  }, []);
+
+
 
 
   // 다음 카드로 이동
@@ -89,7 +119,7 @@ const PurchasePage = () => {
   };
 
   // 결제 요청 보내기
-  const payMoney = () => {
+  const payMoney = async () => {
     if (purchaseInfo && selectedCard) {
       // 선택한 카드의 paymentId를 purchaseInfo에 추가
       const updatedPurchaseInfo = {
@@ -97,6 +127,41 @@ const PurchasePage = () => {
         storeId: loginedStore,
         paymentId: selectedCard.paymentId, // 선택한 카드의 paymentId를 추가
         require: requestDetails, // 입력된 요청 사항 추가
+      };
+
+      console.log(updatedPurchaseInfo);
+
+      const checkPurchaseResult = async () => {
+        try {
+          const response = await sendPurchaseRequest(updatedPurchaseInfo);
+          if (response) {
+            Notiflix.Notify.success(
+              `결제 성공! 주문 번호는 ${response.orderId}번입니다.`
+            );
+            subscribeToOrder(response.orderId);
+            clearCart();
+            navigate(`${baseURL}/orderstate`);
+          } else {
+            console.error("에러 발생");
+          }
+        } catch (error) {
+          console.log("결제 중 에러 발생", error);
+        }
+      };
+
+      checkPurchaseResult();
+    }
+  };
+
+  // 결제 요청 보내기
+  const recommendPayMoney = async (clientRequest) => {
+    if (purchaseInfo && highestDiscountCard) {
+      // 선택한 카드의 paymentId를 purchaseInfo에 추가
+      const updatedPurchaseInfo = {
+        ...purchaseInfo,
+        storeId: loginedStore,
+        paymentId: highestDiscountCard.paymentId, // 선택한 카드의 paymentId를 추가
+        require: clientRequest, // 입력된 요청 사항 추가
       };
 
       console.log(updatedPurchaseInfo);
