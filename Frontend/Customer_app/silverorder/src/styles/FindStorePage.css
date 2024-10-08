@@ -21,3 +21,15 @@
   cursor: pointer;
   font-size: 40px;
 }
+
+.store-info-window {
+  width: 40px;
+  height: auto;
+  padding: 10px;
+  font-size: 14px;
+  border: none;
+  border-radius: 5px;
+  color: #333;
+  font-weight: bold;
+  word-break: keep-all;
+}
