@@ -5,7 +5,6 @@ import './AgeChart.css';
 import useDashboardStore from '../../stores/dashboard'; // 연령별 판매 데이터를 가져오는 스토어
 import useInfoStore from '../../stores/infos';
 
-
 // Chart.js에 사용할 모듈 등록
 ChartJS.register(
   CategoryScale,
@@ -22,12 +21,15 @@ const AgeChart = ({ title }) => {
 
   // 연령대가 변경될 때마다 API를 통해 데이터를 가져옴
   useEffect(() => {
-    fetchPopularityByOrder(userInfo.storeId, selectedAgeGroup); // 1799는 storeId 예시, 실제 storeId로 대체
-  }, [selectedAgeGroup, fetchPopularityByOrder]);
+    fetchPopularityByOrder(userInfo.storeId, selectedAgeGroup);
+  }, [selectedAgeGroup, fetchPopularityByOrder, userInfo.storeId]);
+
+  // 최대 5개의 데이터를 표시
+  const limitedPopularityData = popularityData ? popularityData.slice(0, 5) : [];
 
   // popularityData가 존재하면, labels와 data를 생성
-  const labels = popularityData ? popularityData.map(item => item.menuName) : ['데이터 없음'];
-  const data = popularityData ? popularityData.map(item => item.amount) : [0];
+  const labels = limitedPopularityData.length > 0 ? limitedPopularityData.map(item => item.menuName) : ['데이터 없음'];
+  const data = limitedPopularityData.length > 0 ? limitedPopularityData.map(item => item.amount) : [0];
 
   const barChartData = {
     labels: labels, // 메뉴 이름

@@ -21,14 +21,18 @@ const SigninPage = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    const success = await sendLoginRequest(email, password);
-    if (success) {
+    const response = await sendLoginRequest(email, password);
+    if (response === "success") {
       Notiflix.Notify.success("로그인 성공");
       if (storeId === 0) {
         navigate(`${baseURL}/outdoor`);
       } else {
         navigate(`${baseURL}/store`);
       }
+    } else if (response === "password error") {
+      Notiflix.Notify.error("비밀번호가 틀렸습니다.");
+    } else if (response === "unknown user") {
+      Notiflix.Notify.error("존재하지 않는 이메일입니다.");
     }
   };
 
