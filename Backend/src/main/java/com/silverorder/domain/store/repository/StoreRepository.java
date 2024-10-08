@@ -3,6 +3,7 @@ package com.silverorder.domain.store.repository;
 import com.silverorder.domain.store.dto.ResponseProcAgeDto;
 import com.silverorder.domain.store.dto.ProcSalesDto;
 import com.silverorder.domain.store.dto.ProcWeekDto;
+import com.silverorder.domain.store.dto.StoreDto;
 import com.silverorder.domain.store.entity.Store;
 import jakarta.persistence.PersistenceException;
 

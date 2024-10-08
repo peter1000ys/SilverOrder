@@ -20,4 +20,6 @@ public interface StoreService {
 
     /** 연령별 메뉴 매출 */
     List<ResponseProcAgeDto> procAgeSales(Long userId, Long storeId, Integer purchaseAge) throws Exception;
+
+    StoreDto getStore(Long storeId) throws Exception;
 }

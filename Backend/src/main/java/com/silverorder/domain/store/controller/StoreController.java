@@ -51,6 +51,13 @@ public class StoreController {
         return ResponseEntity.ok(response);
     }
 
+    @Operation(summary = "매장 단건 조회", description = "가맹점ID로 매장 정보를 조회합니다")
+    @GetMapping("/{storeId}")
+    public ResponseEntity<?> getStore(@PathVariable("storeId") Long storeId) throws Exception {
+        StoreDto storeDto = storeService.getStore(storeId);
+        return ResponseEntity.ok(storeDto);
+    }
+
     @Operation(summary = "연령별 판매 메뉴 조회", description="한달동안 연령별로 판매된 메뉴의 개수를 조회합니다.")
     @GetMapping("/procAge/{storeId}/{purchaseAge}")
     public ResponseEntity<?> procAgeList(

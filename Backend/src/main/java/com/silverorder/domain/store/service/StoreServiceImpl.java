@@ -100,6 +100,16 @@ public class StoreServiceImpl implements StoreService{
         return stores;
     }
 
+
+    @Override
+    public StoreDto getStore(Long storeId) throws Exception {
+       Store store = storeJpaRepository.findById(storeId)
+               .orElseThrow(() -> new CustomException(ErrorCode.STORE_NOT_FOUND));
+
+       return store.toDto(store);
+    }
+
+
     @Override
     public List<ResponseNearStore> calculateStoreDistance(ResponseLatitudeLongitudeDTO request) {
         double userLatitude = request.getLatitude();

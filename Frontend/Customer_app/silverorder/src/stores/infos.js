@@ -64,13 +64,13 @@ const useInfoStore = create(
               },
             });
             return "success";
-          } else if (response.status === 400) {
-            return "password error";
-          } else if (response.status === 404) {
-            return "unknown user";
           }
         } catch (e) {
-          return false;
+          if (e.status === 400) {
+            return "password error";
+          } else if (e.status === 404) {
+            return "unknown user";
+          }
         }
       },
 
