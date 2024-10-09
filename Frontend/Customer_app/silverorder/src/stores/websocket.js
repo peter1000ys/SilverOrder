@@ -66,16 +66,19 @@ const useWebSocketStore = create((set, get) => ({
               case "ORDER_IN":
                 Notiflix.Notify.success(`${orderId}번 주문이 접수되었습니다.`, {
                   timeout: false, // 클릭 전까지 계속 표시
+                  clickToClose: true, // 클릭하면 알림이 닫힘
                 });
                 break;
               case "ORDER_IN_PROGRESS":
                 Notiflix.Notify.success(`${orderId}번 주문을 제조 중입니다.`, {
                   timeout: false, // 클릭 전까지 계속 표시
+                  clickToClose: true, // 클릭하면 알림이 닫힘
                 });
                 break;
               case "ORDER_DONE":
                 Notiflix.Notify.success(`${orderId}번 주문이 완료되었습니다.`, {
                   timeout: false, // 클릭 전까지 계속 표시
+                  clickToClose: true, // 클릭하면 알림이 닫힘
                 });
                 break;
             }

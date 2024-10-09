@@ -104,7 +104,11 @@ const PlayBox = () => {
         <div className="playbox-result-container">
           {resultData ? (
             <>
-              <p className="playbox-result-info">{resultData.qa_result}</p>
+              <p className="playbox-result-info">
+                {resultData.intent === "user_experience_based"
+                  ? "AI 어시스턴트: 최근 주문 내역을 기반으로 추천 드립니다."
+                  : resultData.qa_result}
+              </p>
 
               <div className="playbox-result-box">
                 <p className="playbox-result-title">
