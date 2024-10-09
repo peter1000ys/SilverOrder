@@ -72,7 +72,7 @@ const PurchasePage = () => {
         "요청사항 입력",
         "",
         "최대 할인 결제",
-        "아니오",
+        "다른 카드 결제",
         (clientRequest) => {
           // 결제 버튼 클릭 시
           recommendPayMoney(clientRequest);
