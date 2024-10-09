@@ -52,7 +52,7 @@ const PageRoutes = () => {
 
   // URL에서 쿼리 파라미터 추출
   const queryParams = new URLSearchParams(location.search);
-  const storeIdString = queryParams.get("storeId"); // storeId 추출
+  const storeIdString = queryParams.get("store"); // storeid 추출
 
   // storeId를 정수로 변환
   const storeId = storeIdString ? parseInt(storeIdString, 10) : null;
