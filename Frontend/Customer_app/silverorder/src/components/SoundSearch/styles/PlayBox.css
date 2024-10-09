@@ -141,6 +141,7 @@
 
 .playbox-search-other-btn {
   background-color: #666666;
+  margin-bottom: 15px;
 }
 
 .playbox-check-cart-btn {
@@ -243,6 +244,10 @@
     height: 16.99vw;
     border-radius: 2.43vw;
     font-size: 6.07vw;
+  }
+
+  .playbox-search-other-btn {
+    margin-bottom: 3.64vw;
   }
 
   .playbox-result-loading-spinner {
