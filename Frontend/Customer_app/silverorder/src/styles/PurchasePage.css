@@ -1,196 +1,210 @@
 .purchase-container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin: 25px 0px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 25px 0px;
 }
 
 .purchase-requirements-box {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 30px;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 30px;
 }
 
 .purchase-requirements-box p {
-  margin: 0;
-  margin-bottom: 15px;
-  font-size: 30px;
-  font-weight: bold;
+    margin: 0;
+    margin-bottom: 15px;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .purchase-requirements-input {
-  width: 100%;
-  min-height: 100px;
-  font-size: 30px;
+    width: 100%;
+    min-height: 100px;
+    font-size: 30px;
 }
 
 .purchase-allcard-list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
 }
 
 .purchase-allcard-card {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: 15px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
 .purchase-allcard-title {
-  width: 90%;
-  margin-bottom: 15px;
-  display: flex;
-  align-items: center;
-  text-align: start;
+    width: 90%;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    text-align: start;
 }
 
 .purchase-allcard-title p {
-  font-size: 25px;
-  font-weight: bold;
-  margin: 0;
+    font-size: 25px;
+    font-weight: bold;
+    margin: 0;
 }
 
 .purchase-carousel {
-  width: 100%;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
 }
 
 .purchase-allcard-card-info {
-  width: 280px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border: 1px solid #cccccc;
-  border-radius: 10px;
+    width: 280px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #cccccc;
+    border-radius: 10px;
 }
 
 .purchase-allcard-card-info p {
-  margin: 15px;
+    margin: 15px;
 }
 
 .purchase-card-name {
-  font-size: 30px;
-  font-weight: bold;
+    font-size: 30px;
+    font-weight: bold;
 }
 
 .purchase-card-discountrate {
-  font-size: 20px;
-  font-weight: bold;
+    font-size: 20px;
+    font-weight: bold;
 }
 
 .purchase-card-number {
-  font-size: 20px;
+    font-size: 20px;
 }
 
 .purchase-carousel button {
-  font-size: 40px;
-  background: none;
-  border: none;
-  cursor: pointer;
+    font-size: 40px;
+    background: none;
+    border: none;
+    cursor: pointer;
 }
 
 .purchase-btns-box {
-  width: 90%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .purchase-ok-btn,
 .purchase-cancel-btn {
-  width: 90%;
-  margin-bottom: 15px;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  font-size: 30px;
-  font-weight: bold;
-  padding: 10px;
-  color: #ffffff;
+    width: 90%;
+    margin-bottom: 15px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    font-size: 30px;
+    font-weight: bold;
+    padding: 10px;
+    color: #ffffff;
 }
 
 .purchase-ok-btn {
-  background-color: #1428a0;
+    background-color: #1428a0;
 }
 
 .purchase-cancel-btn {
-  background-color: #666666;
+    background-color: #666666;
+}
+
+.nx-confirm-button-ok,
+.nx-confirm-button-cancel {
+    display: flex; /* 플렉스 박스 사용 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center; /* 세로 중앙 정렬 */
+    font-size: 25px; /* 폰트 크기 설정 */
+    height: 95px; /* 버튼 높이 설정 */
+    word-break: keep-all; /* 단어 중간에 줄바꿈 방지 */
+}
+
+.notiflix-confirm-head {
+    word-break: keep-all; /* 단어 중간에 줄바꿈 방지 */
 }
 
 @media (max-width: 412px) {
-  .purchase-container {
-    margin: 6.07vw 0vw;
-  }
+    .purchase-container {
+        margin: 6.07vw 0vw;
+    }
 
-  .purchase-requirements-box {
-    margin-bottom: 7.28vw;
-  }
+    .purchase-requirements-box {
+        margin-bottom: 7.28vw;
+    }
 
-  .purchase-requirements-box p {
-    margin-bottom: 3.64vw;
-    font-size: 7.28vw;
-  }
+    .purchase-requirements-box p {
+        margin-bottom: 3.64vw;
+        font-size: 7.28vw;
+    }
 
-  .purchase-requirements-input {
-    font-size: 7.28vw;
-  }
+    .purchase-requirements-input {
+        font-size: 7.28vw;
+    }
 
-  .purchase-allcard-list {
-    margin-bottom: 4.85vw;
-  }
+    .purchase-allcard-list {
+        margin-bottom: 4.85vw;
+    }
 
-  .purchase-allcard-card,
-  .purchase-allcard-title {
-    margin-bottom: 3.64vw;
-  }
+    .purchase-allcard-card,
+    .purchase-allcard-title {
+        margin-bottom: 3.64vw;
+    }
 
-  .purchase-allcard-title p {
-    font-size: 6.07vw;
-  }
+    .purchase-allcard-title p {
+        font-size: 6.07vw;
+    }
 
-  .purchase-allcard-card-info {
-    width: 67.96vw;
-    border: 0.24vw solid #cccccc;
-    border-radius: 2.43vw;
-  }
+    .purchase-allcard-card-info {
+        width: 67.96vw;
+        border: 0.24vw solid #cccccc;
+        border-radius: 2.43vw;
+    }
 
-  .purchase-allcard-card-info p {
-    margin: 3.64vw;
-  }
+    .purchase-allcard-card-info p {
+        margin: 3.64vw;
+    }
 
-  .purchase-card-name {
-    font-size: 7.28vw;
-  }
+    .purchase-card-name {
+        font-size: 7.28vw;
+    }
 
-  .purchase-card-discountrate {
-    font-size: 4.85vw;
-  }
+    .purchase-card-discountrate {
+        font-size: 4.85vw;
+    }
 
-  .purchase-card-number {
-    font-size: 4.85vw;
-  }
+    .purchase-card-number {
+        font-size: 4.85vw;
+    }
 
-  .purchase-carousel button {
-    font-size: 9.71vw;
-  }
+    .purchase-carousel button {
+        font-size: 9.71vw;
+    }
 
-  .purchase-ok-btn,
-  .purchase-cancel-btn {
-    margin-bottom: 3.64vw;
-    border-radius: 2.43vw;
-    font-size: 7.28vw;
-    padding: 2.43vw;
-  }
+    .purchase-ok-btn,
+    .purchase-cancel-btn {
+        margin-bottom: 3.64vw;
+        border-radius: 2.43vw;
+        font-size: 7.28vw;
+        padding: 2.43vw;
+    }
 }

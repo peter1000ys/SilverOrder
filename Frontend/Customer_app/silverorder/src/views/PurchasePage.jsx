@@ -8,6 +8,8 @@ import usePurchaseStore from "../stores/purchase";
 import useCartStore from "../stores/cart";
 import useWebSocketStore from "../stores/websocket";
 import Notiflix from "notiflix";
+import { TextField } from '@mui/material';
+
 
 const PurchasePage = () => {
   const location = useLocation();
@@ -66,18 +68,16 @@ const PurchasePage = () => {
     ) {
       // 추천 결제 프롬프트
       Notiflix.Confirm.prompt(
-        `최대 할인: ${highestDiscountCard.cardName}`,
+        `${highestDiscountCard.cardName}`,
         "요청사항 입력",
         "",
-        "즉시 결제",
+        "최대 할인 결제",
         "아니오",
         (clientRequest) => {
           // 결제 버튼 클릭 시
           recommendPayMoney(clientRequest);
         },
         () => {
-          // '아니오' 버튼 클릭 시 취소 처리
-          console.log("결제를 취소했습니다.");
         },
         {
           titleColor: "#1428a0",
@@ -193,12 +193,15 @@ const PurchasePage = () => {
     <div className="purchase-container">
       <div className="purchase-requirements-box">
         <p>요청 사항</p>
-        <textarea
-          className="purchase-requirements-input"
-          value={requestDetails}
-          onChange={(e) => setRequestDetails(e.target.value)}
-          placeholder="없음"
-        ></textarea>
+        <TextField
+            placeholder='없음.'
+            multiline
+            margin="none"
+            fullWidth
+            size="medium"
+            value={requestDetails}
+            onChange={(e) => setRequestDetails(e.target.value)}
+        />
       </div>
 
       {/* 내 카드 모두 보여주기 (Carousel) */}
