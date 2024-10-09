@@ -9,7 +9,7 @@
 .playbox-record-btn {
   width: 150px; /* 원하는 버튼의 너비 */
   height: 150px; /* 원하는 버튼의 높이 */
-  border: 5px solid #000000; /* 기본 테두리 제거 */
+  border: none;
   border-radius: 90%;
   background: none;
   cursor: pointer; /* 클릭 가능한 커서 모양 */
@@ -17,8 +17,8 @@
 
 /* 버튼 안의 이미지 크기 고정 */
 .record-btn-icon {
-  width: 75%; /* 버튼의 너비에 맞춰 이미지 크기 조정 */
-  height: 75%; /* 버튼의 높이에 맞춰 이미지 크기 조정 */
+  width: 100%; /* 버튼의 너비에 맞춰 이미지 크기 조정 */
+  height: 100%; /* 버튼의 높이에 맞춰 이미지 크기 조정 */
   object-fit: contain; /* 이미지가 버튼 안에 맞게 비율 유지 */
 }
 
@@ -168,7 +168,6 @@
   .playbox-record-btn {
     width: 36.41vw; /* 원하는 버튼의 너비 */
     height: 36.41vw; /* 원하는 버튼의 높이 */
-    border: 1.21vw solid #000000; /* 기본 테두리 제거 */
   }
 
   .playbox-record-info {
