@@ -217,7 +217,7 @@ public class OrderRepositoryImpl implements OrderRepository {
                     .innerJoin(payment).on(order.payment.id.eq(payment.id))
                     .where(order.payment.user.eq(user))
                     .orderBy(order.id.desc())
-                    .fetchOne();
+                    .fetchFirst();
         }catch(Exception e){
             e.printStackTrace();
             throw new PersistenceException("주문내역 조회 중 에러 발생", e);
