@@ -103,7 +103,7 @@
 
     .menu-search-btn,
     .menu-search-clear {
-        width: 29.13vw;
+        width: calc(145 / 412 * 100vw);
         height: 9.71vw;
         font-size: 6.07vw;
         border-radius: 2.43vw;
