@@ -66,7 +66,7 @@ const PurchasePage = () => {
     ) {
       // 추천 결제 프롬프트
       Notiflix.Confirm.prompt(
-        `최대 할인율 카드: ${highestDiscountCard.cardName}`,
+        `최대 할인: ${highestDiscountCard.cardName}`,
         "요청사항 입력",
         "",
         "즉시 결제",

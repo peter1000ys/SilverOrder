@@ -7,6 +7,7 @@ import useSoundsearchStore from "../../stores/soundsearch";
 import useCartStore from "../../stores/cart";
 import { baseURL } from "../../constant";
 import Notiflix from "notiflix";
+import CartInfoModal from "./CartInfoModal";
 
 const PlayBox = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -17,8 +18,9 @@ const PlayBox = () => {
 
   const { sendAudioToAPI } = useSoundsearchStore();
 
-  const { addToCart } = useCartStore();
   const navigate = useNavigate();
+  const { addToCart } = useCartStore();
+  const [cartModalOpen, setCartModalOpen] = useState(false); // 장바구니 modal 상태
 
   // API 요청 함수
   const requestSoundsearchResult = async (audioBlob) => {
@@ -84,6 +86,16 @@ const PlayBox = () => {
   const handleSearchAgain = () => {
     setSoundFile(null); // 녹음 파일 상태 초기화
     setResultData(null); // API 결과 상태 초기화
+  };
+
+  // 장바구니 메뉴 확인하는 modal 여는 함수
+  const openCartInfoModal = () => {
+    setCartModalOpen(true); // 장바구니 modal 열기
+  };
+
+  // 장바구니 메뉴 확인하는 modal 닫는 함수
+  const closeCartInfoModal = () => {
+    setCartModalOpen(false); // 장바구니 modal 닫기
   };
 
   return (
@@ -153,6 +165,15 @@ const PlayBox = () => {
               >
                 다른 메뉴 찾아보기
               </button>
+
+              <button
+                className="playbox-check-cart-btn"
+                onClick={openCartInfoModal}
+              >
+                담은 메뉴 확인하기
+              </button>
+
+              {cartModalOpen && <CartInfoModal onClose={closeCartInfoModal} />}
             </>
           ) : (
             <>

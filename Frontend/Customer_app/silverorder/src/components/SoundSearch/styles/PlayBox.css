@@ -128,15 +128,23 @@
   margin: 0;
 }
 
-.playbox-search-other-btn {
+.playbox-search-other-btn,
+.playbox-check-cart-btn {
   width: 250px;
   height: 70px;
   border: none;
   border-radius: 10px;
-  background-color: #666666;
   cursor: pointer;
   color: #ffffff;
   font-size: 25px;
+}
+
+.playbox-search-other-btn {
+  background-color: #666666;
+}
+
+.playbox-check-cart-btn {
+  background-color: #1248a0;
 }
 
 /* 스피너 스타일 */
@@ -229,7 +237,8 @@
     font-size: 4.13vw;
   }
 
-  .playbox-search-other-btn {
+  .playbox-search-other-btn,
+  .playbox-check-cart-btn {
     width: 60.68vw;
     height: 16.99vw;
     border-radius: 2.43vw;
