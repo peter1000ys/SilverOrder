@@ -16,10 +16,9 @@ const PurchasePage = () => {
   const navigate = useNavigate();
   const [requestDetails, setRequestDetails] = useState(""); // 요청 사항을 관리하는 state
   const [selectedCard, setSelectedCard] = useState(null);
-  const [selectedOption, setSelectedOption] = useState(null); // 선택한 옵션을 관리하는 state
   const [carouselIndex, setCarouselIndex] = useState(0); // carousel의 현재 인덱스를 관리하는 state
   const [cards, setCards] = useState([]); // 카드 데이터를 저장할 state
-  const [isFirstRender, setIsFirstRender] = useState(true);   //최초 랜더링 여부
+  const [isFirstRender, setIsFirstRender] = useState(true); //최초 랜더링 여부
 
   const { getRegisteredMyCard, sendPurchaseRequest } = usePurchaseStore();
   const { loginedStore } = useInfoStore();
@@ -52,7 +51,6 @@ const PurchasePage = () => {
     cards[0] || {}
   );
 
-
   // 추천 카드 결제 Confirm useEffect
   useEffect(() => {
     if (selectedCard && selectedCard !== highestDiscountCard) {
@@ -60,51 +58,50 @@ const PurchasePage = () => {
       setSelectedCard(highestDiscountCard);
     }
 
-    if (highestDiscountCard && highestDiscountCard.cardName && isFirstRender && purchaseInfo) {
+    if (
+      highestDiscountCard &&
+      highestDiscountCard.cardName &&
+      isFirstRender &&
+      purchaseInfo
+    ) {
       // 추천 결제 프롬프트
       Notiflix.Confirm.prompt(
-        `최대 할인율: ${highestDiscountCard.cardName}`,
-        '요청사항 입력',
-        '',
-        '즉시 결제',
-        '아니오',
-        (clientRequest) => { // 결제 버튼 클릭 시
+        `최대 할인율 카드: ${highestDiscountCard.cardName}`,
+        "요청사항 입력",
+        "",
+        "즉시 결제",
+        "아니오",
+        (clientRequest) => {
+          // 결제 버튼 클릭 시
           recommendPayMoney(clientRequest);
         },
-        () => { // '아니오' 버튼 클릭 시 취소 처리
-          console.log('결제를 취소했습니다.');
+        () => {
+          // '아니오' 버튼 클릭 시 취소 처리
+          console.log("결제를 취소했습니다.");
         },
         {
-          titleColor: '#1428a0',
-          titleFontSize: '28px',
+          titleColor: "#1428a0",
+          titleFontSize: "28px",
           titleMaxLength: 100,
-          messageColor: '#1e1e1e',
-          messageFontSize: '20px',
-          buttonsFontSize: '25px',
-          okButtonColor: '#f8f8f8',
-          okButtonBackground: '#1428a0',
+          messageColor: "#1e1e1e",
+          messageFontSize: "20px",
+          buttonsFontSize: "25px",
+          okButtonColor: "#f8f8f8",
+          okButtonBackground: "#1428a0",
         }
-      )
-    
+      );
+
       // 최초 렌더링 후 상태 업데이트
       setIsFirstRender(false);
     }
-    
   }, [highestDiscountCard, selectedCard, isFirstRender, purchaseInfo]); // highestDiscountCard와 selectedCard를 의존성 배열에 추가
 
-  
   useEffect(() => {
     // 선택한 옵션에 따라 selectedCard를 설정
-    if (selectedOption === "highest") {
-      setSelectedCard(highestDiscountCard);
-    } else if (selectedOption === "all" && cards.length > 0) {
+    if (cards.length > 0) {
       setSelectedCard(cards[carouselIndex]);
     }
-  }, [selectedOption, carouselIndex, cards, highestDiscountCard]);
-
-
-
-
+  }, [carouselIndex, cards]);
 
   // 다음 카드로 이동
   const handleNextCard = () => {
@@ -204,61 +201,11 @@ const PurchasePage = () => {
         ></textarea>
       </div>
 
-      {/* 가장 할인율이 높은 카드 1개 보여주기 */}
-      {cards.length > 0 && (
-        <div className="purchase-highest-discountrate">
-          <div className="purchase-highest-label">
-            <label>
-              <input
-                type="radio"
-                name="cardOption"
-                value="highest"
-                checked={selectedOption === "highest"}
-                onChange={() => setSelectedOption("highest")}
-              />
-              할인율이 가장 높은 카드
-            </label>
-          </div>
-          <div className="purchase-highest-card">
-            <div className="purchase-highest-card-info">
-              <p className="purchase-card-name">
-                {highestDiscountCard.cardName}
-              </p>
-              <p className="purchase-card-number">
-                (
-                {highestDiscountCard.cardNum
-                  .match(/.{1,4}/g)
-                  .map((segment, i) => {
-                    if (i === 1 || i === 3) {
-                      return "****";
-                    }
-                    return segment;
-                  })
-                  .join(" ")}{" "}
-                )
-              </p>
-              <p className="purchase-card-discountrate">
-                할인율: {highestDiscountCard.discountRate}%
-              </p>
-            </div>
-          </div>
-        </div>
-      )}
-
       {/* 내 카드 모두 보여주기 (Carousel) */}
       {cards.length > 0 && (
         <div className="purchase-allcard-list">
-          <div className="purchase-allcard-label">
-            <label>
-              <input
-                type="radio"
-                name="cardOption"
-                value="all"
-                checked={selectedOption === "all"}
-                onChange={() => setSelectedOption("all")}
-              />
-              현재 선택한 카드
-            </label>
+          <div className="purchase-allcard-title">
+            <p>카드 선택하기</p>
           </div>
           <div className="purchase-allcard-card">
             <div className="purchase-carousel">
