@@ -131,11 +131,6 @@
 
 .nx-confirm-button-ok,
 .nx-confirm-button-cancel {
-    display: flex; /* 플렉스 박스 사용 */
-    justify-content: center; /* 가로 중앙 정렬 */
-    align-items: center; /* 세로 중앙 정렬 */
-    font-size: 25px; /* 폰트 크기 설정 */
-    height: 95px; /* 버튼 높이 설정 */
     word-break: keep-all; /* 단어 중간에 줄바꿈 방지 */
 }
 
