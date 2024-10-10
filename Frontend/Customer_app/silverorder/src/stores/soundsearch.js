@@ -33,6 +33,37 @@ const useSoundsearchStore = create(() => ({
       Notiflix.Notify.failure("메뉴 검색에 실패했습니다.");
     }
   },
+  fetchAudio: async (resultText) => {
+    const { loginedStore, token } = useInfoStore.getState();
+  
+    try {
+    
+      const response = await axios.post(
+        `${API_URL}voice/tts/generate`,
+        {
+          text: resultText // 변환할 텍스트
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json"
+          },
+          responseType: 'blob' // 응답을 Blob으로 처리
+        }
+      );
+  
+      // 상태 코드 확인
+      if (response.status !== 200) {
+        throw new Error('네트워크 응답이 좋지 않습니다');
+      }
+  
+      const audioUrl = URL.createObjectURL(response.data);
+      return audioUrl;
+    } catch (error) {
+      console.error('오류 발생:', error);
+    }
+  },
+
 }));
 
 export default useSoundsearchStore;

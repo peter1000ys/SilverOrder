@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import "./styles/PlayBox.css";
 import play_btn from "../../img/play_btn.png";
@@ -8,6 +8,10 @@ import useCartStore from "../../stores/cart";
 import { baseURL } from "../../constant";
 import Notiflix from "notiflix";
 import CartInfoModal from "./CartInfoModal";
+import axios from 'axios';
+
+const API_URL =
+  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/"
 
 const PlayBox = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -16,11 +20,13 @@ const PlayBox = () => {
   const mediaRecorderRef = useRef(null); // MediaRecorder 참조 변수
   const audioChunksRef = useRef([]); // 녹음된 데이터 조각을 저장하는 변수
 
-  const { sendAudioToAPI } = useSoundsearchStore();
+  const { sendAudioToAPI, fetchAudio } = useSoundsearchStore();
 
   const navigate = useNavigate();
   const { addToCart } = useCartStore();
   const [cartModalOpen, setCartModalOpen] = useState(false); // 장바구니 modal 상태
+
+  const [audioSrc, setAudioSrc] = useState(''); //TTS 오디오 파일 소스
 
   // API 요청 함수
   const requestSoundsearchResult = async (audioBlob) => {
@@ -97,6 +103,34 @@ const PlayBox = () => {
   const closeCartInfoModal = () => {
     setCartModalOpen(false); // 장바구니 modal 닫기
   };
+
+
+  // resultData 변경 시 TTS 실행
+  useEffect(() => {
+    const fetchAndSetAudio = async () => {
+      if (resultData && resultData.qa_result) {
+        var resultText = resultData.qa_result;
+        if (resultData.intent === "user_experience_based") {
+          resultText = "AI 어시스턴트: 최근 주문 내역을 기반으로 추천 드립니다.";
+        }
+        const audioUrl = await fetchAudio(resultText.slice(10)); 
+        console.log(audioUrl);
+        setAudioSrc(audioUrl);
+      }
+    };
+  
+    fetchAndSetAudio(); // 비동기 함수 호출
+  }, [resultData]);
+
+  // 오디오 파일 useEffect
+  useEffect(() => {
+    if (audioSrc) {
+      const audio = new Audio(audioSrc);
+      audio.play().catch((error) => {
+        console.error('오디오 재생 오류:', error);
+      });
+    }
+  }, [audioSrc]);
 
   return (
     <div className="playbox-search-container">

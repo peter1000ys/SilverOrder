@@ -30,7 +30,7 @@ public class TTSController {
 
     private final TTSService ttsService;
 
-    @Operation(summary = "음성 변환", description = "입력한 텍스트를 받아 음성으로 변환합니다.")
+    @Operation(summary = "음성 변환", description = "입력한 텍스트를 받아 음성으로 변환합니다. <br> { 'text' : 'string' } 전달")
     @PostMapping("/generate")
     public ResponseEntity<?> generate(@RequestBody Map<String, String> requestBody) throws Exception {
         String filePath = ttsService.synthesizeSpeech(requestBody.get("text"));
