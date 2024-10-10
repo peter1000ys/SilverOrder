@@ -8,10 +8,6 @@ import useCartStore from "../../stores/cart";
 import { baseURL } from "../../constant";
 import Notiflix from "notiflix";
 import CartInfoModal from "./CartInfoModal";
-import axios from 'axios';
-
-const API_URL =
-  import.meta.env.VITE_API_BASE_URL || "http://localhost:8080/silverorder/"
 
 const PlayBox = () => {
   const [isRecording, setIsRecording] = useState(false);
@@ -19,6 +15,7 @@ const PlayBox = () => {
   const [resultData, setResultData] = useState(null); // API 요청 결과 저장 변수
   const mediaRecorderRef = useRef(null); // MediaRecorder 참조 변수
   const audioChunksRef = useRef([]); // 녹음된 데이터 조각을 저장하는 변수
+  const audioStreamRef = useRef(null); // 마이크 스트림 참조 변수
 
   const { sendAudioToAPI, fetchAudio } = useSoundsearchStore();
 
@@ -26,7 +23,7 @@ const PlayBox = () => {
   const { addToCart } = useCartStore();
   const [cartModalOpen, setCartModalOpen] = useState(false); // 장바구니 modal 상태
 
-  const [audioSrc, setAudioSrc] = useState(''); //TTS 오디오 파일 소스
+  const [audioSrc, setAudioSrc] = useState(""); //TTS 오디오 파일 소스
 
   // API 요청 함수
   const requestSoundsearchResult = async (audioBlob) => {
@@ -44,11 +41,13 @@ const PlayBox = () => {
     if (isRecording) {
       // 녹음 중일 때 -> 녹음 종료
       mediaRecorderRef.current.stop(); // 녹음 종료
+      audioStreamRef.current.getTracks().forEach((track) => track.stop()); // 마이크 스트림 종료
       setIsRecording(false); // 녹음 상태 false로 변경
     } else {
       // 녹음 중이 아닐 때 -> 녹음 시작
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
       mediaRecorderRef.current = new MediaRecorder(stream);
+      audioStreamRef.current = stream; // 마이크 스트림 저장
 
       // 데이터가 들어올 때마다 audioChunksRef에 저장
       mediaRecorderRef.current.ondataavailable = (event) => {
@@ -104,21 +103,21 @@ const PlayBox = () => {
     setCartModalOpen(false); // 장바구니 modal 닫기
   };
 
-
   // resultData 변경 시 TTS 실행
   useEffect(() => {
     const fetchAndSetAudio = async () => {
       if (resultData && resultData.qa_result) {
         var resultText = resultData.qa_result;
         if (resultData.intent === "user_experience_based") {
-          resultText = "AI 어시스턴트: 최근 주문 내역을 기반으로 추천 드립니다.";
+          resultText =
+            "AI 어시스턴트: 최근 주문 내역을 기반으로 추천 드립니다.";
         }
-        const audioUrl = await fetchAudio(resultText.slice(10)); 
+        const audioUrl = await fetchAudio(resultText.slice(10));
         console.log(audioUrl);
         setAudioSrc(audioUrl);
       }
     };
-  
+
     fetchAndSetAudio(); // 비동기 함수 호출
   }, [resultData]);
 
@@ -127,7 +126,7 @@ const PlayBox = () => {
     if (audioSrc) {
       const audio = new Audio(audioSrc);
       audio.play().catch((error) => {
-        console.error('오디오 재생 오류:', error);
+        console.error("오디오 재생 오류:", error);
       });
     }
   }, [audioSrc]);
