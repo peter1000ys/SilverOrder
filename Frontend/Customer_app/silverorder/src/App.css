@@ -34,7 +34,14 @@ body,
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  /* margin-bottom: 80px; 고정된 하단 바의 높이만큼 여백 추가 */
+}
+
+.has-bottom-navbar .scrollable-content {
+  margin-bottom: 80px;
+}
+
+.no-bottom-navbar .scrollable-content {
+  margin-bottom: 0;
 }
 
 .fixed-bottom {
@@ -68,5 +75,13 @@ body,
     padding-bottom: env(
       safe-area-inset-bottom
     ); /* 하단 안전 영역에 맞춘 패딩 추가 */
+
+    .has-bottom-navbar .scrollable-content {
+      margin-bottom: 19.42vw;
+    }
+
+    .no-bottom-navbar .scrollable-content {
+      margin-bottom: 0;
+    }
   }
 }
