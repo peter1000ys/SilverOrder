@@ -46,6 +46,7 @@
 .orderstate-menu-name {
   font-size: 40px;
   font-weight: bold;
+  word-break: keep-all;
 }
 
 .orderstate-menu-options {

@@ -8,7 +8,6 @@ import useInfoStore from "./stores/infos";
 import useWebSocketStore from "./stores/websocket";
 import Notiflix from "notiflix";
 
-
 function App() {
   const { isLogin } = useInfoStore();
   const { connect, disconnect } = useWebSocketStore();
@@ -33,7 +32,7 @@ function App() {
   Notiflix.Notify.init({
     position: "right-top", // 알림을 우측 상단에 표시
     width: "300px",
-    timeout: false, // 알림이 꺼지지 않도록
+    timeout: 5000, // 알림이 꺼지지 않도록
     clickToClose: true, // 클릭하면 알림이 닫힘
   });
 
