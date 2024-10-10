@@ -26,7 +26,7 @@ const useReviewStore = create((set, get) => ({
 
       if (response.status === 200) {
         set({ reviews: response.data });
-        Notiflix.Notify.success("리뷰 목록을 성공적으로 불러왔습니다.");
+        // Notiflix.Notify.success("리뷰 목록을 성공적으로 불러왔습니다.");
       } else {
         Notiflix.Notify.failure("리뷰 목록 조회에 실패했습니다.");
       }
