@@ -109,7 +109,7 @@ const SignupPage = () => {
         </div>
         <div className="signup-btn-box">
           <div>
-            <button type="submit" className="signup-btn">
+            <button type="submit" className="signin-btn">
               가 입
             </button>
           </div>

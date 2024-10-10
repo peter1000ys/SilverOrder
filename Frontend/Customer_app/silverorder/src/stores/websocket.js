@@ -9,23 +9,25 @@ const useWebSocketStore = create((set, get) => ({
 
   nowOrderStatus: null, // 현재 orderStatus
 
-  connect: () => {
-    // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
-    const protocol = window.location.protocol === "https:" ? "https:" : "http:";
-    console.log(window.location.protocol);
-    // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
-    const socket = new SockJS(
-      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    );
+  hasUnreadNotification: false, // 알림 확인 여부 상태 추가
 
-    console.log(
-      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    );
+  connect: () => {
+    // // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
+    // const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+    // console.log(window.location.protocol);
+    // // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
+    // const socket = new SockJS(
+    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    // );
+
+    // console.log(
+    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    // );
 
     // const client = Stomp.over(socket);
 
-    // // SockJS를 사용하여 WebSocket 서버에 연결
-    // const socket = new SockJS("http://localhost:8080/silverorder/ws-stomp");
+    // SockJS를 사용하여 WebSocket 서버에 연결
+    const socket = new SockJS("http://localhost:8080/silverorder/ws-stomp");
     const client = Stomp.over(socket);
 
     // STOMP 클라이언트 연결 설정
@@ -60,7 +62,7 @@ const useWebSocketStore = create((set, get) => ({
             console.log("Order Status:", orderStatus); // 주문 상태 출력
 
             // orderStatus 상태 업데이트
-            set({ nowOrderStatus: orderStatus });
+            set({ nowOrderStatus: orderStatus, hasUnreadNotification: true }); // 알림이 오면 상태를 true로 변경
 
             switch (orderStatus) {
               case "ORDER_IN":
@@ -96,6 +98,10 @@ const useWebSocketStore = create((set, get) => ({
     } else {
       console.warn("아직 연결되지 않았거나, orderId가 유효하지 않습니다."); // 연결되지 않았거나 잘못된 주문 ID 경고
     }
+  },
+
+  clearNotification: () => {
+    set({ hasUnreadNotification: false }); // 알림 확인 시 상태를 false로 변경
   },
 
   disconnect: () => {
