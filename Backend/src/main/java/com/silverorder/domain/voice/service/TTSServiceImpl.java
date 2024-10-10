@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
 
@@ -25,7 +26,13 @@ public class TTSServiceImpl implements TTSService {
     private final TextToSpeechClient textToSpeechClient;
 
     public String synthesizeSpeech(String text) throws Exception {
-        String filePath = "/home/ubuntu/backResources/output/output.mp3"; // 생성할 파일 경로
+        String filePath = "/home/ubuntu/backOutput/output.mp3"; // 생성할 파일 경로
+
+        // 디렉토리 존재 여부 확인 및 생성
+        File outputDir = new File("/home/ubuntu/backOutput"); // 디렉토리 경로
+        if (!outputDir.exists()) {
+            outputDir.mkdirs(); // 디렉토리 생성
+        }
 
         // 요청 설정
         SynthesisInput input = SynthesisInput.newBuilder().setText(text).build();
