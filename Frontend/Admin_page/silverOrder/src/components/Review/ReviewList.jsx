@@ -133,7 +133,7 @@ const ReviewList = () => {
         if (selectedReview) {
             try {
                 await createComment(selectedReview.reviewId, comment);
-                Notiflix.Notify.success('댓글이 성공적으로 등록되었습니다.');
+                // Notiflix.Notify.success('댓글이 성공적으로 등록되었습니다.');
                 await fetchReviews();
             } catch (error) {
                 Notiflix.Notify.failure('댓글 등록에 실패했습니다.');
