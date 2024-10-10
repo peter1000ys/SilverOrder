@@ -32,13 +32,18 @@ function App() {
   Notiflix.Notify.init({
     position: "right-top", // 알림을 우측 상단에 표시
     width: "300px",
-    timeout: 5000, // 알림이 꺼지지 않도록
+    timeout: 5000, // 알림이 5초간 유지
     clickToClose: true, // 클릭하면 알림이 닫힘
   });
 
+  const containerClass =
+    !isLogin || isOutdoorOrFindStorePage
+      ? "no-bottom-navbar"
+      : "has-bottom-navbar";
+
   if (!isLogin || isOutdoorOrFindStorePage) {
     return (
-      <div id="app-container">
+      <div id="app-container" className={containerClass}>
         <div className="scrollable-content">
           <PageRoutes />
         </div>
@@ -47,7 +52,7 @@ function App() {
   }
 
   return (
-    <div id="app-container">
+    <div id="app-container" className={containerClass}>
       <div className="fixed-top">
         <UpsideNavbar />
       </div>
