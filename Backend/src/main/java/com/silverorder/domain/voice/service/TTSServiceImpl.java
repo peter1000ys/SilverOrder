@@ -25,7 +25,7 @@ public class TTSServiceImpl implements TTSService {
     private final TextToSpeechClient textToSpeechClient;
 
     public String synthesizeSpeech(String text) throws Exception {
-        String filePath = "src/main/resources/output/output.mp3"; // 생성할 파일 경로
+        String filePath = "/home/ubuntu/backResources/output/output.mp3"; // 생성할 파일 경로
 
         // 요청 설정
         SynthesisInput input = SynthesisInput.newBuilder().setText(text).build();
