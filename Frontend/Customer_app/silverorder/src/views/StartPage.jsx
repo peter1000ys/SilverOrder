@@ -1,12 +1,12 @@
 import "../styles/StartPage.css";
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import silverorder_logo from "../img/silverorder_logo.png";
 import { baseURL } from "../constant";
 import useInfoStore from "../stores/infos";
 
 const StartPage = ({ storeId }) => {
-  const { setLoginedStore } = useInfoStore();
+  const { isLogin, setLoginedStore, loginedStore } = useInfoStore();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -22,6 +22,10 @@ const StartPage = ({ storeId }) => {
   const go_to_sign_in = () => {
     navigate(`${baseURL}/signin`, { state: { storeId } });
   };
+
+  if (isLogin && loginedStore != 0) {
+    return <Navigate to={`${baseURL}/store`} />;
+  }
 
   return (
     <div className="start-container">
