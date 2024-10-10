@@ -12,23 +12,23 @@ const useWebSocketStore = create((set, get) => ({
   hasUnreadNotification: false, // 알림 확인 여부 상태 추가
 
   connect: () => {
-    // // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
-    // const protocol = window.location.protocol === "https:" ? "https:" : "http:";
-    // console.log(window.location.protocol);
-    // // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
-    // const socket = new SockJS(
-    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    // );
+    // 현재 페이지의 프로토콜이 https일 경우 https, 아니면 http를 사용
+    const protocol = window.location.protocol === "https:" ? "https:" : "http:";
+    console.log(window.location.protocol);
+    // 현재 호스트를 기준으로 소켓 URL을 동적으로 설정
+    const socket = new SockJS(
+      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    );
 
-    // console.log(
-    //   `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
-    // );
+    console.log(
+      `${protocol}//${window.location.host}/silverorder/api/ws-stomp`
+    );
 
-    // const client = Stomp.over(socket);
-
-    // SockJS를 사용하여 WebSocket 서버에 연결
-    const socket = new SockJS("http://localhost:8080/silverorder/ws-stomp");
     const client = Stomp.over(socket);
+
+    // // SockJS를 사용하여 WebSocket 서버에 연결
+    // const socket = new SockJS("http://localhost:8080/silverorder/ws-stomp");
+    // const client = Stomp.over(socket);
 
     // STOMP 클라이언트 연결 설정
     client.connect(

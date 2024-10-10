@@ -56,7 +56,7 @@ const useDashboardStore = create((set, get) => ({
             set({ popularityData: response.data, error: null }); // popularityData에 저장
         } catch (error) {
             console.error("연령별 판매 데이터를 불러오는 데 실패했습니다.", error);
-            Notiflix.Notify.failure("연령별 판매 데이터를 불러오는 데 실패했습니다.");
+            // Notiflix.Notify.failure("연령별 판매 데이터를 불러오는 데 실패했습니다.");
             set({ error: error.message });
         }
     },
