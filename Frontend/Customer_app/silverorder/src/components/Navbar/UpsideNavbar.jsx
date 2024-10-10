@@ -1,6 +1,7 @@
 import "./styles/UpsideNavbar.css";
 import { useNavigate, useLocation } from "react-router-dom";
 import useInfoStore from "../../stores/infos";
+import useWebSocketStore from "../../stores/websocket";
 import left_arrow from "../../img/arrow-go-back-fill.png";
 import clock from "../../img/time-line.png";
 import clock_fill from "../../img/time-fill.png";
@@ -10,6 +11,7 @@ import Notiflix from "notiflix";
 
 const UpsideNavbar = () => {
   const { logout } = useInfoStore();
+  const { hasUnreadNotification, clearNotification } = useWebSocketStore();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -19,6 +21,7 @@ const UpsideNavbar = () => {
   };
 
   const go_to_orderstate = () => {
+    clearNotification(); // 주문 상태 페이지로 이동하면 알림 확인
     navigate(`${baseURL}/orderstate`);
   };
 
@@ -54,12 +57,18 @@ const UpsideNavbar = () => {
         />
       </div>
       <div className="upnav-rightside">
-        <img
-          className="order-state-check"
-          onClick={go_to_orderstate}
-          src={location.pathname.includes("/orderstate") ? clock_fill : clock}
-          alt="주문 상태 확인"
-        />
+        <div
+          className={`order-state-wrapper ${
+            hasUnreadNotification ? "alert" : ""
+          }`}
+        >
+          <img
+            className="order-state-check"
+            onClick={go_to_orderstate}
+            src={location.pathname.includes("/orderstate") ? clock_fill : clock}
+            alt="주문 상태 확인"
+          />
+        </div>
         <img
           className="user-logout"
           onClick={handleLogout}
