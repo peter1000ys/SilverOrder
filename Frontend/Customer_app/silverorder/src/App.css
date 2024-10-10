@@ -34,7 +34,7 @@ body,
   flex-grow: 1;
   overflow-y: auto;
   overflow-x: hidden;
-  margin-bottom: 80px; /* 고정된 하단 바의 높이만큼 여백 추가 */
+  /* margin-bottom: 80px; 고정된 하단 바의 높이만큼 여백 추가 */
 }
 
 .fixed-bottom {
