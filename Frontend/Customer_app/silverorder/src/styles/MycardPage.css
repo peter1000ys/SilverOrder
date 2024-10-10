@@ -28,6 +28,7 @@
   font-size: 30px;
   font-weight: bold;
   margin: 10px;
+  word-break: keep-all;
 }
 
 .mycard-item-number {
