@@ -4,29 +4,30 @@
 <div align="center">
 
 
-# 프로젝트에 대한 정보
+# Silver Order
+ 내 손 안의  시니어 키오스크
 ***
-
+![Main Image](./Images/Main.JPG)
   ### 1. 프로젝트 제목
+  Silver Order
 
 
 
   ### 2. 로고 및 이미지 
 
-
+![Logo Image](./Images/Logo.png)
 
 
   ### 3. 프로젝트 정보 🗂
 
 
 
-  `개발기간:  (6주)`
+  `개발기간:  (7주)`
 
   ### 4. 배포 주소 🌐
 
-  개발버전 : 
 
-  백엔드 서버: 
+  백엔드 서버: 'https://j11c202.p.ssafy.io/silverorder/api/'
 
 </div>
 <div>
@@ -34,8 +35,39 @@
 
 
 ## 프로젝트 소개 
+<div align="center">
+  <br>
+
+  현대 사회에서 키오스크의 도입이 늘어나고 있지만, 시니어층이 이를 사용하는 데 어려움을 겪는 경우가 많습니다. Silver Order는 이러한 문제를 해결하기 위해 설계된 시니어 친화형 주문 시스템입니다.
+
+  ### 주요 기능
+  #### 1. 음성 주문 지원
+  시니어 사용자들이 복잡한 메뉴를 터치하지 않아도, 음성 명령만으로 쉽게 주문할 수 있습니다.
+
+  #### 2. 혜택 카드 추천
+  사용자의 주문 내역에 기반하여 가장 적합하고 혜택이 많은 카드를 자동으로 추천해줍니다.
+
+  #### 3. 고대비 디자인
+  시각적인 불편함을 최소화하기 위해 고대비 컬러와 직관적인 UI/UX를 적용해 누구나 쉽게 사용할 수 있습니다.
+
+  <br>
+  <br>
+  <br>
 
 
+  ![background Image](./Images/Background.JPG)
+  ![Page 1](./Images/page1.JPG)
+  ![Page 2](./Images/page2.JPG)
+  ![Page 3](./Images/page3.JPG)
+  ![Page 4](./Images/page4.JPG)
+  ![Page 5](./Images/page5.JPG)
+  ![Page 6](./Images/page6.JPG)
+  ![Page 7](./Images/page7.JPG)
+  ![Page 8](./Images/page8.JPG)
+  ![Page 9](./Images/page9.JPG)
+  ![Page 10](./Images/page10.JPG)
+  ![Page 11](./Images/page11.JPG)
+</div>
 
 
 
@@ -43,31 +75,28 @@
 
 <div align="center">
 
-  <h3>📌 </h3>
+  <h3>📌 AI를 활용한 음성 주문 분석 및 메뉴 추천</h3>
   <ul style="text-align: center;">
-    <li></li>
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>STT, TTS를 활용한 음성인식 주문</li>
+    <li>BERT모델, LLM, RAG를 활용한 음성 주문 분석 및 메뉴 추천 기능</li>
   </ul>
 
-  <h3>📌 </h3>
+  <h3>📌 혜택이 좋은 카드 자동 추천 </h3>
   <ul style="text-align: center;">
-    <li></li>
-    <li></li>
+    <li>SSAFY 금융망 API을 활용한 간편(추천) 결제 시스템 구축</li>
   </ul>
 
-  <h3>📌 </h3>
+  <h3>📌 직관적인 디자인</h3>
   <ul style="text-align: center;">
-    <li></li>
-    <li></li>
+    <li>보기 편한 큰 글씨와 버튼</li>
+    <li>명확한 색상 대비</li>
+    <li>복잡하지 않고 깔끔한 디자인</li>
   </ul>
 
-  <h3>📌 </h3>
+  <h3>📌 소켓 통신을 통한 주문 상태 실시간 확인</h3>
   <ul style="text-align: center;">
-    <li></li>
-    <li></li>
-    <li></li>
+    <li>사용자가 주문을 하면 매장 페이지에 알림 전송</li>
+    <li>주문 승인이 되면 사용자는 주문 실시간 상황을 확인 가능</li>
   </ul>
 
 </div>
@@ -79,9 +108,9 @@
 
   ### Frontend
 
-  ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
-  ![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-  ![Qt](https://img.shields.io/badge/Qt-%23217346.svg?style=for-the-badge&logo=Qt&logoColor=white)
+  ![JavaScript](https://img.shields.io/badge/javascript-%23FF9900.svg?style=for-the-badge&logo=javascript&logoColor=white)
+  ![React](https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
+  ![PWA](https://img.shields.io/badge/PWa-%23217346.svg?style=for-the-badge&logo=pwa&logoColor=white)
 
   ### Infrastructure
 
@@ -92,8 +121,8 @@
 
   ### AI
 
-  ![PyTorch](https://img.shields.io/badge/PyTorch-%23EE4C2C.svg?style=for-the-badge&logo=PyTorch&logoColor=white)
-  <img src="Picture/yolo.png" alt="YoloV7" width="75" height="25">
+  ![fastAPI](https://img.shields.io/badge/fastAPI-%23EE4C2C.svg?style=for-the-badge&logo=fastAPI&logoColor=white)
+
 
   ### Backend
 
@@ -104,129 +133,93 @@
 
   ### DB
 
-  ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
-  ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
-  ![MySQL](https://img.shields.io/badge/mysql-4479A1.svg?style=for-the-badge&logo=mysql&logoColor=white)
 
-  ### Embedded
+  ![MSSQL](https://img.shields.io/badge/mssql-%23DD0031.svg?style=for-the-badge&logo=MSSQL&logoColor=white)
 
-  ![Linux](https://img.shields.io/badge/Linux-FCC624?style=for-the-badge&logo=linux&logoColor=black)
-  ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
-  ![C++](https://img.shields.io/badge/c++-%2300599C.svg?style=for-the-badge&logo=c%2B%2B&logoColor=white)
-  <img src="https://img.shields.io/badge/Jetson Nano-83B81A?style=flat&logo=NVIDIA&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Raspberry Pi-A22846?style=flat&logo=Raspberry Pi&logoColor=white"/>
-  <img src="https://img.shields.io/badge/Arduino-00979D?style=flat&logo=Arduino&logoColor=white"/>  
+
+  
 </div>
 
+## Figma Mockup
 
+https://www.figma.com/design/owlRaOIHd9WRoKhJDBLIQo/2%ED%95%99%EA%B8%B0-%ED%8A%B9%ED%99%94-PJT-%EB%AA%A9%EC%97%85?node-id=0-1&t=9rVjtzQUovhIRSmF-1
 
 ## 아키텍쳐 📑
 
-<div align="center">
-  
 
-</div>
+![Architecture](./Images/architecture.JPG)
 
 
 
 ## ERD 
+![ERD](./Images/ERD.png)
 
+
+
+## Use Case Diagram
+
+![usecase](./Images/usecase.png)
+
+## 요구 사항 명세서
+
+![requirement](./Images/requirement.JPG)
+
+## 사용자 App
 <div align="center">
-  
+
+### 사용자 App 📱 메인 페이지
+
+<img src="Images/어플 접속화면.png" alt="Logo" width="200px"/>
+<img src="Images/로그인 화면.png" alt="Logo" width="200px"/>
+<img src="Images/로그인 성공.png" alt="Logo" width="200px"/>
+<img src="Images/매장페이지.png" alt="Logo" width="200px"/>
+
+
+  ### AI 음성 주문 페이지
+  <img src="Images/음성검색.png" alt="Logo" width="200px"/>
+  <img src="Images/검색결과.png" alt="Logo" width="200px"/>
+
+
+  ### 주문 페이지
+  <img src="Images/주문내역.png" alt="Logo" width="200px"/>
+  <img src="Images/주문현황.png" alt="Logo" width="200px"/>
+
+
+  ### 결제 관련
+  <img src="Images/결제.png" alt="Logo" width="200px"/>
+  <img src="Images/카드 등록.png" alt="Logo" width="200px"/>
+
+  ### 지도 화면
+  <img src="Images/지도화면.png" alt="Logo" width="200px"/>
+
 
 </div>
 
-<div>
-
-
-
-## 쇼핑카트
-
-
-
-
-
-## 사용자 App 및 Qt 이미지
+## 매장 페이지
 <div align="center">
 
-### 사용자 App 📱
+### 로그인 회원 가입 페이지
+  ![login](./Images/login.JPG)
+  ![signup](./Images/signup.JPG)
+  ### 매장 Dashboard
+  ![dashboard](./Images/dashboard.JPG)
 
-  ### 앱의 메인화면
 
+  ### 주문 페이지
+  ![waiting](./Images/waiting.JPG)
+  ![processing](./Images/processing.JPG)
+  ![complete](./Images/complete.JPG)
 
-  ### 결제 화면
+  ### 메뉴 페이지
+  ![menu](./Images/menu.JPG)
 
+  ### 리뷰 페이지
+  ![review](./Images/review.JPG)
 
-  ### 주변마트찾기 기능
-  <img src="" alt="find_mart" width="200px"/>
-
-  ### 기타 기능
-
-  ### 사용자 Qt 화면
-
-  ###  👍
-
-  | 비고 | 기존의 쇼핑 | 담다의 쇼핑 |
-  |---|:---:|:---:|
-  |상품 탐색|직접 탐색 또는 직원에게 문의|`쇼핑카트에서 위치 검색`|
-  |이동 방식|사용자가 쇼핑카트를 끌고 다님|`쇼핑카트가 사용자를 따라다님`|
-  |중간 정산|사용자가 직접 계산|`쇼핑카트가 현재까지 총액을 LCD에 표시`|
-  |결제 방법|계산대에서 결제|`쇼핑카트에서 즉시 결제 가능`|
-  |결제 이후|영수증 수령 후 사용자가 가계부 작성|`담다 앱에서 자동으로 가계부 기능 제공`|
 
 </div>
 
-  
 
-  1.      
-    -    
-
-  2.      
-    -     
-
-  3. 
-    -   
-
-  4.     
-    -   
-
-  5.    
-    -   
-
-
-
-## 시연 영상
-
-<div align="center">
-
-### 사용자 트래킹
-
-</div>
-
-<div align="center">
-
-### 사용자 트래킹 및 장애물 탐지
-
-</div>
-
-<div align="center">
-
-### 상품 바코드 인식
-
-</div>
-
-<div align="center">
-
-### AI 상품 인식
-
-</div>
-
-<div align="center">
-
-### 담다 앱 시연 영상
-
-
-</div>
 
 
 
@@ -238,17 +231,17 @@
   <tbody>
     <tr>
       <td align="center">
-        <img src="" alt=" 팀장 : " width="100px"/>
+        채기훈
         <br />
         <sub><b></b></sub>
       </td>
       <td align="center">
-        <img src="" alt="" width="100px"/>
+        노명환
         <br />
         <sub><b></b></sub>
       </td>
       <td align="center">
-        <img src="" alt="" width="100px"/>
+        박봉균
         <br />
         <sub><b></b></sub>
       </td>
@@ -257,38 +250,32 @@
       <td>
         <ul>
           <li><strong>SSAFY 11th </strong></li>
-          <li></li>
-          <li></li>
+          <li>Backend</li>
+          <li>Infra</li>
         </ul>
       </td>
       <td>
         <ul>
           <li><strong>SSAFY 11th</strong></li>
-          <li></li>
-          <li></li>
+          <li>Backend</li>
         </ul>
       </td>
       <td>
         <ul>
           <li><strong>SSAFY 11th</strong></li>
-          <li></li>
-          <li></li>
+          <li>Backend</li>
+          <li>AI</li>
         </ul>
       </td>
     </tr>
     <tr>
       <td align="center">
-        <img src="" alt="" width="100px"/>
+        천요성
         <br />
         <sub><b></b></sub>
       </td>
       <td align="center">
-        <img src="" alt="" width="100px"/>
-        <br />
-        <sub><b></b></sub>
-      </td>
-      <td align="center">
-        <img src="" alt="" width="100px"/>
+        박동민
         <br />
         <sub><b></b></sub>
       </td>
@@ -297,22 +284,15 @@
       <td>
         <ul>
           <li><strong>SSAFY 11th</strong></li>
-          <li></li>
-          <li></li>
+          <li>FE</li>
+          <li>매장 페이지</li>
         </ul>
       </td>
       <td>
         <ul>
           <li><strong>SSAFY 11th</strong></li>
-          <li></li>
-          <li></li>
-        </ul>
-      </td>
-      <td>
-        <ul>
-          <li><strong>SSAFY 11th</strong></li>
-          <li></li>
-          <li></li>
+          <li>FE</li>
+          <li>사용자 앱 페이지</li>
         </ul>
       </td>
     </tr>
