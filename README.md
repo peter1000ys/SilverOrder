@@ -169,28 +169,29 @@ https://www.figma.com/design/owlRaOIHd9WRoKhJDBLIQo/2%ED%95%99%EA%B8%B0-%ED%8A%B
 
 ### 사용자 App 📱 메인 페이지
 
-<img src="./Images/app1.png" alt="Logo" width="200px"/>
-<img src="./Images/app2.png" alt="Logo" width="200px"/>
-<img src="./Images/app3.png" alt="Logo" width="200px"/>
-<img src="./Images/app4.png" alt="Logo" width="200px"/>
+![app1](./Images/app1.PNG)
+![app2](./Images/app2.PNG)
+![app3](./Images/app3.PNG)
+![app4](./Images/app4.PNG)
 
+### AI 음성 주문 페이지
 
-  ### AI 음성 주문 페이지
-  <img src="./Images/app5.png" alt="Logo" width="200px"/>
-  <img src="./Images/app6.png" alt="Logo" width="200px"/>
+![app5](./Images/app5.PNG)
+![app6](./Images/app6.PNG)
 
+### 주문 페이지
 
-  ### 주문 페이지
-  <img src="./Images/app7.png" alt="Logo" width="200px"/>
-  <img src="./Images/app8.png" alt="Logo" width="200px"/>
+![app7](./Images/app7.PNG)
+![app8](./Images/app8.PNG)
 
+### 결제 관련
 
-  ### 결제 관련
-  <img src="./Images/app9.png" alt="Logo" width="200px"/>
-  <img src="./Images/app10.png" alt="Logo" width="200px"/>
+![app9](./Images/app9.PNG)
+![app10](./Images/app10.PNG)
 
-  ### 지도 화면
-  <img src="./Images/app11.png" alt="Logo" width="200px"/>
+### 지도 화면
+
+![app11](./Images/app11.PNG)
 
 
 </div>
